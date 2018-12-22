@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Title</title>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+		<!-- Font awesome 4.7 -->
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script src="js/index.js"></script>
+	</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg bg-blue">
+		<div class="header-icon">
+			<img src="img/header-icon.png" style="height: 35px;"/>
+  		</div>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" 
+  				data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+  				aria-label="Toggle navigation">
+    		 <i class="fa fa-bars" style="color: white;"></i>
+  		</button>
+
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    	<ul class="navbar-nav row-direction" style="text-align: center;width: 100%;">
+	      		<li class="nav-item active">
+	        		<a class="nav-link" href="index.html">HOME</a>
+	      		</li>
+	      		<li class="nav-item">
+	        		<a class="nav-link" href="#">BLOG</a>
+	      		</li>
+	      		<li class="nav-item">
+	        		<a class="nav-link" href="#">ABOUT</a>
+	      		</li>
+	      		<li class="nav-item">
+	        		<a class="nav-link" href="#">CONTACT</a>
+	      		</li>
+	      		<li class="nav-item">
+	        		<a class="nav-link" href="#">BECOME A HOST</a>
+	      		</li>
+	      		<li class="nav-item">
+	        		<a class="nav-link" href="#">HELP</a>
+	      		</li>
+			    <li class="nav-item">
+			    	<a class="nav-link" href="#">
+	          			<span class="fa fa-globe header-icon-style"></span>
+	          		</a>
+			    </li>
+			    <li class="nav-item">
+					<button id='modal-launcher' class="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal">LOG IN</button> 
+					
+			    </li>
+			    <li class="nav-item">
+					<button class="btn btn-default my-2 my-sm-0 btn-sign-up" type="submit"  data-toggle="modal" data-target="#signup-modal">SIGNUP</button>
+			    </li>
+	    	</ul>
+
+  		</div>
+	</nav>
+
+</body>
+
+
+
+
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				  <div class="modal-header login_modal_header">
+					
+					<h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				  </div>
+				  <div class="modal-body login-modal">
+					  <p>Awesome Popup Modal</p>
+					  <br/>
+					  <div class="clearfix"></div>
+					  <div id='social-icons-conatainer'>
+						<div class='modal-body-left'>
+							<div class="form-group">
+								  <input type="text" id="username" placeholder="Enter your name" value="" class="form-control login-field">
+								  <i class="fa fa-user login-field-icon"></i>
+							</div>
+			
+							<div class="form-group">
+								  <input type="password" id="login-pass" placeholder="Password" value="" class="form-control login-field">
+								  <i class="fa fa-lock login-field-icon"></i>
+							</div>
+			
+							<a href="#" class="btn btn-success modal-login-btn">Login</a>
+							<a href="#" class="login-link text-center">Lost your password?</a>
+						</div>
+					
+						<div class='modal-body-right'>
+							<div class="modal-social-icons">
+								<a href='#' class="btn btn-default facebook"> <i class="fa fa-facebook modal-icons"></i> Sign In with Facebook </a>
+								<a href='#' class="btn btn-default twitter"> <i class="fa fa-twitter modal-icons"></i> Sign In with Twitter </a>
+								<a href='#' class="btn btn-default google"> <i class="fa fa-google-plus modal-icons"></i> Sign In with Google </a>
+								<a href='#' class="btn btn-default linkedin"> <i class="fa fa-linkedin modal-icons"></i> Sign In with Linkedin </a>
+							</div> 
+						</div>	
+						<div id='center-line'> OR </div>
+					</div>																												
+					<div class="clearfix"></div>
+					
+					<div class="form-group modal-register-btn">
+						<button class="btn btn-default"> New User Please Register</button>
+					</div>
+				  </div>
+				  <div class="clearfix"></div>
+				  <div class="modal-footer login_modal_footer">
+				  </div>
+			</div>
+		  </div>
+	</div>
+	
+	
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				  <div class="modal-header login_modal_header">
+					
+					<h2 class="modal-title" id="myModalLabel">Sign Up Your Account</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				  </div>
+				  <div class="modal-body login-modal">
+					  <div class="clearfix"></div>
+					  <div id='social-icons-conatainer'>
+						
+						<div class=''>
+							<div class="modal-social-icons">
+								<a href='#' class="btn btn-default facebook"> 
+									<i class="fa fa-facebook modal-icons"></i> Continue with Facebook 
+								</a>
+								<a href='#' class="btn btn-default twitter"> 
+									<i class="fa fa-twitter modal-icons"></i> Continue with Twitter 
+								</a>
+								<a href='#' class="btn btn-default google"> 
+									<i class="fa fa-google-plus modal-icons"></i> Continue with Google 
+								</a>
+								<a href='#' class="btn btn-default linkedin"> 
+									<i class="fa fa-linkedin modal-icons"></i> Continue with Linkedin 
+								</a>
+							</div> 
+						</div>	
+		
+					</div>																												
+					<div class="clearfix"></div>
+					
+					<div class="form-group modal-register-btn">
+						<button class="btn btn-default"> New User Please Register</button>
+					</div>
+				  </div>
+				  <div class="clearfix"></div>
+				  <div class="modal-footer login_modal_footer">
+				  </div>
+			</div>
+		  </div>
+	</div>
+
+</html>
