@@ -26,7 +26,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-blue">
 		<div class="header-icon">
-			<img src="img/header-icon.png" style="height: 35px;"/>
+			<img src="img/fb.png" style="height: 35px;"/>
   		</div>
   		<button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" 
   				data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
@@ -45,9 +45,7 @@
 	      		<li class="nav-item">
 	        		<a class="nav-link" href="#">ABOUT</a>
 	      		</li>
-	      		<li class="nav-item">
-	        		<a class="nav-link" href="#">CONTACT</a>
-	      		</li>
+	      		
 	      		<li class="nav-item">
 	        		<a class="nav-link" href="#">BECOME A HOST</a>
 	      		</li>
@@ -58,7 +56,10 @@
 			    	<a class="nav-link" href="#">
 	          			<span class="fa fa-globe header-icon-style"></span>
 	          		</a>
-			    </li>
+				</li>
+				<li class="nav-item">
+						<a class="nav-link" href="#"  data-toggle="modal" data-target="#contact-modal">CONTACT</a>
+					  </li>
 			    <li class="nav-item">
 					<button id='modal-launcher' class="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal">LOG IN</button> 
 					
@@ -117,7 +118,7 @@
 					<div class="clearfix"></div>
 					
 					<div class="form-group modal-register-btn">
-						<button class="btn btn-default"> New User Please Register</button>
+						<button class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#register-modal"> New User Please Register</button>
 					</div>
 				  </div>
 				  <div class="clearfix"></div>
@@ -161,7 +162,7 @@
 					<div class="clearfix"></div>
 					
 					<div class="form-group modal-register-btn">
-						<button class="btn btn-default"> New User Please Register</button>
+						<button class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#register-modal"> New User Please Register</button>
 					</div>
 				  </div>
 				  <div class="clearfix"></div>
@@ -170,5 +171,106 @@
 			</div>
 		  </div>
 	</div>
+
+
+	<div class="modal fade" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+					<div class="modal-header login_modal_header">
+					
+					<h2 class="modal-title" id="myModalLabel">Contact us</h2>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body login-modal">
+			
+						<div class="clearfix"></div>
+						<div id='social-icons-conatainer'>
+						<div >
+							<div class="form-group">
+									<input type="text" id="username" placeholder="Enter your name" value="" class="form-control login-field">
+							</div>
+			
+							<div class="form-group">
+									<input type="text" id="login-pass" placeholder="Enter your email" value="" class="form-control login-field">
+
+							</div>
+							<div class="form-group">
+									<input  id="login-pass" placeholder="Enter your phone" value="" class="form-control login-field">
+									
+								</div>
+								<div class="form-group">
+									<input id="login-pass" placeholder="Enter your address" value="" class="form-control login-field">
+								</div>
+								<div class="form-group">
+									<textarea rows="5" placeholder="Enter your message" value="" class="form-control login-field"></textarea>
+								</div>
+			
+							<a href="#" class="btn btn-success modal-login-btn">SUBMIT</a>
+						</div>
+					
+						
+					</div>																												
+					<div class="clearfix"></div>
+					
+					<!-- <div class="form-group modal-register-btn">
+						<button class="btn btn-default"> New User Please Register</button>
+					</div> -->
+					</div>
+					<div class="clearfix"></div>
+					<div class="modal-footer login_modal_footer">
+					</div>
+			</div>
+			</div>
+	</div>
+	<div class="modal fade" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+						<div class="modal-header login_modal_header">
+						
+						<h2 class="modal-title" id="myModalLabel">Register new account</h2>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						</div>
+						<div class="modal-body login-modal">
+				
+							<div class="clearfix"></div>
+							<div id='social-icons-conatainer'>
+							<div >
+								<div class="form-group">
+									<label>Username:</label>
+									<input type="text" id="username" placeholder="Enter Username" value="" class="form-control login-field">
+								</div>
+				
+								<div class="form-group">
+									<label>Password:</label>
+									<input type="password" id="login-pass" placeholder="Enter your password" value="" class="form-control login-field">
+								</div>
+								<div class="form-group">
+										<label>Repeat Password:</label>
+										<input  id="login-pass" placeholder="Enter your repeat password" value="" class="form-control login-field">
+										
+									</div>
+									<div class="form-group">
+										<label>Phone:</label>
+										<input id="login-pass" placeholder="Enter your phone" value="" class="form-control login-field">
+									</div>
+				
+								<a href="#" class="btn btn-success modal-login-btn">SUBMIT</a>
+							</div>
+						
+							
+						</div>																												
+						<div class="clearfix"></div>
+						
+						<!-- <div class="form-group modal-register-btn">
+							<button class="btn btn-default"> New User Please Register</button>
+						</div> -->
+						</div>
+						<div class="clearfix"></div>
+						<div class="modal-footer login_modal_footer">
+						</div>
+				</div>
+				</div>
+		</div>
+		
 
 </html>
