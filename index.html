@@ -41,29 +41,29 @@
         <img src="img/banner-travel-insurance-2000x400.jpg" class="banner-menu" ></img>
         <div class="card-search">
             <div class="search-home">
-                <div class="col-md-12 col-init" style="font-size: 14px;">
-                    <div class="col-md-3 col-init col-search">
+                <div class="col-md-12 col-sm-12 col-init" style="font-size: 14px;">
+                    <div class="col-md-3 col-sm-3 col-init col-search">
                         <span style="display: block; position: relative;">
                             <i class="fa fa-map-marker icon-search" aria-hidden="true"></i>
 
-                            <input class="border-none" style="width: 80%" placeholder="Enter a destination or property"/>
+                            <input class="border-none input-search"  placeholder="Enter a destination or property"/>
                         </span>
                     </div>
-                    <div class="col-md-2 col-init col-search" >
+                    <div class="col-md-2 col-sm-2 col-init col-search" >
                         <span style="display: block; position: relative;">
-                            <input class="border-none"  id="datepicker" type="text" placeholder="Check In" style="width: 90%"/>
+                            <input class="border-none input-search"  id="datepicker" type="text" placeholder="Check In" />
                             <i class="fa fa-calendar icon-search" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="col-md-2 col-init col-search" >
+                    <div class="col-md-2 col-sm-2 col-init col-search" >
                         <span style="display: block; position: relative;">
-                                <input class="border-none"  id="datepicker1" type="text" placeholder="Check Out" style="width: 90%"/>
+                                <input class="border-none input-search"  id="datepicker1" type="text" placeholder="Check Out" />
                                 <i class="fa fa-calendar icon-search" aria-hidden="true"></i>
                         </span>                    
                     </div>
-                    <div class="col-md-2 col-init col-search" >
+                    <div class="col-md-2 col-sm-2 col-init col-search" >
                         <span style="display: block; position: relative;">
-                                <select class="border-none"  id="inlineFormCustomSelect" style="width: 90%" >
+                                <select class="border-none input-search"  id="inlineFormCustomSelect"  >
                                         <option value="" disabled selected hidden>Number of quests</option>
                                         <option value="2">1 quest</option>
                                         <option value="1">2 quests</option>
@@ -71,7 +71,7 @@
                                 <i class="fa fa-angle-down icon-search" aria-hidden="true"></i>
                         </span>                    
                     </div>
-                    <div class="col-md-2 col-init col-search" style="background: #FF5A5F;">
+                    <div class="col-md-2 col-sm-2 col-init col-search" style="background: #FF5A5F;">
                         <button class="button-search" >Search</button>
                     </div>
                 </div>
@@ -79,8 +79,8 @@
         </div>
     </div>
     <div class="col-md-12">
-        <div class="left-menu">
-            <div class="menu">
+        <div class="left-menu left-responsive ">
+            <div class="menu no-padding-lr-mobile">
                 <div class="_1lr8j2n8">
                     <div style="margin-top: 16px; margin-bottom: 8px;"><div class="label-menu"> Dates </div></div>
                     <button aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" class="button-menu"><div class="label-button">Check in → Check out</div>
@@ -347,7 +347,7 @@
             </div>
         </div>
         <div class="right-home">
-            <div class="container main-slider">
+            <div class="container main-slider no-padding-lr-mobile">
                 <div class="_1avdemu">
                     <div class="_76dwae">
                         <h3 class="_jmmm34f">
@@ -358,9 +358,9 @@
                         <h4 class="_1olgbwl">A selection of homes verified for quality and comfort</h4>
                     </div>
                 </div>
-                <div class="col-md-12 bottom-group">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-4 bottom-group">
                             <div id="demo" class="carousel slide" data-ride="carousel"  data-interval="false">
                                 <!-- Indicators -->
                                 <ul class="carousel-indicators">
@@ -481,7 +481,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-4 bottom-group">
                             <div id="demo1" class="carousel slide" data-ride="carousel"  data-interval="false">
                                 <!-- Indicators -->
                                 <ul class="carousel-indicators">
@@ -602,7 +602,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-4 bottom-group">
                             <div id="demo2" class="carousel slide" data-ride="carousel"  data-interval="false">
                                 <!-- Indicators -->
                                 <ul class="carousel-indicators">
@@ -723,132 +723,128 @@
                                 </a>
                             </div>                   
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-12 bottom-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="demo3" class="carousel slide" data-ride="carousel"  data-interval="false">
-                                <!-- Indicators -->
-                                <ul class="carousel-indicators">
-                                    <li data-target="#demo3" data-slide-to="0" class="active"></li>
-                                    <li data-target="#demo3" data-slide-to="1"></li>
-                                    <li data-target="#demo3" data-slide-to="2"></li>
-                                    <li data-target="#demo3" data-slide-to="3"></li>
-                                </ul>
-                                
-                                <!-- The slideshow -->
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                        <div class="col-md-6 col-lg-4 bottom-group">
+                                <div id="demo3" class="carousel slide" data-ride="carousel"  data-interval="false">
+                                    <!-- Indicators -->
+                                    <ul class="carousel-indicators">
+                                        <li data-target="#demo3" data-slide-to="0" class="active"></li>
+                                        <li data-target="#demo3" data-slide-to="1"></li>
+                                        <li data-target="#demo3" data-slide-to="2"></li>
+                                        <li data-target="#demo3" data-slide-to="3"></li>
+                                    </ul>
+                                    
+                                    <!-- The slideshow -->
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                        <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original3.jpg" alt="New York" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original4.jpg" alt="New York" width="1100" height="500">
+                                        </div>
                                     </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
-                                    </div>
+                                    
+                                    <!-- Left and right controls -->
+                                    <a class="carousel-control-prev" href="#demo3" data-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#demo3" data-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </a>
                                 </div>
-                                
-                                <!-- Left and right controls -->
-                                <a class="carousel-control-prev" href="#demo3" data-slide="prev">
-                                    <span class="carousel-control-prev-icon"></span>
-                                </a>
-                                <a class="carousel-control-next" href="#demo3" data-slide="next">
-                                    <span class="carousel-control-next-icon"></span>
-                                </a>
-                            </div>
-                            <div class="_v72lrv">
-                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
-                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
-                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
-                                            <span class="_1bb2ucx1">
-                                                <span style="color: rgb(98, 86, 75);">Entire house
-                                                    <span aria-hidden="true"> · </span>Ostuni
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 4px;">
-                                        <div class="_1pkilk3o">
-                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div>
-                                            <div class="_59f9ic">
-                                                <div class="_ncmdki">
-                                                    <div class="_1yarz4r">
-                                                        <span>
-                                                            <span>
-                                                                <span class="_12kw8n71">
-                                                                    <span class="_12kw8n71">
-                                                                        <span class="_1m8bb6v">Price</span>
-                                                                        <span>₫1,725,019</span>
-                                                                    </span> per night
-                                                                </span>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="_y9ev9r">
-                                                    <div class="_1cm6f7d">
-                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
-                                                        <span class="_12kw8n71">Free cancellation</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div class="_hdbaj7">
-                                            <div class="_36rlri">
-                                                <span class="_q27mtmr">
-                                                    <span role="img" aria-label="Rating 5 out of 5">
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
+                                <div class="_v72lrv">
+                                    <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
+                                        <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
+                                            <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
+                                                <span class="_1bb2ucx1">
+                                                    <span style="color: rgb(98, 86, 75);">Entire house
+                                                        <span aria-hidden="true"> · </span>Ostuni
                                                     </span>
                                                 </span>
-                                                <span class="_1m8bb6v">149 reviews</span>
-                                                <span class="_1gvnvab" aria-hidden="true">
-                                                    <span class="_7g6kz31">149</span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 4px;">
+                                            <div class="_1pkilk3o">
+                                                <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 2px;">
+                                            <div>
+                                                <div class="_59f9ic">
+                                                    <div class="_ncmdki">
+                                                        <div class="_1yarz4r">
+                                                            <span>
+                                                                <span>
+                                                                    <span class="_12kw8n71">
+                                                                        <span class="_12kw8n71">
+                                                                            <span class="_1m8bb6v">Price</span>
+                                                                            <span>₫1,725,019</span>
+                                                                        </span> per night
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="_y9ev9r">
+                                                        <div class="_1cm6f7d">
+                                                            <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                                                            <span class="_12kw8n71">Free cancellation</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 2px;">
+                                            <div class="_hdbaj7">
+                                                <div class="_36rlri">
+                                                    <span class="_q27mtmr">
+                                                        <span role="img" aria-label="Rating 5 out of 5">
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                    <span class="_1m8bb6v">149 reviews</span>
+                                                    <span class="_1gvnvab" aria-hidden="true">
+                                                        <span class="_7g6kz31">149</span>
+                                                    </span>
+                                                </div>
+                                                <span class="_7g6kz31">
+                                                    <span aria-hidden="true"> · </span>Superhost
                                                 </span>
                                             </div>
-                                            <span class="_7g6kz31">
-                                                <span aria-hidden="true"> · </span>Superhost
-                                            </span>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-4 bottom-group">
                             <div id="demo4" class="carousel slide" data-ride="carousel"  data-interval="false">
                                 <!-- Indicators -->
                                 <ul class="carousel-indicators">
@@ -969,7 +965,733 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-4 bottom-group">
+                            <div id="demo5" class="carousel slide" data-ride="carousel"  data-interval="false">
+                                <!-- Indicators -->
+                                <ul class="carousel-indicators">
+                                    <li data-target="#demo5" data-slide-to="0" class="active"></li>
+                                    <li data-target="#demo5" data-slide-to="1"></li>
+                                    <li data-target="#demo5" data-slide-to="2"></li>
+                                    <li data-target="#demo5" data-slide-to="3"></li>
+                                </ul>
+                                
+                                <!-- The slideshow -->
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                </div>
+                                
+                                <!-- Left and right controls -->
+                                <a class="carousel-control-prev" href="#demo5" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#demo5" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div> 
+                            <div class="_v72lrv">
+                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
+                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
+                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
+                                            <span class="_1bb2ucx1">
+                                                <span style="color: rgb(98, 86, 75);">Entire house
+                                                    <span aria-hidden="true"> · </span>Ostuni
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 4px;">
+                                        <div class="_1pkilk3o">
+                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div>
+                                            <div class="_59f9ic">
+                                                <div class="_ncmdki">
+                                                    <div class="_1yarz4r">
+                                                        <span>
+                                                            <span>
+                                                                <span class="_12kw8n71">
+                                                                    <span class="_12kw8n71">
+                                                                        <span class="_1m8bb6v">Price</span>
+                                                                        <span>₫1,725,019</span>
+                                                                    </span> per night
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="_y9ev9r">
+                                                    <div class="_1cm6f7d">
+                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                                                        <span class="_12kw8n71">Free cancellation</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div class="_hdbaj7">
+                                            <div class="_36rlri">
+                                                <span class="_q27mtmr">
+                                                    <span role="img" aria-label="Rating 5 out of 5">
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                                <span class="_1m8bb6v">149 reviews</span>
+                                                <span class="_1gvnvab" aria-hidden="true">
+                                                    <span class="_7g6kz31">149</span>
+                                                </span>
+                                            </div>
+                                            <span class="_7g6kz31">
+                                                <span aria-hidden="true"> · </span>Superhost
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>                   
+                        </div>
+                        <div class="col-md-6 col-lg-4 bottom-group">
+                                <div id="demo3" class="carousel slide" data-ride="carousel"  data-interval="false">
+                                    <!-- Indicators -->
+                                    <ul class="carousel-indicators">
+                                        <li data-target="#demo3" data-slide-to="0" class="active"></li>
+                                        <li data-target="#demo3" data-slide-to="1"></li>
+                                        <li data-target="#demo3" data-slide-to="2"></li>
+                                        <li data-target="#demo3" data-slide-to="3"></li>
+                                    </ul>
+                                    
+                                    <!-- The slideshow -->
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                        <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original3.jpg" alt="New York" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original4.jpg" alt="New York" width="1100" height="500">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Left and right controls -->
+                                    <a class="carousel-control-prev" href="#demo3" data-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#demo3" data-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </a>
+                                </div>
+                                <div class="_v72lrv">
+                                    <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
+                                        <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
+                                            <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
+                                                <span class="_1bb2ucx1">
+                                                    <span style="color: rgb(98, 86, 75);">Entire house
+                                                        <span aria-hidden="true"> · </span>Ostuni
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 4px;">
+                                            <div class="_1pkilk3o">
+                                                <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 2px;">
+                                            <div>
+                                                <div class="_59f9ic">
+                                                    <div class="_ncmdki">
+                                                        <div class="_1yarz4r">
+                                                            <span>
+                                                                <span>
+                                                                    <span class="_12kw8n71">
+                                                                        <span class="_12kw8n71">
+                                                                            <span class="_1m8bb6v">Price</span>
+                                                                            <span>₫1,725,019</span>
+                                                                        </span> per night
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="_y9ev9r">
+                                                        <div class="_1cm6f7d">
+                                                            <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                                                            <span class="_12kw8n71">Free cancellation</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 2px;">
+                                            <div class="_hdbaj7">
+                                                <div class="_36rlri">
+                                                    <span class="_q27mtmr">
+                                                        <span role="img" aria-label="Rating 5 out of 5">
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                    <span class="_1m8bb6v">149 reviews</span>
+                                                    <span class="_1gvnvab" aria-hidden="true">
+                                                        <span class="_7g6kz31">149</span>
+                                                    </span>
+                                                </div>
+                                                <span class="_7g6kz31">
+                                                    <span aria-hidden="true"> · </span>Superhost
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4 bottom-group">
+                            <div id="demo4" class="carousel slide" data-ride="carousel"  data-interval="false">
+                                <!-- Indicators -->
+                                <ul class="carousel-indicators">
+                                    <li data-target="#demo4" data-slide-to="0" class="active"></li>
+                                    <li data-target="#demo4" data-slide-to="1"></li>
+                                    <li data-target="#demo4" data-slide-to="2"></li>
+                                    <li data-target="#demo4" data-slide-to="3"></li>
+                                </ul>
+                                
+                                <!-- The slideshow -->
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                </div>
+                                
+                                <!-- Left and right controls -->
+                                <a class="carousel-control-prev" href="#demo4" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#demo4" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div>
+                            <div class="_v72lrv">
+                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
+                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
+                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
+                                            <span class="_1bb2ucx1">
+                                                <span style="color: rgb(98, 86, 75);">Entire house
+                                                    <span aria-hidden="true"> · </span>Ostuni
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 4px;">
+                                        <div class="_1pkilk3o">
+                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div>
+                                            <div class="_59f9ic">
+                                                <div class="_ncmdki">
+                                                    <div class="_1yarz4r">
+                                                        <span>
+                                                            <span>
+                                                                <span class="_12kw8n71">
+                                                                    <span class="_12kw8n71">
+                                                                        <span class="_1m8bb6v">Price</span>
+                                                                        <span>₫1,725,019</span>
+                                                                    </span> per night
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="_y9ev9r">
+                                                    <div class="_1cm6f7d">
+                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                                                        <span class="_12kw8n71">Free cancellation</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div class="_hdbaj7">
+                                            <div class="_36rlri">
+                                                <span class="_q27mtmr">
+                                                    <span role="img" aria-label="Rating 5 out of 5">
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                                <span class="_1m8bb6v">149 reviews</span>
+                                                <span class="_1gvnvab" aria-hidden="true">
+                                                    <span class="_7g6kz31">149</span>
+                                                </span>
+                                            </div>
+                                            <span class="_7g6kz31">
+                                                <span aria-hidden="true"> · </span>Superhost
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4 bottom-group">
+                            <div id="demo5" class="carousel slide" data-ride="carousel"  data-interval="false">
+                                <!-- Indicators -->
+                                <ul class="carousel-indicators">
+                                    <li data-target="#demo5" data-slide-to="0" class="active"></li>
+                                    <li data-target="#demo5" data-slide-to="1"></li>
+                                    <li data-target="#demo5" data-slide-to="2"></li>
+                                    <li data-target="#demo5" data-slide-to="3"></li>
+                                </ul>
+                                
+                                <!-- The slideshow -->
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                </div>
+                                
+                                <!-- Left and right controls -->
+                                <a class="carousel-control-prev" href="#demo5" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#demo5" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div> 
+                            <div class="_v72lrv">
+                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
+                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
+                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
+                                            <span class="_1bb2ucx1">
+                                                <span style="color: rgb(98, 86, 75);">Entire house
+                                                    <span aria-hidden="true"> · </span>Ostuni
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 4px;">
+                                        <div class="_1pkilk3o">
+                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div>
+                                            <div class="_59f9ic">
+                                                <div class="_ncmdki">
+                                                    <div class="_1yarz4r">
+                                                        <span>
+                                                            <span>
+                                                                <span class="_12kw8n71">
+                                                                    <span class="_12kw8n71">
+                                                                        <span class="_1m8bb6v">Price</span>
+                                                                        <span>₫1,725,019</span>
+                                                                    </span> per night
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="_y9ev9r">
+                                                    <div class="_1cm6f7d">
+                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                                                        <span class="_12kw8n71">Free cancellation</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div class="_hdbaj7">
+                                            <div class="_36rlri">
+                                                <span class="_q27mtmr">
+                                                    <span role="img" aria-label="Rating 5 out of 5">
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                                <span class="_1m8bb6v">149 reviews</span>
+                                                <span class="_1gvnvab" aria-hidden="true">
+                                                    <span class="_7g6kz31">149</span>
+                                                </span>
+                                            </div>
+                                            <span class="_7g6kz31">
+                                                <span aria-hidden="true"> · </span>Superhost
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>                   
+                        </div>
+                        <div class="col-md-6 col-lg-4 bottom-group">
+                            <div id="demo5" class="carousel slide" data-ride="carousel"  data-interval="false">
+                                <!-- Indicators -->
+                                <ul class="carousel-indicators">
+                                    <li data-target="#demo5" data-slide-to="0" class="active"></li>
+                                    <li data-target="#demo5" data-slide-to="1"></li>
+                                    <li data-target="#demo5" data-slide-to="2"></li>
+                                    <li data-target="#demo5" data-slide-to="3"></li>
+                                </ul>
+                                
+                                <!-- The slideshow -->
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                    <div class="carousel-item">
+                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
+                                    </div>
+                                </div>
+                                
+                                <!-- Left and right controls -->
+                                <a class="carousel-control-prev" href="#demo5" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#demo5" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+                            </div> 
+                            <div class="_v72lrv">
+                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
+                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
+                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
+                                            <span class="_1bb2ucx1">
+                                                <span style="color: rgb(98, 86, 75);">Entire house
+                                                    <span aria-hidden="true"> · </span>Ostuni
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 4px;">
+                                        <div class="_1pkilk3o">
+                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div>
+                                            <div class="_59f9ic">
+                                                <div class="_ncmdki">
+                                                    <div class="_1yarz4r">
+                                                        <span>
+                                                            <span>
+                                                                <span class="_12kw8n71">
+                                                                    <span class="_12kw8n71">
+                                                                        <span class="_1m8bb6v">Price</span>
+                                                                        <span>₫1,725,019</span>
+                                                                    </span> per night
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="_y9ev9r">
+                                                    <div class="_1cm6f7d">
+                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                                                        <span class="_12kw8n71">Free cancellation</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 2px;">
+                                        <div class="_hdbaj7">
+                                            <div class="_36rlri">
+                                                <span class="_q27mtmr">
+                                                    <span role="img" aria-label="Rating 5 out of 5">
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                        <span class="_z1pr8k6">
+                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                                <span class="_1m8bb6v">149 reviews</span>
+                                                <span class="_1gvnvab" aria-hidden="true">
+                                                    <span class="_7g6kz31">149</span>
+                                                </span>
+                                            </div>
+                                            <span class="_7g6kz31">
+                                                <span aria-hidden="true"> · </span>Superhost
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>                   
+                        </div>
+                        <div class="col-md-6 col-lg-4 bottom-group">
+                                <div id="demo5" class="carousel slide" data-ride="carousel"  data-interval="false">
+                                    <!-- Indicators -->
+                                    <ul class="carousel-indicators">
+                                        <li data-target="#demo5" data-slide-to="0" class="active"></li>
+                                        <li data-target="#demo5" data-slide-to="1"></li>
+                                        <li data-target="#demo5" data-slide-to="2"></li>
+                                        <li data-target="#demo5" data-slide-to="3"></li>
+                                    </ul>
+                                    
+                                    <!-- The slideshow -->
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                        <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original3.jpg" alt="New York" width="1100" height="500">
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img src="img/original4.jpg" alt="New York" width="1100" height="500">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Left and right controls -->
+                                    <a class="carousel-control-prev" href="#demo5" data-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#demo5" data-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </a>
+                                </div> 
+                                <div class="_v72lrv">
+                                    <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
+                                        <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
+                                            <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
+                                                <span class="_1bb2ucx1">
+                                                    <span style="color: rgb(98, 86, 75);">Entire house
+                                                        <span aria-hidden="true"> · </span>Ostuni
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 4px;">
+                                            <div class="_1pkilk3o">
+                                                <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 2px;">
+                                            <div>
+                                                <div class="_59f9ic">
+                                                    <div class="_ncmdki">
+                                                        <div class="_1yarz4r">
+                                                            <span>
+                                                                <span>
+                                                                    <span class="_12kw8n71">
+                                                                        <span class="_12kw8n71">
+                                                                            <span class="_1m8bb6v">Price</span>
+                                                                            <span>₫1,725,019</span>
+                                                                        </span> per night
+                                                                    </span>
+                                                                </span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="_y9ev9r">
+                                                        <div class="_1cm6f7d">
+                                                            <span aria-hidden="true">&nbsp;·&nbsp;</span>
+                                                            <span class="_12kw8n71">Free cancellation</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top: 2px;">
+                                            <div class="_hdbaj7">
+                                                <div class="_36rlri">
+                                                    <span class="_q27mtmr">
+                                                        <span role="img" aria-label="Rating 5 out of 5">
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                            <span class="_z1pr8k6">
+                                                                <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
+                                                                    <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                    <span class="_1m8bb6v">149 reviews</span>
+                                                    <span class="_1gvnvab" aria-hidden="true">
+                                                        <span class="_7g6kz31">149</span>
+                                                    </span>
+                                                </div>
+                                                <span class="_7g6kz31">
+                                                    <span aria-hidden="true"> · </span>Superhost
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>                   
+                        </div>
+                        <div class="col-md-6 col-lg-4 bottom-group">
                             <div id="demo5" class="carousel slide" data-ride="carousel"  data-interval="false">
                                 <!-- Indicators -->
                                 <ul class="carousel-indicators">
@@ -1092,373 +1814,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 bottom-group">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div id="demo6" class="carousel slide" data-ride="carousel"  data-interval="false">
-                                <!-- Indicators -->
-                                <ul class="carousel-indicators">
-                                    <li data-target="#demo6" data-slide-to="0" class="active"></li>
-                                    <li data-target="#demo6" data-slide-to="1"></li>
-                                    <li data-target="#demo6" data-slide-to="2"></li>
-                                    <li data-target="#demo6" data-slide-to="3"></li>
-                                </ul>
-                                
-                                <!-- The slideshow -->
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
-                                    </div>
-                                </div>
-                            
-                                <!-- Left and right controls -->
-                                <a class="carousel-control-prev" href="#demo6" data-slide="prev">
-                                    <span class="carousel-control-prev-icon"></span>
-                                </a>
-                                <a class="carousel-control-next" href="#demo6" data-slide="next">
-                                    <span class="carousel-control-next-icon"></span>
-                                </a>
-                            </div>
-                            <div class="_v72lrv">
-                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
-                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
-                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
-                                            <span class="_1bb2ucx1">
-                                                <span style="color: rgb(98, 86, 75);">Entire house
-                                                    <span aria-hidden="true"> · </span>Ostuni
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 4px;">
-                                        <div class="_1pkilk3o">
-                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div>
-                                            <div class="_59f9ic">
-                                                <div class="_ncmdki">
-                                                    <div class="_1yarz4r">
-                                                        <span>
-                                                            <span>
-                                                                <span class="_12kw8n71">
-                                                                    <span class="_12kw8n71">
-                                                                        <span class="_1m8bb6v">Price</span>
-                                                                        <span>₫1,725,019</span>
-                                                                    </span> per night
-                                                                </span>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="_y9ev9r">
-                                                    <div class="_1cm6f7d">
-                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
-                                                        <span class="_12kw8n71">Free cancellation</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div class="_hdbaj7">
-                                            <div class="_36rlri">
-                                                <span class="_q27mtmr">
-                                                    <span role="img" aria-label="Rating 5 out of 5">
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </span>
-                                                </span>
-                                                <span class="_1m8bb6v">149 reviews</span>
-                                                <span class="_1gvnvab" aria-hidden="true">
-                                                    <span class="_7g6kz31">149</span>
-                                                </span>
-                                            </div>
-                                            <span class="_7g6kz31">
-                                                <span aria-hidden="true"> · </span>Superhost
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div id="demo7" class="carousel slide" data-ride="carousel"  data-interval="false">
-                                <!-- Indicators -->
-                                <ul class="carousel-indicators">
-                                    <li data-target="#demo7" data-slide-to="0" class="active"></li>
-                                    <li data-target="#demo7" data-slide-to="1"></li>
-                                    <li data-target="#demo7" data-slide-to="2"></li>
-                                    <li data-target="#demo7" data-slide-to="3"></li>
-                                </ul>
-                                
-                                <!-- The slideshow -->
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
-                                    </div>
-                                </div>
-                                
-                                <!-- Left and right controls -->
-                                <a class="carousel-control-prev" href="#demo7" data-slide="prev">
-                                    <span class="carousel-control-prev-icon"></span>
-                                </a>
-                                <a class="carousel-control-next" href="#demo7" data-slide="next">
-                                    <span class="carousel-control-next-icon"></span>
-                                </a>
-                            </div>
-                            <div class="_v72lrv">
-                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
-                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
-                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
-                                            <span class="_1bb2ucx1">
-                                                <span style="color: rgb(98, 86, 75);">Entire house
-                                                    <span aria-hidden="true"> · </span>Ostuni
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 4px;">
-                                        <div class="_1pkilk3o">
-                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div>
-                                            <div class="_59f9ic">
-                                                <div class="_ncmdki">
-                                                    <div class="_1yarz4r">
-                                                        <span>
-                                                            <span>
-                                                                <span class="_12kw8n71">
-                                                                    <span class="_12kw8n71">
-                                                                        <span class="_1m8bb6v">Price</span>
-                                                                        <span>₫1,725,019</span>
-                                                                    </span> per night
-                                                                </span>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="_y9ev9r">
-                                                    <div class="_1cm6f7d">
-                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
-                                                        <span class="_12kw8n71">Free cancellation</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div class="_hdbaj7">
-                                            <div class="_36rlri">
-                                                <span class="_q27mtmr">
-                                                    <span role="img" aria-label="Rating 5 out of 5">
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </span>
-                                                </span>
-                                                <span class="_1m8bb6v">149 reviews</span>
-                                                <span class="_1gvnvab" aria-hidden="true">
-                                                    <span class="_7g6kz31">149</span>
-                                                </span>
-                                            </div>
-                                            <span class="_7g6kz31">
-                                                <span aria-hidden="true"> · </span>Superhost
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div id="demo8" class="carousel slide" data-ride="carousel"  data-interval="false">
-                                <!-- Indicators -->
-                                <ul class="carousel-indicators">
-                                    <li data-target="#demo8" data-slide-to="0" class="active"></li>
-                                    <li data-target="#demo8" data-slide-to="1"></li>
-                                    <li data-target="#demo8" data-slide-to="2"></li>
-                                    <li data-target="#demo8" data-slide-to="3"></li>
-                                </ul>
-                                
-                                <!-- The slideshow -->
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                    <img src="img/original1.jpg" alt="Los Angeles" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original2.jpg" alt="Chicago" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original3.jpg" alt="New York" width="1100" height="500">
-                                    </div>
-                                    <div class="carousel-item">
-                                    <img src="img/original4.jpg" alt="New York" width="1100" height="500">
-                                    </div>
-                                </div>
-                                
-                                <!-- Left and right controls -->
-                                <a class="carousel-control-prev" href="#demo8" data-slide="prev">
-                                    <span class="carousel-control-prev-icon"></span>
-                                </a>
-                                <a class="carousel-control-next" href="#demo8" data-slide="next">
-                                    <span class="carousel-control-next-icon"></span>
-                                </a>
-                            </div>  
-                            <div class="_v72lrv">
-                                <a href="PrivateRomInHouse.html" target="_blank" rel="noopener" data-check-info-section="true" class="_1ol0z3h">
-                                    <div class="_wuffzwa" style="color: rgb(98, 86, 75);">
-                                        <div class="_1etkxf1" style="color: rgb(98, 86, 75);">
-                                            <span class="_1bb2ucx1">
-                                                <span style="color: rgb(98, 86, 75);">Entire house
-                                                    <span aria-hidden="true"> · </span>Ostuni
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 4px;">
-                                        <div class="_1pkilk3o">
-                                            <div class="_ng4pvpo">I SETTE CONI - TRULLO EDERA </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div>
-                                            <div class="_59f9ic">
-                                                <div class="_ncmdki">
-                                                    <div class="_1yarz4r">
-                                                        <span>
-                                                            <span>
-                                                                <span class="_12kw8n71">
-                                                                    <span class="_12kw8n71">
-                                                                        <span class="_1m8bb6v">Price</span>
-                                                                        <span>₫1,725,019</span>
-                                                                    </span> per night
-                                                                </span>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="_y9ev9r">
-                                                    <div class="_1cm6f7d">
-                                                        <span aria-hidden="true">&nbsp;·&nbsp;</span>
-                                                        <span class="_12kw8n71">Free cancellation</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top: 2px;">
-                                        <div class="_hdbaj7">
-                                            <div class="_36rlri">
-                                                <span class="_q27mtmr">
-                                                    <span role="img" aria-label="Rating 5 out of 5">
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <span class="_z1pr8k6">
-                                                            <svg viewBox="0 0 1000 1000" role="presentation" aria-hidden="true" focusable="false" style="height: 1em; width: 1em; display: block; fill: currentcolor;">
-                                                                <path d="M971.5 379.5c9 28 2 50-20 67L725.4 618.6l87 280.1c11 39-18 75-54 75-12 0-23-4-33-12l-226.1-172-226.1 172.1c-25 17-59 12-78-12-12-16-15-33-8-51l86-278.1L46.1 446.5c-21-17-28-39-19-67 8-24 29-40 52-40h280.1l87-278.1c7-23 28-39 52-39 25 0 47 17 54 41l87 276.1h280.1c23.2 0 44.2 16 52.2 40z"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </span>
-                                                </span>
-                                                <span class="_1m8bb6v">149 reviews</span>
-                                                <span class="_1gvnvab" aria-hidden="true">
-                                                    <span class="_7g6kz31">149</span>
-                                                </span>
-                                            </div>
-                                            <span class="_7g6kz31">
-                                                <span aria-hidden="true"> · </span>Superhost
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>                  
-                        </div>
-                    </div>
-                </div>
+               
                 
             </div>
         </div>

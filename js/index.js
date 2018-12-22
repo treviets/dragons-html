@@ -92,7 +92,6 @@ $(document).ready(function() {
     $("#DynamicFilterCheckboxItem-room_types-Private_room").prop("checked", false);
       $("#DynamicFilterCheckboxItem-room_types-Private_room").click(function () {
         if ($(this).is(":checked")) {
-            console.log("click")
             $("#DynamicFilterSpanItem-room_types-Private_room").removeClass("_fhj4ui")
             $("#DynamicFilterSpanItem-room_types-Private_room").addClass("_veamvre")
             $("#DynamicFilterSpanItem-room_types-Private_room").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
