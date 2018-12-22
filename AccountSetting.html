@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Notifications</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true">Payment Method</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="true">Payout Preferences</a>
+                <a class="nav-link" id="v-pills-privacy-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Privacy</a>
+                <a class="nav-link" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Security</a>
+                <a class="nav-link" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Contacted app</a>
+                <a class="nav-link" id="v-pills-setting-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Setting</a>
+                <a class="nav-link" id="v-pills-badges-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Badges</a>
+
+
+
+                <button type="button" class="btn btn-light">View profile</button>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card message">
+                        <div class="card-header">
+                            Message
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">Receive message from host and guest, including booking requests.</p>
+                            <hr>
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="1">Email</label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="3">Push notifications
+                                    <br>
+                                    <p>To your mobile or tablet devices</p>
+                                </label>
+                            </div>
+                            <div class="checkbox disabled">
+                                <label><input type="checkbox" value="3">Text messages</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card contact-information">
+                        <div class="card-header">
+                            Contact information
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">This information can be edited from your profile page.
+                                <a href="url">Edit profile</a></p>
+                            <hr>
+                            <form>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <p>Email</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>tranthoai151@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <p>Phone number</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>01684511324</p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Reminders
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title">Receive booking reminders, requests to write a review, pricing notices, and other
+                                reminders related to your activities on Airbnb.</p>
+                            <hr>
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="1">Email</label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="3">Push notifications
+                                    <br>
+                                    <p>To your mobile or tablet devices</p>
+                                </label>
+                            </div>
+                            <div class="checkbox ">
+                                <label><input type="checkbox" value="3">Text messages</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Text Messages
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-4">
+                                    <p>Receive SMS notifications to: </p>
+                                </div>
+                                <div class="col-8">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="01684511324">
+                                </div>
+                            </div>
+                            <hr>
+                            <p>Note: for more information, text HELP to 247262.<br>
+                                To cancel mobile notifications, reply STOP to 247262. Message and Data rates may apply.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<style>
+    .form-edit label{
+        text-align: right;
+        font-weight: normal;
+        padding-top: 5px;
+    }
+</style>

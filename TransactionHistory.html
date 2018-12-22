@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Notifications</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="true">Payment Method</a>
+                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="true">Payout Preferences</a>
+                <a class="nav-link" id="v-pills-privacy-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Privacy</a>
+                <a class="nav-link" id="v-pills-security-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Security</a>
+                <a class="nav-link" id="v-pills-contact-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Contacted app</a>
+                <a class="nav-link" id="v-pills-setting-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Setting</a>
+                <a class="nav-link" id="v-pills-badges-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="true">Badges</a>
+                <button type="button" class="btn btn-light btnView">Invite Friends</button>
+            </div>
+        </div>
+        <div class="col-9 col-sm -12s">
+            <div class="row">
+                <label for="">Wellcome to your new Transaction History. <a href="#">Share your feedback</a></label>
+            </div>
+            <hr>
+            <div class="content-history">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#completed">Completed Payouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#updacomming">Upcoming Payouts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#gross">Gross Earnings</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" data-toggle="tab" id="completed">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <form class="form-group">
+                                        <select name="cars" class="form-control">
+                                            <option selected>All Payout Method</option>
+                                            <option value="volvo">Method 1</option>
+                                            <option value="fiat">Method 2</option>
+                                            <option value="audi">Method 3</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <form class="form-group">
+                                        <select name="cars" class="form-control">
+                                            <option selected>All Listings</option>
+                                            <option value="volvo">Method 1</option>
+                                            <option value="fiat">Method 2</option>
+                                            <option value="audi">Method 3</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                            <!--row 2-->
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-12 col-init">
+                                            <form class="form-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text hiddenDiv">From: </div>
+                                                    <select name="cars" class="form-control">
+                                                        <option selected>January</option>
+                                                        <option value="volvo">February</option>
+                                                        <option value="volvo">March</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 ">
+                                        <form class="form-group">
+                                            <select name="cars" class="form-control">
+                                                <option selected>2018</option>
+                                                <option value="volvo">2019</option>
+                                                <option value="fiat">2020</option>
+                                                <option value="audi">2021</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-8 col-sm-12 col-init">
+                                            <form class="form-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text hiddenDiv">To: </div>
+                                                    <select name="cars" class="form-control">
+                                                        <option selected>January</option>
+                                                        <option value="volvo">February</option>
+                                                        <option value="volvo">March</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12 ">
+                                            <form class="form-group">
+                                                <select name="cars" class="form-control">
+                                                    <option selected>2018</option>
+                                                    <option value="volvo">2019</option>
+                                                    <option value="fiat">2020</option>
+                                                    <option value="audi">2021</option>
+                                                </select>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                            <!--row 3-->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="paidOut">
+                                        <p >Paid Out:</p>
+                                        <a href="#">Download CSV</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 col-sm-12 paidOut2">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 card">
+                                <div class="row card-body">
+                                    <div class="col-md-6 col-sm-6">
+                                        <label>Dec 14, 2018</label><br>
+                                        <span>7 transactions</span><br>
+                                        <span>Account ****04</span>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 price">
+                                        <p>đ31,343,043</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row card-body">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Dec 13, 2018</label><br>
+                                        <span>7 transactions</span><br>
+                                        <span>Account ****04</span>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 price">
+                                        <p>đ31,343,043</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row card-body">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Dec 13, 2018</label><br>
+                                        <span>7 transactions</span><br>
+                                        <span>Account ****04</span>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 price">
+                                        <p>đ31,343,043</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row card-body">
+                                    <div class="col-md-6 col-sm-12">
+                                        <label>Dec 13, 2018</label><br>
+                                        <span>7 transactions</span><br>
+                                        <span>Account ****04</span>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 price">
+                                        <p>đ31,343,043</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" data-toggle="tab" id="updacomming">
+                            updacomming
+                        </div>
+                        <div class="tab-pane fade" data-toggle="tab" id="gross">
+                            gross
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<style>
+    .paidOut{
+        position: relative;
+    }
+    .paidOut>p{
+        position: relative;
+    }
+    .paidOut>p:after{
+        content: '';
+        width: 30%;
+        height: 5px;
+        background: #cecece;
+        display: inline-block;
+    }
+    .paidOut>a{
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+
+    .form-edit label{
+        text-align: right;
+        font-weight: normal;
+        padding-top: 5px;
+    }
+    select {
+           height: 34px !important;
+       }
+    .col-init {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .hiddenDiv {
+        font-size: 14px;
+        background-color: white;
+        /*border: 1px solid #ced4da !important;*/
+        border: none !important;
+        font-weight: bold;
+    }
+    .paidOut {
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .paidOut>p{
+        position: relative;
+    }
+    .paidOut>p:after{
+        content: '';
+        height: 7px;
+        margin-left: 5px;
+        background: #cecece;
+    }
+
+    .paidOut2 hr {
+        border: none;
+        height: 5px;
+        background-color: #d4dfe6;
+        display: none;
+    }
+    p {
+        font-family: inherit;
+    }
+    .price {
+        text-align: right;
+        color:#53ba9f;
+    }
+    .btnView {
+        border-color: black;
+    }
+
+
+</style>
