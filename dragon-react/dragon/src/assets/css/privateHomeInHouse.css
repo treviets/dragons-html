@@ -1,0 +1,94 @@
+
+.optionTitle{
+    position: relative;
+    font-family: serif;
+
+}
+.divbody {
+    padding-top: 5%;
+}
+.gr-avatar{
+    position: absolute;
+}
+.avatar {
+    vertical-align: middle;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    object-position: top;
+    object-fit: cover;
+}
+.request-to-book{
+    -moz-box-shadow:    inset 0 0 2px grey;
+    -webkit-box-shadow: inset 0 0 2px grey;
+    box-shadow: inset 0 0 2px grey;
+    width: 100%;
+    height: 450px;
+    font-family: serif;
+    margin-top: 40px;
+
+}
+.home-high-lights {
+    margin-top: 25px;
+    -moz-box-shadow:    inset 0 0 2px grey;
+    -webkit-box-shadow: inset 0 0 2px grey;
+    box-shadow: inset 0 0 2px grey;
+
+}
+.home-high-lights .content {
+    padding-left: 4%;
+    padding-top: 3%;
+    padding-bottom: 4%;
+
+
+}
+.home-high-lights .content > p:first-child {
+    font-size: 15px;
+    font-weight: bold;
+    color: gray;
+}
+.home-high-lights .content > p > span{
+    color: gray;
+    font-size: 11px;
+}
+.title{
+    font-size: 20px;
+    font-weight: bold;
+}
+p{
+    font-family:inherit;
+
+}
+.content-request {
+    padding: 20px;
+
+}
+select {
+    height: 34px !important;
+}
+.content-request > span > b {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: inherit;
+}
+.content-request > p > span > i {
+    color: #40bab3;
+}
+.btnRequest {
+    background-color: rgb(255, 90, 95);
+    color: white;
+    font-weight: bold;
+}
+.footer-request {
+    position: relative;
+}
+.footer-request > i {
+    position: absolute;
+    font-size: 40px;
+    right: 45px;
+    bottom: 10px;
+    color: #d1ad5c;
+}

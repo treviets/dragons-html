@@ -1,0 +1,35 @@
+#table-booking thead th {
+    border-color: white !important;
+}
+.notes{
+    font-size: 11px;
+}
+tr > td:first-child{
+    color: black;
+    font-weight: bold;
+}
+tr > td:nth-child(2) > p:first-child{
+    color: #53ba9f;
+    font-weight: bold;
+    text-align: center;
+}
+tr > th:first-child{
+    color: #53ba9f;
+}
+.btnDetail {
+    border-color: #53ba9f;
+    color: #53ba9f;
+    font-weight: bold;
+}
+td {
+    text-align: center  ;
+}
+.btnComing {
+    color: #53ba9f;
+}
+.grButtonExport {
+    float: right;
+}
+th {
+    text-align: center;
+}

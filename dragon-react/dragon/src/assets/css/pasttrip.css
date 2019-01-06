@@ -1,0 +1,35 @@
+.form-edit label{
+    text-align: right;
+    font-weight: normal;
+    padding-top: 5px;
+}
+.card-title{
+    text-align: center;
+    font-family: "monospace";
+    font-size: 22px;
+}
+.avatar-pasttrip {
+    vertical-align: middle;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: -18%;
+    object-fit: cover;
+    object-position: top;
+    margin-left: 35%;
+}
+.card-img-top{
+    position: relative;
+}
+.content-info{
+    text-align: center;
+}
+
+.footer-content {
+    /*padding-left: 30%;*/
+    text-align: center;
+}
+.footer-content > span {
+    color: #40bab3;
+}

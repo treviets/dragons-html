@@ -1,0 +1,669 @@
+
+
+.f-search{  
+    z-index: 9992;
+    position: fixed;
+}
+#ui-datepicker-div{
+    z-index: 10000 !important;
+}
+
+.card-search{
+    position: absolute;
+    z-index: 2;
+    top: 15%;
+    left: 1%;
+    height: 60%;
+    width: 98%;
+
+}
+
+.bottom-group{
+    margin-bottom: 20px;
+}
+._7g6kz31 {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1.33333em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+
+._1op4fol {
+    position: relative !important;
+    display: inline-block !important;
+    left: -1px !important;
+    vertical-align: top !important;
+    font-size: 32px !important;
+    margin: -8px !important;
+}
+._1op4fol {
+    font-size: var(--size-check-box-check-mark-size, 32px) !important;
+}
+._4r6fry {
+    display: inline-block !important;
+    background-color: rgb(242, 242, 242) !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+}
+._veamvre {
+    height: 18px !important;
+    width: 18px !important;
+    display: inline-block !important;
+    text-align: center !important;
+    color: rgb(255, 255, 255) !important;
+    background: rgb(0, 132, 137) !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+    border-color: rgb(0, 132, 137) !important;
+}
+._veamvre {
+    height: var(--size-check-box-size, 18px) !important;
+    width: var(--size-check-box-size, 18px) !important;
+    background-color: #008489 !important;
+    color: #ffffff !important;
+}
+._1gvnvab {
+    line-height: 21px !important;
+}
+._z1pr8k6 {
+    color: #008489 !important;
+}
+._z1pr8k6 {
+    display: inline-block !important;
+    color: rgb(0, 132, 137) !important;
+    font-size: 9px !important;
+    height: 10px !important;
+    margin-right: 1px !important;
+    width: 9px !important;
+}
+._hdbaj7 {
+    line-height: normal !important;
+    max-height: 22px !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+._36rlri {
+    display: inline-block !important;
+}
+._q27mtmr {
+    vertical-align: middle !important;
+    line-height: 21px !important;
+    margin-right: 2px !important;
+}
+._y9ev9r {
+    overflow: hidden !important;
+}
+._1cm6f7d {
+    line-height: normal !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+._1m8bb6v {
+    position: absolute !important;
+    display: block !important;
+    border: 0px !important;
+    margin: -1px !important;
+    padding: 0px !important;
+    height: 1px !important;
+    width: 1px !important;
+    clip: rect(0, 0, 0, 0) !important;
+    overflow: hidden !important;
+}
+._12kw8n71 {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.28571em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+._ncmdki {
+    float: left !important;
+}
+._1yarz4r {
+    line-height: normal !important;
+}
+._1pkilk3o {
+    line-height: 22px !important;
+    max-height: 44px !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    font-size: 19px !important;
+    overflow: hidden !important;
+}
+._ng4pvpo {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.375em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+._wuffzwa {
+    height: 16px !important;
+    max-height: 16px !important;
+    margin-bottom: 2px !important;
+    text-transform: uppercase !important;
+}
+._1etkxf1 {
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+._1bb2ucx1 {
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    margin: 0px !important;
+    word-wrap: break-word !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    line-height: 1.3333333333333333em !important;
+    color: #484848 !important;
+}
+._1ol0z3h {
+    display: block !important;
+    color: rgb(72, 72, 72) !important;
+    text-decoration: none !important;
+}
+._v72lrv {
+    padding-top: 8px !important;
+}
+.right-home{
+    width: calc(100% - 288px) !important;
+    margin-left: 288px !important;
+    padding-left: 0px !important;
+    overflow: auto overlay !important;
+
+}
+.main-slider {
+    padding-right: 32px !important;
+    padding-left: 32px !important;
+}
+@media (min-width: 1128px){
+    .p2-histogram {
+        top: 19px;
+        margin-top: 0;
+    }
+    ._sh9qj2d {
+        top: 12px !important;
+    }
+}
+@media (min-width: 744px){
+    ._76dwae {
+        margin-bottom: 8px !important;
+    }
+}
+._1olgbwl {
+    font-size: 16px !important;
+    line-height: 22px !important;
+    letter-spacing: normal !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    color: rgb(72, 72, 72) !important;
+    font-weight: normal !important;
+    margin-top: 0px !important;
+}
+._jmmm34f {
+    font-weight: 800 !important;
+    margin-bottom: 0px !important;
+    font-size: 24px !important;
+    line-height: 30px !important;
+    letter-spacing: normal !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    color: rgb(72, 72, 72) !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+
+._1avdemu {
+    display: table-cell !important;
+    vertical-align: middle !important;
+    width: 100% !important;
+    padding-left: 15px;
+    padding-top: 24px;
+}
+._76dwae {
+    width: 100% !important;
+    margin-bottom: 8px !important;
+}
+._tnaqre1 {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.33333em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+._9zwlhy1 {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.28571em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+._wzwtzh8 {
+    font-weight: normal !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    letter-spacing: normal !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    color: rgb(72, 72, 72) !important;
+    padding-top: 4px !important;
+    display: block !important;
+    padding-left: 8px !important;
+}
+._f7dcovm {
+    font-weight: normal !important;
+    cursor: pointer !important;
+    font-size: 16px !important;
+    line-height: 22px !important;
+    letter-spacing: normal !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    color: rgb(72, 72, 72) !important;
+    display: inline-block !important;
+    vertical-align: top !important;
+    padding-left: 8px !important;
+}
+._fcv8ql {
+    position: absolute !important;
+    width: 0px !important;
+    opacity: 0 !important;
+}
+._fhj4ui {
+    height: 18px !important;
+    width: 18px !important;
+    display: inline-block !important;
+    text-align: center !important;
+    background: rgb(255, 255, 255) !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgb(235, 235, 235) !important;
+    border-radius: 2px !important;
+    overflow: hidden !important;
+}
+._fhj4ui {
+    height: var(--size-check-box-size, 18px) !important;
+    width: var(--size-check-box-size, 18px) !important;
+}
+._foa2bi {
+    display: inline-block !important;
+    cursor: pointer !important;
+    padding: 0px !important;
+}
+._zkrkb6 {
+    display: table-cell !important;
+    vertical-align: top !important;
+    white-space: normal !important;
+}
+._73ihd0r {
+    display: table-cell !important;
+    vertical-align: top !important;
+    white-space: normal !important;
+    position: relative !important;
+    top: 2px !important;
+}
+._gyif22 {
+    display: table-row !important;
+}
+._4m7syz {
+    cursor: pointer !important;
+    display: table !important;
+    background: transparent !important;
+    border-width: 0px !important;
+    border-style: initial !important;
+    border-color: initial !important;
+    border-image: initial !important;
+    padding: 0px !important;
+}
+._1pz4nmm {
+    display: inline-block !important;
+    height: 9px !important;
+    width: 1px !important;
+    background-color: rgb(216, 216, 216) !important;
+}
+._3vwp7ag {
+    background-color: rgb(216, 216, 216) !important;
+    position: absolute !important;
+    height: 4px !important;
+    top: 0px !important;
+    border-radius: 4px !important;
+}
+._ejkfvn {
+    height: 15px !important;
+    top: -2px !important;
+    left: -2px !important;
+    bottom: 4px !important;
+    width: 100% !important;
+    position: absolute !important;
+}
+._eccnfpv {
+    background-color: rgb(216, 216, 216) !important;
+    position: relative !important;
+    height: 4px !important;
+    top: 0px !important;
+    width: 100% !important;
+    border-radius: 4px !important;
+}
+._7e161qd {
+    width: 26px !important;
+    height: 26px !important;
+    background-color: rgb(255, 255, 255) !important;
+    z-index: 2 !important;
+    box-shadow: rgb(235, 235, 235) 0px 2px 2px !important;
+    margin-left: -14px !important;
+    top: -10px !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgb(216, 216, 216) !important;
+    border-radius: 28px !important;
+    outline: none !important;
+}
+._sh9qj2d {
+    position: relative !important;
+    overflow: visible !important;
+}
+._1lr8j2n8 {
+    padding: 0px 0px 24px !important;
+    border-bottom: 1px solid rgb(235, 235, 235) !important;
+}
+.p2-histogram-bar.active {
+        background: #d8d8d8;
+}
+.p2-histogram-bar {
+    background: #d8d8d8;
+    display: inline-block;
+    width: 2%;
+}
+.p2-histogram {
+    position: relative;
+    top: 6px;
+    margin-top: 24px;
+}
+._z6hmjh {
+    width: 88% !important;
+    margin: auto !important;
+}
+._x01z5ll {
+    transform: translateY(0px) !important;
+    opacity: 1 !important;
+    transition: -ms-transform 304ms ease-out 0s, -webkit-transform 304ms ease-out 0s, transform 304ms ease-out 0s, opacity 304ms ease-out 0s !important;
+}
+._12d0llg5 {
+    -webkit-box-align: center !important;
+    text-align: justify !important;
+    line-height: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+}
+._qo24lwc {
+    -webkit-box-flex: 1 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+    flex-grow: 1 !important;
+}
+._1r804a6o {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.375em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+._ng4pvpo {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.375em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+._1iti0ju {
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+._9zwlhy1 {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.28571em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+.button-price{
+    display: block !important;
+    width: 100% !important;
+    color: inherit !important;
+    cursor: pointer !important;
+    text-align: left !important;
+    background: none !important;
+    border-width: initial !important;
+    border-style: none !important;
+    border-color: initial !important;
+    border-image: initial !important;
+    padding: 0px !important;
+    font: inherit !important;
+    outline: inherit !important;
+}
+.price-range{      
+    padding-top: 16px !important;
+    padding-bottom: 24px !important;
+    border-bottom: 1px solid rgb(235, 235, 235) !important;
+}
+.label-menu{
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.28571em !important;
+    color: rgb(72, 72, 72) !important;
+    margin: 0px !important;
+}
+.label-button{
+    display: table-cell !important;
+    vertical-align: middle !important;
+}
+.button-menu{
+    line-height: 18px !important;
+    letter-spacing: normal !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    position: relative !important;
+    text-align: center !important;
+    width: 100% !important;
+    height: 40px !important;
+    font-size: 14px !important;
+    color: rgb(72, 72, 72) !important;
+    text-decoration: none !important;
+    border-radius: 3px !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-image: initial !important;
+    border-color: rgb(235, 235, 235) !important;
+    background: rgb(255, 255, 255) !important;
+    outline: none !important;
+}
+.span-button{
+    font-size: 8px !important;
+    display: table-cell !important;
+    vertical-align: middle !important;
+    padding-left: 8px !important;
+    position: absolute !important;
+    right: 12px !important;
+    top: 15px !important;
+    color: rgb(118, 118, 118) !important;
+}
+.menu{
+    width: 288px !important;
+    margin-bottom: 32px !important;
+    padding: 24px !important;
+}
+.left-menu{       
+    bottom: 0px !important;
+    float: left !important;
+    position: fixed !important;
+    top: 270px !important;
+    transform: translateZ(0px) !important;
+    vertical-align: top !important;
+    z-index: 1 !important;
+    overflow: auto overlay !important;
+}
+.span-icon-button{
+    display: table-cell !important;
+    vertical-align: middle !important;
+    transition-property: -ms-transform, -webkit-transform, transform !important;
+    transition-duration: 250ms !important;
+    transition-timing-function: ease-in-out !important;
+}
+.col-search{
+    background-color: white;
+}
+.button-search{
+    background: #FF5A5F;
+    font-weight: bold;
+    border:none;
+    box-shadow: none;
+    width: 90%;
+    color: white;
+}
+select {
+/* for Firefox */
+-moz-appearance: none;
+/* for Chrome */
+-webkit-appearance: none;
+}
+select::-ms-expand {
+    display: none;
+}
+.icon-search{
+    color: #FF5A5F;
+}
+.border-none{
+    border: none;
+    -webkit-appearance: none;
+
+
+}
+.border-none:focus{
+    outline: none;
+}
+
+.search-home{
+    border-radius: 2px;
+    background: #f8f9fa63;
+    position: absolute;
+    top:55%;
+    left:50%;
+    transform: translateY(-50%) translateX(-50%);
+    padding: 5px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    display: block;
+    box-shadow: none;
+    width: 100%;
+}
+.banner-menu{
+    position: relative;
+    width: 100%;
+    height:200px;
+}
+.banner {
+    position: relative;
+    z-index: 1;
+}
+.col-init {
+    padding: 5px !important;
+    margin: 5px !important;
+
+}
+.input-search {
+    width: 90%;
+}
+@media (max-width: 767px){
+    .search-home {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .left-responsive {
+        position: initial !important;
+        top: 0px !important;
+        float: initial !important;
+    }
+    .col-init{
+        padding: unset !important; 
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+
+        margin-right: 15px !important;
+    }
+    .input-search {
+        width: 90% !important;
+    }
+    .right-home{
+        width: auto !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        overflow: initial !important;
+    }
+    .no-padding-lr-mobile {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .menu {
+        width: 100% !important;
+    }
+
+}
+
+@media (max-width: 1023px){
+
+    .input-search {
+        width: 80%;
+    }
+    .menu {
+        padding: 0px !important;
+    }
+
+    .no-padding-lr-mobile {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+}
+
+
+.text-green {
+	color: green;
+}
+
+.form-edit label{
+    text-align: right;
+    font-weight: normal;
+    padding-top: 5px;
+}

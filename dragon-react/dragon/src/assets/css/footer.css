@@ -1,0 +1,41 @@
+.footer {
+    border-top: 1px rgb(228, 228, 228) solid;
+
+}
+.box{
+    height: 100px;
+}
+.title-footer {
+    font-weight: bold;
+    font-size: 15px;
+    padding-bottom: 7px;
+}
+ul li {
+    list-style: none;
+}
+ul li a {
+    font-family: var(--font-font_family, Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif) !important;
+    color: var(--color-text-muted, #767676) !important;
+    /*font: inherit !important;*/
+    font-weight: 600;
+    font-size: 13px;
+}
+._1awrjnc1 {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    overflow-wrap: break-word !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1.33333em !important;
+    color: rgb(255, 255, 255) !important;
+    margin: 0px !important;
+}
+._4btwil {
+    display: inline-block !important;
+    background-color: rgb(0, 106, 112) !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: transparent !important;
+    border-image: initial !important;
+    border-radius: 4px !important;
+    padding: 0px 4px !important;
+}

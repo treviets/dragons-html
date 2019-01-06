@@ -1,0 +1,71 @@
+.paidOut{
+    position: relative;
+}
+.paidOut>p{
+    position: relative;
+}
+.paidOut>p:after{
+    content: '';
+    width: 30%;
+    height: 5px;
+    background: #cecece;
+    display: inline-block;
+}
+.paidOut>a{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+
+.form-edit label{
+    text-align: right;
+    font-weight: normal;
+    padding-top: 5px;
+}
+select {
+       height: 34px !important;
+   }
+.col-init-trans {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.hiddenDiv {
+    font-size: 14px;
+    background-color: white;
+    /*border: 1px solid #ced4da !important;*/
+    border: none !important;
+    font-weight: bold;
+}
+.paidOut {
+    position: relative;
+    margin-top: 10px;
+}
+
+.paidOut>p{
+    position: relative;
+}
+.paidOut>p:after{
+    content: '';
+    height: 7px;
+    margin-left: 5px;
+    background: #cecece;
+}
+
+.paidOut2 hr {
+    border: none;
+    height: 5px;
+    background-color: #d4dfe6;
+    display: none;
+}
+p {
+    font-family: inherit;
+}
+.price {
+    text-align: right;
+    color:#53ba9f;
+}
+.btnView {
+    border-color: black;
+}
