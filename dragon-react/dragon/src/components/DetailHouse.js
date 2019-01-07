@@ -1,20 +1,35 @@
 import React, { Component } from 'react'
 import '../assets/css/privateHomeInHouse.css'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 class DetailHouseComponent extends Component { 
     constructor(props) {
         super(props);
 
         this.state = {
-            selectGuest:""
+            selectGuest:"",
+            startDate: new Date(),
+            endDate: new Date(),
         };
-        this.handeChageGuest =  this.handeChageGuest.bind(this)
-
+        this.handeChageGuest =  this.handeChageGuest.bind(this);
+        this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
+        this.handleChangeToTime = this.handleChangeToTime.bind(this);
 
     }
     handeChageGuest(event){
         this.setState({
             selectGuest: event.target.value,
+        });
+    }
+    handleChangeFromTime(date) {
+        this.setState({
+            startDate: date,
+        });
+    }
+    handleChangeToTime(date){
+        this.setState({
+            endDate:date,
         });
     }
     render() {
@@ -88,10 +103,27 @@ class DetailHouseComponent extends Component {
                                         </span>
                                     </p>
                                     <hr/>
-                                    <div className="form-group">
-                                        <label htmlFor="email">Date</label>
-                                        <input type="email" className="form-control" id="email"/>
-                                    </div>
+                                        <div className="form-group">
+                                            <div className="row">
+                                                <div className="col-md-6 from-time-group">
+                                                    <p>Check In</p>
+                                                    <DatePicker
+                                                        selected={this.state.startDate}
+                                                        onChange={this.handleChangeFromTime}
+                                                    />
+                                                </div>
+                                                <div className="col-md-6 to-time-group">
+                                                    <p>Check outs</p>
+                                                    <DatePicker
+                                                        selected={this.state.endDate}
+                                                        onChange={this.handleChangeToTime}
+                                                    />
+                                                </div>
+
+
+                                            </div>
+                                            </div>
+
                                     <div className="form-group">
                                         <label htmlFor="">Guest:</label>
                                         <select className="form-control" value={this.state.selectGuest} onChange={this.handeChageGuest} id="inlineFormCustomSelect">

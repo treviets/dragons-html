@@ -59,8 +59,20 @@
             <p>Higashiosaka Takaida Monozukuri (Craftsmanship) Experience and Traing Facility <br>(inside Doushin Kinzoku Kogyo, Inc..)</p>
             <p>For transportation, Takaida station on the Chuo subway Line and JR Takaida-Chuo <br>station are available</p>
             <br>
-            <p style="color: #40bab3">Read more about the space</p>
-            <p style="color: #40bab3">Contact host</p>
+            <!--<a>Read more about the space</a>-->
+            <a style="color: #40bab3" data-toggle="collapse" data-target="#demo">Read more about the space</a>
+
+            <div id="demo" class="collapse">
+                Higashiosaka Takaida Monozukuri (Craftsmanship) Experience and Traing Facility
+                (inside Doushin Kinzoku Kogyo, Inc..)
+            </div>
+            <br>
+            <a style="color: #40bab3" data-toggle="collapse" data-target="#demo1">Contact host</a>
+            <div id="demo1" class="collapse">
+                Higashiosaka Takaida Monozukuri (Craftsmanship) Experience and Traing Facility
+                (inside Doushin Kinzoku Kogyo, Inc..)
+            </div>
+            <!--<p style="color: #40bab3">Contact host</p>-->
 
         </div>
         <div class="col-md-5 col-sm-12">
@@ -123,6 +135,14 @@
         position: relative;
         font-family: serif;
 
+    }
+    .home-high-lights a:hover {
+        text-decoration-style: solid;
+
+        text-decoration: underline;
+    }
+    #demo{
+        color: black;
     }
     .divbody {
         padding: 5%;
