@@ -92,3 +92,29 @@ select {
     bottom: 10px;
     color: #d1ad5c;
 }
+.div-Guest {
+    background-color: gray;
+    width: 100%;
+    height: 30%;
+}
+.div-Guest .row{
+    padding-top: 10px;
+
+}
+.button-config {
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #008489;
+    border-color: #008489;
+}
+.title-choose{
+    display: inline;
+    text-align: center;
+}
+.group-button-config{
+    display: inline;
+    text-align: center;
+}
