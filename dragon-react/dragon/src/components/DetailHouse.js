@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import '../assets/css/privateHomeInHouse.css'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import '../assets/js/plus'
+
 
 class DetailHouseComponent extends Component { 
     constructor(props) {
@@ -11,10 +13,15 @@ class DetailHouseComponent extends Component {
             selectGuest:"",
             startDate: new Date(),
             endDate: new Date(),
+            countPlus : 1,
+            showGuests: true,
         };
         this.handeChageGuest =  this.handeChageGuest.bind(this);
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
         this.handleChangeToTime = this.handleChangeToTime.bind(this);
+        this.handlePlus = this.handlePlus.bind(this);
+        this.handleMinus = this.handleMinus.bind(this);
+        this.handleChooseGuests = this.handleChooseGuests.bind(this);
 
     }
     handeChageGuest(event){
@@ -32,6 +39,24 @@ class DetailHouseComponent extends Component {
             endDate:date,
         });
     }
+    handlePlus(){
+        const check = this.state.countPlus;
+        this.setState({
+            countPlus: check+1
+        })
+    }
+    handleMinus(){
+        const minus = this.state.countPlus;
+        this.setState({
+            countPlus: minus-1
+        })
+    }
+    handleChooseGuests(){
+        this.setState({
+            showGuests: true
+        });
+    }
+
     render() {
         return (
             <div className="container divbody">
@@ -140,10 +165,43 @@ class DetailHouseComponent extends Component {
                                         <p> It's been viewed 500+ times in the past week</p>
                                         <i className="fa fa-lightbulb-o logo-created" aria-hidden="true"></i>
                                     </div>
-                                </div>
                             </div>
                             <br/>
                             <p style={{textAlign: 'center'}}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
+                                <div className="div-Guest" hidden={this.state.showGuests}>
+                                    <div className="row">
+                                        <div className="col-md-6 title-choose">
+                                            <span>Adults</span>
+                                        </div>
+                                        <div className="col-md-6 group-button-config">
+                                            <button className="button-config" onClick={this.handleMinus}>-</button>
+                                            <label type="text" />{this.state.countPlus}
+                                            <button className="button-config" onClick={this.handlePlus}>+</button>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6 title-choose">
+                                            <span>Children</span>
+                                        </div>
+                                        <div className="col-md-6 group-button-config">
+                                            <button className="button-config" onClick={this.handleMinus}>-</button>
+                                            <label type="text" />{this.state.countPlus}
+                                            <button className="button-config" onClick={this.handlePlus}>+</button>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6 title-choose">
+                                            <span>Infants</span>
+                                        </div>
+                                        <div className="col-md-6 group-button-config">
+                                            <button className="button-config" onClick={this.handleMinus}>-</button>
+                                            <label type="text" />{this.state.countPlus}
+                                            <button className="button-config" onClick={this.handlePlus}>+</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

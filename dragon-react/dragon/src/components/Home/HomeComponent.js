@@ -2,7 +2,44 @@ import React, { Component } from 'react'
 import '../../assets/css/slide.css'
 import '../../assets/css/style.css'
 
-class HomeComponent extends Component { 
+class HomeComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectGuest:"",
+            startDate: new Date(),
+            endDate: new Date(),
+            countPlus : 1,
+        };
+        this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
+        this.handleChangeToTime = this.handleChangeToTime.bind(this);
+        this.handlePlus = this.handlePlus.bind(this);
+        this.handleMinus = this.handleMinus.bind(this);
+
+    }
+    handleChangeFromTime(date) {
+        this.setState({
+            startDate: date,
+        });
+    }
+    handleChangeToTime(date){
+        this.setState({
+            endDate:date,
+        });
+    }
+    handlePlus(){
+        const check = this.state.countPlus;
+        this.setState({
+            countPlus: check+1
+        })
+    }
+    handleMinus(){
+        const minus = this.state.countPlus;
+        this.setState({
+            countPlus: minus-1
+        })
+    }
     
     render() {
         return (
