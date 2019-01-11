@@ -28,6 +28,7 @@ class HomeComponent extends Component {
         this.renderListHomes = this.renderListHomes.bind(this)
         this.renderListRooms = this.renderListRooms.bind(this)
         this.renderImgsRoom = this.renderImgsRoom.bind(this)
+        this.renderLiTarget = this.renderLiTarget.bind(this)
         
 
     }
@@ -97,17 +98,26 @@ class HomeComponent extends Component {
                 <img src={Constants.apiImg+img} alt="Los Angeles" width="1100" height="500"/>
             </div> ;
     }
+    renderLiTarget(value, index){
+        var clss = ""
+        if(index ==0 ){
+            clss +="active"
+        }
+    return   <li data-target={value} data-slide-to={index} className={clss} key={index}></li>
+
+    }
     renderListRooms(room,index){
         var imgs = room.Images.split('|')
         var typeroom = this.typeRoom(room.Type)
+        var indexTarget = []
+        for(var i = 0 ; i<imgs.length; i++){
+            indexTarget.push('#de'+i)
+        }
         return <div className="col-md-6 col-lg-4 bottom-group" key={index}>
         <div id={'de'+index} className="carousel slide" data-ride="carousel"  data-interval="false">
         
             <ul className="carousel-indicators">
-                <li data-target={'#de'+index} data-slide-to="0" className="active"></li>
-                <li data-target={'#de'+index} data-slide-to="1"></li>
-                <li data-target={'#de'+index} data-slide-to="2"></li>
-                <li data-target={'#de'+index} data-slide-to="3"></li>
+                {indexTarget.map(this.renderLiTarget)}
             </ul>
             
         
