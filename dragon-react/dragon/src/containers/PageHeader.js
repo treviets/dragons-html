@@ -51,8 +51,8 @@ class PageHeader extends Component {
     }
     render() {
         return (
-            <div  id="header">
-                <nav className="navbar navbar-expand-lg bg-blue" >
+            <div  >
+                <nav className="navbar navbar-expand-lg bg-blue"id="header" >
                     <div className="header-icon">
                         {/* <img src="img/fb.png" style="height: 35px;"/> */}
                     </div>

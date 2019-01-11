@@ -2,16 +2,16 @@
 $(document).ready(function() {
     
     var nav = $("#header");
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 0) {
-            nav.addClass("f-nav");
+    // $(window).scroll(function () {
+    //     if ($(this).scrollTop() > 0) {
+    //         nav.addClass("f-nav");
           
-        } else {
-            nav.removeClass("f-nav");
+    //     } else {
+    //         nav.removeClass("f-nav");
    
            
-        }
-    });
+    //     }
+    // });
     $( "#checkIn" ).closest(".react-datepicker-wrapper").css( "width", "90%" );
     $( "#checkOut" ).closest(".react-datepicker-wrapper").css( "width", "90%" );
 

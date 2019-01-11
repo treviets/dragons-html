@@ -4,16 +4,16 @@ import 'jquery-ui-bundle/jquery-ui.css';
 $(document).ready(function() {
     
     var nav = $("#header");
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 0) {
-            nav.addClass("f-nav");
+    // $(window).scroll(function () {
+    //     if ($(this).scrollTop() > 0) {
+    //         nav.addClass("f-nav");
           
-        } else {
-            nav.removeClass("f-nav");
+    //     } else {
+    //         nav.removeClass("f-nav");
    
            
-        }
-    });
+    //     }
+    // });
     var active_sub_menu = $('#root').find('.home');
 
     if (active_sub_menu.length){

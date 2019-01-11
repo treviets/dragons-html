@@ -180,16 +180,25 @@
 ._v72lrv {
     padding-top: 8px !important;
 }
-.right-home{
-    width: calc(100% - 288px) !important;
-    margin-left: 288px !important;
-    padding-left: 0px !important;
-    overflow: auto overlay !important;
 
+.left-menu{       
+    bottom: 0px !important;
+    float: left !important;
+    -webkit-transform: translateZ(0px) !important;
+    transform: translateZ(0px) !important;
+    vertical-align: top !important;
+    z-index: 1 !important;
+    overflow-y: scroll;
+    height: 500px;
+    width: 22%;
+}
+.right-home{
+    width: 78% !important;
+    overflow: auto overlay !important;
 }
 .main-slider {
-    padding-right: 32px !important;
-    padding-left: 32px !important;
+    /* padding-right: 32px !important;
+    padding-left: 32px !important; */
 }
 @media (min-width: 1128px){
     .p2-histogram {
@@ -523,16 +532,6 @@
     margin-bottom: 32px !important;
     padding: 24px !important;
 }
-.left-menu{       
-    bottom: 0px !important;
-    float: left !important;
-    position: fixed !important;
-    top: 270px !important;
-    transform: translateZ(0px) !important;
-    vertical-align: top !important;
-    z-index: 1 !important;
-    overflow: auto overlay !important;
-}
 .span-icon-button{
     display: table-cell !important;
     vertical-align: middle !important;
@@ -666,4 +665,49 @@ select::-ms-expand {
     text-align: right;
     font-weight: normal;
     padding-top: 5px;
+}
+
+.title-list{
+    font-size:16px;
+    font-weight: 600 !important;
+    line-height: 1.375em !important;
+    color: #484848 !important;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+}
+
+.margin-bottom-md {
+    margin-bottom: 20px;
+}
+
+.homes{
+    position: relative;
+    cursor: pointer;
+}
+
+.home-image{
+    width: 100%;
+    height: 100%;
+    /* position: absolute; */
+}
+
+.home-description {
+    font-weight: bold;
+    position: absolute;
+    color: white;
+    bottom: 0;
+    padding: 12px;
+    text-shadow: 0 2px 1em #000000 !important;
+    background: -webkit-linear-gradient(transparent 0%, rgba(0,0,0,0.65) 100%) !important;
+    width: 100%;
+}
+.listHome{
+    /* height: 800px; */
+}
+
+.font-size18{
+    font-size: 18px;
+}
+
+.font-size16{
+    font-size: 16px;
 }

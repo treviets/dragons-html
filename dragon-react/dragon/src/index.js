@@ -6,6 +6,8 @@ import { renderRoutes } from 'react-router-config'
 import { routes } from './routes/RouteMap'
 import 'font-awesome/css/font-awesome.min.css';
 import * as serviceWorker from './serviceWorker';
+import { config } from './actions/apiUtils'
+config()
 
 ReactDOM.render(<BrowserRouter>
     {renderRoutes(routes)}
