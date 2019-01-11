@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import '../../assets/css/slide.css'
 import '../../assets/css/style.css'
 
-
 class HomeComponent extends Component { 
     
     render() {
@@ -133,7 +132,7 @@ class HomeComponent extends Component {
                                                 <div style={{marginBottom: '16px'}}>
                                                     <div>
                                                         <div>
-                                                            <label className="_4m7syz" >
+                                                            <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Entire_home">
                                                                 <div className="_gyif22">
                                                                     <div className="_73ihd0r">
                                                                         <span className="_foa2bi">
@@ -159,7 +158,7 @@ class HomeComponent extends Component {
                                                 <div style={{marginBottom: '16px'}}>
                                                     <div>
                                                         <div>
-                                                            <label className="_4m7syz" >
+                                                            <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Private_room">
                                                                 <div className="_gyif22">
                                                                     <div className="_73ihd0r">
                                                                         <span className="_foa2bi">
@@ -183,7 +182,7 @@ class HomeComponent extends Component {
                                                 <div style={{marginBottom: '16px'}}>
                                                     <div>
                                                         <div>
-                                                            <label className="_4m7syz" >
+                                                            <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Shared_room">
                                                                 <div className="_gyif22">
                                                                     <div className="_73ihd0r">
                                                                         <span className="_foa2bi">

@@ -46,42 +46,7 @@ $(document).ready(function() {
 
     $( "#amount-range-private" ).hide();
     $( "#select-range" ).show();
-    $( "#btn-open-range" ).click(function(){
-        if ($("#amount-range-private").is(":visible")){
-            $( "#amount-range-private" ).hide(300);
-            $( "#select-range" ).show(300);
-            $(this).find("._d5depq").css("transition-duration","0.3s")
-            $(this).find("._d5depq").css("transform","rotate(180deg)")
-            
-        }else {
-            $( "#amount-range-private" ).show(300);
-            $( "#select-range" ).hide(300);
-            $(this).find("._d5depq").css("transition-duration","0.3s")
-            $(this).find("._d5depq").css("transform","rotate(0deg)")
-        }
-
-    })
-
-
-
-
-    $( "#Entire" ).hide();
-    $( "#Entire-checkbox" ).show();
-    $( "#open-checkbox" ).click(function(){
-        if ($("#Entire").is(":visible")){
-            $( "#Entire" ).hide(300);
-            $( "#Entire-checkbox" ).show(300);
-            $(this).find("._d5depq").css("transition-duration","0.3s")
-            $(this).find("._d5depq").css("transform","rotate(180deg)")
-            
-        }else {
-            $(this).find("._d5depq").css("transition-duration","0.3s")
-            $(this).find("._d5depq").css("transform","rotate(0deg)")
-            $( "#Entire" ).show(300);
-            $( "#Entire-checkbox" ).hide(300);
-        }
-
-    })
+ 
 
 
 

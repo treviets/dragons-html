@@ -2,22 +2,37 @@ import React, {Component} from 'react';
 
 import '../assets/js/index'
 import '../assets/css/header.css'
-
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 class PageHeader extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            select:""
+            select:"",
+            startDate: null,
+            endDate: null,
         };
         this.handeChage =  this.handeChage.bind(this)
+        this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
+        this.handleChangeToTime = this.handleChangeToTime.bind(this);
 
 
     }
     handeChage(event){
         this.setState({
             select: event.target.value,
+        });
+    }
+    handleChangeFromTime(date) {
+        this.setState({
+            startDate: date,
+        });
+    }
+    handleChangeToTime(date){
+        this.setState({
+            endDate:date,
         });
     }
     componentDidMount() {
@@ -97,14 +112,20 @@ class PageHeader extends Component {
                                     </div>
                                     <div className="col-md-2 col-sm-2 col-init col-search" >
                                         <span style={{ display: 'block', position: 'relative'}}>
-                                            <input className="border-none input-search"  id="datepicker" type="text" placeholder="Check In" />
+                                            <DatePicker className="border-none input-search" id="checkIn" ref="check" placeholderText="Check In"
+                                                selected={this.state.startDate}
+                                                onChange={this.handleChangeFromTime}
+                                            />                                            
                                             <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                     <div className="col-md-2 col-sm-2 col-init col-search" >
                                         <span style={{ display: 'block', position: 'relative'}}>
-                                                <input className="border-none input-search"  id="datepicker1" type="text" placeholder="Check Out" />
-                                                <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
+                                            <DatePicker className="border-none input-search" id="checkOut"  placeholderText="Check Out"
+                                                selected={this.state.endDate}
+                                                onChange={this.handleChangeToTime}
+                                            />                                                
+                                            <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
                                         </span>                    
                                     </div>
                                     <div className="col-md-2 col-sm-2 col-init col-search" >

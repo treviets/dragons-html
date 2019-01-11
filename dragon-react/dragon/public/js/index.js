@@ -12,6 +12,8 @@ $(document).ready(function() {
            
         }
     });
+    $( "#checkIn" ).closest(".react-datepicker-wrapper").css( "width", "90%" );
+    $( "#checkOut" ).closest(".react-datepicker-wrapper").css( "width", "90%" );
 
     var active_sub_menu = $('#root').find('.home');
 
