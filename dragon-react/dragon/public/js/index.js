@@ -12,6 +12,17 @@ $(document).ready(function() {
            
     //     }
     // });
+    window.onscroll = function() {myFunction()};
+        var header = document.getElementById("header");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("f-nav");
+        } else {
+            header.classList.remove("f-nav");
+        }
+    }
     $( "#checkIn" ).closest(".react-datepicker-wrapper").css( "width", "90%" );
     $( "#checkOut" ).closest(".react-datepicker-wrapper").css( "width", "90%" );
 

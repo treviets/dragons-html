@@ -3,9 +3,9 @@ import 'jquery-ui-bundle';
 import 'jquery-ui-bundle/jquery-ui.css';
 $(document).ready(function() {
     
-    var nav = $("#header");
+    // var nav = $("#header");
     // $(window).scroll(function () {
-    //     if ($(this).scrollTop() > 0) {
+    //     if ($(this).pageYOffset() > 0) {
     //         nav.addClass("f-nav");
           
     //     } else {
@@ -14,14 +14,23 @@ $(document).ready(function() {
            
     //     }
     // });
+    window.onscroll = function() {myFunction()};
+        var header = document.getElementById("header");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("f-nav");
+        } else {
+            header.classList.remove("f-nav");
+        }
+    }
     var active_sub_menu = $('#root').find('.home');
 
     if (active_sub_menu.length){
         $("#header-search").show();
-        $(".footer").hide();
     } else{
         $("#header-search").hide();
-        $(".footer").show();
 
     }
     $( "#datepicker" ).datepicker();

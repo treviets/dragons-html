@@ -3,6 +3,8 @@ import '../assets/css/privateHomeInHouse.css'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../assets/js/plus'
+import homeService from '../services/home.js'
+import * as Constants from '../const.js'
 
 
 class DetailHouseComponent extends Component { 
@@ -15,6 +17,7 @@ class DetailHouseComponent extends Component {
             endDate: new Date(),
             countPlus : 1,
             showGuests: true,
+            roomData:{},
         };
         this.handeChageGuest =  this.handeChageGuest.bind(this);
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
@@ -22,8 +25,18 @@ class DetailHouseComponent extends Component {
         this.handlePlus = this.handlePlus.bind(this);
         this.handleMinus = this.handleMinus.bind(this);
         this.handleChooseGuests = this.handleChooseGuests.bind(this);
+        this.loadData = this.loadData.bind(this);
 
     }
+    componentDidMount(){
+        this.loadData()
+    }
+    async loadData(){
+        const res = await homeService.getDetailRoom(this.props.room.Id)
+        this.setState({roomData: res.Data})
+        console.log(this.state.roomData)
+    }
+
     handeChageGuest(event){
         this.setState({
             selectGuest: event.target.value,
@@ -56,57 +69,79 @@ class DetailHouseComponent extends Component {
             showGuests: true
         });
     }
+    currencyFormat = (uv) => {
+
+        if (Math.floor(uv) === 0) {
+            return "0"
+        }
+
+        var price = Math.floor(uv)
+        var priceString = ''
+        var count = 0
+
+        while (price > 0) {
+            var number = price % 10;
+            price = Math.floor(price / 10);
+            count = count + 1
+
+            priceString = number + priceString;
+
+            if (count === 3 && price > 0) {
+                priceString = "," + priceString;
+                count = 0;
+            }
+
+        }
+
+        return priceString 
+    }
 
     render() {
         return (
-            <div className="container divbody">
+
+            <div className="container">
                 <div className="privateRom">
                     <div className="row">
                         <div className="col-md-7 col-sm-12">
-                            <h5 style={{color: 'darkred'}}>PRIVATE ROOM IN HOUSE</h5>
+                            <p style={{color: '#39576a'}}><b>{this.props.roomType}</b></p>
                             <div className="optionTitle">
-                                <p className="title">5 minutes on foot from Takaida Statiion!</p>
-                                <p>Higashiosaka-shi</p>
-                                <img className="avatar" src="../img/avatar.jpg" alt=""/>
-                                <span>
-                                    <i className="fa fa-users" aria-hidden="true"></i> 8 guests
-                                    <i className="fa fa-bell" aria-hidden="true"></i> 2 bedrooms
-                                    <i className="fa fa-bed" aria-hidden="true"></i> 8 beds
-                                    <i className="fa fa-bath" aria-hidden="true"></i> 1 share bath
+                                <p className="title">{this.state.roomData.Title}</p>
+                                <img className="avatar" src="../img/icondragon.jpg" alt=""/>
+                                <span className="font-size18">
+                                    <i className="fa fa-users paddingLeft5" aria-hidden="true"></i> {this.props.room.NumberOfGuest} guests
+                                    <i className="fa fa-bell paddingLeft5" aria-hidden="true"></i> {this.state.roomData.Bedroom} bedrooms
+                                    <i className="fa fa-bed paddingLeft5" aria-hidden="true" ></i> {this.state.roomData.Bed} beds
+                                    <i className="fa fa-bath paddingLeft5" aria-hidden="true"></i> {this.state.roomData.Bath} share bath
                                 </span>
                             </div>
-                            <div className="home-high-lights">
-                                <div className="content">
-                                    <p>HOME HIGHLIGHTS</p>
-                                    <p>Hiroyasu is a Superhost. Superhosts are experienced, highly rated hosts</p>
-                                    <p>Who are commited to providing greate stays for guests.</p>
-                                    <p>
-                                        <span>
-                                            Helpful <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>.
-                                            Not helpful <i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                        </span>
-                                    </p>
-                                    <p>Sparkling clean. 11 recent guest have said that this home was sparkling clean.</p>
-                                    <p>
-                                        <span>
-                                            Helpful <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>.
-                                            Not helpful <i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                        </span>
-                                    </p>
-                                    <p>Hot tub. This is one of few homes in this area that has this features.</p>
-                                    <p>
-                                        <span>
-                                            Helpful <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>.
-                                            Not helpful <i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                        </span>
-                                    </p>
+                            <br/>
+                            <hr/> 
+                            <div className="description font-size18">
+                                <p>{this.state.roomData.Description}</p>
+   
+                                <a href="#show" className="readmore" id="show">Read more about the space</a>                                                         
+                                <svg className="readmore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)'}}>
+                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                </svg>
+                                
+                                <div className="space-detail">
+                                    <p className="space">The Space</p>      
+                                    <p>{this.state.roomData.TheSpace}</p>
+                                    <p className="space">Guest access</p>      
+                                    <p>{this.state.roomData.GuestAccess}</p>
+                                    <p className="space">Interaction with guests</p>      
+                                    <p>{this.state.roomData.InteractionWithGuests}</p>
                                 </div>
+                            
+                                <a href="#hide" className="hidemore" id="hide">Hide</a>      
+                                <svg className="hidemore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform:'rotate(180deg)'}}>
+                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                </svg>
+                        
+                                                                           
+
                             </div>
                             <br/>
-                            <p>Higashiosaka Takaida Monozukuri (Craftsmanship) Experience and Traing Facility <br/>(inside Doushin Kinzoku Kogyo, Inc..)</p>
-                            <p>For transportation, Takaida station on the Chuo subway Line and JR Takaida-Chuo <br/>station are available</p>
-                            <br/>
-                            <p style={{color: '#40bab3'}}>Read more about the space</p>
                             <p style={{color: '#40bab3'}}>Contact host</p>
 
                         </div>
@@ -114,7 +149,7 @@ class DetailHouseComponent extends Component {
                             <div className="request-to-book">
                                 <div className="content-request">
                                     <span>
-                                        <b>$35</b> per night
+                                        <b>₫{this.currencyFormat(this.props.room.Price)}</b> per night
                                     </span>
                                     <p>
                                         <span>

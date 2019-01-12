@@ -65,7 +65,7 @@ class PageHeader extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav row-direction" style={{textAlign: 'center',width: '100%'}}>
                             <li className="nav-item active">
-                                <a className="nav-link" href="index.html">Home</a>
+                                <a className="nav-link" href="/">Home</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">About</a>
@@ -131,9 +131,9 @@ class PageHeader extends Component {
                                     <div className="col-md-2 col-sm-2 col-init col-search" >
                                         <span style={{ display: 'block', position: 'relative'}}>
                                                 <select className="border-none input-search" value={this.state.select} onChange={this.handeChage}  id="inlineFormCustomSelect"  >
-                                                        <option value="" disabled hidden>Number of quests</option>
-                                                        <option value="2">1 quest</option>
-                                                        <option value="1">2 quests</option>
+                                                        <option value="" disabled hidden>Number of guests</option>
+                                                        <option value="2">1 guest</option>
+                                                        <option value="1">2 guests</option>
                                                 </select>                                
                                                 <i className="fa fa-angle-down icon-search" aria-hidden="true"></i>
                                         </span>                    

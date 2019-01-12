@@ -55,7 +55,7 @@
     font-size: 11px;
 }
 .title{
-    font-size: 20px;
+    font-size: 32px;
     font-weight: bold;
 }
 p{
@@ -118,3 +118,35 @@ select {
     display: inline;
     text-align: center;
 }
+.space{
+    color: #484848 ;
+    font-weight: bold;
+}
+
+.readmore{
+    color: #008489;
+}
+
+.hidemore{
+    color: #008489;
+    display: none;
+}
+
+.readmore:target ~ .hidemore {
+    display: inline;
+ }
+.readmore:target {display: none;}
+.readmore:target ~ .readmore {display: none;}
+.readmore:target ~ .space-detail {
+    max-height: 100%; 
+    opacity: 1;
+ }
+ 
+ .space-detail {
+   position: relative;
+   opacity: 0;
+   max-height: 0;
+   overflow: hidden;
+   transition: .25s ease;
+ 
+ }

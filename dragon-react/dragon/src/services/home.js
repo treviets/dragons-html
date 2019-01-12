@@ -26,6 +26,19 @@ const HomeService = {
 
             }
         }
+    },
+    getDetailRoom: async function (roomId) {
+        try {
+            const response = await getFromUrl(
+                "/dragons/room_detail/by_room_id?roomId="+roomId);
+            const data = response.data;
+            return data
+            
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
     }
 }
 
