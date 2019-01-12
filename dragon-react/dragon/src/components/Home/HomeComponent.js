@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../../assets/css/slide.css'
 import '../../assets/css/style.css'
 import '../../assets/js/index'
-
+import $ from "jquery";
 import homeService from '../../services/home.js'
 import * as Constants from '../../const.js'
 import DetailHouse from '../DetailHouse'
@@ -24,7 +24,8 @@ class HomeComponent extends Component {
             nameHome:"",
             is_Detail:false,
             room:{},
-            roomType:''
+            roomType:'',
+            imgsRoom:[],
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
         this.handleChangeToTime = this.handleChangeToTime.bind(this)
@@ -45,8 +46,9 @@ class HomeComponent extends Component {
     handleBackRoom(){
         this.setState({is_Detail:false})
     }
-    handleGetDetailRoom(room,roomType){
-        this.setState({is_Detail:true, room:room,roomType:roomType})
+    handleGetDetailRoom(room,roomType, imgs){
+        this.setState({is_Detail:true, room:room,roomType:roomType, imgsRoom: imgs})
+        $("#header-search").hide();
     }
     handleBackHome(){
         this.setState({is_listHome:true})
@@ -127,15 +129,16 @@ class HomeComponent extends Component {
     }
     renderListRooms(room,index){
         var typeroom = this.typeRoom(room.Type)
-        var onClick = this.handleGetDetailRoom.bind(this, room, typeroom);
-
         var imgs = room.Images.split('|')
+        var onClick = this.handleGetDetailRoom.bind(this, room, typeroom, imgs);
+
+        
         var indexTarget = []
         for(var i = 0 ; i<imgs.length; i++){
             indexTarget.push('#de'+i)
         }
         return <div className="col-md-6 col-lg-4 bottom-group" key={index} >
-        <div className="listrooms" onClick={onClick}>
+        <div className="listrooms" onClick={onClick} id="listrooms">
             <div id={'de'+index} className="carousel slide" data-ride="carousel"  data-interval="false">
             
                 <ul className="carousel-indicators">
@@ -290,9 +293,34 @@ class HomeComponent extends Component {
         return (
         <div>
         {this.state.is_Detail?
-            <div className="container detailRoom divbody">
-                <span onClick={this.handleBackRoom} className="container backList" >All Lists </span>
-                <DetailHouse room={this.state.room} roomType={this.state.roomType}/>
+            <div className="detailRoom">
+                 <div className="img-Room">
+                    <div className="row">
+                        <div className="col-md-6 col-init-no">
+                            <img className="zoom-img" src={Constants.apiImg+this.state.imgsRoom[0]} width="100%" height="100%"/>
+                        </div>
+                        <div className="col-md-6 col-init-no">
+                            <div className="row col-init-no">
+                                <div  className="col-md-6 col-init-no">
+                                    <img src={Constants.apiImg+this.state.imgsRoom[1]} width="100%" height="100%"/>
+                                </div>
+                                <div  className="col-md-6 col-init-no">
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[2]} width="100%" height="100%"/>
+                                </div>
+                                <div  className="col-md-6 col-init-no">
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[3]} width="100%" height="100%"/>
+                                </div>
+                                <div  className="col-md-6 col-init-no">
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[4]} width="100%" height="100%"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="divbody container">
+                    <span onClick={this.handleBackRoom} className="container backList" >All Lists </span>
+                    <DetailHouse room={this.state.room} roomType={this.state.roomType} imgsRoom={this.state.imgsRoom}/>
+                </div>
             </div>
         :
         <div className="home">          

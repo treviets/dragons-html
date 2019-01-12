@@ -3,6 +3,7 @@ import '../assets/css/privateHomeInHouse.css'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../assets/js/plus'
+import '../assets/js/index'
 import homeService from '../services/home.js'
 import * as Constants from '../const.js'
 
@@ -98,7 +99,8 @@ class DetailHouseComponent extends Component {
 
     render() {
         return (
-
+        <div>
+           
             <div className="container">
                 <div className="privateRom">
                     <div className="row">
@@ -241,6 +243,7 @@ class DetailHouseComponent extends Component {
                     </div>
                 </div>
             </div>
+        </div>
         )
     }
 }
