@@ -9,6 +9,7 @@
     "jquery-ui": "^1.12.1",
     "jquery-ui-bundle": "^1.12.1-migrate",
     "jquery-ui-dist": "^1.12.1",
+    "moment": "^2.23.0",
     "popper.js": "^1.14.6",
     "qs": "^6.6.0",
     "react": "^16.7.0",

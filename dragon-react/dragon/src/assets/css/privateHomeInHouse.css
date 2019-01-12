@@ -21,6 +21,18 @@
     object-position: top;
     object-fit: cover;
 }
+
+.avatar-cus {
+    vertical-align: middle;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    object-position: top;
+    object-fit: cover;
+}
 .request-to-book{
     -moz-box-shadow:    inset 0 0 2px grey;
     -webkit-box-shadow: inset 0 0 2px grey;

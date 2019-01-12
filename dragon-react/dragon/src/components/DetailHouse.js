@@ -19,6 +19,7 @@ class DetailHouseComponent extends Component {
             countPlus : 1,
             showGuests: true,
             roomData:{},
+            numberReviews:0,
         };
         this.handeChageGuest =  this.handeChageGuest.bind(this);
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
@@ -34,7 +35,7 @@ class DetailHouseComponent extends Component {
     }
     async loadData(){
         const res = await homeService.getDetailRoom(this.props.room.Id)
-        this.setState({roomData: res.Data})
+        this.setState({roomData: res.Data,numberReviews: res.Data.Reviews.length})
         console.log(this.state.roomData)
     }
 
@@ -142,9 +143,17 @@ class DetailHouseComponent extends Component {
                         
                                                                            
 
-                            </div>
+                            </div>                          
                             <br/>
-                            <p style={{color: '#40bab3'}}>Contact host</p>
+                            <br/>
+                            <br/>
+                            <hr style={{display:'block'}}/>
+                                <p className="title">{this.state.numberReviews}  Reviews  </p>   
+                              
+                            <hr/>
+
+               
+                            
 
                         </div>
                         <div className="col-md-5 col-sm-12">
