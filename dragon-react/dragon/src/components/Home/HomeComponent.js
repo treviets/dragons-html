@@ -6,7 +6,6 @@ import $ from "jquery";
 import homeService from '../../services/home.js'
 import * as Constants from '../../const.js'
 import DetailHouse from '../DetailHouse'
-import moment from 'moment'
 import qs from 'qs'
 
 
@@ -27,7 +26,6 @@ class HomeComponent extends Component {
             room:{},
             roomType:'',
             imgsRoom:[],
-            homeId:0,
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
         this.handleChangeToTime = this.handleChangeToTime.bind(this)
@@ -87,7 +85,7 @@ class HomeComponent extends Component {
         return  <div className="col-md-4 col-sm-6 margin-bottom-md" key={index}>
             <div className="homes" onClick={onClick}>
                 
-                <img className="home-image" src={Constants.apiImg+home.Images[0].Image}/>
+                <img className="home-image" src={Constants.apiImg+home.Images}/>
                 <div className="home-description"  >
                     <div className="font-size18">{home.Name}</div>
                     <div className="font-size16">{home.NumberOfRooms} homes</div>
@@ -118,7 +116,7 @@ class HomeComponent extends Component {
             clss +=" active"
         }
         return  <div className={clss} key={index}>
-                <img src={Constants.apiImg+img.Image} alt="Los Angeles" width="1100" height="500"/>
+                <img src={Constants.apiImg+img} alt="Los Angeles" width="1100" height="500"/>
             </div> ;
     }
     renderLiTarget(value, index){
@@ -131,7 +129,7 @@ class HomeComponent extends Component {
     }
     renderListRooms(room,index){
         var typeroom = this.typeRoom(room.Type)
-        var imgs = room.Images
+        var imgs = room.Images.split('|')
         var onClick = this.handleGetDetailRoom.bind(this, room, typeroom, imgs);
 
         
@@ -251,7 +249,7 @@ class HomeComponent extends Component {
     }
     handleGetDetail(id,name){
         this.GetDetailHome(id)
-        this.setState({nameHome:name,homeId:id})
+        this.setState({nameHome:name})
 
     }
     async GetDetailHome(id){
@@ -261,36 +259,13 @@ class HomeComponent extends Component {
         console.log(this.state.listRoom)
     }
     componentDidMount(){
-        const ical = require('ical-generator');
-        const cal = ical({domain: 'github.com', name: 'my first iCal'});
-        
-        // overwrite domain
-        cal.domain('airbnb.com');
-        cal.url('https://www.airbnb.com/calendar/ical/31274588.ics?s=a2ec55ccf444313f74d7d0e5230dff27')
-        cal.prodId('//airbnb.com//ical-generator//EN')
-        cal.timezone('Asia/Ho_Chi_Minh')
-        cal.ttl(60 * 60 * 24)
-        
-        cal.createEvent({
-            start: moment(),
-            end: moment().add(1, 'hour'),
-            summary: 'Example Event',
-            description: 'It works ;)',
-            location: 'my room',
-            url: 'httpw://www.airbnb.com/'
-        });
-
-        
-        cal.toString()
-        
-        console.log(cal.toString())        
-
         this.handlegetListHomes()
 
     }
     async handlegetListHomes(){
         const res = await homeService.getListHomes()
-        this.setState({listHome: res.Data})
+        console.log(res)
+        // this.setState({listHome: res.Data})
     }
     handleChangeFromTime(date) {
         this.setState({
@@ -323,21 +298,21 @@ class HomeComponent extends Component {
                  <div className="img-Room">
                     <div className="row">
                         <div className="col-md-6 col-init-no">
-                            <img className="zoom-img" src={Constants.apiImg+this.state.imgsRoom[0].Image} width="100%" height="100%"/>
+                            <img className="zoom-img" src={Constants.apiImg+this.state.imgsRoom[0]} width="100%" height="100%"/>
                         </div>
                         <div className="col-md-6 col-init-no">
                             <div className="row col-init-no">
                                 <div  className="col-md-6 col-init-no">
-                                    <img src={Constants.apiImg+this.state.imgsRoom[1].Image} width="100%" height="100%"/>
+                                    <img src={Constants.apiImg+this.state.imgsRoom[1]} width="100%" height="100%"/>
                                 </div>
                                 <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[2].Image} width="100%" height="100%"/>
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[2]} width="100%" height="100%"/>
                                 </div>
                                 <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[3].Image} width="100%" height="100%"/>
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[3]} width="100%" height="100%"/>
                                 </div>
                                 <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[4].Image} width="100%" height="100%"/>
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[4]} width="100%" height="100%"/>
                                 </div>
                             </div>
                         </div>
@@ -345,7 +320,7 @@ class HomeComponent extends Component {
                 </div>
                 <div className="divbody container">
                     <span onClick={this.handleBackRoom} className="container backList" >All Lists </span>
-                    <DetailHouse homeId={this.state.homeId} room={this.state.room} roomType={this.state.roomType} imgsRoom={this.state.imgsRoom}/>
+                    <DetailHouse room={this.state.room} roomType={this.state.roomType} imgsRoom={this.state.imgsRoom}/>
                 </div>
             </div>
         :

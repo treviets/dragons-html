@@ -4,7 +4,23 @@ import '../assets/js/index'
 import '../assets/css/header.css'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import Select from 'react-select';
+import axios from 'axios';
 
+const optionsMonth = [
+    { value: '1', label: 'January' },
+    { value: '2', label: 'February' },
+    { value: '3', label: 'March' },
+    { value: '4', label: 'April' },
+    { value: '5', label: 'May' },
+    { value: '6', label: 'June' },
+    { value: '7', label: 'July' },
+    { value: '8', label: 'August' },
+    { value: '9', label: 'September' },
+    { value: '10', label: 'October' },
+    { value: '11', label: 'November' },
+    { value: '12', label: 'December' }
+];
 class PageHeader extends Component {
     constructor(props) {
         super(props);
@@ -13,29 +29,83 @@ class PageHeader extends Component {
             select:"",
             startDate: null,
             endDate: null,
+            selectedOption: null,
+            optionsMonth:[],
+            selectedMonth:null,
+            email:"",
+            firstname:"",
+            lastname:"",
+            password:"",
+
         };
-        this.handeChage =  this.handeChage.bind(this)
+        this.handeChage =  this.handeChage.bind(this);
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
         this.handleChangeToTime = this.handleChangeToTime.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeMonth = this.handleChangeMonth.bind(this);
+        this.signUpAccount = this.signUpAccount.bind(this);
 
 
     }
+
     handeChage(event){
         this.setState({
             select: event.target.value,
         });
-    }
+    };
+    handleChange = (selectedOption) => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+    };
+    handleChangeMonth =(selectedMonth) => {
+        this.setState({ selectedMonth });
+        console.log(`Option selected:`, selectedMonth);
+    };
     handleChangeFromTime(date) {
         this.setState({
             startDate: date,
         });
-    }
+    };
     handleChangeToTime(date){
         this.setState({
             endDate:date,
         });
-    }
-    componentDidMount() {
+    };
+
+    signUpAccount = event => {
+        event.preventDefault();
+
+        console.log(this.refs.email.value)
+        const user = {
+            Avatar: "",
+            DateOfBirth: "1995-01-15",
+            Email: this.refs.email.value,
+            Firstname: this.refs.firstname.value,
+            Lastname: this.refs.lastname.value,
+            Password: this.refs.password.value,
+        };
+
+
+        let userJson = JSON.stringify(user);
+
+        console.log(userJson)
+
+
+        var url = "http://localhost:8080/dragons/customer/create_user/"
+
+        axios.defaults.headers = {
+            'Content-Type': 'application/json',
+        }
+
+        axios.post(url,{user}).then(response =>{
+            console.log(response);
+            console.log(response.data)
+        })
+};
+
+
+
+componentDidMount() {
         // Jquery here $(...)...
         // var nav = $("#menu-header");
         // $(window).scroll(function () {
@@ -50,6 +120,11 @@ class PageHeader extends Component {
       
     }
     render() {
+
+        const {
+            selectedOption,
+            selectedMonth
+        } = this.state;
         return (
             <div  >
                 <nav className="navbar navbar-expand-lg bg-blue"id="header" >
@@ -201,40 +276,30 @@ class PageHeader extends Component {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header login_modal_header">
-                                
-                                <h2 className="modal-title" id="myModalLabel">Sign Up Your Account</h2>
                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div className="modal-body login-modal">
                                 <div className="clearfix"></div>
                                 <div id='social-icons-conatainer'>
-                                    
                                     <div className=''>
                                         <div className="modal-social-icons">
                                             <a href='#' className="btn btn-default facebook"> 
                                                 <i className="fa fa-facebook modal-icons"></i> Continue with Facebook 
                                             </a>
-                                            <a href='#' className="btn btn-default twitter"> 
-                                                <i className="fa fa-twitter modal-icons"></i> Continue with Twitter 
-                                            </a>
                                             <a href='#' className="btn btn-default google"> 
                                                 <i className="fa fa-google-plus modal-icons"></i> Continue with Google 
                                             </a>
-                                            <a href='#' className="btn btn-default linkedin"> 
-                                                <i className="fa fa-linkedin modal-icons"></i> Continue with Linkedin 
+                                        </div>
+                                        <div className="conatainer divhr">
+                                            <p >or</p>
+                                        </div>
+                                        <div className="modal-social-icons">
+                                            <a href='#' className="btn btn-default email" data-dismiss="modal" data-toggle="modal" data-target="#register-modal">
+                                                <i className="fa fa-envelope-o modal-icons" /> Sign up with Email
                                             </a>
-                                        </div> 
-                                    </div>	
-                    
-                                </div>																												
-                                <div className="clearfix"></div>
-                                
-                                <div className="form-group modal-register-btn">
-                                    <button className="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#register-modal"> New User Please Register</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="clearfix"></div>
-                            <div className="modal-footer login_modal_footer">
                             </div>
                         </div>
                     </div>
@@ -249,7 +314,6 @@ class PageHeader extends Component {
                             </div>
                             <div className="modal-body login-modal">
                     
-                                <div className="clearfix"></div>
                                 <div id='social-icons-conatainer'>
                                     <div >
                                         <div className="form-group">
@@ -261,11 +325,11 @@ class PageHeader extends Component {
 
                                         </div>
                                         <div className="form-group">
-                                                <input  placeholder="Enter your phone"  className="form-control login-field"/>
+                                                <input  placeholder="Enter your phone"  ref="email" className="form-control login-field"/>
                                                 
                                             </div>
                                             <div className="form-group">
-                                                <input placeholder="Enter your address"  className="form-control login-field"/>
+                                                <input placeholder="Enter your address" ref="email" className="form-control login-field"/>
                                             </div>
                                             <div className="form-group">
                                                 <textarea rows="5" placeholder="Enter your message"  className="form-control login-field"></textarea>
@@ -286,34 +350,57 @@ class PageHeader extends Component {
                 <div className="modal fade" id="register-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            <div className="modal-header login_modal_header">                          
-                                <h2 className="modal-title" id="myModalLabel">Register new account</h2>
+                            <div className="modal-header">
+                                <span className="more_info">Sign up with
+                                    <span> Facebook</span> or
+                                    <span> Google</span>
+                                </span>
                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div className="modal-body login-modal">
-                        
-                                <div className="clearfix"></div>
                                 <div id='social-icons-conatainer'>
                                     <div >
                                         <div className="form-group">
-                                            <label>Username:</label>
-                                            <input type="text" placeholder="Enter Username" className="form-control login-field"/>
-                                        </div>
-                        
-                                        <div className="form-group">
-                                            <label>Password:</label>
-                                            <input type="password"  placeholder="Enter your password" className="form-control login-field"/>
+                                            <input type="text" placeholder="Email address" name="email" ref="email" className="form-control login-field"/>
                                         </div>
                                         <div className="form-group">
-                                            <label>Repeat Password:</label>
-                                            <input  placeholder="Enter your repeat password"  className="form-control login-field"/>                                              
+                                            <input type="text"  placeholder="First name" name="firstname" ref="firstname" className="form-control login-field"/>
                                         </div>
                                         <div className="form-group">
-                                            <label>Phone:</label>
-                                            <input placeholder="Enter your phone"  className="form-control login-field"/>
+                                            <input  placeholder="Last name"  name="lastname" ref="lastname" className="form-control login-field"/>
                                         </div>
-                        
-                                        <a href="#" className="btn btn-success modal-login-btn">SUBMIT</a>
+                                        <div className="form-group">
+                                            <input type="password" placeholder="Create a Password" ref="password"  name="password" className="form-control login-field"/>
+                                        </div>
+                                        <div className="birth_day">
+                                            <h5>Birthday</h5>
+                                            <p>To sign up, you must be 18 or older. Other people won’t see your birthday.s</p>
+                                            <div className="row">
+                                                <div className="col-md-5 col-sm-12">
+                                                    <Select
+                                                        value={selectedMonth}
+                                                        onChange={this.handleChangeMonth}
+                                                        options={optionsMonth}
+                                                    />
+                                                </div>
+                                                {/*<div className="col-md-3 col-sm-12">*/}
+                                                    {/*<Select*/}
+                                                        {/*value={selectedOption}*/}
+                                                        {/*onChange={this.handleChange}*/}
+                                                        {/*options={options}*/}
+                                                    {/*/>*/}
+                                                {/*</div>*/}
+                                                {/*<div className="col-md-4 col-sm-12">*/}
+                                                    {/*<Select*/}
+                                                        {/*value={selectedOption}*/}
+                                                        {/*onChange={this.handleChange}*/}
+                                                        {/*options={options}*/}
+                                                    {/*/>*/}
+                                                {/*</div>*/}
+                                            </div>
+
+                                        </div>
+                                        <button className="btn modal-login-btn" onClick={this.signUpAccount}>Sign up</button>
                                     </div>                               
                                 </div>
                             </div>																												
@@ -325,9 +412,6 @@ class PageHeader extends Component {
                 </div>
                 
             </div>
-
-    
-
     
         );
     }

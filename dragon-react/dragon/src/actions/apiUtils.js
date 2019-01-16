@@ -17,8 +17,7 @@ export function setAuthorizationToken(token) {
 export function config() {
     axios.defaults.baseURL = apiConfig.baseUrl
     axios.defaults.responseType = 'json'
-    axios.defaults.headers.common["Accept"] = "application/json";
-    axios.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8'
+    axios.defaults.headers.common['Content-Type'] = 'application/json'
     axios.defaults.headers["Accept"] = "application/json";
     axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8'
     axios.defaults.headers.common.post = {};
