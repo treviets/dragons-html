@@ -26,6 +26,7 @@ class HomeComponent extends Component {
             room:{},
             roomType:'',
             imgsRoom:[],
+            homeId:0,
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
         this.handleChangeToTime = this.handleChangeToTime.bind(this)
@@ -249,7 +250,7 @@ class HomeComponent extends Component {
     }
     handleGetDetail(id,name){
         this.GetDetailHome(id)
-        this.setState({nameHome:name})
+        this.setState({nameHome:name, homeId:id})
 
     }
     async GetDetailHome(id){
@@ -320,7 +321,7 @@ class HomeComponent extends Component {
                 </div>
                 <div className="divbody container">
                     <span onClick={this.handleBackRoom} className="container backList" >All Lists </span>
-                    <DetailHouse room={this.state.room} roomType={this.state.roomType} imgsRoom={this.state.imgsRoom}/>
+                    <DetailHouse homeId={this.state.homeId} room={this.state.room} roomType={this.state.roomType} imgsRoom={this.state.imgsRoom}/>
                 </div>
             </div>
         :
