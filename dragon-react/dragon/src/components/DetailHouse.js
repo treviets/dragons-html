@@ -5,7 +5,10 @@ import 'react-datepicker/dist/react-datepicker.css'
 import '../assets/js/plus'
 import '../assets/js/index'
 import homeService from '../services/home.js'
+import bookingService from '../services/booking.js'
 import * as Constants from '../const.js'
+import moment from 'moment'
+
 
 
 class DetailHouseComponent extends Component { 
@@ -13,13 +16,14 @@ class DetailHouseComponent extends Component {
         super(props);
 
         this.state = {
-            selectGuest:"",
+            selectGuest:1,
             startDate: new Date(),
             endDate: new Date(),
             countPlus : 1,
             showGuests: true,
             roomData:{},
             numberReviews:0,
+            
         };
         this.handeChageGuest =  this.handeChageGuest.bind(this);
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
@@ -27,6 +31,7 @@ class DetailHouseComponent extends Component {
         this.handlePlus = this.handlePlus.bind(this);
         this.handleMinus = this.handleMinus.bind(this);
         this.handleChooseGuests = this.handleChooseGuests.bind(this);
+        this.handeBooking = this.handeBooking.bind(this);
         this.loadData = this.loadData.bind(this);
 
     }
@@ -37,6 +42,26 @@ class DetailHouseComponent extends Component {
         const res = await homeService.getDetailRoom(this.props.room.Id)
         this.setState({roomData: res.Data,numberReviews: res.Data.Reviews.length})
         console.log(this.state.roomData)
+    }
+
+    async handeBooking(){
+        var from =  moment(this.state.startDate).format("YYYY-MM-DD HH:mm:ss")
+        var to =  moment(this.state.endDate).format("YYYY-MM-DD HH:mm:ss")
+        var diffInDates= moment(this.state.endDate).diff(moment(this.state.startDate), 'days') + 1;
+        var bookingJson={
+            CustomerId: 1,
+            FromDate: from,
+            HomeId: this.props.homeId,
+            NumberOfGuess: this.state.selectGuest,
+            NumberOfNights: diffInDates,
+            Price: this.props.room.Price,
+            RoomId: this.state.roomData.RoomId,
+            ToDate: to,
+            TotalAmount: this.props.room.Price * diffInDates
+          }
+        var myJSON = JSON.stringify(bookingJson);
+        const res = await bookingService.bookingCreate(myJSON)
+        console.log(res.Data)
     }
 
     handeChageGuest(event){
@@ -152,9 +177,6 @@ class DetailHouseComponent extends Component {
                               
                             <hr/>
 
-               
-                            
-
                         </div>
                         <div className="col-md-5 col-sm-12">
                             <div className="request-to-book">
@@ -202,7 +224,7 @@ class DetailHouseComponent extends Component {
                                             <option value="2">2 guests</option>
                                         </select>
                                         <br/>
-                                        <button className="form-control btnRequest">Request to Book</button>
+                                        <button className="form-control btnRequest" onClick={this.handeBooking}>Request to Book</button>
                                         <p style={{textAlign: 'center'}}>You won't be charged yet</p>
                                     </div>
                                     <hr/>
