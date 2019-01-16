@@ -85,7 +85,7 @@ class HomeComponent extends Component {
         return  <div className="col-md-4 col-sm-6 margin-bottom-md" key={index}>
             <div className="homes" onClick={onClick}>
                 
-                <img className="home-image" src={Constants.apiImg+home.Images}/>
+                <img className="home-image" src={Constants.apiImg+home.Images[0].Image}/>
                 <div className="home-description"  >
                     <div className="font-size18">{home.Name}</div>
                     <div className="font-size16">{home.NumberOfRooms} homes</div>
@@ -116,7 +116,7 @@ class HomeComponent extends Component {
             clss +=" active"
         }
         return  <div className={clss} key={index}>
-                <img src={Constants.apiImg+img} alt="Los Angeles" width="1100" height="500"/>
+                <img src={Constants.apiImg+img.Image} alt="Los Angeles" width="1100" height="500"/>
             </div> ;
     }
     renderLiTarget(value, index){
@@ -129,7 +129,7 @@ class HomeComponent extends Component {
     }
     renderListRooms(room,index){
         var typeroom = this.typeRoom(room.Type)
-        var imgs = room.Images.split('|')
+        var imgs = room.Images
         var onClick = this.handleGetDetailRoom.bind(this, room, typeroom, imgs);
 
         
@@ -138,7 +138,7 @@ class HomeComponent extends Component {
             indexTarget.push('#de'+i)
         }
         return <div className="col-md-6 col-lg-4 bottom-group" key={index} >
-        <div className="listrooms" onClick={onClick} id="listrooms">
+        <div className="listrooms"  id="listrooms">
             <div id={'de'+index} className="carousel slide" data-ride="carousel"  data-interval="false">
             
                 <ul className="carousel-indicators">
@@ -146,7 +146,7 @@ class HomeComponent extends Component {
                 </ul>
                 
             
-                <div className="carousel-inner">
+                <div className="carousel-inner" onClick={onClick}>
                     {imgs.map(this.renderImgsRoom)}
                 </div>
                 
@@ -158,7 +158,7 @@ class HomeComponent extends Component {
                     <span className="carousel-control-next-icon"></span>
                 </a>
             </div> 
-            <div className="_v72lrv">
+            <div className="_v72lrv" onClick={onClick}>
                 <span className="_1ol0z3h">
                     <div className="_wuffzwa" style={{color: 'rgb(98, 86, 75)'}}>
                         <div className="_1etkxf1" style={{color: 'rgb(98, 86, 75)'}}>
@@ -265,7 +265,7 @@ class HomeComponent extends Component {
     async handlegetListHomes(){
         const res = await homeService.getListHomes()
         console.log(res)
-        // this.setState({listHome: res.Data})
+        this.setState({listHome: res.Data})
     }
     handleChangeFromTime(date) {
         this.setState({
@@ -298,21 +298,21 @@ class HomeComponent extends Component {
                  <div className="img-Room">
                     <div className="row">
                         <div className="col-md-6 col-init-no">
-                            <img className="zoom-img" src={Constants.apiImg+this.state.imgsRoom[0]} width="100%" height="100%"/>
+                            <img className="zoom-img" src={Constants.apiImg+this.state.imgsRoom[0].Image} width="100%" height="100%"/>
                         </div>
                         <div className="col-md-6 col-init-no">
                             <div className="row col-init-no">
                                 <div  className="col-md-6 col-init-no">
-                                    <img src={Constants.apiImg+this.state.imgsRoom[1]} width="100%" height="100%"/>
+                                    <img src={Constants.apiImg+this.state.imgsRoom[1].Image} width="100%" height="100%"/>
                                 </div>
                                 <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[2]} width="100%" height="100%"/>
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[2].Image} width="100%" height="100%"/>
                                 </div>
                                 <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[3]} width="100%" height="100%"/>
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[3].Image} width="100%" height="100%"/>
                                 </div>
                                 <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[4]} width="100%" height="100%"/>
+                                    <img  src={Constants.apiImg+this.state.imgsRoom[4].Image} width="100%" height="100%"/>
                                 </div>
                             </div>
                         </div>
