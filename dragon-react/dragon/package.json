@@ -20,6 +20,7 @@
     "react-router-config": "^4.4.0-beta.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.2",
+    "react-select": "^2.2.0",
     "webpack": "^4.19.1",
     "webpack-dev-server": "^3.1.9"
   },
