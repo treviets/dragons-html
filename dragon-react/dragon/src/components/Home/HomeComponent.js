@@ -264,7 +264,8 @@ class HomeComponent extends Component {
     }
     async handlegetListHomes(){
         const res = await homeService.getListHomes()
-        this.setState({listHome: res.Data})
+        console.log(res)
+        // this.setState({listHome: res.Data})
     }
     handleChangeFromTime(date) {
         this.setState({

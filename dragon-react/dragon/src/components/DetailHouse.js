@@ -6,6 +6,7 @@ import '../assets/js/plus'
 import '../assets/js/index'
 import homeService from '../services/home.js'
 import * as Constants from '../const.js'
+import moment from 'moment'
 
 
 class DetailHouseComponent extends Component { 
@@ -59,6 +60,10 @@ class DetailHouseComponent extends Component {
         this.setState({
             countPlus: check+1
         })
+    }
+    formatTime(time){
+        return moment(time).format('LL');   // January 12, 2019
+
     }
     handleMinus(){
         const minus = this.state.countPlus;
@@ -147,10 +152,9 @@ class DetailHouseComponent extends Component {
                             <br/>
                             <br/>
                             <br/>
-                            <hr style={{display:'block'}}/>
-                                <p className="title">{this.state.numberReviews}  Reviews  </p>   
-                              
-                            <hr/>
+                            {/*<hr style={{display:'block'}}/>*/}
+                                {/*<p className="title">{this.state.numberReviews}  Reviews  </p>*/}
+                            {/*<hr/>*/}
 
                
                             
