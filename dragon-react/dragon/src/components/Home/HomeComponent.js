@@ -129,7 +129,7 @@ class HomeComponent extends Component {
 
     }
     renderListRooms(room,index){
-        var typeroom = this.typeRoom(room.Type)
+        var typeroom = this.typeRoom(room.RoomType)
         var imgs = room.Images
         var onClick = this.handleGetDetailRoom.bind(this, room, typeroom, imgs);
 

@@ -31,6 +31,6 @@ export function postFromUrl(url, data) {
     return axios.post(url, data)
 }
 
-export function getFromUrl(url, data) {
+export function  getFromUrl(url, data) {
     return axios.get(url + qs.stringify(data))
 }

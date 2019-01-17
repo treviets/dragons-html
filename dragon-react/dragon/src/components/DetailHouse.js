@@ -147,7 +147,7 @@ class DetailHouseComponent extends Component {
                             <br/>
                             <hr/> 
                             <div className="description font-size18">
-                                <p>{this.state.roomData.Description}</p>
+                                <p dangerouslySetInnerHTML={{__html: this.state.roomData.Description}}/>
    
                                 <a href="#show" className="readmore" id="show">Read more about the space</a>                                                         
                                 <svg className="readmore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)'}}>
@@ -155,12 +155,14 @@ class DetailHouseComponent extends Component {
                                 </svg>
                                 
                                 <div className="space-detail">
-                                    <p className="space">The Space</p>      
-                                    <p>{this.state.roomData.TheSpace}</p>
+                                    <p className="space">The Space</p>    
+                                    <p dangerouslySetInnerHTML={{__html: this.state.roomData.TheSpace}}/>  
                                     <p className="space">Guest access</p>      
-                                    <p>{this.state.roomData.GuestAccess}</p>
-                                    <p className="space">Interaction with guests</p>      
-                                    <p>{this.state.roomData.InteractionWithGuests}</p>
+                                    <p dangerouslySetInnerHTML={{__html: this.state.roomData.GuestAccess}}/>  
+                                    <p className="space">Interaction with guests</p>   
+                                    <p dangerouslySetInnerHTML={{__html: this.state.roomData.InteractionWithGuests}}/>  
+                                    <p className="space">Other things to note</p>   
+                                    <p dangerouslySetInnerHTML={{__html: this.state.roomData.OtherThings}}/>  
                                 </div>
                             
                                 <a href="#hide" className="hidemore" id="hide">Hide</a>      
@@ -174,9 +176,9 @@ class DetailHouseComponent extends Component {
                             <br/>
                             <br/>
                             <br/>
-                            {/*<hr style={{display:'block'}}/>*/}
-                                {/*<p className="title">{this.state.numberReviews}  Reviews  </p>*/}
-                            {/*<hr/>*/}
+                            <hr/> 
+                                <p className="space font-size18">Amenities</p>    
+                            <hr/>
 
                         </div>
                         <div className="col-md-5 col-sm-12">
