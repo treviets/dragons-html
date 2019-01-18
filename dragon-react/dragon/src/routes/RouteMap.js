@@ -11,6 +11,7 @@ const types = {
     accountSetting: '5',
     pastTrip: '6',
     today: '7',
+    updatePhone: '8',
 
 }
 
@@ -46,9 +47,13 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.today} />,
                 path: '/today'
+            },
+            {
+                component: () => <PageContentWrapper type={types.updatePhone} />,
+                path: '/update/phone'
             }
         ]
     }
-]   
+]
 
 export { routes, types }

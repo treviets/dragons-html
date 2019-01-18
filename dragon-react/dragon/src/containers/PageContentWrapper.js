@@ -8,6 +8,8 @@ import AccountSettingComponent from "../components/AccountSetting"
 import Today from "../components/Today"
 import PastTripComponent from "../components/PastTrip"
 import TodayComponent from '../components/Today';
+import UpdatePhone from '../components/UpdatePhone';
+
 
 
 
@@ -34,10 +36,13 @@ class PageContainerWrapper extends Component {
                 _view = <AccountSettingComponent />;
                 break;
             case types.pastTrip:
-                _view = < PastTripComponent/>;
+                _view = < PastTripComponent />;
                 break;
             case types.today:
                 _view = <TodayComponent />;
+                break;
+            case types.updatePhone:
+                _view = <UpdatePhone />;
                 break;
             default:
                 _view = "";
@@ -47,7 +52,7 @@ class PageContainerWrapper extends Component {
 
         return (
             <div>
-            {_view}
+                {_view}
             </div>
 
         )

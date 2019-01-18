@@ -163,3 +163,22 @@ select {
    transition: .25s ease;
  
  }
+ .form-update-phone{
+    width: 50.333333% !important;
+    margin-left: 27.33333% !important;
+    padding-top: 30px;
+
+ }
+
+ .form-update-phone select{
+     height: 40px !important;
+
+ }
+.form-update-phone .autho{
+    font-size: 12px;
+ }
+ .form-update-phone .btnNext {
+         background: rgb(0, 132, 137) !important;
+         color: white;         
+
+ }

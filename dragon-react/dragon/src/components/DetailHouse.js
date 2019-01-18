@@ -8,6 +8,7 @@ import homeService from '../services/home.js'
 import bookingService from '../services/booking.js'
 import * as Constants from '../const.js'
 import moment from 'moment'
+import UpdatePhone from './UpdatePhone';
 
 class DetailHouseComponent extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class DetailHouseComponent extends Component {
             showGuests: true,
             roomData: {},
             numberReviews: 0,
+            toAddPhone: false,
 
         };
         this.handeChageGuest = this.handeChageGuest.bind(this);
@@ -43,6 +45,10 @@ class DetailHouseComponent extends Component {
     }
 
     async handeBooking() {
+        // this.setState({
+        //     toAddPhone: true
+        // })
+
         var from = moment(this.state.startDate).format("YYYY-MM-DD HH:mm:ss")
         var to = moment(this.state.endDate).format("YYYY-MM-DD HH:mm:ss")
         var diffInDates = moment(this.state.endDate).diff(moment(this.state.startDate), 'days') + 1;
@@ -126,9 +132,12 @@ class DetailHouseComponent extends Component {
     }
 
     render() {
+        if (this.state.toAddPhone === true) {
+            return <UpdatePhone to='/update/phone' />
+        }
+
         return (
             <div>
-
                 <div className="container">
                     <div className="privateRom">
                         <div className="row">
@@ -276,7 +285,9 @@ class DetailHouseComponent extends Component {
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         )
     }
