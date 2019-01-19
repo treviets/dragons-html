@@ -27,6 +27,7 @@ class UpdatePhone extends Component {
                     </form>
 
                 </div>
+                <br/>
             </div>
         )
     }

@@ -703,6 +703,9 @@ select::-ms-expand {
 .listHome{
     /* height: 800px; */
 }
+.font-size24{
+    font-size: 24px;
+}
 
 .font-size18{
     font-size: 18px;
@@ -710,6 +713,9 @@ select::-ms-expand {
 
 .font-size16{
     font-size: 16px;
+}
+.font-size14{
+    font-size: 14px;
 }
 .listrooms{
     cursor: pointer;
@@ -755,4 +761,13 @@ select::-ms-expand {
   -webkit-transform: scale(1.08);
   transform: scale(1.08);
 }
+.margingBot5{
+    padding-bottom: 5px;
+}
 
+.cursorPointer{
+    cursor: pointer;
+}
+colorTitle{
+    color: #484848 !important;
+}
