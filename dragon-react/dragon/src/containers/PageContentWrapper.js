@@ -9,6 +9,7 @@ import Today from "../components/Today"
 import PastTripComponent from "../components/PastTrip"
 import TodayComponent from '../components/Today';
 import UpdatePhone from '../components/UpdatePhone';
+import ReviewHouse from '../components/ReviewHouse';
 
 
 
@@ -43,6 +44,9 @@ class PageContainerWrapper extends Component {
                 break;
             case types.updatePhone:
                 _view = <UpdatePhone />;
+                break;
+            case types.reviewHouse:
+                _view = <ReviewHouse />;
                 break;
             default:
                 _view = "";
