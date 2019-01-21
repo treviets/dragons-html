@@ -154,6 +154,34 @@ select {
     max-height: 100%; 
     opacity: 1;
  }
+
+ .readmoreNeighBorhood{
+    color: #008489;
+}
+
+.hidemoreNeighBorhood{
+    color: #008489;
+    display: none;
+}
+
+.readmoreNeighBorhood:target ~ .hidemoreNeighBorhood {
+    display: inline;
+ }
+
+.readmoreNeighBorhood:target {display: none;}
+.readmoreNeighBorhood:target ~ .readmoreNeighBorhood {display: none;}
+.readmoreNeighBorhood:target ~ .neightbor-detail {
+    max-height: 100%; 
+    opacity: 1;
+ }
+ 
+ .neightbor-detail{
+    position: relative;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: .25s ease;  
+ }
  
  .space-detail {
    position: relative;
@@ -182,3 +210,11 @@ select {
          color: white;         
 
  }
+
+ #accessibility-modal .modal-dialog{
+     max-width: 1032px;
+ }
+
+ #accessibility-modal .modal-dialog .modal-content{
+    padding: 35px;
+}

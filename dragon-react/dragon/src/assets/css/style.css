@@ -768,6 +768,19 @@ select::-ms-expand {
 .cursorPointer{
     cursor: pointer;
 }
-colorTitle{
+.colorTitle{
     color: #484848 !important;
+}
+
+.avatar-customer{
+    border-radius: 50%; 
+}
+
+.col-init-trans {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.divRelative {
+    position: relative;
 }

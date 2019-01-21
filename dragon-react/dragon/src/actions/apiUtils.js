@@ -1,8 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 const apiConfig = {
-    // baseUrl: 'https://admapi.live.iparkingstg.com/'
-    // baseUrl: 'https://admapi.iparkingtest.com/'
+    // baseUrl: 'http://localhost:8080/'
     baseUrl: 'https://payment.iparkingstg.com/'
 }
 

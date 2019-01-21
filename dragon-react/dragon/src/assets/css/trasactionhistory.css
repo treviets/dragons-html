@@ -27,10 +27,7 @@
 select {
        height: 34px !important;
    }
-.col-init-trans {
-    padding: 0 !important;
-    margin: 0 !important;
-}
+
 .hiddenDiv {
     font-size: 14px;
     background-color: white;
