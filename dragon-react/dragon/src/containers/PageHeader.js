@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import '../assets/js/index'
 import '../assets/css/header.css'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Select from 'react-select';
 import axios from 'axios';
@@ -172,55 +171,7 @@ componentDidMount() {
                     </div>
                     
                 </nav>
-                <div id="header-search"  className="banner menu-header" >
-                    <img src="img/banner-travel-insurance-2000x400.jpg" className="banner-menu" ></img>
-                    <div className="card-search">
-                        <div className="search-home">
-                            <div className="col-md-12 col-sm-12 col-init" style={{fontSize: '15px'}}>
-                                <div className="row">
-                                    <div className="col-md-3 col-sm-3 col-init col-search">
-                                        <span style={{ display: 'block', position: 'relative'}}>
-                                            <i className="fa fa-map-marker icon-search" aria-hidden="true"></i>
                 
-                                            <input className="border-none input-search"  placeholder="Enter a destination or property"/>
-                                        </span>
-                                    </div>
-                                    <div className="col-md-2 col-sm-2 col-init col-search" >
-                                        <span style={{ display: 'block', position: 'relative'}}>
-                                            <DatePicker className="border-none input-search" id="checkIn" ref="check" placeholderText="Check In"
-                                                selected={this.state.startDate}
-                                                onChange={this.handleChangeFromTime}
-                                            />                                            
-                                            <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                    <div className="col-md-2 col-sm-2 col-init col-search" >
-                                        <span style={{ display: 'block', position: 'relative'}}>
-                                            <DatePicker className="border-none input-search" id="checkOut"  placeholderText="Check Out"
-                                                selected={this.state.endDate}
-                                                onChange={this.handleChangeToTime}
-                                            />                                                
-                                            <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
-                                        </span>                    
-                                    </div>
-                                    <div className="col-md-2 col-sm-2 col-init col-search" >
-                                        <span style={{ display: 'block', position: 'relative'}}>
-                                                <select className="border-none input-search" value={this.state.select} onChange={this.handeChage}  id="inlineFormCustomSelect"  >
-                                                        <option value="" disabled hidden>Number of guests</option>
-                                                        <option value="2">1 guest</option>
-                                                        <option value="1">2 guests</option>
-                                                </select>                                
-                                                <i className="fa fa-angle-down icon-search" aria-hidden="true"></i>
-                                        </span>                    
-                                    </div>
-                                    <div className="col-md-2 col-sm-2 col-init col-search" style={{background: '#FF5A5F'}}>
-                                        <button className="button-search" >Search</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className="modal fade" id="login-modal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">

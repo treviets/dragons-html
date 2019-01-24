@@ -6,7 +6,9 @@ import $ from "jquery";
 import homeService from '../../services/home.js'
 import * as Constants from '../../const.js'
 import DetailHouse from '../DetailHouse'
-import qs from 'qs'
+import moment from 'moment'
+import DatePicker from 'react-datepicker'
+
 
 
 class HomeComponent extends Component {
@@ -41,15 +43,35 @@ class HomeComponent extends Component {
         this.handleBackHome = this.handleBackHome.bind(this)
         this.handleGetDetailRoom = this.handleGetDetailRoom.bind(this)
         this.handleBackRoom = this.handleBackRoom.bind(this)
+        this.handleSearch = this.handleSearch.bind(this)
+        this.handeChage = this.handeChage.bind(this)
         
 
     }
+    async handleSearch(){
+        var from = moment(this.state.startDate, "DD/MM/YYYY")
+        .startOf("day")
+        .unix();
+        var to =
+        moment(this.state.endDate, "DD/MM/YYYY")
+          .startOf("day")
+          .unix() + 86340;
+        const res = await homeService.searchRoom(0,from,to,this.state.selectGuest)
+        console.log(res)
+        this.setState({listRoom: res.Data})
+        this.setState({is_listHome:false})
+
+    }
+    handeChage(event){
+        this.setState({
+            selectGuest: event.target.value,
+        });
+    };
     handleBackRoom(){
         this.setState({is_Detail:false})
     }
     handleGetDetailRoom(room,roomType, imgs){
-        this.setState({is_Detail:true, room:room,roomType:roomType, imgsRoom: imgs})
-        $("#header-search").hide();
+        this.setState({homeId:room.HomeId,is_Detail:true, room:room,roomType:roomType, imgsRoom: imgs})
     }
     handleBackHome(){
         this.setState({is_listHome:true})
@@ -250,7 +272,7 @@ class HomeComponent extends Component {
     }
     handleGetDetail(id,name){
         this.GetDetailHome(id)
-        this.setState({nameHome:name, homeId:id})
+        this.setState({nameHome:name})
 
     }
     async GetDetailHome(id){
@@ -296,24 +318,24 @@ class HomeComponent extends Component {
         <div>
         {this.state.is_Detail?
             <div className="detailRoom">
-                 <div className="img-Room">
-                    <div className="row">
-                        <div className="col-md-6 col-init-no">
-                            <img className="zoom-img" src={Constants.apiImg+this.state.imgsRoom[0].Image} width="100%" height="100%"/>
+                 <div className="img-Room" id="img-Room">
+                    <div className="row" >
+                        <div className="col-md-6 col-init-no parent borderRight" >
+                            <img className="child" src={Constants.apiImg+this.state.imgsRoom[0].Image} width="100%" height="100%"/>
                         </div>
                         <div className="col-md-6 col-init-no">
                             <div className="row col-init-no">
-                                <div  className="col-md-6 col-init-no">
-                                    <img src={Constants.apiImg+this.state.imgsRoom[1].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent borderRight borderBottom">
+                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[1].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[2].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent borderBottom">
+                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[2].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[3].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent borderRight">
+                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[4].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no">
-                                    <img  src={Constants.apiImg+this.state.imgsRoom[4].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent">
+                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[3].Image} width="100%" height="100%"/>
                                 </div>
                             </div>
                         </div>
@@ -325,7 +347,56 @@ class HomeComponent extends Component {
                 </div>
             </div>
         :
-        <div className="home">          
+        <div className="home">
+            <div id="header-search"  className="banner menu-header" >
+                <img src="img/banner-travel-insurance-2000x400.jpg" className="banner-menu" ></img>
+                <div className="card-search">
+                    <div className="search-home">
+                        <div className="col-md-12 col-sm-12 col-init" style={{fontSize: '15px'}}>
+                            <div className="row">
+                                <div className="col-md-3 col-sm-3 col-init col-search">
+                                    <span style={{ display: 'block', position: 'relative'}}>
+                                        <i className="fa fa-map-marker icon-search" aria-hidden="true"></i>
+            
+                                        <input className="border-none input-search"  placeholder="Enter a destination or property"/>
+                                    </span>
+                                </div>
+                                <div className="col-md-2 col-sm-2 col-init col-search" >
+                                    <span style={{ display: 'block', position: 'relative'}}>
+                                        <DatePicker className="border-none input-search" id="checkIn" ref="check" placeholderText="Check In"
+                                            selected={this.state.startDate}
+                                            onChange={this.handleChangeFromTime}
+                                        />                                            
+                                        <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div className="col-md-2 col-sm-2 col-init col-search" >
+                                    <span style={{ display: 'block', position: 'relative'}}>
+                                        <DatePicker className="border-none input-search" id="checkOut"  placeholderText="Check Out"
+                                            selected={this.state.endDate}
+                                            onChange={this.handleChangeToTime}
+                                        />                                                
+                                        <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
+                                    </span>                    
+                                </div>
+                                <div className="col-md-2 col-sm-2 col-init col-search" >
+                                    <span style={{ display: 'block', position: 'relative'}}>
+                                            <select className="border-none input-search" value={this.state.selectGuest} onChange={this.handeChage}  id="inlineFormCustomSelect"  >
+                                                    <option value="" disabled hidden>Number of guests</option>
+                                                    <option value="2">1 guest</option>
+                                                    <option value="1">2 guests</option>
+                                            </select>                                
+                                            <i className="fa fa-angle-down icon-search" aria-hidden="true"></i>
+                                    </span>                    
+                                </div>
+                                <div className="col-md-2 col-sm-2 col-init col-search" style={{background: '#FF5A5F'}}>
+                                    <button className="button-search" onClick={this.handleSearch} >Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
             <div className="col-md-12">
                 <div className="left-menu left-responsive ">
                     <div className="menu no-padding-lr-mobile">

@@ -637,6 +637,10 @@ select::-ms-expand {
     .menu {
         width: 100% !important;
     }
+    .left-menu{
+        width: 100% !important;
+    }
+  
 
 }
 
@@ -783,4 +787,69 @@ select::-ms-expand {
 
 .divRelative {
     position: relative;
+}
+.img-Room{
+    z-index: 2;
+
+}
+
+.parent {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background-color: black; 
+    
+}
+  
+.child {
+  /* fallback color */
+    background-position: center;
+    background-size: cover;
+    transition: all .5s;
+    opacity: 1;
+}
+
+.parent:hover .child ,
+.parent:focus .child {
+  transform: scale(1.2);
+ 
+}
+
+.parent:hover + .parent img,
+.parent:focus + .parent img{
+    background:rgba(0,0,0,0.6);
+    opacity: 0.7;
+}
+
+.parent:hover ~ .col-md-6.col-init-no img,
+.parent:focus ~ .col-md-6.col-init-no img{
+    background:rgba(0,0,0,0.6);
+    opacity: 0.7;
+}
+
+.child::before {
+    content: "";
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+  
+.parent:hover .child:before,
+.parent:focus .child:before {
+    display: block;
+}
+
+.borderRight{
+    border-right: 1px solid black;
+}
+.borderTop{
+    border-top: 1px solid black;
+}
+.borderLeft{
+    border-left: 1px solid black;
+}
+.borderBottom{
+    border-bottom: 1px solid black;
 }
