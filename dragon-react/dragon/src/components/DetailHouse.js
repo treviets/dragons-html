@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import $ from "jquery";
+
 import '../assets/css/privateHomeInHouse.css'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -63,6 +65,7 @@ class DetailHouseComponent extends Component {
 
     }
     componentDidMount() {
+        $(".footer").show()
         this.loadData()
     }
     async loadData() {

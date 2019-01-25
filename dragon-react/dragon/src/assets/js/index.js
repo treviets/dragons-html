@@ -40,7 +40,7 @@ $(document).ready(function() {
     //     range: true,
     //     min: 230000,
     //     max: 25000000,
-    //     values: [ 230000, 25000000 ],
+    //     values: [ 230000, 25000000 ],   
     //     slide: function( event, ui ) {
     //       $( "#amount" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
     //       $( "#amount-hide" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
@@ -54,8 +54,8 @@ $(document).ready(function() {
     // " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
 
 
-    // $( "#amount-range-private" ).hide();
-    // $( "#select-range" ).show();
+    $( "#amount-range-private" ).hide();
+    $( "#select-range" ).show();
  
 
 
@@ -63,7 +63,6 @@ $(document).ready(function() {
     $("#DynamicFilterCheckboxItem").prop("checked", false);
       $("#DynamicFilterCheckboxItem-room_types-Entire_home").click(function () {
         if ($(this).is(":checked")) {
-            console.log("click")
             $("#DynamicFilterSpanItem-room_types-Entire_home").removeClass("_fhj4ui")
             $("#DynamicFilterSpanItem-room_types-Entire_home").addClass("_veamvre")
             $("#DynamicFilterSpanItem-room_types-Entire_home").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
