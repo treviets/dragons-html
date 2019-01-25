@@ -325,9 +325,11 @@ class PageHeader extends Component {
                                             <a href='#' className="btn btn-default facebook">
                                                 <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
                                             </a>
+                                            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
                                             <a href='#' className="btn btn-default google">
                                                 {/* <div className="g-signin2" data-onsuccess="onSignIn">AAAAA</div> onClick={this.onSignIn}*/}
-                                                <i className="fa fa-google-plus modal-icons" data-onsuccess="onSignIn" ></i> Continue with Google
+                                                <i className="fa fa-google-plus modal-icons"></i> Continue with Google
                                             </a>
 
                                             {/* <button onClick={this.onSignIn}>SignUpBYSOCIAL</button> */}
