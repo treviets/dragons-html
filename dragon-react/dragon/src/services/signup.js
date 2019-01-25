@@ -32,6 +32,42 @@ const HomeService = {
             }
         }
     },
+
+    signInCustomer: async function (formData) {
+        try {
+            const response = await postFromUrl(
+                "/dragons/login/account", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+            const data = response.data;
+            return data
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                return
+            }
+        }
+    },
+
+    signUpBySocial: async function (formData) {
+        try {
+            const response = await postFromUrl(
+                "/dragons/login/social", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+            const data = response.data;
+            return data
+
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
+    },
 }
 
 export default HomeService;
