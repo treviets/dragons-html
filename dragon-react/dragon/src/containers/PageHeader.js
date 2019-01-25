@@ -82,12 +82,12 @@ class PageHeader extends Component {
         // alert("check")
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
-        // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        // console.log('Full Name: ' + profile.getName());
-        // console.log('Given Name: ' + profile.getGivenName());
-        // console.log('Family Name: ' + profile.getFamilyName());
-        // console.log("Image URL: " + profile.getImageUrl());
-        // console.log("Email: " + profile.getEmail());
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
         // ID: 115481369181782633322
         // google.html: 14 Full Name: Tran Thoai
         // google.html: 15 Given Name: Tran
