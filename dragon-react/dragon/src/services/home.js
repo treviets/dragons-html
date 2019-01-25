@@ -43,7 +43,7 @@ const HomeService = {
     searchRoom: async function (province,from,to,number_of_guest,min, max, roomType) {
         try {
             const response = await getFromUrl(
-                "http://localhost:8080/dragons/room/list?province="+province+"&from="+from+"&to="+to+"&number_of_guest="+number_of_guest
+                "/dragons/room/list?province="+province+"&from="+from+"&to="+to+"&number_of_guest="+number_of_guest
             +"&min="+min+"&max="+max+"&roomtype="+roomType);
             const data = response.data;
             return data
