@@ -9,6 +9,7 @@ import service from '../services/signup.js';
 import $ from "jquery";
 
 
+
 const optionsMonth = [
     { value: '1', label: 'January' },
     { value: '2', label: 'February' },
@@ -38,6 +39,8 @@ class PageHeader extends Component {
             firstname: "",
             lastname: "",
             password: "",
+            emailLogin: "",
+            passwordLogin: "",
 
         };
         this.handeChage = this.handeChage.bind(this);
@@ -46,6 +49,8 @@ class PageHeader extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeMonth = this.handleChangeMonth.bind(this);
         this.signUpAccount = this.signUpAccount.bind(this);
+        this.signInAccount = this.signInAccount.bind(this);
+        this.onSignIn = this.onSignIn.bind(this);
 
 
     }
@@ -73,16 +78,57 @@ class PageHeader extends Component {
             endDate: date,
         });
     };
+    async onSignIn(googleUser) {
+        // alert("check")
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        // console.log('Full Name: ' + profile.getName());
+        // console.log('Given Name: ' + profile.getGivenName());
+        // console.log('Family Name: ' + profile.getFamilyName());
+        // console.log("Image URL: " + profile.getImageUrl());
+        // console.log("Email: " + profile.getEmail());
+        // ID: 115481369181782633322
+        // google.html: 14 Full Name: Tran Thoai
+        // google.html: 15 Given Name: Tran
+        // google.html: 16 Family Name: Thoai
+        // google.html: 17 Image URL: https://lh6.googleusercontent.com/-_5XQ19IoO0c/AAAAAAAAAAI/AAAAAAAAA8A/iJIrspT8tsQ/s96-c/photo.jpg
+        // google.html: 18 Email: tranthoai142@gmail.com
+
+        var formData = new FormData();
+        formData.append("Fullname", profile.getName());
+        formData.append("Googleid", profile.getId());
+        formData.append("Email", profile.getEmail());
+        formData.append("Lastname", profile.getFamilyName());
+        formData.append("Firstname", profile.getGivenName());
+        formData.append("Avatar", profile.getImageUrl());
+
+
+
+        // formData.append("Fullname", "Tran Thoai");
+        // formData.append("Googleid", "115481369181782633322");
+        // formData.append("Email", "tranthoai142@gmail.com");
+        // formData.append("Lastname", "Thoai");
+        // formData.append("Firstname", "Tran");
+        // formData.append("Avatar", "https://lh6.googleusercontent.com/-_5XQ19IoO0c/AAAAAAAAAAI/AAAAAAAAA8A/iJIrspT8tsQ/s96-c/photo.jpg");
+
+
+
+        // The ID token you need to pass to your backend:
+        // var id_token = googleUser.getAuthResponse().id_token;
+        // console.log("ID Token: " + id_token);
+
+        var res = await service.signUpBySocial(formData);
+        console.log(res)
+        if (res.Status !== "OK") {
+            alert("Login again please!")
+        } else {
+            $('#buttonClose').click();
+        }
+    }
 
     async signUpAccount() {
-        const user = {
-            Avatar: "",
-            DateOfBirth: "1995-01-15",
-            Email: this.refs.email.value,
-            Firstname: this.refs.firstname.value,
-            Lastname: this.refs.lastname.value,
-            Password: this.refs.password.value,
-        };
+
         var formData = new FormData();
         formData.append("Firstname", this.refs.firstname.value);
         formData.append("Lastname", this.refs.lastname.value);
@@ -92,12 +138,25 @@ class PageHeader extends Component {
         var res = await service.signUpCustomer(formData);
 
         console.log(res)
-        if (res.Status !== 200) {
-            alert("Fail")
+        if (res.Status !== "OK") {
+            alert(res.Message)
         } else {
-            $("#register-modal").hide();
+            $('#buttonCloseSignUp').click();
         }
+    };
+    async signInAccount() {
+        var formData = new FormData();
+        formData.append("Email", this.refs.emailLogin.value);
+        formData.append("Password", this.refs.passwordLogin.value);
 
+        var res = await service.signInCustomer(formData);
+
+        console.log(res)
+        if (res.Status !== "OK") {
+            alert(res.Message)
+        } else {
+            $('#buttonClose').click();
+        }
     };
 
 
@@ -158,7 +217,7 @@ class PageHeader extends Component {
                                 <a className="nav-link" href="#" data-toggle="modal" data-target="#contact-modal">Contact</a>
                             </li>
                             <li className="nav-item">
-                                <button className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal">Log in</button>
+                                <button className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal-custom">Log in</button>
 
                             </li>
                             <li className="nav-item">
@@ -253,6 +312,50 @@ class PageHeader extends Component {
                         </div>
                     </div>
                 </div>
+                <div className="modal fade" id="login-modal-custom" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header login_modal_header">
+                                <button id="buttonClose" type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div className="modal-body login-modal">
+                                <div id='social-icons-conatainer'>
+                                    <div className=''>
+                                        <div className="modal-social-icons">
+                                            <a href='#' className="btn btn-default facebook">
+                                                <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
+                                            </a>
+                                            <a href='#' className="btn btn-default google">
+                                                {/* <div className="g-signin2" data-onsuccess="onSignIn">AAAAA</div> onClick={this.onSignIn}*/}
+                                                <i className="fa fa-google-plus modal-icons" data-onsuccess="onSignIn" ></i> Continue with Google
+                                            </a>
+
+                                            {/* <button onClick={this.onSignIn}>SignUpBYSOCIAL</button> */}
+
+                                        </div>
+
+                                        <div className="conatainer divhr">
+                                            <p >or</p>
+                                        </div>
+                                        <div className="modal-body login-modal">
+                                            <div id='social-icons-conatainer'>
+                                                <div >
+                                                    <div className="form-group">
+                                                        <input type="text" placeholder="Email address" name="emailLogin" ref="emailLogin" className="form-control login-field" />
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <input type="password" placeholder="Password" ref="passwordLogin" name="passwordLogin" className="form-control login-field" />
+                                                    </div>
+                                                    <button className="btn modal-login-btn" onClick={this.signInAccount}>Login</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div className="modal fade" id="contact-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
@@ -304,7 +407,7 @@ class PageHeader extends Component {
                                     <span> Facebook</span> or
                                     <span> Google</span>
                                 </span>
-                                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <button type="button" id="buttonCloseSignUp" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div className="modal-body login-modal">
                                 <div id='social-icons-conatainer'>
