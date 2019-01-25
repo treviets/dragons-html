@@ -1,5 +1,5 @@
 import React from 'react';
-
+import 'rc-slider/assets/index.css';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
