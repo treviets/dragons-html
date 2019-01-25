@@ -189,6 +189,7 @@
     vertical-align: top !important;
     z-index: 1 !important;
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 500px;
     width: 22%;
 }
@@ -852,4 +853,30 @@ select::-ms-expand {
 }
 .borderBottom{
     border-bottom: 1px solid black;
+}
+.popover-body .col-md-12{
+    width: 500px !important;
+}
+
+.popover .arrow{
+    display:none;
+}
+.popover.bs-popover-bottom.show {
+    top:5px !important;
+    left: -15px !important;
+    max-width: unset !important;
+    width: auto !important;
+}
+
+.btn-guest{
+    border-radius: 50%;
+    border-color: rgb(0, 132, 137) !important;
+    height: var(--size-flat-button-size-small, 32px) !important;
+    width: var(--size-flat-button-size-small, 32px) !important;
+    background-color: #ffffff;
+    color: #008489 !important;
+    text-align: center; 
+    display: inline-block !important;
+    box-shadow: rgb(0, 132, 137) !important;
+
 }

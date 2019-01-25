@@ -8,6 +8,8 @@ import * as Constants from '../../const.js'
 import DetailHouse from '../DetailHouse'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
+import district from '../../masterData/district.json'
+import { Button, UncontrolledPopover,  PopoverHeader, PopoverBody } from 'reactstrap';
 
 
 
@@ -29,6 +31,14 @@ class HomeComponent extends Component {
             roomType:'',
             imgsRoom:[],
             homeId:0,
+            district,
+            selectDistrict:0,
+            adultsGuest:0,
+            childrensGuest:0,
+            infantsGuest:0,
+            totalGuest:0,
+            popoverOpen: false,
+            valueGuest:'Number of Guests'
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
         this.handleChangeToTime = this.handleChangeToTime.bind(this)
@@ -45,22 +55,33 @@ class HomeComponent extends Component {
         this.handleBackRoom = this.handleBackRoom.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
         this.handeChage = this.handeChage.bind(this)
+        this.handeChangeDistrict = this.handeChangeDistrict.bind(this)
+        this.toggle = this.toggle.bind(this);
+
         
 
     }
+    toggle() {
+        this.setState({
+          popoverOpen: !this.state.popoverOpen
+        });
+      }
     async handleSearch(){
-        var from = moment(this.state.startDate, "DD/MM/YYYY")
+            var from = moment(this.state.startDate, "DD/MM/YYYY")
         .startOf("day")
         .unix();
         var to =
         moment(this.state.endDate, "DD/MM/YYYY")
           .startOf("day")
           .unix() + 86340;
-        const res = await homeService.searchRoom(0,from,to,this.state.selectGuest)
+        const res = await homeService.searchRoom(this.state.selectDistrict,from,to,this.state.totalGuest)
         console.log(res)
         this.setState({listRoom: res.Data})
         this.setState({is_listHome:false})
 
+    }
+    handeChangeDistrict(event){
+        this.setState({selectDistrict: event.target.value})
     }
     handeChage(event){
         this.setState({
@@ -281,8 +302,15 @@ class HomeComponent extends Component {
         this.setState({listRoom: res.Data})
         console.log(this.state.listRoom)
     }
+  
+    
+   
     componentDidMount(){
+       
+        this.state.district =  district
+        console.log(this.state.district)
         this.handlegetListHomes()
+        
 
     }
     async handlegetListHomes(){
@@ -300,18 +328,63 @@ class HomeComponent extends Component {
             endDate:date,
         });
     }
-    handlePlus(){
-        const check = this.state.countPlus;
-        this.setState({
-            countPlus: check+1
-        })
+    handlePlus(type){
+        console.log(type)
+        if (type==1){
+            if (this.state.adultsGuest<12){
+                this.state.adultsGuest = this.state.adultsGuest+1
+                this.state.totalGuest = this.state.totalGuest+1 
+            }
+        }else if(type == 2){
+            if (this.state.childrensGuest<5){
+                this.state.childrensGuest = this.state.childrensGuest+1
+                this.state.totalGuest = this.state.totalGuest+1 
+            }
+        }else if(type == 3){
+            if (this.state.infantsGuest<5){
+                this.state.infantsGuest = this.state.infantsGuest+1 
+                this.state.totalGuest = this.state.totalGuest+1 
+            }
+        }     
+        var guests = ""
+        if (this.state.totalGuest == 0 || this.state.totalGuest == 1){
+            guests = this.state.totalGuest + " Guest"
+        }else {
+            guests = this.state.totalGuest + " Guests"
+        }
+        this.setState({valueGuest:guests})
+       
+
+      
     }
-    handleMinus(){
-        const minus = this.state.countPlus;
-        this.setState({
-            countPlus: minus-1
-        })
+    handleMinus(type){
+        if (type==1){
+            if (this.state.adultsGuest>0){
+                this.state.adultsGuest = this.state.adultsGuest-1
+                this.state.totalGuest = this.state.totalGuest-1 
+            }
+        }else if(type == 2){
+            if (this.state.childrensGuest>0){
+                this.state.childrensGuest = this.state.childrensGuest-1
+                this.state.totalGuest = this.state.totalGuest-1 
+            }
+        }else if(type == 3){
+            if (this.state.infantsGuest>0){
+                this.state.infantsGuest = this.state.infantsGuest-1 
+                this.state.totalGuest = this.state.totalGuest-1 
+            }
+        }
+        var guests = ""
+        if (this.state.totalGuest == 0 || this.state.totalGuest == 1){
+            guests = this.state.totalGuest + " Guest"
+        }else {
+            guests = this.state.totalGuest + " Guests"
+        }
+         
+        this.setState({valueGuest:guests})
+        
     }
+    
     
     render() {
         return (
@@ -347,56 +420,121 @@ class HomeComponent extends Component {
                 </div>
             </div>
         :
-        <div className="home">
-            <div id="header-search"  className="banner menu-header" >
+        <div>
+            
+            <div id="header-search"  className="banner menu-header font-size14" >
                 <img src="img/banner-travel-insurance-2000x400.jpg" className="banner-menu" ></img>
                 <div className="card-search">
                     <div className="search-home">
-                        <div className="col-md-12 col-sm-12 col-init" style={{fontSize: '15px'}}>
+                        <div className="col-md-12 col-sm-12 col-init" >
                             <div className="row">
-                                <div className="col-md-3 col-sm-3 col-init col-search">
-                                    <span style={{ display: 'block', position: 'relative'}}>
-                                        <i className="fa fa-map-marker icon-search" aria-hidden="true"></i>
-            
-                                        <input className="border-none input-search"  placeholder="Enter a destination or property"/>
+                                <div className="col-md-3 col-sm-3 col-init col-search cursorPointer">
+                                    <span className="cursorPointer" style={{ display: 'block', position: 'relative'}}>
+                                        <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
+                                        
+                                        <select className="border-none input-search cursorPointer" value={this.state.selectDistrict} onChange={this.handeChangeDistrict}  id="inlineFormCustomSelect"  >
+                                                    {this.state.district.map(function(object,index){
+                                                        return  <option value={object.districtid} key = {index}>{object.name}</option>
+                                                    })}
+                                        </select>                                   
                                     </span>
                                 </div>
-                                <div className="col-md-2 col-sm-2 col-init col-search" >
-                                    <span style={{ display: 'block', position: 'relative'}}>
-                                        <DatePicker className="border-none input-search" id="checkIn" ref="check" placeholderText="Check In"
+                                <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
+                                    <span className="cursorPointer" style={{ display: 'block', position: 'relative',margin:'5px'}}>
+                                        <DatePicker className="border-none input-search cursorPointer" id="checkIn" ref="check" placeholderText="Check In"
                                             selected={this.state.startDate}
                                             onChange={this.handleChangeFromTime}
                                         />                                            
-                                        <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
+                                        <i className="fa fa-calendar icon-search cursorPointer" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <div className="col-md-2 col-sm-2 col-init col-search" >
-                                    <span style={{ display: 'block', position: 'relative'}}>
-                                        <DatePicker className="border-none input-search" id="checkOut"  placeholderText="Check Out"
+                                <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
+                                    <span className="cursorPointer" style={{ display: 'block', position: 'relative',margin:'5px'}}>
+                                        <DatePicker className="border-none input-search cursorPointer" id="checkOut"  placeholderText="Check Out"
                                             selected={this.state.endDate}
                                             onChange={this.handleChangeToTime}
                                         />                                                
-                                        <i className="fa fa-calendar icon-search" aria-hidden="true"></i>
+                                        <i className="fa fa-calendar icon-search cursorPointer" aria-hidden="true"></i>
                                     </span>                    
                                 </div>
-                                <div className="col-md-2 col-sm-2 col-init col-search" >
-                                    <span style={{ display: 'block', position: 'relative'}}>
-                                            <select className="border-none input-search" value={this.state.selectGuest} onChange={this.handeChage}  id="inlineFormCustomSelect"  >
-                                                    <option value="" disabled hidden>Number of guests</option>
-                                                    <option value="2">1 guest</option>
-                                                    <option value="1">2 guests</option>
-                                            </select>                                
-                                            <i className="fa fa-angle-down icon-search" aria-hidden="true"></i>
-                                    </span>                    
+                                
+                                <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
+                                    <span className="cursorPointer" style={{ display: 'block', position: 'relative',margin:'5px'}}>
+                                    <input id="PopoverLegacy" className="border-none input-search cursorPointer" role="button"  value={this.state.valueGuest}/>
+
+                                    <UncontrolledPopover trigger="legacy" placement="bottom" target="PopoverLegacy">
+                                        <PopoverBody>
+                                        <div className="" role="tooltip">
+                                            <div className="col-md-12 font-size16" >
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <p>Adults</p>
+                                                        <p></p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no" >
+                                                        <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        {this.state.adultsGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div className="col-md-12 font-size16">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <label>Children</label>
+                                                        <p className="font-size14">Ages 2-12</p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    {this.state.childrensGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12 font-size16">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <label>Infants</label>
+                                                        <p className="font-size14">Under 2</p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    {this.state.infantsGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </PopoverBody>
+                                    </UncontrolledPopover>
+                                       
+
+                                        <i className="fa fa-angle-down icon-search cursorPointer" aria-hidden="true"></i>
+                                    </span>                
                                 </div>
                                 <div className="col-md-2 col-sm-2 col-init col-search" style={{background: '#FF5A5F'}}>
-                                    <button className="button-search" onClick={this.handleSearch} >Search</button>
+                                    <button className="button-search cursorPointer" style={{margin:'5px'}} onClick={this.handleSearch} >Search</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>          
+            </div> 
+        <div className="home">
+                     
             <div className="col-md-12">
                 <div className="left-menu left-responsive ">
                     <div className="menu no-padding-lr-mobile">
@@ -641,6 +779,7 @@ class HomeComponent extends Component {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         }
         

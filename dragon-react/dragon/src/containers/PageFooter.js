@@ -3,7 +3,7 @@ import '../assets/css/footer.css'
 class PageFooter extends Component{
     render(){
         return (
-            <div className="footer">
+            <footer className="footer" >
             <br/>
             <div className="container">
                 <div className="footer-custom">
@@ -76,7 +76,7 @@ class PageFooter extends Component{
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
         )
     }
 }
