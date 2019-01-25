@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import '../assets/js/index'
 import '../assets/css/header.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import Select from 'react-select';
 import axios from 'axios';
+import service from '../services/signup.js';
+import $ from "jquery";
+
 
 const optionsMonth = [
     { value: '1', label: 'January' },
@@ -25,19 +28,19 @@ class PageHeader extends Component {
         super(props);
 
         this.state = {
-            select:"",
+            select: "",
             startDate: null,
             endDate: null,
             selectedOption: null,
-            optionsMonth:[],
-            selectedMonth:null,
-            email:"",
-            firstname:"",
-            lastname:"",
-            password:"",
+            optionsMonth: [],
+            selectedMonth: null,
+            email: "",
+            firstname: "",
+            lastname: "",
+            password: "",
 
         };
-        this.handeChage =  this.handeChage.bind(this);
+        this.handeChage = this.handeChage.bind(this);
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
         this.handleChangeToTime = this.handleChangeToTime.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -47,7 +50,7 @@ class PageHeader extends Component {
 
     }
 
-    handeChage(event){
+    handeChage(event) {
         this.setState({
             select: event.target.value,
         });
@@ -56,7 +59,7 @@ class PageHeader extends Component {
         this.setState({ selectedOption });
         console.log(`Option selected:`, selectedOption);
     };
-    handleChangeMonth =(selectedMonth) => {
+    handleChangeMonth = (selectedMonth) => {
         this.setState({ selectedMonth });
         console.log(`Option selected:`, selectedMonth);
     };
@@ -65,16 +68,13 @@ class PageHeader extends Component {
             startDate: date,
         });
     };
-    handleChangeToTime(date){
+    handleChangeToTime(date) {
         this.setState({
-            endDate:date,
+            endDate: date,
         });
     };
 
-    signUpAccount = event => {
-        event.preventDefault();
-
-        console.log(this.refs.email.value)
+    async signUpAccount() {
         const user = {
             Avatar: "",
             DateOfBirth: "1995-01-15",
@@ -83,28 +83,26 @@ class PageHeader extends Component {
             Lastname: this.refs.lastname.value,
             Password: this.refs.password.value,
         };
+        var formData = new FormData();
+        formData.append("Firstname", this.refs.firstname.value);
+        formData.append("Lastname", this.refs.lastname.value);
+        formData.append("Password", this.refs.password.value);
+        formData.append("Email", this.refs.email.value);
 
+        var res = await service.signUpCustomer(formData);
 
-        let userJson = JSON.stringify(user);
-
-        console.log(userJson)
-
-
-        var url = "http://localhost:8080/dragons/customer/create_user/"
-
-        axios.defaults.headers = {
-            'Content-Type': 'application/json',
+        console.log(res)
+        if (res.Status !== 200) {
+            alert("Fail")
+        } else {
+            $("#register-modal").hide();
         }
 
-        axios.post(url,{user}).then(response =>{
-            console.log(response);
-            console.log(response.data)
-        })
-};
+    };
 
 
 
-componentDidMount() {
+    componentDidMount() {
         // Jquery here $(...)...
         // var nav = $("#menu-header");
         // $(window).scroll(function () {
@@ -116,7 +114,7 @@ componentDidMount() {
         //         nav.removeClass("f-nav");
         //     }
         // });
-      
+
     }
     render() {
 
@@ -126,25 +124,25 @@ componentDidMount() {
         } = this.state;
         return (
             <div  >
-                <nav className="navbar navbar-expand-lg bg-blue"id="header" >
+                <nav className="navbar navbar-expand-lg bg-blue" id="header" >
                     <div className="header-icon">
                         {/* <img src="img/fb.png" style="height: 35px;"/> */}
                     </div>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" 
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                            aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-label="Toggle navigation">
                         <i className="fa fa-bars" ></i>
                     </button>
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav row-direction" style={{textAlign: 'center',width: '100%'}}>
+                        <ul className="navbar-nav row-direction" style={{ textAlign: 'center', width: '100%' }}>
                             <li className="nav-item active">
                                 <a className="nav-link" href="/">Home</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">About</a>
                             </li>
-                            
+
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Become a host</a>
                             </li>
@@ -157,61 +155,61 @@ componentDidMount() {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                    <a className="nav-link" href="#"  data-toggle="modal" data-target="#contact-modal">Contact</a>
-                                </li>
-                            <li className="nav-item">
-                                <button  className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal">Log in</button> 
-                                
+                                <a className="nav-link" href="#" data-toggle="modal" data-target="#contact-modal">Contact</a>
                             </li>
                             <li className="nav-item">
-                                <button className="btn btn-default my-2 my-sm-0 btn-sign-up" type="submit"  data-toggle="modal" data-target="#signup-modal">Sign up</button>
+                                <button className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal">Log in</button>
+
+                            </li>
+                            <li className="nav-item">
+                                <button className="btn btn-default my-2 my-sm-0 btn-sign-up" type="submit" data-toggle="modal" data-target="#signup-modal">Sign up</button>
                             </li>
                         </ul>
 
                     </div>
-                    
+
                 </nav>
-                
-                <div className="modal fade" id="login-modal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                <div className="modal fade" id="login-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header login_modal_header">
-                                
+
                                 <h2 className="modal-title" id="myModalLabel">Login to Your Account</h2>
                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div className="modal-body login-modal">
                                 <p>Awesome Popup Modal</p>
-                                <br/>
+                                <br />
                                 <div className="clearfix"></div>
                                 <div id='social-icons-conatainer'>
                                     <div className='modal-body-left'>
                                         <div className="form-group">
-                                            <input type="text" id="username" placeholder="Enter your name" className="form-control login-field"/>
+                                            <input type="text" id="username" placeholder="Enter your name" className="form-control login-field" />
                                             <i className="fa fa-user login-field-icon"></i>
                                         </div>
-                        
+
                                         <div className="form-group">
-                                            <input type="password" id="login-pass" placeholder="Password"  className="form-control login-field"/>
+                                            <input type="password" id="login-pass" placeholder="Password" className="form-control login-field" />
                                             <i className="fa fa-lock login-field-icon"></i>
                                         </div>
-                        
+
                                         <a href="#" className="btn btn-success modal-login-btn">Login</a>
                                         <a href="#" className="login-link text-center">Lost your password?</a>
                                     </div>
-                                
+
                                     <div className='modal-body-right'>
                                         <div className="modal-social-icons">
                                             <a href='#' className="btn btn-default facebook"> <i className="fa fa-facebook modal-icons"></i> Sign In with Facebook </a>
                                             <a href='#' className="btn btn-default twitter"> <i className="fa fa-twitter modal-icons"></i> Sign In with Twitter </a>
                                             <a href='#' className="btn btn-default google"> <i className="fa fa-google-plus modal-icons"></i> Sign In with Google </a>
                                             <a href='#' className="btn btn-default linkedin"> <i className="fa fa-linkedin modal-icons"></i> Sign In with Linkedin </a>
-                                        </div> 
-                                    </div>	
+                                        </div>
+                                    </div>
                                     <div id='center-line'> OR </div>
-                                </div>																												
+                                </div>
                                 <div className="clearfix"></div>
-                                
+
                                 <div className="form-group modal-register-btn">
                                     <button className="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#register-modal"> New User Please Register</button>
                                 </div>
@@ -223,7 +221,7 @@ componentDidMount() {
                     </div>
                 </div>
 
-                <div className="modal fade" id="signup-modal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div className="modal fade" id="signup-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header login_modal_header">
@@ -234,11 +232,11 @@ componentDidMount() {
                                 <div id='social-icons-conatainer'>
                                     <div className=''>
                                         <div className="modal-social-icons">
-                                            <a href='#' className="btn btn-default facebook"> 
-                                                <i className="fa fa-facebook modal-icons"></i> Continue with Facebook 
+                                            <a href='#' className="btn btn-default facebook">
+                                                <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
                                             </a>
-                                            <a href='#' className="btn btn-default google"> 
-                                                <i className="fa fa-google-plus modal-icons"></i> Continue with Google 
+                                            <a href='#' className="btn btn-default google">
+                                                <i className="fa fa-google-plus modal-icons"></i> Continue with Google
                                             </a>
                                         </div>
                                         <div className="conatainer divhr">
@@ -264,32 +262,32 @@ componentDidMount() {
                                 <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div className="modal-body login-modal">
-                    
+
                                 <div id='social-icons-conatainer'>
                                     <div >
                                         <div className="form-group">
-                                                <input type="text" placeholder="Enter your name"  className="form-control login-field"/>
+                                            <input type="text" placeholder="Enter your name" className="form-control login-field" />
                                         </div>
-                        
+
                                         <div className="form-group">
-                                                <input type="text" placeholder="Enter your email"  className="form-control login-field"/>
+                                            <input type="text" placeholder="Enter your email" className="form-control login-field" />
 
                                         </div>
                                         <div className="form-group">
-                                                <input  placeholder="Enter your phone"  ref="email" className="form-control login-field"/>
-                                                
-                                            </div>
-                                            <div className="form-group">
-                                                <input placeholder="Enter your address" ref="email" className="form-control login-field"/>
-                                            </div>
-                                            <div className="form-group">
-                                                <textarea rows="5" placeholder="Enter your message"  className="form-control login-field"></textarea>
-                                            </div>
-                        
+                                            <input placeholder="Enter your phone" ref="email" className="form-control login-field" />
+
+                                        </div>
+                                        <div className="form-group">
+                                            <input placeholder="Enter your address" ref="email" className="form-control login-field" />
+                                        </div>
+                                        <div className="form-group">
+                                            <textarea rows="5" placeholder="Enter your message" className="form-control login-field"></textarea>
+                                        </div>
+
                                         <a href="#" className="btn btn-success modal-login-btn">SUBMIT</a>
                                     </div>
-                                </div>																												
-                            
+                                </div>
+
                             </div>
                             <div className="clearfix"></div>
                             <div className="modal-footer login_modal_footer">
@@ -312,58 +310,31 @@ componentDidMount() {
                                 <div id='social-icons-conatainer'>
                                     <div >
                                         <div className="form-group">
-                                            <input type="text" placeholder="Email address" name="email" ref="email" className="form-control login-field"/>
+                                            <input type="text" placeholder="Email address" name="email" ref="email" className="form-control login-field" />
                                         </div>
                                         <div className="form-group">
-                                            <input type="text"  placeholder="First name" name="firstname" ref="firstname" className="form-control login-field"/>
+                                            <input type="text" placeholder="First name" name="firstname" ref="firstname" className="form-control login-field" />
                                         </div>
                                         <div className="form-group">
-                                            <input  placeholder="Last name"  name="lastname" ref="lastname" className="form-control login-field"/>
+                                            <input placeholder="Last name" name="lastname" ref="lastname" className="form-control login-field" />
                                         </div>
                                         <div className="form-group">
-                                            <input type="password" placeholder="Create a Password" ref="password"  name="password" className="form-control login-field"/>
+                                            <input type="password" placeholder="Create a Password" ref="password" name="password" className="form-control login-field" />
                                         </div>
-                                        <div className="birth_day">
-                                            <h5>Birthday</h5>
-                                            <p>To sign up, you must be 18 or older. Other people won’t see your birthday.s</p>
-                                            <div className="row">
-                                                <div className="col-md-5 col-sm-12">
-                                                    <Select
-                                                        value={selectedMonth}
-                                                        onChange={this.handleChangeMonth}
-                                                        options={optionsMonth}
-                                                    />
-                                                </div>
-                                                {/*<div className="col-md-3 col-sm-12">*/}
-                                                    {/*<Select*/}
-                                                        {/*value={selectedOption}*/}
-                                                        {/*onChange={this.handleChange}*/}
-                                                        {/*options={options}*/}
-                                                    {/*/>*/}
-                                                {/*</div>*/}
-                                                {/*<div className="col-md-4 col-sm-12">*/}
-                                                    {/*<Select*/}
-                                                        {/*value={selectedOption}*/}
-                                                        {/*onChange={this.handleChange}*/}
-                                                        {/*options={options}*/}
-                                                    {/*/>*/}
-                                                {/*</div>*/}
-                                            </div>
 
-                                        </div>
                                         <button className="btn modal-login-btn" onClick={this.signUpAccount}>Sign up</button>
-                                    </div>                               
+                                    </div>
                                 </div>
-                            </div>																												
+                            </div>
                             <div className="clearfix"></div>
                             <div className="modal-footer login_modal_footer">
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-    
+
         );
     }
 }
