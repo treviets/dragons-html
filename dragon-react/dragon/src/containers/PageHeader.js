@@ -50,7 +50,7 @@ class PageHeader extends Component {
         this.handleChangeMonth = this.handleChangeMonth.bind(this);
         this.signUpAccount = this.signUpAccount.bind(this);
         this.signInAccount = this.signInAccount.bind(this);
-        this.onSignIn = this.onSignIn.bind(this);
+        // this.onSignIn = this.onSignIn.bind(this);
 
 
     }
@@ -78,7 +78,7 @@ class PageHeader extends Component {
             endDate: date,
         });
     };
-    async onSignIn(googleUser) {
+    onSignIn(googleUser) {
         // alert("check")
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
@@ -95,13 +95,13 @@ class PageHeader extends Component {
         // google.html: 17 Image URL: https://lh6.googleusercontent.com/-_5XQ19IoO0c/AAAAAAAAAAI/AAAAAAAAA8A/iJIrspT8tsQ/s96-c/photo.jpg
         // google.html: 18 Email: tranthoai142@gmail.com
 
-        var formData = new FormData();
-        formData.append("Fullname", profile.getName());
-        formData.append("Googleid", profile.getId());
-        formData.append("Email", profile.getEmail());
-        formData.append("Lastname", profile.getFamilyName());
-        formData.append("Firstname", profile.getGivenName());
-        formData.append("Avatar", profile.getImageUrl());
+        // var formData = new FormData();
+        // formData.append("Fullname", profile.getName());
+        // formData.append("Googleid", profile.getId());
+        // formData.append("Email", profile.getEmail());
+        // formData.append("Lastname", profile.getFamilyName());
+        // formData.append("Firstname", profile.getGivenName());
+        // formData.append("Avatar", profile.getImageUrl());
 
 
 
@@ -118,13 +118,13 @@ class PageHeader extends Component {
         // var id_token = googleUser.getAuthResponse().id_token;
         // console.log("ID Token: " + id_token);
 
-        var res = await service.signUpBySocial(formData);
-        console.log(res)
-        if (res.Status !== "OK") {
-            alert("Login again please!")
-        } else {
-            $('#buttonClose').click();
-        }
+        // var res = await service.signUpBySocial(formData);
+        // console.log(res)
+        // if (res.Status !== "OK") {
+        //     alert("Login again please!")
+        // } else {
+        //     $('#buttonClose').click();
+        // }
     }
 
     async signUpAccount() {
