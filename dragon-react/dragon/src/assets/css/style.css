@@ -854,16 +854,19 @@ select::-ms-expand {
 .borderBottom{
     border-bottom: 1px solid black;
 }
-.popover-body .col-md-12{
+#popoverLegacyPop .popover-body .col-md-12{
+    width: 500px !important;
+}
+
+#popoverLegacyleft .popover-body .col-md-12{
     width: 500px !important;
 }
 
 .popover .arrow{
     display:none;
 }
-.popover.bs-popover-bottom.show {
+.popoverSearch {
     top:5px !important;
-    left: -15px !important;
     max-width: unset !important;
     width: auto !important;
 }

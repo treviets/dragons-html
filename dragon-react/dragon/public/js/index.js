@@ -28,32 +28,33 @@ $(document).ready(function() {
     $( "#checkOut" ).closest(".react-datepicker-wrapper").css( "width", "90%" );
 
     var active_sub_menu = $('#root').find('.home');
+    $( "#popoverLegacyPop").parents().addClass( "popoverSearch" );
 
     if (active_sub_menu.length){
         $("#header-search").show();
     } else{
         $("#header-search").hide();
     }
-    $( "#slider-range" ).slider({
-        range: true,
-        min: 230000,
-        max: 25000000,
-        values: [ 230000, 25000000 ],
-        slide: function( event, ui ) {
-          $( "#amount" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
-          $( "#amount-hide" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
-          $( "#amount1" ).val(ui.values[ 0 ]);
-          $( "#amount2" ).val(ui.values[ 1 ]);
-        }
-      });
-    $( "#amount" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
-       " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
-    $( "#amount-hide" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
+    // $( "#slider-range" ).slider({
+    //     range: true,
+    //     min: 230000,
+    //     max: 25000000,
+    //     values: [ 230000, 25000000 ],
+    //     slide: function( event, ui ) {
+    //       $( "#amount" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
+    //       $( "#amount-hide" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
+    //       $( "#amount1" ).val(ui.values[ 0 ]);
+    //       $( "#amount2" ).val(ui.values[ 1 ]);
+    //     }
+    //   });
+    // $( "#amount" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
+    //    " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
+    // $( "#amount-hide" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
+    // " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
 
 
     $( "#amount-range-private" ).hide();
-    $( "#select-range" ).show();
+    // $( "#select-range" ).show();
     $( "#btn-open-range" ).click(function(){
         if ($("#amount-range-private").is(":visible")){
             $( "#amount-range-private" ).hide(300);

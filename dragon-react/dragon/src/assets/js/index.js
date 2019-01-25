@@ -14,7 +14,7 @@ $(document).ready(function() {
            
     //     }
     // });
-    
+    $( "#popoverLegacyPop").parents().addClass( "popoverSearch" );
     window.onscroll = function() {myFunction()};
         var header = document.getElementById("header");
         var sticky = header.offsetTop;
@@ -36,26 +36,26 @@ $(document).ready(function() {
     }
     $( "#datepicker" ).datepicker();
     $( "#datepicker1" ).datepicker();
-    $( "#slider-range" ).slider({
-        range: true,
-        min: 230000,
-        max: 25000000,
-        values: [ 230000, 25000000 ],
-        slide: function( event, ui ) {
-          $( "#amount" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
-          $( "#amount-hide" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
-          $( "#amount1" ).val(ui.values[ 0 ]);
-          $( "#amount2" ).val(ui.values[ 1 ]);
-        }
-      });
-    $( "#amount" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
-       " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
-    $( "#amount-hide" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
-    " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
+    // $( "#slider-range" ).slider({
+    //     range: true,
+    //     min: 230000,
+    //     max: 25000000,
+    //     values: [ 230000, 25000000 ],
+    //     slide: function( event, ui ) {
+    //       $( "#amount" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
+    //       $( "#amount-hide" ).html( "₫" + ui.values[ 0 ] + " - ₫" + ui.values[ 1 ] + "+" );
+    //       $( "#amount1" ).val(ui.values[ 0 ]);
+    //       $( "#amount2" ).val(ui.values[ 1 ]);
+    //     }
+    //   });
+    // $( "#amount" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
+    //    " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
+    // $( "#amount-hide" ).html( "₫" + $( "#slider-range" ).slider( "values", 0 ) +
+    // " - ₫" + $( "#slider-range" ).slider( "values", 1 )+"+" );
 
 
-    $( "#amount-range-private" ).hide();
-    $( "#select-range" ).show();
+    // $( "#amount-range-private" ).hide();
+    // $( "#select-range" ).show();
  
 
 
