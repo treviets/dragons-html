@@ -859,14 +859,15 @@ select::-ms-expand {
 }
 
 #popoverLegacyleft .popover-body .col-md-12{
-    width: 500px !important;
+    width: 300px !important;
 }
 
 .popover .arrow{
     display:none;
 }
-.popoverSearch {
+.popover.bs-popover-bottom.show  {
     top:5px !important;
+    left:50px !important;
     max-width: unset !important;
     width: auto !important;
 }

@@ -547,7 +547,7 @@ class HomeComponent extends Component {
                 <div className="left-menu left-responsive ">
                     <div className="menu no-padding-lr-mobile">
                         <div className="_1lr8j2n8">
-                            <div style={{marginTop: '16px', marginBottom: '8px'}}><div className="label-menu"> Dates </div></div>
+                            {/* <div style={{marginTop: '16px', marginBottom: '8px'}}><div className="label-menu"> Dates </div></div>
                             <button aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">Check in → Check out</div>
                                 <span className="span-button">
                                     <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
@@ -556,7 +556,7 @@ class HomeComponent extends Component {
                                         </svg>
                                     </div>
                                 </span>
-                            </button>
+                            </button> */}
                             <div style={{marginTop: '16px', marginBottom: '8px'}}><div className="label-menu"> Guests </div></div>
                             <button id="PopoverLegacyLeft"   aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">Guests</div>
                                 <span className="span-button">
