@@ -40,11 +40,10 @@ const HomeService = {
             }
         }
     },
-    searchRoom: async function (province,from,to,number_of_guest,min, max, roomType) {
+    searchRoom: async function (province,from,to,number_of_guest) {
         try {
             const response = await getFromUrl(
-                "/dragons/room/list?province="+province+"&from="+from+"&to="+to+"&number_of_guest="+number_of_guest
-            +"&min="+min+"&max="+max+"&roomtype="+roomType);
+                "/dragons/room/list?province="+province+"&from="+from+"&to="+to+"&number_of_guest="+number_of_guest);
             const data = response.data;
             return data
             
