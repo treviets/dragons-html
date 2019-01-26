@@ -10,7 +10,10 @@ import homeService from '../services/home.js'
 import bookingService from '../services/booking.js'
 import * as Constants from '../const.js'
 import moment from 'moment'
+import { Button, UncontrolledPopover,  PopoverHeader, PopoverBody } from 'reactstrap';
+
 import UpdatePhone from './UpdatePhone';
+import ReviewHouse from './ReviewHouse';
 
 class DetailHouseComponent extends Component {
     constructor(props) {
@@ -45,10 +48,23 @@ class DetailHouseComponent extends Component {
             amenityLocation:[],
             amenitySafetyFeatures:[],
             amenityNotIncluded:[],
-            lengthReviews:0
+            lengthReviews:0,
+            is_reviewBook:false,
+            totalAmount:0,
+            adultsGuest:1,
+            childrensGuest:0,
+            infantsGuest:0,
+            totalGuest:1,
+            valueGuest:'1 Guest',
+            nights:0,
+            cleanfee:0,
+            servicefee:0
+
 
 
         };
+        this.handlePlus = this.handlePlus.bind(this)
+        this.handleMinus = this.handleMinus.bind(this)
         this.handeChageGuest = this.handeChageGuest.bind(this);
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this);
         this.handleChangeToTime = this.handleChangeToTime.bind(this);
@@ -62,9 +78,80 @@ class DetailHouseComponent extends Component {
         this.renderReviews = this.renderReviews.bind(this);
         this.renderAccessibilities = this.renderAccessibilities.bind(this);
         this.renderDetailAccessibility = this.renderDetailAccessibility.bind(this);
+        this.calprice = this.calprice.bind(this)
 
     }
+    calprice(){
+        $("#price").show()
+
+        if(this.state.nights==0){
+            this.state.nights = 1
+        }
+        var guest =  this.state.totalGuest
+        if (guest == 0){
+            guest = 1
+        }
+        var total= this.props.room.Price * this.state.nights * guest + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee*this.state.nights)
+        this.setState({totalAmount:total})
+    }
+    handlePlus(type){
+        console.log(type)
+        if (type==1){
+            if (this.state.adultsGuest<12){
+                this.state.adultsGuest = this.state.adultsGuest+1
+                this.state.totalGuest = this.state.totalGuest+1 
+            }
+        }else if(type == 2){
+            if (this.state.childrensGuest<5){
+                this.state.childrensGuest = this.state.childrensGuest+1
+                this.state.totalGuest = this.state.totalGuest+1 
+            }
+        }else if(type == 3){
+            if (this.state.infantsGuest<5){
+                this.state.infantsGuest = this.state.infantsGuest+1 
+                this.state.totalGuest = this.state.totalGuest+1 
+            }
+        }     
+        var guests = ""
+        if (this.state.totalGuest == 0 || this.state.totalGuest == 1){
+            guests = this.state.totalGuest + " Guest"
+        }else {
+            guests = this.state.totalGuest + " Guests"
+        }
+        this.setState({valueGuest:guests})
+       
+
+      
+    }
+    handleMinus(type){
+        if (type==1){
+            if (this.state.adultsGuest>0){
+                this.state.adultsGuest = this.state.adultsGuest-1
+                this.state.totalGuest = this.state.totalGuest-1 
+            }
+        }else if(type == 2){
+            if (this.state.childrensGuest>0){
+                this.state.childrensGuest = this.state.childrensGuest-1
+                this.state.totalGuest = this.state.totalGuest-1 
+            }
+        }else if(type == 3){
+            if (this.state.infantsGuest>0){
+                this.state.infantsGuest = this.state.infantsGuest-1 
+                this.state.totalGuest = this.state.totalGuest-1 
+            }
+        }
+        var guests = ""
+        if (this.state.totalGuest == 0 || this.state.totalGuest == 1){
+            guests = this.state.totalGuest + " Guest"
+        }else {
+            guests = this.state.totalGuest + " Guests"
+        }
+         
+        this.setState({valueGuest:guests})
+        
+    }
     componentDidMount() {
+        $("#price").hide()
         $(".footer").show()
         this.loadData()
     }
@@ -116,7 +203,8 @@ class DetailHouseComponent extends Component {
         var lengthReviews =  res.Data.Reviews.length
         var lengthAccessibility= res.Data.Accessibilities.length
         var lengthamenities = res.Data.Amenities.length - countNothing
-        this.setState({lengthAccessibility:lengthAccessibility,lengthReviews:lengthReviews,lengthAmenitiesChoose:lengthamenities, roomData: res.Data, numberReviews: res.Data.Reviews.length, amenities: res.Data.Amenities})
+        this.setState({lengthAccessibility:lengthAccessibility,lengthReviews:lengthReviews,lengthAmenitiesChoose:lengthamenities, roomData: res.Data, numberReviews: res.Data.Reviews.length, amenities: res.Data.Amenities,
+        cleanfee:res.Data.CleaningFee,servicefee:res.Data.ServiceFee})
 
     }
 
@@ -124,24 +212,26 @@ class DetailHouseComponent extends Component {
         // this.setState({
         //     toAddPhone: true
         // })
+        $("#img-Room").hide()
+        $("#backListRoom").hide()
+        this.setState({is_reviewBook:true})
 
-        var from = moment(this.state.startDate).format("YYYY-MM-DD HH:mm:ss")
-        var to = moment(this.state.endDate).format("YYYY-MM-DD HH:mm:ss")
-        var diffInDates = moment(this.state.endDate).diff(moment(this.state.startDate), 'days') + 1;
-        var bookingJson = {
-            CustomerId: 1,
-            FromDate: from,
-            HomeId: this.props.homeId,
-            NumberOfGuess: this.state.selectGuest,
-            NumberOfNights: diffInDates,
-            Price: this.props.room.Price,
-            RoomId: this.state.roomData.RoomId,
-            ToDate: to,
-            TotalAmount: this.props.room.Price * diffInDates
-        }
-        var myJSON = JSON.stringify(bookingJson);
-        const res = await bookingService.bookingCreate(myJSON)
-        this.setState({toAddPhone:true})
+        // var from = moment(this.state.startDate).format("YYYY-MM-DD HH:mm:ss")
+        // var to = moment(this.state.endDate).format("YYYY-MM-DD HH:mm:ss")
+        // var diffInDates = moment(this.state.endDate).diff(moment(this.state.startDate), 'days') + 1;
+        // var bookingJson = {
+        //     CustomerId: 1,
+        //     FromDate: from,
+        //     HomeId: this.props.homeId,
+        //     NumberOfGuess: this.state.selectGuest,
+        //     NumberOfNights: diffInDates,
+        //     Price: this.props.room.Price,
+        //     RoomId: this.state.roomData.RoomId,
+        //     ToDate: to,
+        //     TotalAmount: this.props.room.Price * diffInDates
+        // }
+        // var myJSON = JSON.stringify(bookingJson);
+        // const res = await bookingService.bookingCreate(myJSON)
 
         }
     renderReviews(review,index){
@@ -240,36 +330,41 @@ class DetailHouseComponent extends Component {
     }
 
     handeChageGuest(event) {
+
         this.setState({
-            selectGuest: event.target.value,
+            selectGuest: event.target.value
         });
     }
     handleChangeFromTime(date) {
+        var diffInDates = moment(this.state.endDate).diff(moment(date), 'days');
+
         this.setState({
-            startDate: date,
+            startDate: date, nights:diffInDates
         });
     }
     handleChangeToTime(date) {
+
+        var diffInDates = moment(date).diff(moment(this.state.startDate), 'days');
+        if (diffInDates==0){
+            diffInDates = 1
+        }
+        var guest=this.state.totalGuest
+        if(guest==0){
+            guest =1
+        }
+        var total= this.props.room.Price * diffInDates * guest + parseInt(this.state.cleanfee) +parseInt(this.state.servicefee*diffInDates)
         this.setState({
-            endDate: date,
+            endDate: date,nights:diffInDates, totalAmount: total
         });
+        $("#price").show()
+
     }
-    handlePlus() {
-        const check = this.state.countPlus;
-        this.setState({
-            countPlus: check + 1
-        })
-    }
+   
     formatTime(time) {
         return moment(time).format('LL');   // January 12, 2019
 
     }
-    handleMinus() {
-        const minus = this.state.countPlus;
-        this.setState({
-            countPlus: minus - 1
-        })
-    }
+  
     handleChooseGuests() {
         this.setState({
             showGuests: true
@@ -303,12 +398,12 @@ class DetailHouseComponent extends Component {
     }
 
     render() {
-        if (this.state.toAddPhone === true) {
-            return <UpdatePhone to='/update/phone' />
+        if (this.state.is_reviewBook) {
+            return <ReviewHouse to='/review/house' homeId={this.props.homeId} cleanFee={this.state.cleanfee} serviceFee={this.state.servicefee} totalGuest={this.state.totalGuest}  price={this.props.room.Price} room={this.state.roomData} startDate={this.state.startDate} endDate={this.state.endDate} amount={this.state.totalAmount} guests={this.state.valueGuest} />
         }else{
 
         return (
-            <div>
+            <div className ="fontfamily">
                 <div className="container">
                     <div className="privateRom">
                         <div className="row">
@@ -523,7 +618,39 @@ class DetailHouseComponent extends Component {
                                             <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
                                         </svg>
                                     </div>
-                                    <br />
+                                    
+                                    
+                                        {this.state.roomData.HouseRuleDescriptions != null || this.state.roomData.HouseRuleDescriptions != ""
+                                            
+                                            ?
+                                            <div className="TheNeighBorhood">
+                                            <hr/>
+                                            <br />
+                                            <p className="font-size24 space">Policies</p> 
+                                            <p className="font-size16 space">House Rules</p>
+                                            <p dangerouslySetInnerHTML={{ __html: this.state.roomData.HouseRuleDescriptions }} />
+
+                                            <a href="#showRules" className="readmoreRules" id="showRules"><b>Read all rules</b></a>
+                                            <svg className="readmoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
+                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                            </svg>
+                                            <div className="rules-detail">
+                                                <p dangerouslySetInnerHTML={{ __html: this.state.roomData.AdditionalRules }} />
+                                            </div>
+                                            <a href="#hideRules" className="hidemoreRules" id="hideRules"><b>Hide</b></a>
+                                            <svg className="hidemoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
+                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                            </svg>
+                                            <hr/>
+                                            <p className="font-size16 space">Cancellations</p>
+                                            <div dangerouslySetInnerHTML={{ __html: this.state.roomData.PolicyCancel }}>
+                                            </div>
+                                            </div>
+                                            : null
+
+                                        }
+                                        
+                                    <br/>
 
                             </div>
                             <div className="col-md-5 col-sm-12">
@@ -567,11 +694,110 @@ class DetailHouseComponent extends Component {
 
                                         <div className="form-group">
                                             <label htmlFor="">Guest:</label>
-                                            <select className="form-control" value={this.state.selectGuest} onChange={this.handeChageGuest} id="inlineFormCustomSelect">
-                                                <option value="1">1 guest</option>
-                                                <option value="2">2 guests</option>
-                                            </select>
+                                            <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
+                                                <span className="span-button">
+                                                    <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
+                                                        <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '1em', width: '1em', display: 'block', fill: 'currentcolor'}}>
+                                                            <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                        </svg>
+                                                    </div>
+                                                </span>
+                                            </button>
+                                        <UncontrolledPopover onBlur={this.calprice} id="popoverBookPop" trigger="legacy" placement="bottom" target="PopoverBook">
+                                        <PopoverBody>
+                                        <div className="" role="tooltip">
+                                            <div className="col-md-12 font-size16" >
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <p>Adults</p>
+                                                        <p></p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no" >
+                                                        <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        {this.state.adultsGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div className="col-md-12 font-size16">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <label>Children</label>
+                                                        <p className="font-size14">Ages 2-12</p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    {this.state.childrensGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12 font-size16">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <label>Infants</label>
+                                                        <p className="font-size14">Under 2</p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    {this.state.infantsGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </PopoverBody>
+                                    </UncontrolledPopover>
                                             <br />
+                                            <br />
+                                            <div className="container div-price" id="price">
+                                                <div className="price-group font-size16 font-weight400">
+                                                
+                                                    <p className="price-info">
+                                                        ₫{this.currencyFormat(this.props.room.Price*this.state.totalGuest)  } x {this.currencyFormat(this.state.nights)} nights
+                                                    </p>
+                                                    <p className="price-total">
+                                                        ₫{this.currencyFormat(this.state.totalGuest==0?this.props.room.Price*this.state.nights:this.props.room.Price*this.state.nights*this.state.totalGuest)}
+                                                    </p>
+                                                    <hr/>
+                                                    <p className="price-info">
+                                                        Cleaning fee
+                                                    </p>
+                                                    <p className="price-total">
+                                                        đ{this.currencyFormat(this.state.cleanfee)}
+                                                    </p>
+                                                    <hr/>
+                                                    <p className="price-info">
+                                                        Service fee
+                                                    </p>
+                                                    <p className="price-total">
+                                                        ₫{this.currencyFormat(this.state.servicefee*this.state.nights)}
+                                                    </p>
+                                                    <hr/>
+                                                    <div className="price-info">
+                                                       <b> Total (VND) </b>
+                                                    </div>
+                                                    <div className="price-total">
+                                                        ₫{this.currencyFormat(this.state.totalAmount)}
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                            <br/>
+
                                             <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
                                             <p style={{ textAlign: 'center', fontFamily: 'sans-serif' }}>You won't be charged yet</p>
                                         </div>

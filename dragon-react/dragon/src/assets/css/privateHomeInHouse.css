@@ -182,6 +182,36 @@ select {
     overflow: hidden;
     transition: .25s ease;  
  }
+
+ .readmoreRules{
+    color: #008489;
+}
+
+.hidemoreRules{
+    color: #008489;
+    display: none;
+}
+
+.readmoreRules:target ~ .hidemoreRules {
+    display: inline;
+ }
+
+.readmoreRules:target {display: none;}
+.readmoreRules:target ~ .readmoreRules {display: none;}
+.readmoreRules:target ~ .rules-detail {
+    max-height: 100%; 
+    opacity: 1;
+ }
+ 
+ .rules-detail{
+    position: relative;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: .25s ease;  
+ }
+ 
+
  
  .space-detail {
    position: relative;
@@ -217,4 +247,7 @@ select {
 
  #accessibility-modal .modal-dialog .modal-content{
     padding: 35px;
+}
+#popoverBookPop .popover-body .col-md-12{
+    width: 300px !important;
 }

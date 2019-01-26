@@ -899,3 +899,10 @@ select::-ms-expand {
 .font-weight400{
     font-weight: 400 ;
 }
+.hr48{
+    width: 48px !important;
+}
+
+.fontfamily{
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+}

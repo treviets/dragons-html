@@ -1,7 +1,94 @@
 import React, { Component } from 'react'
 import '../assets/css/reviewHouse.css'
+import moment from 'moment'
+import bookingService from '../services/booking.js'
+
+
 
 class ReviewHouse extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            room:{},
+            checkIn: new Date(),
+            checkOut: new Date(),
+            amount: 0,
+            nights:0,
+            price:0,
+            title:"",
+            guests:0,
+            policy:[]
+        }
+        this.handleBook = this.handleBook.bind(this)
+    }
+    async handleBook(){
+        var from = moment(this.state.checkIn).format("YYYY-MM-DD HH:mm:ss")
+        var to = moment(this.state.checkOut).format("YYYY-MM-DD HH:mm:ss")
+        var bookingJson = {
+            CustomerId: 1,
+            FromDate: from,
+            HomeId: this.props.homeId,
+            NumberOfGuess: this.props.totalGuest,
+            NumberOfNights: this.state.nights,
+            Price: this.state.price,
+            RoomId: this.state.room.RoomId,
+            ToDate: to,
+            TotalAmount: this.props.amount
+        }
+        var myJSON = JSON.stringify(bookingJson);
+        const res = await bookingService.bookingCreate(myJSON)
+    }
+    formatTime(time) {
+        return moment(time).format('ll');   // January 12, 2019
+
+    }
+    formatdayofweek(date){
+        var days = moment(date).format('LLLL').split(" ")
+        var date = days[0].split(",")
+
+        return date[0]
+    }
+    formatMonth(date){
+        var month = moment(date).format('ll').split(" ")
+        return month[0].toUpperCase()
+    }
+    formatDate(time){
+        var dates = moment(time).format('ll').split(" ")
+        var date = dates[1].split(",")
+        return date[0]
+    }
+    componentDidMount(){
+        var diffInDates = moment(this.props.endDate).diff(moment(this.props.startDate), 'days');
+        this.setState({nights:diffInDates,checkIn:this.props.startDate,checkOut:this.props.endDate,
+        amount:this.props.totalAmount,room:this.props.room,price:this.props.price,
+        guests:this.props.guests})
+    }
+    currencyFormat = (uv) => {
+
+        if (Math.floor(uv) === 0) {
+            return "0"
+        }
+
+        var price = Math.floor(uv)
+        var priceString = ''
+        var count = 0
+
+        while (price > 0) {
+            var number = price % 10;
+            price = Math.floor(price / 10);
+            count = count + 1
+
+            priceString = number + priceString;
+
+            if (count === 3 && price > 0) {
+                priceString = "," + priceString;
+                count = 0;
+            }
+
+        }
+
+        return priceString
+    }
     render() {
         return (
             <div className="container">
@@ -21,35 +108,35 @@ class ReviewHouse extends Component {
                         </div>
                         <div className="info-booking">
                             <div className="title-box font-size18">
-                                <p>6 nights in Thành Phố Vũng tàu</p>
+                                <p>{this.state.nights} nights in Thành Phố Vũng tàu</p>
                             </div>
                             <div className="book-checkin">
                                 <div className="box-date">
                                     <b>
-                                    <span className="font-size12">JAN</span>
+                                    <span className="font-size12">{this.formatMonth(this.state.checkIn)}</span>
                                     <br/>
-                                    <span className="font-size16">26</span>
+                                    <span className="font-size16">{this.formatDate(this.state.checkIn)}</span>
                                     </b>
                                 </div>
                                 <div className="box-date-info">
-                                    <span className="font-size14">Saturday check-in</span>
+                                    <span className="font-size14">{this.formatdayofweek(this.state.checkIn)} check-in</span>
                                     <br/>
-                                    <span className="font-size16">After 2PM</span>
+                                    <span className="font-size16">After {this.state.room.CheckIn}</span>
                                 </div>
                             </div>
 
                             <div className="book-checkout">
                                 <div className="box-date">
                                     <b>
-                                    <span className="font-size12">JAN</span>
+                                    <span className="font-size12">{this.formatMonth(this.state.checkOut)}</span>
                                     <br/>
-                                    <span className="font-size16">31</span>
+                                    <span className="font-size16">{this.formatDate(this.state.checkOut)}</span>
                                     </b>
                                 </div>
                                 <div className="box-date-info">
-                                    <span className="font-size14">Thursday check-out</span>
+                                    <span className="font-size14">{this.formatdayofweek(this.state.checkOut)} check-out</span>
                                     <br/>
-                                    <span className="font-size16">12PM (noon)</span>
+                                    <span className="font-size16">{this.state.room.CheckOut}</span>
                                 </div>
                             </div>
                         </div>
@@ -126,10 +213,9 @@ class ReviewHouse extends Component {
                             <div className="reviewBook-detail">
                                 <span className="font-size16">Additional Rules</span>
                                 <br/>
-                                <div>
-                                    <span className="font-size14">- Check IN/check OUT: please let us know 30 minutes in advance to supported</span>
-                                    <br/>
-                                    <span className="font-size14">- Smoking is allowed on balcony only</span>
+                                <div className="font-size14">
+                                    <p dangerouslySetInnerHTML={{ __html: this.state.room.AdditionalRules }} />
+
                                 </div>
                             </div>
                             <a href="#hideReviewBook" className="hidemoreReviewBook" id="hideReviewBook"><b>Hide</b></a>
@@ -140,7 +226,7 @@ class ReviewHouse extends Component {
                             <br/>
                             <br/>
                             <div className="font-size16">
-                                <button className="btn btn-AgreeBook"><b> Agree</b></button>
+                                <button className="btn btn-AgreeBook" onClick={this.handleBook}><b> Agree</b></button>
                             </div>
                             <br/>
                         </div>
@@ -150,7 +236,7 @@ class ReviewHouse extends Component {
                             <div className="container box-room">
                                 <div className="box-room-title">
                                     <span className="font-size16">
-                                        The Dragons host @ Vung Tau Melody 2 PRs B0407
+                                        {this.state.room.Title}
                                     </span >
                                     <br/>
                                     <span className="font-size14">
@@ -171,7 +257,7 @@ class ReviewHouse extends Component {
                                     </div>
                                     <div className="_ni9axhe">
                                         <div className="font-size16">
-                                            1 guest
+                                            {this.state.guests}
                                         </div>
                                     </div>
                                 </div>
@@ -180,11 +266,11 @@ class ReviewHouse extends Component {
                                         <div style={{marginRight: '8px'}}><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{height: '20px', width: '20px', display: 'block', fill: 'currentcolor'}}><path d="m22 9.5v-1.5-5h-4.75v-2c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2h-7.5v-2c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2h-4.75v5 1.5 12.51c0 .54.44.99.99.99h18.02c.54 0 .99-.44.99-.99zm-18.5-5h3.25v.5c0 .41.34.75.75.75s.75-.34.75-.75v-.5h7.5v.5c0 .41.34.75.75.75s.75-.34.75-.75v-.5h3.25v3.5h-17zm0 17v-12h17v12z" fillRule="evenodd"></path></svg></div>                                </div>
                                     <div className="_ni9axhe">
                                         <div className="font-size16">
-                                        Feb 1, 2019 
+                                        {this.formatTime(this.state.checkIn)}
                                             <div className="arrow-date" style={{marginLeft:'16px', marginRight:'16px'}}>
                                                 <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{height: '15px', width: '15px', display: 'block', fill: 'currentcolor'}}><path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd"></path></svg>
                                             </div>
-                                        Feb 6, 2019
+                                            {this.formatTime(this.state.checkOut)}
                                         </div>
                                     </div>
                                 </div>
@@ -197,24 +283,24 @@ class ReviewHouse extends Component {
                                 <div className="price-group font-size16 font-weight400">
                                   
                                     <p className="price-info">
-                                        ₫796,692 x 6 nights
+                                        ₫{this.currencyFormat(this.state.price*this.props.totalGuest)  } x {this.state.nights} nights
                                     </p>
                                     <p className="price-total">
-                                        ₫4,780,152
+                                        ₫{this.currencyFormat(this.state.price*this.props.totalGuest*this.state.nights)}
                                     </p>
                                 
                                     <p className="price-info">
-                                        Cleaning free
+                                        Cleaning fee
                                     </p>
                                     <p className="price-total">
-                                        đ348,069
+                                        đ{this.currencyFormat(this.props.cleanFee)}
                                     </p>
                                 
                                     <p className="price-info">
-                                        Service free
+                                        Service fee
                                     </p>
                                     <p className="price-total">
-                                        ₫672,934
+                                        ₫{this.currencyFormat(this.props.serviceFee*this.state.nights)}
                                     </p>
                                    
                                 </div>
@@ -229,7 +315,7 @@ class ReviewHouse extends Component {
                                         Total (VND)
                                     </div>
                                     <div className="price-total">
-                                        ₫5,801,157
+                                        ₫{this.currencyFormat(this.props.amount)}
                                     </div>
                                     
                                 </div>
@@ -238,8 +324,8 @@ class ReviewHouse extends Component {
                                 <hr />
                             </div>
                             <div className="container footer-box-room">
-                                <p>Flexible - free cancellation</p>
-                                <p>Cancel with 48 hours of booking to get a full refund</p>
+                                <div dangerouslySetInnerHTML={{ __html: this.state.room.PolicyCancel }}>
+                                </div>
                             </div>
                         </div>
                     </div>
