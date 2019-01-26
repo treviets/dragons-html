@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import $ from "jquery";
-
 import '../assets/css/privateHomeInHouse.css'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import '../assets/js/plus'
 import '../assets/js/index'
+import $ from "jquery";
 import homeService from '../services/home.js'
 import bookingService from '../services/booking.js'
 import * as Constants from '../const.js'

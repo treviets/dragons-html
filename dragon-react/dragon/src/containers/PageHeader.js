@@ -7,6 +7,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import service from '../services/signup.js';
 import $ from "jquery";
+import Googlegg from '../components/Google';
 
 
 
@@ -24,6 +25,7 @@ const optionsMonth = [
     { value: '11', label: 'November' },
     { value: '12', label: 'December' }
 ];
+
 class PageHeader extends Component {
     constructor(props) {
         super(props);
@@ -50,11 +52,11 @@ class PageHeader extends Component {
         this.handleChangeMonth = this.handleChangeMonth.bind(this);
         this.signUpAccount = this.signUpAccount.bind(this);
         this.signInAccount = this.signInAccount.bind(this);
-        // this.onSignIn = this.onSignIn.bind(this);
+        this.onSignIn = this.onSignIn.bind(this);
+
 
 
     }
-
     handeChage(event) {
         this.setState({
             select: event.target.value,
@@ -78,53 +80,11 @@ class PageHeader extends Component {
             endDate: date,
         });
     };
+
     onSignIn(googleUser) {
-        // alert("check")
+        alert("check")
+        console.log("nnnnnnnnn")
         // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-        // ID: 115481369181782633322
-        // google.html: 14 Full Name: Tran Thoai
-        // google.html: 15 Given Name: Tran
-        // google.html: 16 Family Name: Thoai
-        // google.html: 17 Image URL: https://lh6.googleusercontent.com/-_5XQ19IoO0c/AAAAAAAAAAI/AAAAAAAAA8A/iJIrspT8tsQ/s96-c/photo.jpg
-        // google.html: 18 Email: tranthoai142@gmail.com
-
-        // var formData = new FormData();
-        // formData.append("Fullname", profile.getName());
-        // formData.append("Googleid", profile.getId());
-        // formData.append("Email", profile.getEmail());
-        // formData.append("Lastname", profile.getFamilyName());
-        // formData.append("Firstname", profile.getGivenName());
-        // formData.append("Avatar", profile.getImageUrl());
-
-
-
-        // formData.append("Fullname", "Tran Thoai");
-        // formData.append("Googleid", "115481369181782633322");
-        // formData.append("Email", "tranthoai142@gmail.com");
-        // formData.append("Lastname", "Thoai");
-        // formData.append("Firstname", "Tran");
-        // formData.append("Avatar", "https://lh6.googleusercontent.com/-_5XQ19IoO0c/AAAAAAAAAAI/AAAAAAAAA8A/iJIrspT8tsQ/s96-c/photo.jpg");
-
-
-
-        // The ID token you need to pass to your backend:
-        // var id_token = googleUser.getAuthResponse().id_token;
-        // console.log("ID Token: " + id_token);
-
-        // var res = await service.signUpBySocial(formData);
-        // console.log(res)
-        // if (res.Status !== "OK") {
-        //     alert("Login again please!")
-        // } else {
-        //     $('#buttonClose').click();
-        // }
     }
 
     async signUpAccount() {
@@ -294,9 +254,12 @@ class PageHeader extends Component {
                                             <a href='#' className="btn btn-default facebook">
                                                 <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
                                             </a>
-                                            <a href='#' className="btn btn-default google">
+                                            <Googlegg />
+
+
+                                            {/* <a href='#' className="btn btn-default google">
                                                 <i className="fa fa-google-plus modal-icons"></i> Continue with Google
-                                            </a>
+                                            </a> */}
                                         </div>
                                         <div className="conatainer divhr">
                                             <p >or</p>
@@ -318,42 +281,31 @@ class PageHeader extends Component {
                             <div className="modal-header login_modal_header">
                                 <button id="buttonClose" type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
+
                             <div className="modal-body login-modal">
-                                <div id='social-icons-conatainer'>
-                                    <div className=''>
-                                        <div className="modal-social-icons">
-                                            <a href='#' className="btn btn-default facebook">
-                                                <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
-                                            </a>
-                                            <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                                <a href='#' className="btn btn-default facebook">
+                                    <i className="fa fa-facebook modal-icons">
+                                    </i> Continue with Facebook
+                                </a>
 
-                                            <a href='#' className="btn btn-default google">
-                                                {/* <div className="g-signin2" data-onsuccess="onSignIn">AAAAA</div> onClick={this.onSignIn}*/}
-                                                <i className="fa fa-google-plus modal-icons"></i> Continue with Google
-                                            </a>
-
-                                            {/* <button onClick={this.onSignIn}>SignUpBYSOCIAL</button> */}
-
-                                        </div>
-
-                                        <div className="conatainer divhr">
-                                            <p >or</p>
-                                        </div>
-                                        <div className="modal-body login-modal">
-                                            <div id='social-icons-conatainer'>
-                                                <div >
-                                                    <div className="form-group">
-                                                        <input type="text" placeholder="Email address" name="emailLogin" ref="emailLogin" className="form-control login-field" />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <input type="password" placeholder="Password" ref="passwordLogin" name="passwordLogin" className="form-control login-field" />
-                                                    </div>
-                                                    <button className="btn modal-login-btn" onClick={this.signInAccount}>Login</button>
-                                                </div>
+                                <Googlegg />
+                                <div className="conatainer divhr">
+                                    <p >or</p>
+                                </div>
+                                <div className="modal-body login-modal">
+                                    <div id='social-icons-conatainer'>
+                                        <div >
+                                            <div className="form-group">
+                                                <input type="text" placeholder="Email address" name="emailLogin" ref="emailLogin" className="form-control login-field" />
                                             </div>
+                                            <div className="form-group">
+                                                <input type="password" placeholder="Password" ref="passwordLogin" name="passwordLogin" className="form-control login-field" />
+                                            </div>
+                                            <button className="btn modal-login-btn" onClick={this.signInAccount}>Login</button>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

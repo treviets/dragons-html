@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import '../assets/css/reviewHouse.css'
 import moment from 'moment'
 import bookingService from '../services/booking.js'
+import $ from "jquery";
+
 
 
 

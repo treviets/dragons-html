@@ -30,7 +30,7 @@ const HomeService = {
     getDetailRoom: async function (roomId) {
         try {
             const response = await getFromUrl(
-                "http://localhost:8080/dragons/room_detail/by_room_id?roomId="+roomId);
+                "/dragons/room_detail/by_room_id?roomId="+roomId);
             const data = response.data;
             return data
             

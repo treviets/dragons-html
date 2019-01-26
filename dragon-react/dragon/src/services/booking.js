@@ -7,7 +7,7 @@ const BookingService = {
             console.log("aaa")
             console.log(bookingJson)
             const response = await postFromUrl(
-                "http://localhost:8080/dragons/booking/create_booking",bookingJson);
+                "/dragons/booking/create_booking",bookingJson);
             const data = response.data;
             return data
             
