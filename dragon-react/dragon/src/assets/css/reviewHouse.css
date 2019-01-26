@@ -3,20 +3,18 @@
     font-weight: bold
 }
 .box-title{
-      border: 2px solid gray;   
+      border: 1px solid rgb(228, 228, 228);   
       height: 65px;
-      text-align: center
+      border-radius: .25rem;
+      padding: 12px;
 }
 .info-booking {
     margin-top: 10%
 }
-.box-title i {
-    font-size: 26px
-}
+
 
 .info-booking .title-box{
-    font-size: 26px;
-        font-weight: bold
+    font-weight: bold
 }
 .book-checkin{
     height: auto;
@@ -33,29 +31,53 @@
         
 }
 .box-date{
-    background-color: gainsboro;
-    width: 30%;
-    height: 70px;
-    text-align: centers;
+    background-color: rgb(242, 242, 242) !important;
+    float: left !important;
+    height: 56px !important;
+    text-align: center;
     float: left;
+    border-radius: 3px !important;
+    min-width: 56px;
+
 }
 .box-date-info{
-    float: left;
-    width: 70%;
+    display: inline-block !important;
+    margin: 8px 16px 6px;
 }
 .logo-box{
-    width: 15%;
-    height: 70px;
-    border: 1px solid gray;     
-    text-align: center  
+    display: inline-block ;
+    height: 56px ;
+    width: 56px ;
+    border-width: 1px ;
+    border-style: solid ;
+    border-color: rgb(235, 235, 235) ;
+    border-image: initial ;
+    border-radius: 3px ;
 
 }
 .service-detail{
+    display: table !important;
+    width: 100% !important;
+    height: 100% !important;    
     margin-bottom: 5px
 }
 .logo-content{
-    margin-top: 4%;
-    margin-left: 5%;
+    display: table-cell !important;
+    width: 100% !important;
+    vertical-align: top !important;
+}
+.logo-content .content{
+    display: table !important;
+    position: relative !important;
+    height: 100% !important;
+}
+._ni9axhe {
+    display: table-cell !important;
+    vertical-align: middle !important;
+}
+._1r804a6o{
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+
 }
 .logo-box i {
     margin-top: 15%;
@@ -63,34 +85,36 @@
 
 }
 .info-box{
-      border: 2px solid gray;   
-      width: 100%;
-      height: 500px;
+    border: 1px solid rgb(228, 228, 228);   
+    width: 85%;
+    padding-top: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 25px;
 }
 .box-room{
     height: 117px;
     position: relative;
 }
 .box-room-title{
-    width: 60%;
+    width: 69%;
     height: 117px;
     float: left;
-    text-align: center
 
 }
-.box-room-title p:first-child { 
+.box-room-title span:first-child { 
     font-weight: bold
 }
 .box-room-img{
     float: left;
-    width: 40%;
+    width: 100px;
     background-color: red;
-    height: 117px;
+    height: 80px;
 
 }
 .box-room-img img{
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .price-info{
@@ -102,3 +126,56 @@
 .div-price .price-group li{
     margin-bottom: 10px
 }
+.img-eye{
+    vertical-align: middle ;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: left ;
+    display: table-cell;
+
+}
+.content-eye{
+    display: table-cell ;
+    vertical-align: middle ;
+    text-align: left ;
+    width: 100% ;
+}
+
+.readmoreReviewBook{
+    color: #008489;
+}
+
+.hidemoreReviewBook{
+    color: #008489;
+    display: none;
+}
+
+.readmoreReviewBook:target ~ .hidemoreReviewBook {
+    display: inline;
+ }
+
+.readmoreReviewBook:target {display: none;}
+.readmoreReviewBook:target ~ .readmoreReviewBook {display: none;}
+.readmoreReviewBook:target ~ .reviewBook-detail {
+    max-height: 100%; 
+    opacity: 1;
+ }
+ 
+ .reviewBook-detail{
+    position: relative;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: .25s ease;  
+ }
+ .btn-AgreeBook{
+    background:rgb(0, 132, 137) !important;
+    color:white !important;
+    width: 130px !important;
+ }
+
+ @media (max-width: 767px){
+     .info-box {
+         width: 100% !important;
+     }
+ }

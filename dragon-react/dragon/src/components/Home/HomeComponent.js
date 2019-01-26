@@ -432,21 +432,21 @@ class HomeComponent extends Component {
             <div className="detailRoom">
                  <div className="img-Room" id="img-Room">
                     <div className="row" >
-                        <div className="col-md-6 col-init-no parent borderRight" >
+                        <div className="col-md-6 col-init-no parent borderRight height300" >
                             <img className="child" src={Constants.apiImg+this.state.imgsRoom[0].Image} width="100%" height="100%"/>
                         </div>
                         <div className="col-md-6 col-init-no">
                             <div className="row col-init-no">
-                                <div  className="col-md-6 col-init-no parent borderRight borderBottom">
+                                <div  className="col-md-6 col-init-no parent borderRight borderBottom height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[1].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no parent borderBottom">
+                                <div  className="col-md-6 col-init-no parent borderBottom height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[2].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no parent borderRight">
+                                <div  className="col-md-6 col-init-no parent borderRight height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[4].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no parent">
+                                <div  className="col-md-6 col-init-no parent height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[3].Image} width="100%" height="100%"/>
                                 </div>
                             </div>
