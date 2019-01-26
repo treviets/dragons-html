@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import '../assets/css/reviewHouse.css'
+import 'jquery-ui-bundle/jquery-ui.css';
 import moment from 'moment'
 import bookingService from '../services/booking.js'
 import $ from "jquery";
+import * as jquery from 'jquery';
+
 
 
 
@@ -19,7 +22,8 @@ class ReviewHouse extends Component {
             price:0,
             title:"",
             guests:0,
-            policy:[]
+            policy:[],
+            message:"waiting..."
         }
         this.handleBook = this.handleBook.bind(this)
     }
@@ -39,6 +43,13 @@ class ReviewHouse extends Component {
         }
         var myJSON = JSON.stringify(bookingJson);
         const res = await bookingService.bookingCreate(myJSON)
+        if (res.Status=="OK"){
+            this.setState({message :"You have Successfull Booked a room. Thank you very much!"})
+
+        }else{
+            this.setState({message :"You have Failed Booked a room. Please try again!"})
+
+        }
     }
     formatTime(time) {
         return moment(time).format('ll');   // January 12, 2019
@@ -64,6 +75,7 @@ class ReviewHouse extends Component {
         this.setState({nights:diffInDates,checkIn:this.props.startDate,checkOut:this.props.endDate,
         amount:this.props.totalAmount,room:this.props.room,price:this.props.price,
         guests:this.props.guests})
+
     }
     currencyFormat = (uv) => {
 
@@ -228,7 +240,7 @@ class ReviewHouse extends Component {
                             <br/>
                             <br/>
                             <div className="font-size16">
-                                <button className="btn btn-AgreeBook" onClick={this.handleBook}><b> Agree</b></button>
+                                <button className="btn btn-AgreeBook" data-dismiss="modal" data-toggle="modal" data-target="#bookingModal" onClick={this.handleBook}><b> Agree</b></button>
                             </div>
                             <br/>
                         </div>
@@ -329,6 +341,24 @@ class ReviewHouse extends Component {
                                 <div dangerouslySetInnerHTML={{ __html: this.state.room.PolicyCancel }}>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="modal fade" id="bookingModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Booking</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            {this.state.message}
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                         </div>
                     </div>
                 </div>
