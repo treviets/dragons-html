@@ -20,7 +20,6 @@ export default class Google extends Component {
 
     responseGoogle = response => {
         console.log("SUccess");
-        console.log('Full Name: ' + response.profileObj.name);
         console.log(response.profileObj);
         this.loginByGoogle(response.profileObj);
 
@@ -29,7 +28,7 @@ export default class Google extends Component {
             userID: response.userID,
             name: response.name,
             email: response.email,
-            //picture: response.picture.data.url
+            // picture: response.picture.data.url
         });
     };
 
