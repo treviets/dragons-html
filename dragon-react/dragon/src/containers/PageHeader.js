@@ -254,9 +254,12 @@ class PageHeader extends Component {
                                             <a href='#' className="btn btn-default facebook">
                                                 <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
                                             </a>
-                                            <a href='#' className="btn btn-default google">
+                                            <Googlegg />
+
+
+                                            {/* <a href='#' className="btn btn-default google">
                                                 <i className="fa fa-google-plus modal-icons"></i> Continue with Google
-                                            </a>
+                                            </a> */}
                                         </div>
                                         <div className="conatainer divhr">
                                             <p >or</p>
@@ -283,7 +286,7 @@ class PageHeader extends Component {
                                 <a href='#' className="btn btn-default facebook">
                                     <i className="fa fa-facebook modal-icons">
                                     </i> Continue with Facebook
-                                            </a>
+                                </a>
 
                                 <Googlegg />
                                 <div className="conatainer divhr">
@@ -302,7 +305,6 @@ class PageHeader extends Component {
                                         </div>
                                     </div>
                                 </div>
-
 
                             </div>
                         </div>
