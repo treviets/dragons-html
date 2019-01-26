@@ -33,9 +33,12 @@ class HomeComponent extends Component {
             imgsRoom:[],
             homeId:0,
             district,
-            min:230000,
-            max:25000000,
-            amount:"₫5000000  - ₫15000000+",
+            min:200000,
+            max:10000000,
+            minPrice:500000,
+            maxPrice:5000000,
+            amount:"₫500000  - ₫5000000+",
+            roomType: 0,
             selectDistrict:0,
             adultsGuest:0,
             childrensGuest:0,
@@ -62,12 +65,33 @@ class HomeComponent extends Component {
         this.handeChangeDistrict = this.handeChangeDistrict.bind(this)
         this.toggle = this.toggle.bind(this);
         this.onSliderChange= this.onSliderChange.bind(this)
-
-        
+        this.fillter =  this.fillter.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
+        this.handleHomeType = this.handleHomeType.bind(this);    
+    }
+    handleHomeType(type){
+        this.setState({roomType:type})
+        this.handleFilter(type)
+    }
+    fillter(){
+        this.handleFilter(this.state.roomType)
+    }
+    async handleFilter(type){
+        var from = moment(this.state.startDate, "DD/MM/YYYY")
+        .startOf("day")
+        .unix();
+        var to =
+        moment(this.state.endDate, "DD/MM/YYYY")
+          .startOf("day")
+          .unix() + 86340;
+        const res = await homeService.searchRoom(this.state.selectDistrict,from,to,this.state.totalGuest,this.state.minPrice,this.state.maxPrice, type)
+        console.log(res)
+        this.setState({listRoom: res.Data})
+        this.setState({is_listHome:false})
 
     }
     onSliderChange(value) {
-        this.setState({ amount:"₫" + value[0] + " - ₫" + value[1] +"+"})
+        this.setState({ amount:"₫" + value[0] + " - ₫" + value[1] +"+",minPrice:value[0],maxPrice:value[1]})
       }
     toggle() {
         this.setState({
@@ -75,14 +99,14 @@ class HomeComponent extends Component {
         });
       }
     async handleSearch(){
-            var from = moment(this.state.startDate, "DD/MM/YYYY")
+        var from = moment(this.state.startDate, "DD/MM/YYYY")
         .startOf("day")
         .unix();
         var to =
         moment(this.state.endDate, "DD/MM/YYYY")
           .startOf("day")
           .unix() + 86340;
-        const res = await homeService.searchRoom(this.state.selectDistrict,from,to,this.state.totalGuest)
+        const res = await homeService.searchRoom(this.state.selectDistrict,from,to,this.state.totalGuest,null,null,0)
         console.log(res)
         this.setState({listRoom: res.Data})
         this.setState({is_listHome:false})
@@ -97,6 +121,7 @@ class HomeComponent extends Component {
         });
     };
     handleBackRoom(){
+        $(".footer").hide()
         this.setState({is_Detail:false})
     }
     handleGetDetailRoom(room,roomType, imgs){
@@ -314,10 +339,17 @@ class HomeComponent extends Component {
     
    
     componentDidMount(){
+        $(".footer").hide()
 
         this.state.district =  district
         console.log(this.state.district)
         this.handlegetListHomes()
+        window.onpopstate = ()=> {
+            if(!this.state.is_Detail){
+                $(".footer").hide()
+
+            }
+        }
         
 
     }
@@ -333,11 +365,10 @@ class HomeComponent extends Component {
     }
     handleChangeToTime(date){
         this.setState({
-            endDate:date,
+            endDate:date,   
         });
     }
     handlePlus(type){
-        console.log(type)
         if (type==1){
             if (this.state.adultsGuest<12){
                 this.state.adultsGuest = this.state.adultsGuest+1
@@ -401,21 +432,21 @@ class HomeComponent extends Component {
             <div className="detailRoom">
                  <div className="img-Room" id="img-Room">
                     <div className="row" >
-                        <div className="col-md-6 col-init-no parent borderRight" >
+                        <div className="col-md-6 col-init-no parent borderRight height300" >
                             <img className="child" src={Constants.apiImg+this.state.imgsRoom[0].Image} width="100%" height="100%"/>
                         </div>
                         <div className="col-md-6 col-init-no">
                             <div className="row col-init-no">
-                                <div  className="col-md-6 col-init-no parent borderRight borderBottom">
+                                <div  className="col-md-6 col-init-no parent borderRight borderBottom height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[1].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no parent borderBottom">
+                                <div  className="col-md-6 col-init-no parent borderBottom height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[2].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no parent borderRight">
+                                <div  className="col-md-6 col-init-no parent borderRight height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[4].Image} width="100%" height="100%"/>
                                 </div>
-                                <div  className="col-md-6 col-init-no parent">
+                                <div  className="col-md-6 col-init-no parent height150">
                                     <img className="child" src={Constants.apiImg+this.state.imgsRoom[3].Image} width="100%" height="100%"/>
                                 </div>
                             </div>
@@ -558,7 +589,7 @@ class HomeComponent extends Component {
                                 </span>
                             </button> */}
                             <div style={{marginTop: '16px', marginBottom: '8px'}}><div className="label-menu"> Guests </div></div>
-                            <button id="PopoverLegacyLeft"   aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">Guests</div>
+                            <button id="PopoverLegacyLeft"   aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
                                 <span className="span-button">
                                     <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
                                         <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '1em', width: '1em', display: 'block', fill: 'currentcolor'}}>
@@ -568,7 +599,7 @@ class HomeComponent extends Component {
                                 </span>
                             </button>
 
-                                    <UncontrolledPopover id="popoverLegacyleft" trigger="legacy" placement="bottom" target="PopoverLegacyLeft">
+                                    <UncontrolledPopover onBlur={this.fillter} id="popoverLegacyleft" trigger="legacy" placement="bottom" target="PopoverLegacyLeft">
                                         <PopoverBody>
                                         <div className="" role="tooltip">
                                             <div className="col-md-12 font-size16" >
@@ -673,7 +704,7 @@ class HomeComponent extends Component {
                                                                     <div style={{marginTop: '16px'}}>
                                                                         
                                                                         <div className="_sh9qj2d">
-                                                                            <Range defaultValue={[5000000 ,15000000]} min={this.state.min} max={this.state.max} onChange={this.onSliderChange}/>
+                                                                            <Range onBlur={this.fillter} defaultValue={[500000 ,5000000]} min={this.state.min} max={this.state.max} onChange={this.onSliderChange}/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -730,7 +761,7 @@ class HomeComponent extends Component {
                                                                 <div className="_gyif22">
                                                                     <div className="_73ihd0r">
                                                                         <span className="_foa2bi">
-                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Entire_home" name="room_types-Entire_home" value="on"/>
+                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Entire_home" name="room_types-Entire_home" value="on" onChange={(e) => this.handleHomeType(1,e)}/>
                                                                             <span data-fake-checkbox="true" data-style-select="false" id="DynamicFilterSpanItem-room_types-Entire_home" data-style-default="true" className="_fhj4ui">
                                                                                 
                                                                             </span>
@@ -756,7 +787,7 @@ class HomeComponent extends Component {
                                                                 <div className="_gyif22">
                                                                     <div className="_73ihd0r">
                                                                         <span className="_foa2bi">
-                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Private_room" name="room_types-Private_room" value="on"/>
+                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Private_room" name="room_types-Private_room" value="on" onChange={(e) => this.handleHomeType(3,e)}/>
                                                                             <span data-fake-checkbox="true" data-style-select="false" data-style-default="true" id="DynamicFilterSpanItem-room_types-Private_room" className="_fhj4ui"></span>
                                                                         </span>
                                                                     </div>
@@ -780,7 +811,7 @@ class HomeComponent extends Component {
                                                                 <div className="_gyif22">
                                                                     <div className="_73ihd0r">
                                                                         <span className="_foa2bi">
-                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Shared_room" name="room_types-Shared_room" value="on"/>
+                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Shared_room" name="room_types-Shared_room" value="on" onChange={(e) => this.handleHomeType(4,e)}/>
                                                                             <span data-fake-checkbox="true" data-style-select="false" id="DynamicFilterSpanItem-room_types-Shared_room" data-style-default="true" className="_fhj4ui"></span>
                                                                         </span>
                                                                     </div>
