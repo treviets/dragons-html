@@ -150,6 +150,7 @@ class DetailHouseComponent extends Component {
         
     }
     componentDidMount() {
+        console.log(localStorage.accessToken)
         $("#price").hide()
         $(".footer").show()
         this.loadData()
@@ -211,9 +212,14 @@ class DetailHouseComponent extends Component {
         // this.setState({
         //     toAddPhone: true
         // })
-        $("#img-Room").hide()
-        $("#backListRoom").hide()
-        this.setState({is_reviewBook:true})
+        if(localStorage.getItem('accessToken')){
+            $("#img-Room").hide()
+            $("#backListRoom").hide()
+            this.setState({is_reviewBook:true})
+        }else{         
+            console.log("aa")
+            $('#btn-login').click()
+        }
 
         // var from = moment(this.state.startDate).format("YYYY-MM-DD HH:mm:ss")
         // var to = moment(this.state.endDate).format("YYYY-MM-DD HH:mm:ss")

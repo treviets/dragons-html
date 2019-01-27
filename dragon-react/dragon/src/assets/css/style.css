@@ -791,6 +791,7 @@ select::-ms-expand {
 }
 .img-Room{
     z-index: 2;
+    background:rgba(0,0,0,0.6);
 
 }
 
@@ -817,17 +818,15 @@ select::-ms-expand {
  
 }
 
-.parent:hover + .parent img,
-.parent:focus + .parent img{
+
+
+#img-Room:hover .col-md-6.col-init-no:not(:hover) ,
+#img-Room:focus .col-md-6.col-init-no:not(:focus){
     background:rgba(0,0,0,0.6);
     opacity: 0.7;
 }
 
-.parent:hover ~ .col-md-6.col-init-no img,
-.parent:focus ~ .col-md-6.col-init-no img{
-    background:rgba(0,0,0,0.6);
-    opacity: 0.7;
-}
+
 
 .child::before {
     content: "";

@@ -8,6 +8,9 @@ import axios from 'axios';
 import service from '../services/signup.js';
 import $ from "jquery";
 import Googlegg from '../components/Google';
+import { connect } from 'react-redux';
+import { loginUser, saveCreds,logoutUser } from '../actions/auth'
+
 
 
 
@@ -43,6 +46,7 @@ class PageHeader extends Component {
             password: "",
             emailLogin: "",
             passwordLogin: "",
+            isLogin:false,
 
         };
         this.handeChage = this.handeChage.bind(this);
@@ -53,9 +57,17 @@ class PageHeader extends Component {
         this.signUpAccount = this.signUpAccount.bind(this);
         this.signInAccount = this.signInAccount.bind(this);
         this.onSignIn = this.onSignIn.bind(this);
+        this.onLogout = this.onLogout.bind(this);
 
 
 
+    }
+    onLogout() {
+        if (this.props.isAuthenticated) {
+            this
+                .props
+                .logoutUser()
+        }
     }
     handeChage(event) {
         this.setState({
@@ -109,13 +121,17 @@ class PageHeader extends Component {
         formData.append("Email", this.refs.emailLogin.value);
         formData.append("Password", this.refs.passwordLogin.value);
 
-        var res = await service.signInCustomer(formData);
-
-        console.log(res)
-        if (res.Status !== "OK") {
-            alert(res.Message)
+        // var res = await service.signInCustomer(formData);
+        this
+        .props
+        .handleLogin(formData)
+        
+        if (!localStorage.getItem('accessToken')) {
+            alert("Đăng nhập không thành công")
         } else {
+
             $('#buttonClose').click();
+            this.setState({isLogin:true})
         }
     };
 
@@ -136,7 +152,13 @@ class PageHeader extends Component {
 
     }
     render() {
-
+        if (this.props.isAuthenticated) {
+            this
+                .props
+                .setToken(localStorage.getItem('accessToken'))
+            // window.location.replace('/')
+            // this.props.history.push('/');
+        }
         const {
             selectedOption,
             selectedMonth
@@ -176,13 +198,27 @@ class PageHeader extends Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="#" data-toggle="modal" data-target="#contact-modal">Contact</a>
                             </li>
-                            <li className="nav-item">
-                                <button className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal-custom">Log in</button>
+                            {
+                                localStorage.getItem('accessToken')?
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Account</a>
+                                </li>
+                                :
+                                <li className="nav-item">
+                                    <button id="btn-login" className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal-custom">Log in</button>
 
-                            </li>
-                            <li className="nav-item">
-                                <button className="btn btn-default my-2 my-sm-0 btn-sign-up" type="submit" data-toggle="modal" data-target="#signup-modal">Sign up</button>
-                            </li>
+                                </li>
+                                                                
+                            }
+                            {
+                                localStorage.getItem('accessToken')?
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/" onClick={this.onLogout}>Log out</a>
+                                </li>
+                                :<li className="nav-item">
+                                    <button className="btn btn-default my-2 my-sm-0 btn-sign-up" type="submit" data-toggle="modal" data-target="#signup-modal">Sign up</button>
+                                </li>
+                            }
                         </ul>
 
                     </div>
@@ -276,7 +312,7 @@ class PageHeader extends Component {
                     </div>
                 </div>
                 <div className="modal fade" id="login-modal-custom" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
+                    <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header login_modal_header">
                                 <button id="buttonClose" type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -395,5 +431,16 @@ class PageHeader extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return { isAuthenticated: state.auth.isAuthenticated, accessToken: state.auth.accessToken }
+}
 
-export default PageHeader
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleLogin: (creds) => dispatch((loginUser(creds))),
+        setToken: (token) => dispatch(saveCreds(token)),
+        logoutUser: () => dispatch(logoutUser())
+
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PageHeader);

@@ -19,11 +19,15 @@ function loginError(message) {
 export function loginUser(creds) {
     return (dispatch) => {
         dispatch(requestLogin(creds))
-        postFromUrl("/p/login", creds).then((response) => {
+        postFromUrl('/dragons/login/account', creds,{
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((response) => {
             const data = response.data;
             // console.log(data);
-            if (data.Error.Code !== 200) {
-                dispatch(loginError(data.Error.Message))
+            if (data.Status != 'OK') {
+                dispatch(loginError(data.Message))
             } else {
                 const token = data.Data;
                 localStorage.setItem('accessToken', token)
