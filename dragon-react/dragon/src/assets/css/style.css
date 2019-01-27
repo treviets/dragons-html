@@ -606,6 +606,9 @@ select::-ms-expand {
     width: 90%;
 }
 @media (max-width: 767px){
+    #img-Room{
+        display: none !important;
+    }
     .search-home {
         padding-left: 0 !important;
         padding-right: 0 !important;

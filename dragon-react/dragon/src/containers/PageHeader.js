@@ -280,7 +280,7 @@ class PageHeader extends Component {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header login_modal_header">
-                                <button type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <button type="buttonCloseSocial" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
                             <div className="modal-body login-modal">
                                 <div className="clearfix"></div>
@@ -315,7 +315,7 @@ class PageHeader extends Component {
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header login_modal_header">
-                                <button id="buttonClose" type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <button id="buttonCloseSocial" type="button" className="close" data-dismiss="modal" aria-hidden="true">×</button>
                             </div>
 
                             <div className="modal-body login-modal">

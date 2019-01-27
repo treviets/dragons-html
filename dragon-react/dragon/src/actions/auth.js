@@ -36,7 +36,7 @@ export function loginUser(creds) {
                 localStorage.setItem('accessToken', token)
                 dispatch(receiveLogin(token))
                 $('#buttonClose').click();
-                $('#buttonCloseSignUp').click()
+                $('#buttonCloseSocial').click()
 
 
             }
@@ -64,7 +64,7 @@ export function loginUserSocial(creds) {
                 localStorage.setItem('accessToken', token)
                 dispatch(receiveLogin(token))
                 $('#buttonClose').click()
-                $('#buttonCloseSignUp').click()
+                $('#buttonCloseSocial').click()
 
             }
         }).catch(err => {
