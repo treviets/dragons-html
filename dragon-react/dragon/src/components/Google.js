@@ -38,12 +38,12 @@ export default class Google extends Component {
         var profile = googleUser;
 
         var formData = new FormData();
-        formData.append("Fullname", profile.name);
-        formData.append("Googleid", profile.googleId);
-        formData.append("Email", profile.email);
-        formData.append("Lastname", profile.familyName);
-        formData.append("Firstname", profile.givenName);
-        formData.append("Avatar", profile.imageUrl);
+        // formData.append("Fullname", profile.name);
+        // formData.append("Googleid", profile.googleId);
+        // formData.append("Email", profile.email);
+        // formData.append("Lastname", profile.familyName);
+        // formData.append("Firstname", profile.givenName);
+        // formData.append("Avatar", profile.imageUrl);
 
         // formData.append("Fullname", "Thoại Trần");
         // formData.append("Googleid", "109571322154487634917");
@@ -53,13 +53,13 @@ export default class Google extends Component {
         // formData.append("Avatar", "https://lh6.googleusercontent.com/-yeQi0yZFdnk/AAAAAAAAAAI/AAAAAAAAC0I/Lanq5F-bvQM/s96-c/photo.jpg");
 
 
-        var res = await service.signUpBySocial(formData);
-        console.log(res)
-        if (res.Status !== "OK") {
-            alert("Login again please!")
-        } else {
-            console.log("SUCCESS")
-        }
+        // var res = await service.signUpBySocial(formData);
+        // console.log(res)
+        // if (res.Status !== "OK") {
+        //     alert("Login again please!")
+        // } else {
+        //     console.log("SUCCESS")
+        // }
     }
 
 
