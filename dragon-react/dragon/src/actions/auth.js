@@ -36,6 +36,35 @@ export function loginUser(creds) {
                 localStorage.setItem('accessToken', token)
                 dispatch(receiveLogin(token))
                 $('#buttonClose').click();
+                $('#buttonCloseSignUp').click()
+
+
+            }
+        }).catch(err => {
+            console.log("Error:", err)
+        })
+    }
+}
+
+export function loginUserSocial(creds) {
+    return (dispatch) => {
+        dispatch(requestLogin(creds))
+        postFromUrl('/dragons/login/social', creds,{
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((response) => {
+            const data = response.data;
+            // console.log(data);
+            if (data.Status != 'OK') {
+                dispatch(loginError(data.Message))
+                alert(data.Message)
+            } else {
+                const token = data.Data;
+                localStorage.setItem('accessToken', token)
+                dispatch(receiveLogin(token))
+                $('#buttonClose').click()
+                $('#buttonCloseSignUp').click()
 
             }
         }).catch(err => {

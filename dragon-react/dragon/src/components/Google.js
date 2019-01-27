@@ -3,13 +3,13 @@ import GoogleLogin from 'react-google-login';
 import service from '../services/signup.js';
 import '../assets/css/header.css';
 import FacebookLogin from 'react-facebook-login';
+import { connect } from 'react-redux';
+import { loginUserSocial, saveCreds,logoutUser } from '../actions/auth'
 
 
 
 
-
-
-export default class Google extends Component {
+class Google extends Component {
     state = {
         isLoggedIn: false,
         userID: "",
@@ -52,18 +52,20 @@ export default class Google extends Component {
         // formData.append("Firstname", "Thoại");
         // formData.append("Avatar", "https://lh6.googleusercontent.com/-yeQi0yZFdnk/AAAAAAAAAAI/AAAAAAAAC0I/Lanq5F-bvQM/s96-c/photo.jpg");
 
-
-        var res = await service.signUpBySocial(formData);
-        console.log(res)
-        if (res.Status !== "OK") {
-            alert("Login again please!")
-        } else {
-            console.log("SUCCESS")
-        }
+        this
+        .props
+        .handleLoginSocial(formData)
     }
 
 
     render() {
+        if (this.props.isAuthenticated) {
+            this
+                .props
+                .setToken(localStorage.getItem('accessToken'))
+            // window.location.replace('/')
+            // this.props.history.push('/');
+        }
         let fbContent;
 
 
@@ -96,3 +98,18 @@ export default class Google extends Component {
         return <div>{fbContent}</div>;
     }
 }
+
+const mapStateToProps = (state) => {
+    return { isAuthenticated: state.auth.isAuthenticated, accessToken: state.auth.accessToken }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleLoginSocial: (creds) => dispatch((loginUserSocial(creds))),
+        setToken: (token) => dispatch(saveCreds(token)),
+        logoutUser: () => dispatch(logoutUser())
+
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Google);
