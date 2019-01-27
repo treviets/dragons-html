@@ -126,13 +126,13 @@ class PageHeader extends Component {
         .props
         .handleLogin(formData)
         
-        if (!localStorage.getItem('accessToken')) {
-            alert("Đăng nhập không thành công")
-        } else {
+        // if (!localStorage.getItem('accessToken')) {
+        //     alert("Đăng nhập không thành công")
+        // } else {
 
-            $('#buttonClose').click();
-            this.setState({isLogin:true})
-        }
+        //     $('#buttonClose').click();
+        //     this.setState({isLogin:true})
+        // }
     };
 
 

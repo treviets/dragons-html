@@ -27,11 +27,19 @@ class ReviewHouse extends Component {
         }
         this.handleBook = this.handleBook.bind(this)
     }
+    parseJwt (token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        var user = JSON.parse(window.atob(base64))
+        return user
+    }
     async handleBook(){
+        var user = this.parseJwt(localStorage.accessToken)
+
         var from = moment(this.state.checkIn).format("YYYY-MM-DD HH:mm:ss")
         var to = moment(this.state.checkOut).format("YYYY-MM-DD HH:mm:ss")
         var bookingJson = {
-            CustomerId: 1,
+            CustomerId: user.id,
             FromDate: from,
             HomeId: this.props.homeId,
             NumberOfGuess: this.props.totalGuest,

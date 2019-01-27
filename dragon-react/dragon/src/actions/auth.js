@@ -1,5 +1,7 @@
 
 import { setAuthorizationToken, postFromUrl } from './apiUtils'
+import $ from "jquery";
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
@@ -28,10 +30,13 @@ export function loginUser(creds) {
             // console.log(data);
             if (data.Status != 'OK') {
                 dispatch(loginError(data.Message))
+                alert(data.Message)
             } else {
                 const token = data.Data;
                 localStorage.setItem('accessToken', token)
                 dispatch(receiveLogin(token))
+                $('#buttonClose').click();
+
             }
         }).catch(err => {
             console.log("Error:", err)
