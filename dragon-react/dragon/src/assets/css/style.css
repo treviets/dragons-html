@@ -606,6 +606,9 @@ select::-ms-expand {
     width: 90%;
 }
 @media (max-width: 767px){
+    .banner-menu{
+        height: 300px !important;
+    }
     #img-Room{
         display: none !important;
     }
