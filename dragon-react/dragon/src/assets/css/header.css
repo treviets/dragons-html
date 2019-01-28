@@ -1,4 +1,9 @@
-
+.navbar{
+    height: 81px;
+}
+.navbar-nav{
+        padding-left: 45%;
+}
 .navbar .row {
 	margin-right: 0px !important;
     margin-left: 0px !important;
@@ -10,7 +15,7 @@
 
 .navbar .header-icon {
 	width: 25%;
-    text-align: center;
+    /* text-align: center; */
 }
 .navbar .navbar-nav .nav-item .nav-link {
 	color: black;

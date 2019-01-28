@@ -12,6 +12,7 @@ import district from '../../masterData/district.json'
 import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
+
 const Range = Slider.Range;
 
 class HomeComponent extends Component {

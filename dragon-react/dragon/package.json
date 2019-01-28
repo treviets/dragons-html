@@ -28,6 +28,7 @@
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "system-font-css": "^2.0.2",
     "webpack": "^4.19.1",
     "webpack-dev-server": "^3.1.9"
   },
