@@ -878,11 +878,17 @@ select::-ms-expand {
     display:none;
 }
 .popover.bs-popover-bottom.show  {
-    top:5px !important;
-    left:50px !important;
+     top:5px !important;
+    /* left:50px !important;
     max-width: unset !important;
-    width: auto !important;
+    width: auto !important; */
+        transform: translate3d(39px, 205px, 0px);
+
 }
+.popover {
+    max-width: 240px;
+}
+
 
 .btn-guest{
     border-radius: 50%;
