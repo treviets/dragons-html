@@ -25,7 +25,6 @@ ul.today {
     padding-top: 3%;
 }
 .contentBody > li {
-    font-family: serif;
 }
 .contentBody > li:first-child {
     font-weight: bold;

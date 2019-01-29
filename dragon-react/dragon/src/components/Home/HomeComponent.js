@@ -164,8 +164,8 @@ class HomeComponent extends Component {
                 
                 <img className="home-image" src={Constants.apiImg+home.Images[0].Image}/>
                 <div className="home-description"  >
-                    <div className="font-size18">{home.Name}</div>
-                    <div className="font-size16">{home.NumberOfRooms} homes</div>
+                    <div className="font-size16">{home.Name}</div>
+                    <div className="font-size14">{home.NumberOfRooms} homes</div>
                 </div>
 
             </div>
@@ -432,22 +432,22 @@ class HomeComponent extends Component {
             <div className="detailRoom">
                  <div className="img-Room" id="img-Room">
                     <div className="row" >
-                        <div className="col-md-6 col-init-no parent borderRight height300" >
-                            <img className="child" src={Constants.apiImg+this.state.imgsRoom[0].Image} width="100%" height="100%"/>
+                        <div className="col-md-6 col-init-no parent  borderAll height300" >
+                            <img className="child-left" src={Constants.apiImg+this.state.imgsRoom[0].Image} />
                         </div>
                         <div className="col-md-6 col-init-no">
                             <div className="row col-init-no">
-                                <div  className="col-md-6 col-init-no parent borderRight borderBottom height150">
-                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[1].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent  borderAll  height150">
+                                    <img className="child-right" src={Constants.apiImg+this.state.imgsRoom[1].Image} />
                                 </div>
-                                <div  className="col-md-6 col-init-no parent borderBottom height150">
-                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[2].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent  borderAll height150">
+                                    <img className="child-right" src={Constants.apiImg+this.state.imgsRoom[2].Image} />
                                 </div>
-                                <div  className="col-md-6 col-init-no parent borderRight height150">
-                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[4].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent borderAll height150">
+                                    <img className="child-right" src={Constants.apiImg+this.state.imgsRoom[4].Image}/>
                                 </div>
-                                <div  className="col-md-6 col-init-no parent height150">
-                                    <img className="child" src={Constants.apiImg+this.state.imgsRoom[3].Image} width="100%" height="100%"/>
+                                <div  className="col-md-6 col-init-no parent borderAll height150">
+                                    <img className="child-right" src={Constants.apiImg+this.state.imgsRoom[3].Image}/>
                                 </div>
                             </div>
                         </div>

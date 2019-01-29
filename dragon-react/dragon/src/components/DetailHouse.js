@@ -408,20 +408,21 @@ class DetailHouseComponent extends Component {
         }else{
 
         return (
-            <div className ="fontfamily">
+            <div className ="fontfamily container">
                 <div className="container">
                     <div className="privateRom">
                         <div className="row">
                             <div className="col-md-7 col-sm-12">
-                                <p style={{ color: '#39576a' }}><b>{this.props.roomType}</b></p>
-                                <div className="optionTitle">
-                                    <p className="title">{this.state.roomData.Title}</p>
+                                <div className="container">
+                                <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.props.roomType}</span></a>
+                                <div className="optionTitle ">
+                                    <p className="title font-size32 font-title">{this.state.roomData.Title}</p>
                                     <img className="avatar" src="../img/icondragon.jpg" alt="" />
-                                    <span className="font-size18">
-                                        <i className="fa fa-users paddingLeft5" aria-hidden="true"></i> {this.props.room.NumberOfGuest} guests
-                                    <i className="fa fa-bell paddingLeft5" aria-hidden="true"></i> {this.state.roomData.Bedroom} bedrooms
-                                    <i className="fa fa-bed paddingLeft5" aria-hidden="true" ></i> {this.state.roomData.Bed} beds
-                                    <i className="fa fa-bath paddingLeft5" aria-hidden="true"></i> {this.state.roomData.Bath} share bath
+                                    <span className="font-size16 font-medium">
+                                    <i className="fa fa-users paddingLeft5" aria-hidden="true"></i>{this.props.room.NumberOfGuest} guests 
+                                    <i className="fa fa-bell paddingLeft5" aria-hidden="true"></i>{this.state.roomData.Bedroom} bedrooms
+                                    <i className="fa fa-bed paddingLeft5" aria-hidden="true" ></i>{this.state.roomData.Bed} beds
+                                    <i className="fa fa-bath paddingLeft5" aria-hidden="true"></i>{this.state.roomData.Bath} share bath
                                 </span>
                                 </div>
                                 <br />
@@ -656,7 +657,7 @@ class DetailHouseComponent extends Component {
                                         }
                                         
                                     <br/>
-
+                                </div>          
                             </div>
                             <div className="col-md-5 col-sm-12">
                                 <div className="request-to-book">
@@ -708,7 +709,8 @@ class DetailHouseComponent extends Component {
                                                     </div>
                                                 </span>
                                             </button>
-                                        <UncontrolledPopover onBlur={this.calprice} id="popoverBookPop" trigger="legacy" placement="bottom" target="PopoverBook">
+                                        <div id="detail-choose-guest">
+                                        <UncontrolledPopover className="popoverBookPop" style={{left:'-5px;'}} onBlur={this.calprice} id="popoverBookPop" trigger="legacy"  placement="bottom" target="PopoverBook">
                                         <PopoverBody>
                                         <div className="" role="tooltip">
                                             <div className="col-md-12 font-size16" >
@@ -766,6 +768,7 @@ class DetailHouseComponent extends Component {
                                         </div>
                                         </PopoverBody>
                                     </UncontrolledPopover>
+                                    </div>
                                             <br />
                                             <br />
                                             <div className="container div-price" id="price">

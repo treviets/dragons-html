@@ -11,14 +11,12 @@ ul li {
     list-style: none;
 }
 ul li a {
-    font-family: var(--font-font_family, Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif) !important;
     color: var(--color-text-muted, #767676) !important;
     /*font: inherit !important;*/
     font-weight: 600;
     font-size: 13px;
 }
 ._1awrjnc1 {
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
     overflow-wrap: break-word !important;
     font-size: 12px !important;
     font-weight: 600 !important;
