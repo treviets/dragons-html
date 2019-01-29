@@ -456,7 +456,11 @@ class HomeComponent extends Component {
                 </div>
            
                 <div className="divbody container">
-                    <span onClick={this.handleBackRoom} className="container backList" id="backListRoom" >All Lists </span>
+                    <div className="container">
+                        <div className="container">
+                            <span onClick={this.handleBackRoom} className="container backList" id="backListRoom" >All List </span>
+                        </div>
+                    </div>
                     <DetailHouse homeId={this.state.homeId} room={this.state.room} roomType={this.state.roomType} imgsRoom={this.state.imgsRoom} />
                 </div>
             </div>

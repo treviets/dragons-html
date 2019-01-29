@@ -167,17 +167,17 @@ class PageHeader extends Component {
         return (
             <div  >
                 <nav className="navbar navbar-expand-lg bg-blue" id="header" >
-                    <div className="header-icon">
-                        <img className="logo-company" src="../img/icondragon.jpg" />
-                    </div>
+                    <a className="navbar-brand" href="/">   <img className="logo-company" src="../img/icondragon.jpg" /> </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-label="Toggle navigation">
                         <i className="fa fa-bars" ></i>
                     </button>
 
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav row-direction" style={{ textAlign: 'center', width: '100%' }}>
+                    <div className="collapse navbar-collapse font-medium" id="navbarSupportedContent">
+                        <ul className="navbar-nav mr-auto">
+                        </ul>
+                        <ul className="navbar-nav font-medium row-direction" >
 
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Become a host</a>

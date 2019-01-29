@@ -1,9 +1,11 @@
 .navbar{
     height: 81px;
 }
-.navbar-nav{
-        padding-left: 45%;
+.navbar-brand img{
+    height: 50px;
+    width: 50px;
 }
+
 .navbar .row {
 	margin-right: 0px !important;
     margin-left: 0px !important;
@@ -18,8 +20,9 @@
     /* text-align: center; */
 }
 .navbar .navbar-nav .nav-item .nav-link {
-	color: black;
-	font-size: 14px;
+    color: #484848 !important;
+    font-size: 14px;
+    font-weight: 100 !important;
 }
 .navbar .btn-login, .navbar .btn-sign-up  {
 	background: transparent;
@@ -27,8 +30,9 @@
 }
 
 .navbar .nav-item {
-	margin: auto;
+    margin-left:10px;
 }
+
 
 
 .login_modal_footer{margin-top:5px;}
