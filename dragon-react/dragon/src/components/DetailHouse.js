@@ -430,23 +430,23 @@ class DetailHouseComponent extends Component {
                                 <div className="description font-size16">
                                     <p dangerouslySetInnerHTML={{ __html: this.state.roomData.Description }} />
 
-                                    <a href="#show" className="readmore" id="show">Read more about the space</a>
+                                    <a href="#show" className="readmore font-medium" id="show">Read more about the space</a>
                                     <svg className="readmore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
                                         <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
                                     </svg>
 
                                     <div className="space-detail">
-                                        <p className="space">The Space</p>
+                                        <p className="font-medium">The Space</p>
                                         <p dangerouslySetInnerHTML={{ __html: this.state.roomData.TheSpace }} />
-                                        <p className="space">Guest access</p>
+                                        <p className="font-medium">Guest access</p>
                                         <p dangerouslySetInnerHTML={{ __html: this.state.roomData.GuestAccess }} />
-                                        <p className="space">Interaction with guests</p>
+                                        <p className="font-medium">Interaction with guests</p>
                                         <p dangerouslySetInnerHTML={{ __html: this.state.roomData.InteractionWithGuests }} />
-                                        <p className="space">Other things to note</p>
+                                        <p className="font-medium">Other things to note</p>
                                         <p dangerouslySetInnerHTML={{ __html: this.state.roomData.OtherThings }} />
                                     </div>
 
-                                    <a href="#hide" className="hidemore" id="hide">Hide</a>
+                                    <a href="#hide" className="hidemore font-medium" id="hide">Hide</a>
                                     <svg className="hidemore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
                                         <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
                                     </svg>
@@ -456,12 +456,12 @@ class DetailHouseComponent extends Component {
                                 <hr />
                                 {this.state.lengthAmenitiesChoose > 0 ?
                                 <div>
-                                    <p className="space font-size16">Amenities</p>
-                                    <div className="col-md-12">
+                                    <p className="font-title font-size16">Amenities</p>
+                                    <div className="col-md-12 col-init-no">
                                         <div className="row font-size16">
                                          {this.state.amenities.map(this.renderAmenities)}                            
                                         </div>
-                                        <p className="readmore cursorPointer" data-toggle="modal" data-target="#amenities-modal">Show all {this.state.lengthAmenitiesChoose} amenities</p>
+                                        <p className="readmore cursorPointer font-medium" data-toggle="modal" data-target="#amenities-modal">Show all {this.state.lengthAmenitiesChoose} amenities</p>
 
                                     </div>
                                     <div style={{zIndex:10000}} className="modal fade" id="amenities-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -473,46 +473,46 @@ class DetailHouseComponent extends Component {
                                                             <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)'}}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
                                                         </div>
                                                         <br/>
-                                                        <p className="font-size24 space">Amenities</p>
-                                                        <p className="font-size18 space">Basic</p>
+                                                        <p className="font-size24 font-title">Amenities</p>
+                                                        <p className="font-size18 font-title">Basic</p>
                                                         {this.state.amenityBasic.map(this.renderDetailAmenties)}  
                                                         <br/>
-                                                        <p className="font-size18 space">Family features</p>
+                                                        <p className="font-size18 font-title">Family features</p>
                                                         {this.state.amenityFamilyFeatures.map(this.renderDetailAmenties)}  
                                                         <br/>
-                                                        <p className="font-size18 space">Facilities</p>
+                                                        <p className="font-size18 font-title">Facilities</p>
                                                         {this.state.amenityFacilities.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Dining</p>
+                                                        <p className="font-size18 font-title">Dining</p>
                                                         {this.state.amenityDining.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Guest access</p>
+                                                        <p className="font-size18 font-title">Guest access</p>
                                                         {this.state.amenityGuestAccess.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Logistics</p>
+                                                        <p className="font-size18 font-title">Logistics</p>
                                                         {this.state.amenityLogistics.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Bed and bath</p>
+                                                        <p className="font-size18 font-title">Bed and bath</p>
                                                         {this.state.amenityBedAndBath.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Outdoor</p>
+                                                        <p className="font-size18 font-title">Outdoor</p>
                                                         {this.state.amenityOutDoor.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Location</p>
+                                                        <p className="font-size18 font-title">Location</p>
                                                         {this.state.amenityLocation.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Safety features</p>
+                                                        <p className="font-size18 font-title">Safety features</p>
                                                         {this.state.amenitySafetyFeatures.map(this.renderDetailAmenties)}  
                                                         <br/>
 
-                                                        <p className="font-size18 space">Not included</p>
+                                                        <p className="font-size18 font-title">Not included</p>
                                                         {this.state.amenityNotIncluded.map(this.renderDetailAmenties)}                             
                                                     </div>
                                                 </div>																												
@@ -525,12 +525,12 @@ class DetailHouseComponent extends Component {
                                 }
                                 {this.state.lengthAccessibility > 0 ?
                                 <div>
-                                    <p className="space font-size16">Accessibilities</p>
-                                    <div className="col-md-12">
+                                    <p className="font-title font-size16">Accessibilities</p>
+                                    <div className="col-md-12 col-init-no">
                                         <div className="row font-size16">
                                             {this.state.accessEnteringHome.map(this.renderAccessibilities)}         
                                         </div>
-                                        <p className="readmore cursorPointer" data-toggle="modal" data-target="#accessibility-modal">Show all</p>
+                                        <p className="readmore cursorPointer font-medium" data-toggle="modal" data-target="#accessibility-modal">Show all</p>
 
                                     </div>
                                     <div style={{zIndex:10000}} className="modal fade" id="accessibility-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -544,43 +544,43 @@ class DetailHouseComponent extends Component {
                                                         </div>
                                                         <br/>
                                                         <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{height: '45px', width: '45px', display: 'block', fill: 'currentcolor'}}><path d="m3.89 13.85c-1.45 2.35-1.11 5.42.86 7.4 1.97 1.97 5.03 2.31 7.37.88.24-.14.54-.07.69.17.14.24.07.54-.17.69-2.74 1.67-6.3 1.27-8.6-1.03-2.31-2.31-2.7-5.89-1.01-8.63.15-.23.45-.31.69-.16.23.15.31.45.16.69zm8.72-2.82 2.61-3.39-4.63-2.53-2.24 2.24c-.2.2-.51.2-.71 0s-.2-.51 0-.71l2.37-2.37c.24-.24.6-.29.89-.13l4.93 2.69.79-1.03c-.39-.51-.63-1.13-.63-1.82 0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3c-.61 0-1.17-.18-1.64-.49l-3.93 5.11c.17.14.36.28.52.44.58.58 1.04 1.24 1.37 1.95h3.84c.41 0 .75.34.75.75 0 .07-.01.14-.03.21l-1.78 6.22 1.05.35c.26.09.4.37.32.63-.09.26-.37.4-.63.32l-1.41-.47c-.3-.1-.48-.43-.39-.73l1.79-6.27h-3.13c.56 1.88.33 3.95-.75 5.69-.15.23-.45.31-.69.16-.23-.15-.31-.45-.16-.69 1.46-2.35 1.12-5.42-.86-7.4s-5.05-2.32-7.4-.86c-.23.15-.54.07-.69-.16s-.07-.54.16-.69c2.26-1.4 5.08-1.36 7.3-.02zm4.39-7.03c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z" fillRule="evenodd"></path></svg>
-                                                        <p className="font-size24 space">Accessibility</p>
-                                                        <p className="font-size16 space">Entering the home</p>
+                                                        <p className="font-size24 font-title">Accessibility</p>
+                                                        <p className="font-size16 font-medium">Entering the home</p>
                                                         <div className="col-md-12">
                                                             <div className="row">
                                                                 {this.state.accessEnteringHome.map(this.renderDetailAccessibility)}  
                                                             </div>
                                                         </div>
                                                         <hr/>
-                                                        <p className="font-size16 space">Getting around</p>
+                                                        <p className="font-size16 font-medium">Getting around</p>
                                                         <div className="col-md-12">
                                                             <div className="row">
                                                                 {this.state.accessGettingAround.map(this.renderDetailAccessibility)}                                   
                                                             </div>
                                                         </div>
                                                         <hr/>
-                                                        <p className="font-size16 space">Bedroom</p>
+                                                        <p className="font-size16 font-medium">Bedroom</p>
                                                         <div className="col-md-12">
                                                             <div className="row">
                                                                 {this.state.accessBedroom.map(this.renderDetailAccessibility)}  
                                                             </div>
                                                         </div>
                                                         <hr/>
-                                                        <p className="font-size16 space">Bathroom</p>
+                                                        <p className="font-size16 font-medium">Bathroom</p>
                                                         <div className="col-md-12">
                                                             <div className="row">
                                                                 {this.state.accessBathroom.map(this.renderDetailAccessibility)}  
                                                             </div>
                                                         </div>
                                                         <hr/>
-                                                        <p className="font-size16 space">Common areas</p>
+                                                        <p className="font-size16 font-medium">Common areas</p>
                                                         <div className="col-md-12">
                                                             <div className="row">
                                                                 {this.state.accessCommonAreas.map(this.renderDetailAccessibility)}  
                                                             </div>
                                                         </div>
                                                         <hr/>
-                                                        <p className="font-size16 space">Parking</p>
+                                                        <p className="font-size16 font-medium">Parking</p>
                                                         <div className="col-md-12">
                                                             <div className="row">
                                                                 {this.state.accessParking.map(this.renderDetailAccessibility)}  
@@ -598,9 +598,9 @@ class DetailHouseComponent extends Component {
                                     {this.state.lengthReviews>0?
                                     <div>
                                         {this.state.lengthReviews > 1 ?
-                                            <p className="space font-size24">{this.state.lengthReviews} Reviews</p>
+                                            <p className="font-title font-size24">{this.state.lengthReviews} Reviews</p>
                                             :
-                                            <p className="space font-size24">{this.state.lengthReviews} Review</p>
+                                            <p className="font-title font-size24">{this.state.lengthReviews} Review</p>
                                         }
                                         <hr />
                                         {this.state.roomData.Reviews.map(this.renderReviews)}
@@ -608,18 +608,18 @@ class DetailHouseComponent extends Component {
                                     : null
                                     }
                                     <div className="TheNeighBorhood">
-                                        <p className="font-size24 space">The neighborhood</p>
+                                        <p className="font-size24 font-title">The neighborhood</p>
                                         <p dangerouslySetInnerHTML={{ __html: this.state.roomData.AboutNeighborhood }} />
 
-                                        <a href="#showNeighborhood" className="readmoreNeighBorhood" id="showNeighborhood">Read more about the neighborhood</a>
+                                        <a href="#showNeighborhood" className="readmoreNeighBorhood font-medium" id="showNeighborhood">Read more about the neighborhood</a>
                                         <svg className="readmoreNeighBorhood" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
                                             <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
                                         </svg>
                                         <div className="neightbor-detail">
-                                            <p className="space">Getting around</p>
+                                            <p className="font-medium">Getting around</p>
                                             <p dangerouslySetInnerHTML={{ __html: this.state.roomData.GetAround }} />
                                         </div>
-                                        <a href="#hideNeighborhood" className="hidemoreNeighBorhood" id="hideNeighborhood">Hide</a>
+                                        <a href="#hideNeighborhood" className="hidemoreNeighBorhood font-medium" id="hideNeighborhood">Hide</a>
                                         <svg className="hidemoreNeighBorhood" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
                                             <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
                                         </svg>
@@ -632,23 +632,23 @@ class DetailHouseComponent extends Component {
                                             <div className="TheNeighBorhood">
                                             <hr/>
                                             <br />
-                                            <p className="font-size24 space">Policies</p> 
-                                            <p className="font-size16 space">House Rules</p>
+                                            <p className="font-size24 font-title">Policies</p> 
+                                            <p className="font-size16 font-title">House Rules</p>
                                             <p dangerouslySetInnerHTML={{ __html: this.state.roomData.HouseRuleDescriptions }} />
 
-                                            <a href="#showRules" className="readmoreRules" id="showRules"><b>Read all rules</b></a>
+                                            <a href="#showRules" className="readmoreRules font-medium" id="showRules">Read all rules</a>
                                             <svg className="readmoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
                                                 <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
                                             </svg>
                                             <div className="rules-detail">
                                                 <p dangerouslySetInnerHTML={{ __html: this.state.roomData.AdditionalRules }} />
                                             </div>
-                                            <a href="#hideRules" className="hidemoreRules" id="hideRules"><b>Hide</b></a>
+                                            <a href="#hideRules" className="hidemoreRules font-medium" id="hideRules">Hide</a>
                                             <svg className="hidemoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
                                                 <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
                                             </svg>
                                             <hr/>
-                                            <p className="font-size16 space">Cancellations</p>
+                                            <p className="font-size16 font-title">Cancellations</p>
                                             <div dangerouslySetInnerHTML={{ __html: this.state.roomData.PolicyCancel }}>
                                             </div>
                                             </div>
