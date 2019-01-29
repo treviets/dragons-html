@@ -167,8 +167,8 @@ class PageHeader extends Component {
         return (
             <div  >
                 <nav className="navbar navbar-expand-lg bg-blue" id="header" >
-                    <a className="navbar-brand" href="/">   
-                        <img className="logo-company" src="../img/icondragon.jpg" /> 
+                    <a className="navbar-brand" href="/">
+                        <img className="logo-company" src="../img/icondragon.jpg" />
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -316,7 +316,7 @@ class PageHeader extends Component {
                             <div className="modal-body login-modal">
                                 <a href='#' className="btn btn-default facebook">
                                     <i className="fa fa-facebook modal-icons">
-                                    </i> Continue with Facebook
+                                    </i>  Login with Facebook
                                 </a>
 
                                 <Googlegg />
