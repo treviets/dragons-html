@@ -419,10 +419,10 @@ class DetailHouseComponent extends Component {
                                     <p className="title font-size32 font-title">{this.state.roomData.Title}</p>
                                     <img className="avatar" src="../img/icondragon.jpg" alt="" />
                                     <span className="font-size16 font-medium">
-                                    <i className="fa fa-users paddingLeft5" aria-hidden="true"></i>{this.props.room.NumberOfGuest} guests 
-                                    <i className="fa fa-bell paddingLeft5" aria-hidden="true"></i>{this.state.roomData.Bedroom} bedrooms
-                                    <i className="fa fa-bed paddingLeft5" aria-hidden="true" ></i>{this.state.roomData.Bed} beds
-                                    <i className="fa fa-bath paddingLeft5" aria-hidden="true"></i>{this.state.roomData.Bath} share bath
+                                    <i className="fa fa-users" aria-hidden="true"></i><span className="margin-left15">{this.props.room.NumberOfGuest} guests</span> 
+                                    <i className="fa fa-bell margin-left15" aria-hidden="true"></i><span className="margin-left15">{this.state.roomData.Bedroom} bedrooms</span>
+                                    <i className="fa fa-bed margin-left15" aria-hidden="true" ></i><span className="margin-left15">{this.state.roomData.Bed} beds</span>
+                                    <i className="fa fa-bath margin-left15" aria-hidden="true"></i><span className="margin-left15">{this.state.roomData.Bath} share bath</span>
                                 </span>
                                 </div>
                                 <br />
