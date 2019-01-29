@@ -9,7 +9,8 @@ import service from '../services/signup.js';
 import $ from "jquery";
 import Googlegg from '../components/Google';
 import { connect } from 'react-redux';
-import { loginUser, saveCreds,logoutUser } from '../actions/auth'
+import { loginUser, saveCreds, logoutUser } from '../actions/auth'
+import '../assets/fonts/font-css.css'
 
 
 
@@ -46,7 +47,7 @@ class PageHeader extends Component {
             password: "",
             emailLogin: "",
             passwordLogin: "",
-            isLogin:false,
+            isLogin: false,
 
         };
         this.handeChage = this.handeChage.bind(this);
@@ -123,9 +124,9 @@ class PageHeader extends Component {
 
         // var res = await service.signInCustomer(formData);
         this
-        .props
-        .handleLogin(formData)
-        
+            .props
+            .handleLogin(formData)
+
         // if (!localStorage.getItem('accessToken')) {
         //     alert("Đăng nhập không thành công")
         // } else {
@@ -167,7 +168,7 @@ class PageHeader extends Component {
             <div  >
                 <nav className="navbar navbar-expand-lg bg-blue" id="header" >
                     <div className="header-icon">
-                        {/* <img src="img/fb.png" style="height: 35px;"/> */}
+                        <img className="logo-company" src="../img/icondragon.jpg" />
                     </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -177,12 +178,6 @@ class PageHeader extends Component {
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav row-direction" style={{ textAlign: 'center', width: '100%' }}>
-                            <li className="nav-item active">
-                                <a className="nav-link" href="/">Home</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">About</a>
-                            </li>
 
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Become a host</a>
@@ -190,34 +185,32 @@ class PageHeader extends Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Help</a>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <a className="nav-link" href="#">
                                     <span className="fa fa-globe header-icon-style"></span>
                                 </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" data-toggle="modal" data-target="#contact-modal">Contact</a>
-                            </li>
-                            {
-                                localStorage.getItem('accessToken')?
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Account</a>
-                                </li>
-                                :
-                                <li className="nav-item">
-                                    <button id="btn-login" className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal-custom">Log in</button>
+                            </li> */}
 
-                                </li>
-                                                                
+                            {
+                                localStorage.getItem('accessToken') ?
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="#">Account</a>
+                                    </li>
+                                    :
+                                    <li className="nav-item">
+                                        <button id="btn-login" className="btn btn-default my-2 my-sm-0 btn-login" type="submit" data-toggle="modal" data-target="#login-modal-custom">Log in</button>
+
+                                    </li>
+
                             }
                             {
-                                localStorage.getItem('accessToken')?
-                                <li className="nav-item">
-                                    <a className="nav-link" href="/" onClick={this.onLogout}>Log out</a>
-                                </li>
-                                :<li className="nav-item">
-                                    <button className="btn btn-default my-2 my-sm-0 btn-sign-up" type="submit" data-toggle="modal" data-target="#signup-modal">Sign up</button>
-                                </li>
+                                localStorage.getItem('accessToken') ?
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/" onClick={this.onLogout}>Log out</a>
+                                    </li>
+                                    : <li className="nav-item">
+                                        <button className="btn btn-default my-2 my-sm-0 btn-sign-up" type="submit" data-toggle="modal" data-target="#signup-modal">Sign up</button>
+                                    </li>
                             }
                         </ul>
 
