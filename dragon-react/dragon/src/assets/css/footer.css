@@ -3,9 +3,7 @@
 
 }
 .title-footer {
-    font-weight: bold;
-    font-size: 15px;
-    /*//padding-bottom: 7px;*/
+   margin-bottom: 16px;
 }
 ul li {
     list-style: none;
@@ -13,13 +11,11 @@ ul li {
 ul li a {
     color: var(--color-text-muted, #767676) !important;
     /*font: inherit !important;*/
-    font-weight: 600;
-    font-size: 13px;
+    
 }
 ._1awrjnc1 {
     overflow-wrap: break-word !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
+    font-size: 12px;
     line-height: 1.33333em !important;
     color: rgb(255, 255, 255) !important;
     margin: 0px !important;
@@ -33,4 +29,11 @@ ul li a {
     border-image: initial !important;
     border-radius: 4px !important;
     padding: 0px 4px !important;
+}
+
+._146g3kk {
+    display: inline-block !important;
+    margin-left: 8px !important;
+    margin-right: -20px !important;
+    line-height: 1 !important;
 }
