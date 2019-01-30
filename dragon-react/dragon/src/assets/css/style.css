@@ -584,12 +584,13 @@ body{
     background-color: white;
 }
 .button-search{
-    background: #FF5A5F;
     font-weight: bold;
     border:none;
     box-shadow: none;
     width: 90%;
     color: white;
+    background-color: #c19d64;
+
 }
 select {
 /* for Firefox */
