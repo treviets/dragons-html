@@ -4,7 +4,7 @@ import service from '../services/signup.js';
 import '../assets/css/header.css';
 import FacebookLogin from 'react-facebook-login';
 import { connect } from 'react-redux';
-import { loginUserSocial, saveCreds,logoutUser } from '../actions/auth'
+import { loginUserSocial, saveCreds, logoutUser } from '../actions/auth'
 
 
 
@@ -68,32 +68,23 @@ class Google extends Component {
         }
         let fbContent;
 
-
-        if (this.state.isLoggedIn) {
-            return null
-        } else {
-            fbContent = (
-
-                <GoogleLogin
-                    clientId="788493347431-igrlt78305it6lut5hd6qenii0qce173.apps.googleusercontent.com"
-                    buttonText="Sign In with Google"
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
-                    className="buttonB"
-                />
-                // <FacebookLogin
-                //     appId="1088597931155576"
-                //     autoLoad={true}
-                //     fields="name,email,picture"
-                //     onClick={this.componentClicked}
-                //     callback={this.responseFacebook}
-                //     className="buttonB"
-                // />
-
-            );
-        }
-
-
+        fbContent = (
+            <GoogleLogin
+                clientId="788493347431-igrlt78305it6lut5hd6qenii0qce173.apps.googleusercontent.com"
+                buttonText="Sign In with Google"
+                onSuccess={this.responseGoogle}
+                onFailure={this.responseGoogle}
+                className="buttonB"
+            />
+            // <FacebookLogin
+            //     appId="1088597931155576"
+            //     autoLoad={true}
+            //     fields="name,email,picture"
+            //     onClick={this.componentClicked}
+            //     callback={this.responseFacebook}
+            //     className="buttonB"
+            // />
+        );
 
         return <div>{fbContent}</div>;
     }
@@ -108,7 +99,6 @@ const mapDispatchToProps = (dispatch) => {
         handleLoginSocial: (creds) => dispatch((loginUserSocial(creds))),
         setToken: (token) => dispatch(saveCreds(token)),
         logoutUser: () => dispatch(logoutUser())
-
     }
 }
 
