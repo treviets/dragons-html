@@ -14,11 +14,6 @@
     border-radius: 50%;
     width: 60px;
     height: 60px;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    object-position: top;
-    object-fit: cover;
 }
 
 .avatar-cus {
@@ -65,16 +60,22 @@
     font-size: 11px;
 }
 
-.title{
-    width: 85%;
-    word-wrap: break-word !important;    
+.optionTitle .row .col-10 label{
+    line-height: 3;
 }
-p{
 
+.optionTitle .row .col-2 {
+    display: none;
 }
 .content-request {
     padding: 20px;
 
+}
+.icon-furniture-reps{
+    display: none;
+}
+.icon-furniture{
+    display: block;
 }
 select {
     height: 34px !important;
@@ -245,26 +246,14 @@ select {
     padding: 35px;
 }
 
-.popover.show.popoverBookPop.bs-popover-bottom{
-    left:0px !important;
-    top:-9px !important;
-    width: 340px !important;
+.popover.show.popoverBook.bs-popover-bottom
+{
+
     border-radius: 2% !important;
-    
+    transform: translate3d(817px, 700px, 0px) !important;
+    min-width: 335px;
 }
-.popoverBookPop{
-    overflow: hidden !important
-}
-@media (max-width: 1023px){
-
-    #popoverBookPop .popover-body .col-md-12{
-        width: 180px !important;
-    }
-    
-    .popover.show.popoverBookPop.bs-popover-bottom{
-        left:70px !important;
-        top:-9px !important;
-        border-radius: 2% !important;
-    }
-
+.popover.show.popoverBook.bs-popover-top{
+    transform: translate3d(817px, 708px, 0px) !important;
+    min-width: 335px;
 }

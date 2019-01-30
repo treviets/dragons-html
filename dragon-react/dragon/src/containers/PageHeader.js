@@ -179,7 +179,7 @@ class PageHeader extends Component {
                     <div className="collapse navbar-collapse font-medium" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                         </ul>
-                        <ul className="navbar-nav font-medium row-direction" >
+                        <ul className="navbar-nav row-direction  font-medium" >
 
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Become a host</a>

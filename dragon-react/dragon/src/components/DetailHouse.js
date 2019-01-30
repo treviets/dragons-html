@@ -415,15 +415,67 @@ class DetailHouseComponent extends Component {
                             <div className="col-md-7 col-sm-12">
                                 <div className="container">
                                 <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.props.roomType}</span></a>
-                                <div className="optionTitle ">
-                                    <p className="title font-size32 font-title">{this.state.roomData.Title}</p>
-                                    <img className="avatar" src="../img/icondragon.jpg" alt="" />
-                                    <span className="font-size16 font-medium">
-                                    <i className="fa fa-users" aria-hidden="true"></i><span className="margin-left15">{this.props.room.NumberOfGuest} guests</span> 
-                                    <i className="fa fa-bell margin-left15" aria-hidden="true"></i><span className="margin-left15">{this.state.roomData.Bedroom} bedrooms</span>
-                                    <i className="fa fa-bed margin-left15" aria-hidden="true" ></i><span className="margin-left15">{this.state.roomData.Bed} beds</span>
-                                    <i className="fa fa-bath margin-left15" aria-hidden="true"></i><span className="margin-left15">{this.state.roomData.Bath} share bath</span>
-                                </span>
+                                <div className="optionTitle">
+                                    <div className="row">
+                                        <div className="title col-md-10 col-sm-12">
+                                            <p className="title font-size32 font-title">{this.state.roomData.Title}</p>
+                                        </div>
+                                        <div className="col-md-2 avatar-detail">
+                                            <img className="avatar" src="../img/icondragon.jpg" alt="" />
+                                        </div>
+                                    </div> 
+                                    <div className="row">
+                                        <div className="col-10">
+                                            <label>Thành phố Vũng Tàu</label>
+                                        </div>
+                                        <div className="col-2">
+                                            <img style={{width:"40px",height:"40px"}} src="../img/icondragon.jpg" alt="" />
+                                        </div>
+                                    </div>
+                                    <div className="font-size16 font-medium icon-furniture">
+                                        <div className="margin-right15" style={{display:"inline-block"}}>
+                                            <div style={{display:"table"}}>
+                                                <div style={{display:"table-cell"}}>
+                                                    <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.props.room.NumberOfGuest} guests</span> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="margin-right15" style={{display:"inline-block"}}>
+                                            <div style={{display:"table"}}>
+                                                <div style={{display:"table-cell"}}>
+                                                    <span>{this.state.roomData.Bedroom} bedrooms</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="margin-right15" style={{display:"inline-block"}}>
+                                            <div style={{display:"table"}}>
+                                                <div style={{display:"table-cell"}}>
+                                                    <span>{this.state.roomData.Bed} beds</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="margin-right15" style={{display:"inline-block"}}>
+                                            <div style={{display:"table"}}>
+                                                <div style={{display:"table-cell"}}>
+                                                    <span>{this.state.roomData.Bath} share bath</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row font-size16 font-medium icon-furniture-reps">
+                                        <div className="col-6">
+                                            <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.props.room.NumberOfGuest} guests</span>
+                                       </div>
+                                        <div className="col-6">
+                                            <span>{this.state.roomData.Bedroom} bedrooms</span>
+                                        </div>
+                                        <div className="col-6">
+                                            <i className="fa fa-users margin-right15" style={{color:"white"}} aria-hidden="true"></i><span>{this.state.roomData.Bed} beds</span>
+                                        </div>
+                                        <div className="col-6">
+                                            <span>{this.state.roomData.Bath} share bath</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <br />
                                 <hr />
@@ -709,8 +761,7 @@ class DetailHouseComponent extends Component {
                                                     </div>
                                                 </span>
                                             </button>
-                                        <div id="detail-choose-guest">
-                                        <UncontrolledPopover className="popoverBookPop" style={{left:'-5px;'}} onBlur={this.calprice} id="popoverBookPop" trigger="legacy"  placement="bottom" target="PopoverBook">
+                                            <UncontrolledPopover className="popoverBook" onBlur={this.calprice} id="popoverBookPop" trigger="legacy" placement="bottom" target="PopoverBook">
                                         <PopoverBody>
                                         <div className="" role="tooltip">
                                             <div className="col-md-12 font-size16" >
@@ -768,7 +819,6 @@ class DetailHouseComponent extends Component {
                                         </div>
                                         </PopoverBody>
                                     </UncontrolledPopover>
-                                    </div>
                                             <br />
                                             <br />
                                             <div className="container div-price" id="price">

@@ -36,6 +36,7 @@ $(document).ready(function() {
     }
     $( "#datepicker" ).datepicker();
     $( "#datepicker1" ).datepicker();
+  
     // $( "#slider-range" ).slider({
     //     range: true,
     //     min: 230000,
