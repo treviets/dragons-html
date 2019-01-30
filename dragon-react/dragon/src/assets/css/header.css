@@ -1,6 +1,6 @@
-.navbar{
+/* .navbar{
     height: 81px;
-}
+} */
 .navbar-brand img{
     height: 50px;
     width: 50px;
@@ -31,6 +31,7 @@
 
 .navbar .nav-item {
     margin-left:10px;
+    text-align: center
 }
 
 
@@ -130,6 +131,7 @@
     border-style: solid !important;
     font-weight: bold;
     font-family: 'Myfont',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+    
 
 }
 .buttonB > div {
@@ -141,4 +143,9 @@
     font-weight: bold !important;
     padding: 10px 42px 10px 0px !important;
 
+}
+.navbar .navbar-nav .nav-item button {
+    color: #484848 !important;
+    font-size: 14px;
+    font-weight: 100 !important;
 }
