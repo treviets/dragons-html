@@ -9,6 +9,10 @@ import configureStore from './store/configureStore'
 import 'font-awesome/css/font-awesome.min.css';
 import * as serviceWorker from './serviceWorker';
 import { config } from './actions/apiUtils'
+import 'react-dates/lib/css/_datepicker.css';
+import 'react-dates/initialize';
+export default React.PureComponent;
+export const pureComponentAvailable = true;
 const store = configureStore() // you can also pass in
 
 config()

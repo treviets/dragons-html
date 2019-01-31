@@ -250,10 +250,63 @@ select {
 {
 
     border-radius: 2% !important;
-    transform: translate3d(817px, 700px, 0px) !important;
+    transform: translate3d(817px, 690px, 0px) !important;
     min-width: 335px;
 }
 .popover.show.popoverBook.bs-popover-top{
-    transform: translate3d(817px, 708px, 0px) !important;
+    transform: translate3d(817px, 698px, 0px) !important;
     min-width: 335px;
+}
+
+.label-book{
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+
+.box-book .DateRangePicker.DateRangePicker_1 .DateRangePickerInput.DateRangePickerInput_1.DateRangePickerInput__withBorder.DateRangePickerInput__withBorder_2  {
+    width: 100% !important;
+}
+.box-book .DateRangePicker.DateRangePicker_1{
+    width: 100% !important;
+}
+
+.box-book .DateRangePicker.DateRangePicker_1 input {
+    font-size: 17px !important;
+    padding: 7px 10px !important;
+}
+
+.box-book .DateRangePicker.DateRangePicker_1 .DateRangePickerInput.DateRangePickerInput_1.DateRangePickerInput__withBorder.DateRangePickerInput__withBorder_2  
+.DateRangePicker_picker.DateRangePicker_picker_1.DateRangePicker_picker__directionLeft.DateRangePicker_picker__directionLeft_2 
+.DayPicker.DayPicker_1.DayPicker__horizontal.DayPicker__horizontal_2.DayPicker__withBorder.DayPicker__withBorder_3{
+    width: 340px !important;
+}
+
+.box-book .DateRangePicker.DateRangePicker_1 .DateRangePickerInput.DateRangePickerInput_1.DateRangePickerInput__withBorder.DateRangePickerInput__withBorder_2  
+.DateRangePicker_picker.DateRangePicker_picker_1.DateRangePicker_picker__directionLeft.DateRangePicker_picker__directionLeft_2 
+.DayPicker.DayPicker_1.DayPicker__horizontal.DayPicker__horizontal_2.DayPicker__withBorder.DayPicker__withBorder_3 > div {
+    margin-left: 12px !important;
+}
+.label-button{
+    font-size: 17px;
+}
+
+  .box-book .DateRangePicker.DateRangePicker_1 input::placeholder {
+    color: rgb(72, 72, 72) !important;
+}
+.footer-booking {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    border-top: 1px solid #EBEBEB !important;
+    background-color: #ffffff !important;
+
+}
+.footer-booking-content{
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    z-index: 4 !important;
+   
 }

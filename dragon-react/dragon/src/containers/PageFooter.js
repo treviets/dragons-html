@@ -59,8 +59,8 @@ class PageFooter extends Component{
                         <div className="col-md-3 col-sm-12">
                             <div className="box">
                                 <ul>
-                                    <li className="title-footer title-footer" style={{webkitTextFillColor:'rgb(118, 118, 118)'}}>
-                                        <i className="fa fa-facebook fa-lg" fill aria-hidden="true"></i>
+                                    <li className="title-footer title-footer" style={{fill:'rgb(118, 118, 118)'}}>
+                                        <i className="fa fa-facebook fa-lg"  aria-hidden="true"></i>
                                         <i className="fa fa-twitter fa-lg margin-left15" aria-hidden="true"></i>
                                         <i className="fa fa-instagram fa-lg margin-left15" aria-hidden="true"></i>
                                     </li>

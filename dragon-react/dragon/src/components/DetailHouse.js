@@ -10,6 +10,10 @@ import bookingService from '../services/booking.js'
 import * as Constants from '../const.js'
 import moment from 'moment'
 import { Button, UncontrolledPopover,  PopoverHeader, PopoverBody } from 'reactstrap';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+
+
+
 
 import UpdatePhone from './UpdatePhone';
 import ReviewHouse from './ReviewHouse';
@@ -20,8 +24,8 @@ class DetailHouseComponent extends Component {
 
         this.state = {
             selectGuest: 1,
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: null,
+            endDate: null,
             countPlus: 1,
             showGuests: true,
             roomData: {},
@@ -57,7 +61,9 @@ class DetailHouseComponent extends Component {
             valueGuest:'1 Guest',
             nights:0,
             cleanfee:0,
-            servicefee:0
+            servicefee:0,
+            focusedInput:null,  
+            numberOfMonths : 1,
 
 
 
@@ -412,7 +418,7 @@ class DetailHouseComponent extends Component {
                 <div className="container">
                     <div className="privateRom">
                         <div className="row">
-                            <div className="col-md-7 col-sm-12">
+                            <div className="col-xl-7 col-lg-12">
                                 <div className="container">
                                 <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.props.roomType}</span></a>
                                 <div className="optionTitle">
@@ -711,12 +717,14 @@ class DetailHouseComponent extends Component {
                                     <br/>
                                 </div>          
                             </div>
-                            <div className="col-md-5 col-sm-12">
+                            <div className="col-xl-5 col-lg-12 form-booking">
                                 <div className="request-to-book">
                                     <div className="content-request">
-                                        <span>
-                                            <b>₫{this.currencyFormat(this.props.room.Price)}</b> per night
-                                    </span>
+                                        <span className="font-title" style={{fontSize:"22px"}}>
+                                            ₫{this.currencyFormat(this.props.room.Price)}
+                                        </span>
+                                        <span className="font-size12 font-medium">per night</span>
+                                    
                                         <p>
                                             <span>
                                                 <i className="fa fa-star" aria-hidden="true"></i>
@@ -729,29 +737,25 @@ class DetailHouseComponent extends Component {
                                         </span>
                                         </p>
                                         <hr />
-                                        <div className="form-group">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <p>Check In</p>
-                                                    <DatePicker className="font-size14"
-                                                        selected={this.state.startDate}
-                                                        onChange={this.handleChangeFromTime}
-                                                    />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <p>Check outs</p>
-                                                    <DatePicker className="font-size14"
-                                                        selected={this.state.endDate}
-                                                        onChange={this.handleChangeToTime}
-                                                    />
-                                                </div>
-
-
-                                            </div>
+                                        <div className="form-group box-book">
+                                                <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Dates</div>
+                                                <DateRangePicker
+                                                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                                    startDateId="DateInput__screen-reader-message-checkin" // PropTypes.string.isRequired,
+                                                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                                    endDateId="DateInput__screen-reader-message-checkout" // PropTypes.string.isRequired
+                                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
+                                                    focusedInput={this.state.focusedInput}
+                                                    onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                                    // PropTypes.func.isRequired,
+                                                    numberOfMonths={this.state.numberOfMonths}
+                                                    startDatePlaceholderText="Check in"
+                                                    endDatePlaceholderText="Check out"
+                                                />
                                         </div>
 
                                         <div className="form-group">
-                                            <label htmlFor="">Guest:</label>
+                                            <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Guests</div>
                                             <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
                                                 <span className="span-button">
                                                     <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
@@ -822,7 +826,7 @@ class DetailHouseComponent extends Component {
                                             <br />
                                             <br />
                                             <div className="container div-price" id="price">
-                                                <div className="price-group font-size16 font-weight400">
+                                                <div className="price-group font-size14 font-weight400">
                                                 
                                                     <p className="price-info">
                                                         ₫{this.currencyFormat(this.props.room.Price*this.state.totalGuest)  } x {this.currencyFormat(this.state.nights)} nights
@@ -906,6 +910,23 @@ class DetailHouseComponent extends Component {
                         </div>
                     </div>
 
+                </div>
+                <div className="footer-booking">
+                    <div className="container">
+                        <div className ="divbody footer-booking-content">
+                            <div className="row">
+                                <div className="col-md-9 col-6">
+                                <span className="font-title" style={{fontSize:"22px"}}>
+                                    ₫{this.currencyFormat(this.props.room.Price)}
+                                </span>
+                                <span className="font-size12 font-medium">per night</span>
+                                </div>
+                                <div className="col-md-3 col-6">
+                                    <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
