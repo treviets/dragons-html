@@ -673,6 +673,7 @@ select::-ms-expand {
     width: 90%;
 }
 @media (max-width: 768px){
+    
     .detailRoom .divbody{
         padding-left: 150px !important;
         padding-right: 150px!important;
@@ -680,6 +681,15 @@ select::-ms-expand {
     }
 }
 @media (max-width: 767px){
+    #book-modal .modal-dialog{
+        min-width: 100% !important;
+        margin: 0 !important;
+    }
+    #book-modal .modal-dialog .modal-content{
+        min-height: 100vh !important;
+        width: 100% !important;
+        border: none !important;
+    }
     .detailRoom .divbody{
         padding-left: 50px !important;
         padding-right: 50px!important;

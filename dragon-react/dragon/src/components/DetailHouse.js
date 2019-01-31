@@ -922,9 +922,206 @@ class DetailHouseComponent extends Component {
                                 <span className="font-size12 font-medium">per night</span>
                                 </div>
                                 <div className="col-md-3 col-6">
-                                    <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
+                                    <button className="form-control btnRequest" data-toggle="modal" data-target="#book-modal">Book</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div style={{zIndex:10000}} className="modal fade" id="book-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-body book-modal">     
+                                <div style={{paddingTop:'20px',paddingLeft:'20px'}}  className="cursorPointer" data-dismiss="modal" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)'}}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
+                                </div>
+                                    <div className="content-request">
+                                        <span className="font-title" style={{fontSize:"22px"}}>
+                                            ₫{this.currencyFormat(this.props.room.Price)}
+                                        </span>
+                                        <span className="font-size12 font-medium">per night</span>
+                                    
+                                        <p>
+                                            <span>
+                                                <i className="fa fa-star" aria-hidden="true"></i>
+                                                <i className="fa fa-star" aria-hidden="true"></i>
+                                                <i className="fa fa-star" aria-hidden="true"></i>
+                                                <i className="fa fa-star" aria-hidden="true"></i>
+                                                <i className="fa fa-star" aria-hidden="true"></i>
+                                                <i className="fa fa-star" aria-hidden="true"></i>
+                                                65
+                                        </span>
+                                        </p>
+                                        <hr />
+                                        <div className="form-group box-book">
+                                                <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Dates</div>
+                                                <DateRangePicker
+                                                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                                    startDateId="DateInput__screen-reader-message-checkin" // PropTypes.string.isRequired,
+                                                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                                    endDateId="DateInput__screen-reader-message-checkout" // PropTypes.string.isRequired
+                                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
+                                                    focusedInput={this.state.focusedInput}
+                                                    onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                                    // PropTypes.func.isRequired,
+                                                    numberOfMonths={this.state.numberOfMonths}
+                                                    startDatePlaceholderText="Check in"
+                                                    endDatePlaceholderText="Check out"
+                                                />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Guests</div>
+                                            <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
+                                                <span className="span-button">
+                                                    <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
+                                                        <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '1em', width: '1em', display: 'block', fill: 'currentcolor'}}>
+                                                            <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                        </svg>
+                                                    </div>
+                                                </span>
+                                            </button>
+                                            <UncontrolledPopover className="popoverBook" onBlur={this.calprice} id="popoverBookPop" trigger="legacy" placement="bottom" target="PopoverBook">
+                                        <PopoverBody>
+                                        <div className="" role="tooltip">
+                                            <div className="col-md-12 font-size16" >
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <p>Adults</p>
+                                                        <p></p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no" >
+                                                        <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        {this.state.adultsGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                            <div className="col-md-12 font-size16">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <label>Children</label>
+                                                        <p className="font-size14">Ages 2-12</p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    {this.state.childrensGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12 font-size16">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <label>Infants</label>
+                                                        <p className="font-size14">Under 2</p>
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                    {this.state.infantsGuest}+
+                                                    </div>
+                                                    <div className="col-md-2 col-init-no">
+                                                        <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </PopoverBody>
+                                    </UncontrolledPopover>
+                                            <br />
+                                            <br />
+                                            <div className="container div-price" id="price">
+                                                <div className="price-group font-size14 font-weight400">
+                                                
+                                                    <p className="price-info">
+                                                        ₫{this.currencyFormat(this.props.room.Price*this.state.totalGuest)  } x {this.currencyFormat(this.state.nights)} nights
+                                                    </p>
+                                                    <p className="price-total">
+                                                        ₫{this.currencyFormat(this.state.totalGuest==0?this.props.room.Price*this.state.nights:this.props.room.Price*this.state.nights*this.state.totalGuest)}
+                                                    </p>
+                                                    <hr/>
+                                                    <p className="price-info">
+                                                        Cleaning fee
+                                                    </p>
+                                                    <p className="price-total">
+                                                        đ{this.currencyFormat(this.state.cleanfee)}
+                                                    </p>
+                                                    <hr/>
+                                                    <p className="price-info">
+                                                        Service fee
+                                                    </p>
+                                                    <p className="price-total">
+                                                        ₫{this.currencyFormat(this.state.servicefee*this.state.nights)}
+                                                    </p>
+                                                    <hr/>
+                                                    <div className="price-info">
+                                                       <b> Total (VND) </b>
+                                                    </div>
+                                                    <div className="price-total">
+                                                        ₫{this.currencyFormat(this.state.totalAmount)}
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                            <br/>
+
+                                            <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
+                                            <p style={{ textAlign: 'center', fontFamily: 'sans-serif' }}>You won't be charged yet</p>
+                                        </div>
+                                        <hr />
+                                        <div className="footer-request">
+                                            <p>This home is on people's minds.</p>
+                                            <p> It's been viewed 500+ times in the past week</p>
+                                            <i className="fa fa-lightbulb-o logo-created" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <p style={{ textAlign: 'center' }}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
+                                    <div className="div-Guest" hidden={this.state.showGuests}>
+                                        <div className="row">
+                                            <div className="col-md-6 title-choose">
+                                                <span>Adults</span>
+                                            </div>
+                                            <div className="col-md-6 group-button-config">
+                                                <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                <label type="text" />{this.state.countPlus}
+                                                <button className="button-config" onClick={this.handlePlus}>+</button>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6 title-choose">
+                                                <span>Children</span>
+                                            </div>
+                                            <div className="col-md-6 group-button-config">
+                                                <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                <label type="text" />{this.state.countPlus}
+                                                <button className="button-config" onClick={this.handlePlus}>+</button>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6 title-choose">
+                                                <span>Infants</span>
+                                            </div>
+                                            <div className="col-md-6 group-button-config">
+                                                <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                <label type="text" />{this.state.countPlus}
+                                                <button className="button-config" onClick={this.handlePlus}>+</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>                                                      																										
                         </div>
                     </div>
                 </div>
