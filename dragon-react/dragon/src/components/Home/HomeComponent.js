@@ -505,7 +505,7 @@ class HomeComponent extends Component {
 
                                             <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
                                                 <span className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }}>
-                                                    <input id="PopoverLegacy" className="border-none input-search cursorPointer" role="button" value={this.state.valueGuest} />
+                                                    <input id="PopoverLegacy" className="border-none input-search cursorPointer" role="button" value={this.state.valueGuest} onChange={({value}) =>this.setState({valueGuest:value})}/>
 
                                                     <UncontrolledPopover id="popoverLegacyPop" trigger="legacy" placement="bottom" target="PopoverLegacy">
                                                         <PopoverBody  >

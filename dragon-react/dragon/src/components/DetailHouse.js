@@ -64,6 +64,8 @@ class DetailHouseComponent extends Component {
             servicefee:0,
             focusedInput:null,  
             numberOfMonths : 1,
+            focusedInput1:null,  
+
 
 
 
@@ -957,13 +959,15 @@ class DetailHouseComponent extends Component {
                                                 <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Dates</div>
                                                 <DateRangePicker
                                                     startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                                                    startDateId="DateInput__screen-reader-message-checkin" // PropTypes.string.isRequired,
+                                                    startDateId="DateInput__screen-reader-message-checkin-modal" // PropTypes.string.isRequired,
                                                     endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                                                    endDateId="DateInput__screen-reader-message-checkout" // PropTypes.string.isRequired
+                                                    endDateId="DateInput__screen-reader-message-checkout-modal" // PropTypes.string.isRequired
                                                     onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
-                                                    focusedInput={this.state.focusedInput}
-                                                    onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                                    focusedInput={this.state.focusedInput1}
+                                                    onFocusChange={focusedInput1 => this.setState({ focusedInput1 })}
                                                     // PropTypes.func.isRequired,
+                                                    readOnly={true}
+
                                                     numberOfMonths={this.state.numberOfMonths}
                                                     startDatePlaceholderText="Check in"
                                                     endDatePlaceholderText="Check out"
