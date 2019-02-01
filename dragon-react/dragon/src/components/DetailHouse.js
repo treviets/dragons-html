@@ -758,7 +758,7 @@ class DetailHouseComponent extends Component {
 
                                         <div className="form-group">
                                             <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Guests</div>
-                                            <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
+                                            <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="false"  className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
                                                 <span className="span-button">
                                                     <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
                                                         <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '1em', width: '1em', display: 'block', fill: 'currentcolor'}}>
@@ -976,7 +976,7 @@ class DetailHouseComponent extends Component {
 
                                         <div className="form-group">
                                             <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Guests</div>
-                                            <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
+                                            <button id="PopoverBookModal" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="true"  className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
                                                 <span className="span-button">
                                                     <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
                                                         <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '1em', width: '1em', display: 'block', fill: 'currentcolor'}}>
@@ -985,57 +985,57 @@ class DetailHouseComponent extends Component {
                                                     </div>
                                                 </span>
                                             </button>
-                                            <UncontrolledPopover className="popoverBook" onBlur={this.calprice} id="popoverBookPop" trigger="legacy" placement="bottom" target="PopoverBook">
+                                        <UncontrolledPopover className="popoverBookModal" onBlur={this.calprice} trigger="legacy" placement="bottom" target="PopoverBookModal">
                                         <PopoverBody>
                                         <div className="" role="tooltip">
-                                            <div className="col-md-12 font-size16" >
+                                            <div className="col-md-12 col-12 font-size16" >
                                                 <div className="row">
-                                                    <div className="col-md-6">
+                                                    <div className="col-md-6 col-5">
                                                         <p>Adults</p>
                                                         <p></p>
                                                     </div>
-                                                    <div className="col-md-2 col-init-no" >
+                                                    <div className="col-md-2 col-2 col-init-no" >
                                                         <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
                                                     </div>
-                                                    <div className="col-md-2">
+                                                    <div className="col-md-2 col-3">
                                                         {this.state.adultsGuest}+
                                                     </div>
-                                                    <div className="col-md-2 col-init-no">
+                                                    <div className="col-md-2 col-2 col-init-no">
                                                         <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
                                                     </div>
                                                 </div>
                                             </div>
                                             <br/>
-                                            <div className="col-md-12 font-size16">
+                                            <div className="col-md-12 col-12 font-size16">
                                                 <div className="row">
-                                                    <div className="col-md-6">
+                                                    <div className="col-md-6 col-5">
                                                         <label>Children</label>
                                                         <p className="font-size14">Ages 2-12</p>
                                                     </div>
-                                                    <div className="col-md-2 col-init-no">
+                                                    <div className="col-md-2 col-2 col-init-no">
                                                         <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
                                                     </div>
-                                                    <div className="col-md-2">
+                                                    <div className="col-md-2 col-3">
                                                     {this.state.childrensGuest}+
                                                     </div>
-                                                    <div className="col-md-2 col-init-no">
+                                                    <div className="col-md-2 col-2 col-init-no">
                                                         <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-12 font-size16">
+                                            <div className="col-md-12 col-12 font-size16">
                                                 <div className="row">
-                                                    <div className="col-md-6">
+                                                    <div className="col-md-6 col-5">
                                                         <label>Infants</label>
                                                         <p className="font-size14">Under 2</p>
                                                     </div>
-                                                    <div className="col-md-2 col-init-no">
+                                                    <div className="col-md-2 col-2 col-init-no">
                                                         <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
                                                     </div>
-                                                    <div className="col-md-2">
+                                                    <div className="col-md-2 col-3">
                                                     {this.state.infantsGuest}+
                                                     </div>
-                                                    <div className="col-md-2 col-init-no">
+                                                    <div className="col-md-2 col-2 col-init-no">
                                                         <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
                                                     </div>
                                                 </div>

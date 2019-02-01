@@ -241,7 +241,16 @@ body{
     /* padding-right: 32px !important;
     padding-left: 32px !important; */
 }
+#img-Room .tablet{
+    display: none;
+}
 @media (max-width:1127px){
+    #img-Room .desktop{
+        display: none !important;
+    }
+    #img-Room .tablet{
+        display: flex !important;
+    }
     .form-booking{
         display: none !important;
     }
@@ -260,6 +269,39 @@ body{
         padding-left: 170px !important;
         padding-right: 170px !important;
 
+    }
+}
+@media (min-width:1024px){
+    .popover.show.popoverBookModal.bs-popover-bottom
+    {
+        min-width: 42% !important;
+    }
+}
+@media (min-width:768px){
+    .popover.show.popoverBookModal.bs-popover-bottom
+    {
+        min-width: 56% !important;
+    }
+}
+@media (min-width:414px){
+    .popover.show.popoverBookModal.bs-popover-bottom
+    {
+        min-width: 82% !important;
+    }
+}
+@media (min-width:375px){
+    .popover.show.popoverBookModal.bs-popover-bottom
+    {
+        min-width: 82% !important;
+    }
+}
+@media (min-width:320px){
+    .popover.show.popoverBookModal.bs-popover-bottom
+    {
+        min-width: 78% !important;
+    }
+    .box-book .DateRangePicker.DateRangePicker_1{
+        width: 100px !important;
     }
 }
 @media (max-width:320px){
@@ -914,7 +956,8 @@ select::-ms-expand {
 
 }
 
-.parent {
+.desktop .parent,
+.tablet .parent {
     overflow: hidden;
     position: relative;
     display: inline-block;
@@ -923,7 +966,8 @@ select::-ms-expand {
     
 }
   
-.child-right {
+.desktop .child-right,
+.tablet .child-right {
   /* fallback color */
     background-position: center;
     background-size: cover;
@@ -934,7 +978,8 @@ select::-ms-expand {
     margin-top: -40px;
 }
 
-.child-left {
+.desktop .child-left,
+.tablet .child-left {
     /* fallback color */
       background-position: center;
       background-size: cover;
@@ -945,10 +990,14 @@ select::-ms-expand {
       margin-top: -70px;
   }
 
-.parent:hover .child-right ,
-.parent:focus .child-right, 
-.parent:hover .child-left,
-.parent:focus .child-left{
+.desktop .parent:hover .child-right ,
+.desktop .parent:focus .child-right, 
+.desktop .parent:hover .child-left,
+.desktop .parent:focus .child-left,
+.tablet .parent:hover .child-right ,
+.tablet .parent:focus .child-right, 
+.tablet .parent:hover .child-left,
+.tablet .parent:focus .child-left{
   transform: scale(1.07);
  
 }
@@ -958,7 +1007,16 @@ select::-ms-expand {
 #img-Room:hover .col-md-6.col-init-no:not(:hover) ,
 #img-Room:focus .col-md-6.col-init-no:not(:focus){
     background:rgba(0,0,0,0.6);
+    opacity: 1;
+}
+#img-Room:hover .col-md-8.col-init-no:not(:hover) ,
+#img-Room:focus .col-md-8.col-init-no:not(:focus),
+#img-Room:hover .col-md-12.col-init-no:not(:hover) ,
+#img-Room:focus .col-md-12.col-init-no:not(:focus)
+{
+    background:rgba(0,0,0,0.6);
     opacity: 0.7;
+    width: 100%;
 }
 
 

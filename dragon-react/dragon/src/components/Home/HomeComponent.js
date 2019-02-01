@@ -432,7 +432,7 @@ class HomeComponent extends Component {
                 {this.state.is_Detail ?
                     <div className="detailRoom">
                         <div className="img-Room" id="img-Room">
-                            <div className="row" >
+                            <div className="row desktop" >
                                 <div className="col-md-6 col-init-no parent  borderAll height300" >
                                     <img className="child-left" src={Constants.apiImg + this.state.imgsRoom[0].Image} />
                                 </div>
@@ -453,6 +453,23 @@ class HomeComponent extends Component {
                                     </div>
                                 </div>
                             </div>
+                            <div className="row tablet" >
+                                <div className="col-md-8 col-init-no parent  borderAll height300" >
+                                    <img className="child-left" style={{marginTop:'0px'}} src={Constants.apiImg + this.state.imgsRoom[3].Image} />
+                                </div>
+                                <div className="col-md-4 col-init-no">
+                                    <div className="row col-init-no">
+                                        <div className="col-md-12 col-init-no parent  borderAll  height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
+                                        </div>
+                                        <div className="col-md-12 col-init-no parent  borderAll height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div className="divbody container">

@@ -312,3 +312,11 @@ select {
     z-index: 4 !important;
    
 }
+.popoverBookModal{
+    z-index: 10001;
+}
+.popover.show.popoverBookModal.bs-popover-bottom
+{
+    border-radius: 2% !important;
+    top: -10px !important;
+}
