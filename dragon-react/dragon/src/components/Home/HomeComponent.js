@@ -433,15 +433,15 @@ class HomeComponent extends Component {
                     <div className="detailRoom">
                         <div className="img-Room" id="img-Room">
                             <div className="row desktop" >
-                                <div className="col-md-6 col-init-no parent  borderAll height300" >
+                                <div className="col-md-6 col-init-no parent borderAll height300" >
                                     <img className="child-left" src={Constants.apiImg + this.state.imgsRoom[0].Image} />
                                 </div>
                                 <div className="col-md-6 col-init-no">
                                     <div className="row col-init-no">
-                                        <div className="col-md-6 col-init-no parent  borderAll  height150">
+                                        <div className="col-md-6 col-init-no parent borderAll height150">
                                             <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
                                         </div>
-                                        <div className="col-md-6 col-init-no parent  borderAll height150">
+                                        <div className="col-md-6 col-init-no parent borderAll height150">
                                             <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
                                         </div>
                                         <div className="col-md-6 col-init-no parent borderAll height150">
@@ -472,7 +472,7 @@ class HomeComponent extends Component {
 
                         </div>
 
-                        <div className="divbody container">
+                        <div className="divbody">
                             <div className="container">
                                 <div className="container">
                                     <span onClick={this.handleBackRoom} className="container backList" id="backListRoom" >All List </span>

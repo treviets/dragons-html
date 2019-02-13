@@ -9,6 +9,7 @@ import homeService from '../services/home.js'
 import bookingService from '../services/booking.js'
 import * as Constants from '../const.js'
 import moment from 'moment'
+import {Popover, OverlayTrigger } from 'react-bootstrap';
 import { Button, UncontrolledPopover,  PopoverHeader, PopoverBody } from 'reactstrap';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 
@@ -86,11 +87,34 @@ class DetailHouseComponent extends Component {
         this.renderAccessibilities = this.renderAccessibilities.bind(this);
         this.renderDetailAccessibility = this.renderDetailAccessibility.bind(this);
         this.calprice = this.calprice.bind(this)
+        this.handeChangeDate = this.handeChangeDate.bind(this)
 
+    }
+    handeChangeDate(st,end){    
+        st = st.startOf('day')
+        if(end != null){
+
+            end =  end.endOf('day')
+            var diffInDates = moment(end).diff(moment(st), 'days');
+            if (diffInDates==0){
+                diffInDates = 1
+            }
+            var guest=this.state.totalGuest
+            if(guest==0){
+                guest =1
+            }
+            var total= this.props.room.Price * diffInDates  + parseInt(this.state.cleanfee) +parseInt(this.state.servicefee)
+            this.setState({
+                nights:diffInDates, totalAmount: total
+            });
+        }
+        this.setState({startDate:st, endDate:end})
+        $("#price").show()
+        $("#price-modal").show()
     }
     calprice(){
         $("#price").show()
-
+        $("#price-modal").show()
         if(this.state.nights==0){
             this.state.nights = 1
         }
@@ -98,7 +122,7 @@ class DetailHouseComponent extends Component {
         if (guest == 0){
             guest = 1
         }
-        var total= this.props.room.Price * this.state.nights * guest + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee*this.state.nights)
+        var total= this.props.room.Price * this.state.nights + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
         this.setState({totalAmount:total})
     }
     handlePlus(type){
@@ -161,6 +185,7 @@ class DetailHouseComponent extends Component {
         console.log(localStorage.accessToken)
         $("#price").hide()
         $(".footer").show()
+        $("#price-modal").hide()
         this.loadData()
     }
     async loadData() {
@@ -365,11 +390,12 @@ class DetailHouseComponent extends Component {
         if(guest==0){
             guest =1
         }
-        var total= this.props.room.Price * diffInDates * guest + parseInt(this.state.cleanfee) +parseInt(this.state.servicefee*diffInDates)
+        var total= this.props.room.Price * diffInDates  + parseInt(this.state.cleanfee) +parseInt(this.state.servicefee)
         this.setState({
             endDate: date,nights:diffInDates, totalAmount: total
         });
         $("#price").show()
+        $("#price-modal").show()
 
     }
    
@@ -746,7 +772,7 @@ class DetailHouseComponent extends Component {
                                                     startDateId="DateInput__screen-reader-message-checkin" // PropTypes.string.isRequired,
                                                     endDate={this.state.endDate} // momentPropTypes.momentObj or null,
                                                     endDateId="DateInput__screen-reader-message-checkout" // PropTypes.string.isRequired
-                                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
+                                                    onDatesChange={({ startDate, endDate }) => this.handeChangeDate(startDate, endDate )} 
                                                     focusedInput={this.state.focusedInput}
                                                     onFocusChange={focusedInput => this.setState({ focusedInput })}
                                                     // PropTypes.func.isRequired,
@@ -758,83 +784,86 @@ class DetailHouseComponent extends Component {
 
                                         <div className="form-group">
                                             <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Guests</div>
-                                            <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="false"  className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
-                                                <span className="span-button">
-                                                    <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
-                                                        <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '1em', width: '1em', display: 'block', fill: 'currentcolor'}}>
-                                                            <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                        </svg>
+                                            <OverlayTrigger  rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                id="bookPopover"
+                                                onBlur={this.calprice}
+                                                >
+                                                <div className="" role="tooltip">
+                                                    <div className="col-md-12 col-12 font-size16" >
+                                                        <div className="row">
+                                                            <div className="col-md-6 col-5">
+                                                                <p>Adults</p>
+                                                                <p></p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no" >
+                                                                <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-2 col-3">
+                                                                {this.state.adultsGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </span>
-                                            </button>
-                                            <UncontrolledPopover className="popoverBook" onBlur={this.calprice} id="popoverBookPop" trigger="legacy" placement="bottom" target="PopoverBook">
-                                        <PopoverBody>
-                                        <div className="" role="tooltip">
-                                            <div className="col-md-12 font-size16" >
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <p>Adults</p>
-                                                        <p></p>
+                                                    <br/>
+                                                    <div className="col-md-12 col-12 font-size16">
+                                                        <div className="row">
+                                                            <div className="col-md-6 col-5">
+                                                                <label>Children</label>
+                                                                <p className="font-size14">Ages 2-12</p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-2 col-3">
+                                                            {this.state.childrensGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="col-md-2 col-init-no" >
-                                                        <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                    </div>
-                                                    <div className="col-md-2">
-                                                        {this.state.adultsGuest}+
-                                                    </div>
-                                                    <div className="col-md-2 col-init-no">
-                                                        <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br/>
-                                            <div className="col-md-12 font-size16">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <label>Children</label>
-                                                        <p className="font-size14">Ages 2-12</p>
-                                                    </div>
-                                                    <div className="col-md-2 col-init-no">
-                                                        <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                    </div>
-                                                    <div className="col-md-2">
-                                                    {this.state.childrensGuest}+
-                                                    </div>
-                                                    <div className="col-md-2 col-init-no">
-                                                        <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-12 font-size16">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <label>Infants</label>
-                                                        <p className="font-size14">Under 2</p>
-                                                    </div>
-                                                    <div className="col-md-2 col-init-no">
-                                                        <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                    </div>
-                                                    <div className="col-md-2">
-                                                    {this.state.infantsGuest}+
-                                                    </div>
-                                                    <div className="col-md-2 col-init-no">
-                                                        <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                    <div className="col-md-12 col-12 font-size16">
+                                                        <div className="row">
+                                                            <div className="col-md-6 col-5">
+                                                                <label>Infants</label>
+                                                                <p className="font-size14">Under 2</p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-2 col-3">
+                                                            {this.state.infantsGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        </PopoverBody>
-                                    </UncontrolledPopover>
+                                                </Popover>}>
+                                                <button id="PopoverBook" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="true"  className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
+                                                    <span className="span-button">
+                                                        <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
+                                                            <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{height: '1em', width: '1em', display: 'block', fill: 'currentcolor'}}>
+                                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                            </svg>
+                                                        </div>
+                                                    </span>
+                                                </button>
+                                            </OverlayTrigger>
+                            
                                             <br />
                                             <br />
                                             <div className="container div-price" id="price">
                                                 <div className="price-group font-size14 font-weight400">
                                                 
                                                     <p className="price-info">
-                                                        ₫{this.currencyFormat(this.props.room.Price*this.state.totalGuest)  } x {this.currencyFormat(this.state.nights)} nights
+                                                        ₫{this.currencyFormat(this.props.room.Price)  } x {this.currencyFormat(this.state.nights)} nights
                                                     </p>
                                                     <p className="price-total">
-                                                        ₫{this.currencyFormat(this.state.totalGuest==0?this.props.room.Price*this.state.nights:this.props.room.Price*this.state.nights*this.state.totalGuest)}
+                                                        ₫{this.currencyFormat(this.state.totalGuest==0?this.props.room.Price*this.state.nights:this.props.room.Price*this.state.nights)}
                                                     </p>
                                                     <hr/>
                                                     <p className="price-info">
@@ -848,7 +877,7 @@ class DetailHouseComponent extends Component {
                                                         Service fee
                                                     </p>
                                                     <p className="price-total">
-                                                        ₫{this.currencyFormat(this.state.servicefee*this.state.nights)}
+                                                        ₫{this.currencyFormat(this.state.servicefee)}
                                                     </p>
                                                     <hr/>
                                                     <div className="price-info">
@@ -914,8 +943,8 @@ class DetailHouseComponent extends Component {
 
                 </div>
                 <div className="footer-booking">
-                    <div className="container">
-                        <div className ="divbody footer-booking-content">
+                    <div className="divbody footer-booking-content">
+                        <div className ="container">
                             <div className="row">
                                 <div className="col-md-9 col-6">
                                 <span className="font-title" style={{fontSize:"22px"}}>
@@ -962,7 +991,7 @@ class DetailHouseComponent extends Component {
                                                     startDateId="DateInput__screen-reader-message-checkin-modal" // PropTypes.string.isRequired,
                                                     endDate={this.state.endDate} // momentPropTypes.momentObj or null,
                                                     endDateId="DateInput__screen-reader-message-checkout-modal" // PropTypes.string.isRequired
-                                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} 
+                                                    onDatesChange={({ startDate, endDate }) => this.handeChangeDate( startDate, endDate )} 
                                                     focusedInput={this.state.focusedInput1}
                                                     onFocusChange={focusedInput1 => this.setState({ focusedInput1 })}
                                                     // PropTypes.func.isRequired,
@@ -976,6 +1005,65 @@ class DetailHouseComponent extends Component {
 
                                         <div className="form-group">
                                             <div className="font-size12 font-medium label-book" style={{marginTop: '16px', marginBottom: '6px'}}>Guests</div>
+                                            <OverlayTrigger  rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                id="modalbookPopover"
+                                                onBlur={this.calprice}
+                                                >
+                                                <div className="" role="tooltip">
+                                                    <div className="col-md-12 col-12 font-size16" >
+                                                        <div className="row">
+                                                            <div className="col-md-6 col-5">
+                                                                <p>Adults</p>
+                                                                <p></p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no" >
+                                                                <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-2 col-3">
+                                                                {this.state.adultsGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div className="col-md-12 col-12 font-size16">
+                                                        <div className="row">
+                                                            <div className="col-md-6 col-5">
+                                                                <label>Children</label>
+                                                                <p className="font-size14">Ages 2-12</p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-2 col-3">
+                                                            {this.state.childrensGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12 col-12 font-size16">
+                                                        <div className="row">
+                                                            <div className="col-md-6 col-5">
+                                                                <label>Infants</label>
+                                                                <p className="font-size14">Under 2</p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-2 col-3">
+                                                            {this.state.infantsGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </Popover>}>
                                             <button id="PopoverBookModal" style={{paddingBottom:'5px'}}  aria-haspopup="true" aria-expanded="true"  className="button-menu"><div className="label-button">{this.state.totalGuest==0?"Guest":this.state.valueGuest}</div>
                                                 <span className="span-button">
                                                     <div className="span-icon-button" style={{transform: 'rotate(0deg)'}}>
@@ -985,74 +1073,18 @@ class DetailHouseComponent extends Component {
                                                     </div>
                                                 </span>
                                             </button>
-                                        <UncontrolledPopover className="popoverBookModal" onBlur={this.calprice} trigger="legacy" placement="bottom" target="PopoverBookModal">
-                                        <PopoverBody>
-                                        <div className="" role="tooltip">
-                                            <div className="col-md-12 col-12 font-size16" >
-                                                <div className="row">
-                                                    <div className="col-md-6 col-5">
-                                                        <p>Adults</p>
-                                                        <p></p>
-                                                    </div>
-                                                    <div className="col-md-2 col-2 col-init-no" >
-                                                        <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                    </div>
-                                                    <div className="col-md-2 col-3">
-                                                        {this.state.adultsGuest}+
-                                                    </div>
-                                                    <div className="col-md-2 col-2 col-init-no">
-                                                        <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br/>
-                                            <div className="col-md-12 col-12 font-size16">
-                                                <div className="row">
-                                                    <div className="col-md-6 col-5">
-                                                        <label>Children</label>
-                                                        <p className="font-size14">Ages 2-12</p>
-                                                    </div>
-                                                    <div className="col-md-2 col-2 col-init-no">
-                                                        <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                    </div>
-                                                    <div className="col-md-2 col-3">
-                                                    {this.state.childrensGuest}+
-                                                    </div>
-                                                    <div className="col-md-2 col-2 col-init-no">
-                                                        <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-12 col-12 font-size16">
-                                                <div className="row">
-                                                    <div className="col-md-6 col-5">
-                                                        <label>Infants</label>
-                                                        <p className="font-size14">Under 2</p>
-                                                    </div>
-                                                    <div className="col-md-2 col-2 col-init-no">
-                                                        <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                    </div>
-                                                    <div className="col-md-2 col-3">
-                                                    {this.state.infantsGuest}+
-                                                    </div>
-                                                    <div className="col-md-2 col-2 col-init-no">
-                                                        <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </PopoverBody>
-                                    </UncontrolledPopover>
+                                            </OverlayTrigger>
+                                        
                                             <br />
                                             <br />
-                                            <div className="container div-price" id="price">
+                                            <div className="container div-price" id="price-modal">
                                                 <div className="price-group font-size14 font-weight400">
                                                 
                                                     <p className="price-info">
-                                                        ₫{this.currencyFormat(this.props.room.Price*this.state.totalGuest)  } x {this.currencyFormat(this.state.nights)} nights
+                                                        ₫{this.currencyFormat(this.props.room.Price)  } x {this.currencyFormat(this.state.nights)} nights
                                                     </p>
                                                     <p className="price-total">
-                                                        ₫{this.currencyFormat(this.state.totalGuest==0?this.props.room.Price*this.state.nights:this.props.room.Price*this.state.nights*this.state.totalGuest)}
+                                                        ₫{this.currencyFormat(this.state.totalGuest==0?this.props.room.Price*this.state.nights:this.props.room.Price*this.state.nights)}
                                                     </p>
                                                     <hr/>
                                                     <p className="price-info">
@@ -1066,7 +1098,7 @@ class DetailHouseComponent extends Component {
                                                         Service fee
                                                     </p>
                                                     <p className="price-total">
-                                                        ₫{this.currencyFormat(this.state.servicefee*this.state.nights)}
+                                                        ₫{this.currencyFormat(this.state.servicefee)}
                                                     </p>
                                                     <hr/>
                                                     <div className="price-info">

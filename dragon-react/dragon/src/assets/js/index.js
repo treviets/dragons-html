@@ -14,6 +14,7 @@ $(document).ready(function() {
            
     //     }
     // });
+    
     $( "#popoverLegacyPop").parents().addClass( "popoverSearch" );
     window.onscroll = function() {myFunction()};
         var header = document.getElementById("header");

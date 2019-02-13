@@ -12,6 +12,8 @@ $(document).ready(function() {
            
     //     }
     // });
+    $('[data-toggle="popover"]').popover(); 
+
    
     window.onscroll = function() {myFunction()};
         var header = document.getElementById("header");
