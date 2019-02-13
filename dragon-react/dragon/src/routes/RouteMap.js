@@ -13,6 +13,7 @@ const types = {
     today: '7',
     updatePhone: '8',
     reviewHouse: '9',
+    profile: '10',
 
 }
 
@@ -56,7 +57,12 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.reviewHouse} />,
                 path: '/review/house'
+            },
+            {
+                component: () => <PageContentWrapper type={types.profile} />,
+                path: '/update/profile'
             }
+
         ]
     }
 ]
