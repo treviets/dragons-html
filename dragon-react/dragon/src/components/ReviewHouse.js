@@ -319,10 +319,10 @@ class ReviewHouse extends Component {
                                 <div className="price-group font-size16 font-weight400">
                                   
                                     <p className="price-info">
-                                        ₫{this.currencyFormat(this.state.price*this.props.totalGuest)  } x {this.state.nights} nights
+                                        ₫{this.currencyFormat(this.state.price)  } x {this.state.nights} nights
                                     </p>
                                     <p className="price-total">
-                                        ₫{this.currencyFormat(this.state.price*this.props.totalGuest*this.state.nights)}
+                                        ₫{this.currencyFormat(this.state.price*this.state.nights)}
                                     </p>
                                 
                                     <p className="price-info">
@@ -336,7 +336,7 @@ class ReviewHouse extends Component {
                                         Service fee
                                     </p>
                                     <p className="price-total">
-                                        ₫{this.currencyFormat(this.props.serviceFee*this.state.nights)}
+                                        ₫{this.currencyFormat(this.props.serviceFee)}
                                     </p>
                                    
                                 </div>

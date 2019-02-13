@@ -261,6 +261,10 @@ body{
         padding-left: 170px !important;
         padding-right: 170px !important;
     }
+    .footer-booking .divbody .container{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }   
     .detailRoom .divbody .container{
         padding-left: 0px !important;
         padding-right: 0px !important;
@@ -276,26 +280,38 @@ body{
     {
         min-width: 42% !important;
     }
+    #modalbookPopover{
+        min-width: 430px !important;
+    }
 }
-@media (min-width:768px){
+@media (min-width:768px) and (max-width: 1023px){
     .popover.show.popoverBookModal.bs-popover-bottom
     {
         min-width: 56% !important;
     }
+    #modalbookPopover{
+        min-width: 430px !important;
+    }
 }
-@media (min-width:414px){
+@media (min-width:414px) and (max-width: 767px){
     .popover.show.popoverBookModal.bs-popover-bottom
     {
         min-width: 82% !important;
     }
+    #modalbookPopover{
+        min-width: 340px !important;
+    }
 }
-@media (min-width:375px){
+@media (min-width:375px) and (max-width: 413px){
     .popover.show.popoverBookModal.bs-popover-bottom
     {
         min-width: 82% !important;
     }
+    #modalbookPopover{
+        min-width: 300px !important;
+    }
 }
-@media (min-width:320px){
+@media (min-width:320px) and (max-width: 374px){
     .popover.show.popoverBookModal.bs-popover-bottom
     {
         min-width: 78% !important;
@@ -303,6 +319,13 @@ body{
     .box-book .DateRangePicker.DateRangePicker_1{
         width: 100px !important;
     }
+    #modalbookPopover{
+        min-width: 250px !important;
+    }
+    .box-book .DateRangePicker.DateRangePicker_1 .DateInput{
+        width: 100px !important;
+    }
+    
 }
 @media (max-width:320px){
     .form-booking{
@@ -717,8 +740,8 @@ select::-ms-expand {
 @media (max-width: 768px){
     
     .detailRoom .divbody{
-        padding-left: 150px !important;
-        padding-right: 150px!important;
+        padding-left: 60px !important;
+        padding-right: 60px!important;
 
     }
 }
@@ -733,8 +756,8 @@ select::-ms-expand {
         border: none !important;
     }
     .detailRoom .divbody{
-        padding-left: 50px !important;
-        padding-right: 50px!important;
+        padding-left: 24px !important;
+        padding-right: 24px!important;
 
     }
     .icon-furniture-reps {
