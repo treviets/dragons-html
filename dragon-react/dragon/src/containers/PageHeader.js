@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link, Redirect } from 'react-router-dom'
 import '../assets/js/index'
 import '../assets/css/header.css'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -9,8 +9,11 @@ import service from '../services/signup.js';
 import $ from "jquery";
 import Googlegg from '../components/Google';
 import { connect } from 'react-redux';
-import { loginUser, saveCreds, logoutUser } from '../actions/auth'
-import '../assets/fonts/font-css.css'
+import { loginUser, saveCreds, logoutUser } from '../actions/auth';
+import '../assets/fonts/font-css.css';
+import { signUp } from '../actions/signUpAction'
+
+
 
 
 
@@ -48,6 +51,7 @@ class PageHeader extends Component {
             emailLogin: "",
             passwordLogin: "",
             isLogin: false,
+            cusId: null,
 
         };
         this.handeChage = this.handeChage.bind(this);
@@ -101,21 +105,22 @@ class PageHeader extends Component {
     }
 
     async signUpAccount() {
-
         var formData = new FormData();
         formData.append("Firstname", this.refs.firstname.value);
         formData.append("Lastname", this.refs.lastname.value);
         formData.append("Password", this.refs.password.value);
         formData.append("Email", this.refs.email.value);
+        this.props.handleSignUp(formData);
 
-        var res = await service.signUpCustomer(formData);
 
-        console.log(res)
-        if (res.Status !== "OK") {
-            alert(res.Message)
-        } else {
-            $('#buttonCloseSignUp').click();
-        }
+        //var res = await service.signUpCustomer(formData);
+
+        // console.log(res.Data)
+        // if (res.Status !== "OK") {
+        //     alert(res.Message)
+        // } else {
+        $('#buttonCloseSignUp').click();
+        // }
     };
     async signInAccount() {
         var formData = new FormData();
@@ -152,6 +157,8 @@ class PageHeader extends Component {
         // });
 
     }
+
+
     render() {
         if (this.props.isAuthenticated) {
             this
@@ -159,6 +166,9 @@ class PageHeader extends Component {
                 .setToken(localStorage.getItem('accessToken'))
             // window.location.replace('/')
             // this.props.history.push('/');
+        }
+        if (this.props.cusId !== null && this.props.isFetching !== true) {
+            return <Redirect to="/update/profile" />
         }
         const {
             selectedOption,
@@ -420,22 +430,23 @@ class PageHeader extends Component {
                         </div>
                     </div>
                 </div>
-
             </div>
-
         );
     }
 }
 const mapStateToProps = (state) => {
-    return { isAuthenticated: state.auth.isAuthenticated, accessToken: state.auth.accessToken }
+    //lay data tu store gan this.props cua component
+    console.log("store", state);
+    return { isAuthenticated: state.auth.isAuthenticated, accessToken: state.auth.accessToken, cusId: state.signUpReducers.cusId, isFetching: state.signUpReducers.isFetching }
 }
 
 const mapDispatchToProps = (dispatch) => {
+    //action
     return {
         handleLogin: (creds) => dispatch((loginUser(creds))),
         setToken: (token) => dispatch(saveCreds(token)),
-        logoutUser: () => dispatch(logoutUser())
-
+        logoutUser: () => dispatch(logoutUser()),
+        handleSignUp: (creds) => dispatch(signUp(creds)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(PageHeader);

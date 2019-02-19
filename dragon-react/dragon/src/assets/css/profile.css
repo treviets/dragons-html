@@ -15,6 +15,10 @@
 .edit-profile .row:after {
     clear: both;
 }
+.edit-profile textarea {
+    width: 100% !important;
+    border: 1px solid gray !important;
+}
 .edit-profile .panel {
     border: 1px solid #dce0e0;
     background-color: #fff;
@@ -186,7 +190,12 @@
     .edit-profile .col-sm-9 {
     width: 75%;
     float: left;
+    }
+    .edit-profile .btn {
+    padding: 7px 21px;
+    font-size: 13px;
 }
+
 .page-container-responsive {
     padding-left: 24px;
     padding-right: 24px;
@@ -224,5 +233,15 @@
     color: black;
     font-weight: bold;
     font-size: 14px;
+}
+.edit-profile .btn-primary {
+    border-color:  #c19d64;
+    background-color: #c19d64;
+    color: #fff;
+    font-size: 16px;
+}
+.edit-profile .btn-large {
+    padding: 9px 27px;
+    font-size: 16px;
 }
 

@@ -1,31 +1,91 @@
 import React, { Component } from 'react'
 // import $ from "jquery";
 import '../assets/css/profile.css';
+import service from '../services/signup.js';
+import { connect } from 'react-redux';
+import language from '../masterData/language.json'
+import { lang } from 'moment';
+
+
 
 
 class ProfileComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cusId: null,
+            customer: Object,
+            currency: [],
+            language: [],
+            selectedLanguage: 0
+
+        }
+
+        this.getInfoCustomer = this.getInfoCustomer.bind(this);
+        this.handeChangeLanguage = this.handeChangeLanguage.bind(this);
+
+    }
+    //call function when loadpage
+    componentWillMount(state) {
+        // alert('componentWillMount sẽ được gọi ở đây');
+        // console.log(state.accessToken);
+        this.getInfoCustomer();
+    }
+    handeChangeLanguage(event) {
+        this.setState({ selectedLanguage: event.target.value })
+    }
+    async getInfoCustomer() {
+        var cusId = localStorage.getItem("cusId")
+        console.log("cusId localStorage", cusId)
+        // const res = await service.getInfoDetailCustomer(cusId);
+        const res = await service.getInfoDetailCustomer(1);
+
+        console.log("info")
+        var languageLoad = [];
+
+        if (res.Data.Language !== []) {
+            languageLoad = res.Data.Language
+        } else {
+            languageLoad = language
+        }
+        this.setState({
+            customer: res.Data.Customer,
+            language: languageLoad,
+            currency: res.Data.Currency,
+            cusId: cusId
+        })
+        console.log("Object Info", this.state.customer)
+        // console.log("Language", this.state.language)
+        console.log("Language", languageLoad)
+        console.log("Currency", this.state.currency)
+
+    }
     render() {
         return (
             <div className="page-container-responsive space-top-4 space-4">
                 <br />
                 <div className="row edit-profile">
-                    <div className="col-md-3 space-sm-4">
+                    <div className="col-sm-3 space-sm-4">
                         <div className="sidenav">
                             <ul className="sidenav-list">
                                 <li>
-                                    <a href="https://www.airbnb.com/users/edit/237420104" aria-selected="true" className="sidenav-item">Edit Profile</a>
+                                    <a href="#" aria-selected="true" className="sidenav-item">Edit Profile</a>
+                                    {/* <a href="https://www.airbnb.com/users/edit/237420104" aria-selected="true" className="sidenav-item">Edit Profile</a> */}
                                 </li>
                                 <li>
-                                    <a href="https://www.airbnb.com/users/edit/237420104?section=media" aria-selected="false" className="sidenav-item">Photos</a>
+                                    <a href="#" aria-selected="false" className="sidenav-item">Photos</a>
+                                    {/* <a href="https://www.airbnb.com/users/edit/237420104?section=media" aria-selected="false" className="sidenav-item">Photos</a> */}
+
                                 </li>
                                 <li>
-                                    <a href="https://www.airbnb.com/users/edit_verification/237420104" aria-selected="false" className="sidenav-item">Trust and Verification</a>
+                                    <a href="#" aria-selected="false" className="sidenav-item">Trust and Verification</a>
                                 </li>
                                 <li>
-                                    <a href="https://www.airbnb.com/users/reviews/237420104" aria-selected="false" className="sidenav-item">Reviews</a>
+                                    <a href="#" aria-selected="false" className="sidenav-item">Reviews</a>
+
                                 </li>
                                 <li>
-                                    <a href="https://www.airbnb.com/users/references/237420104" aria-selected="false" className="sidenav-item">References</a>
+                                    <a href="#" aria-selected="false" className="sidenav-item">References</a>
                                 </li>
                                 <li>
                                 </li>
@@ -38,53 +98,60 @@ class ProfileComponent extends Component {
                     <div className="col-sm-9">
                         <div className="panel space-4">
                             <div className="panel-header">
-                                <h2 class="edit-profile-section-heading">
+                                <h2 className="edit-profile-section-heading">
                                     Required
                                 </h2>
                             </div>
                             <div className="panel-body">
-                                <div class="row row-condensed space-4">
-                                    <label className="text-right col-3" for="user_first_name">
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3" >
                                         First Name
                                     </label>
                                     <div className="col-9">
-                                        <input id="user_first_name" name="user[first_name]" size="30" type="text" value="Tran" />
+                                        <input size="30" type="text" value={this.state.customer.FirstName} />
                                     </div>
                                 </div>
-                                <div class="row row-condensed space-4">
-                                    <label className="text-right col-3" for="user_first_name">
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3" >
                                         Last Name
                                     </label>
                                     <div className="col-9">
-                                        <input id="user_first_name" name="user[first_name]" size="30" type="text" value="Thoai" />
+                                        <input id="user_first_name" name="user[first_name]" size="30" type="text" value={this.state.customer.LastName} />
                                         <div className="text-muted space-top-1">
                                             Your public profile only shows your first name. When you request a booking, your host will see your first and last name.
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row row-condensed space-4">
-                                    <label className="text-right col-3" for="user_first_name">
-                                        I Am <i aria-label="Private" class="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3">
+                                        I Am <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
                                     </label>
                                     <div className="col-9">
-                                        <div class="select">
+                                        <div className="select">
                                             <select id="user_sex" name="user[sex]"><option value="" selected="selected">Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Other">Other</option></select>
                                         </div>
-                                        <div class="text-muted space-top-1">We use this data for analysis and never share it with other users.</div>
+                                        <div className="text-muted space-top-1">We use this data for analysis and never share it with other users.</div>
                                     </div>
                                 </div>
-                                <div class="row row-condensed space-4">
-                                    <label className="col-3" for="user_first_name">
-                                        Birth Date  <i aria-label="Private" class="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3" >
+                                        Birth Date  <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
                                     </label>
                                     <div className="col-9">
                                         <fieldset>
-                                            {/* <legend class="screen-reader-only">Birthday</legend> */}
-                                            <div class="select">
+                                            {/* <legend className="screen-reader-only">Birthday</legend> */}
+                                            <div className="select">
                                                 <select aria-label="Month" id="user_birthdate_2i" name="user[birthdate(2i)]">
+                                                    {/* <select value={this.props.Selected}>
+                                                        {
+                                                            this.state.currency.map(function (item) {
+                                                                return <option value={this.state.currency.Name}>{this.state.currencyitem.Name}</option>;
+                                                            })
+                                                        }
+                                                    </select>); */}
                                                     <option value="">Month</option>
                                                     <option selected="selected" value="1">January</option>
                                                     <option value="2">February</option>
@@ -100,7 +167,7 @@ class ProfileComponent extends Component {
                                                     <option value="12">December</option>
                                                 </select>
                                             </div>
-                                            <div class="select">
+                                            <div className="select">
                                                 <select aria-label="Day" id="user_birthdate_3i" name="user[birthdate(3i)]">
                                                     <option value="">Day</option>
                                                     <option value="1">1</option>
@@ -137,7 +204,7 @@ class ProfileComponent extends Component {
                                                 </select>
 
                                             </div>
-                                            <div class="select">
+                                            <div className="select">
                                                 <select aria-label="Year" id="user_birthdate_1i" name="user[birthdate(1i)]">
                                                     <option value="">Year</option>
                                                     <option value="2019">2019</option>
@@ -245,72 +312,51 @@ class ProfileComponent extends Component {
 
                                             </div>
                                         </fieldset>
-                                        <div class="text-muted space-top-1">The magical day you were dropped from the sky by a stork. We use this data for analysis and never share it with other users.</div>
+                                        <div className="text-muted space-top-1">The magical day you were dropped from the sky by a stork. We use this data for analysis and never share it with other users.</div>
                                     </div>
                                 </div>
-                                <div class="row row-condensed space-4">
-                                    <label className="text-right col-sm-3" for="user_first_name">
-                                        Email Addresss  <i aria-label="Private" class="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3">
+                                        Email Addresss  <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
                                     </label>
-                                    <div className="col-sm-9">
-                                        <input id="user_first_name" name="user[first_name]" size="30" type="text" value="tranthoai142@gmail.com" />
+                                    <div className="col-9">
+                                        <input size="30" type="text" value={this.state.customer.Email} />
                                         <div className="text-muted space-top-1">
                                             We won’t share your private email address with other Airbnb users. Learn more.
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row row-condensed space-4">
-                                    <label className="text-right col-sm-3" htmlFor="user_phone_numbers">
+                                    <label className="col-3">
                                         Phone Numbers
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div className="col-9">
                                         <style data-aphrodite="data-aphrodite" dangerouslySetInnerHTML={{ __html: "._pgfpyhv{color: #008489 !important;font:inherit !important;font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;-webkit-text-decoration-line:none !important;-moz-text-decoration-line:none !important;text-decoration-line:none !important;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;background:transparent !important;border:0px !important;cursor:pointer !important;margin:0px !important;padding:0px !important;-webkit-user-select:auto !important;-moz-user-select:auto !important;-ms-user-select:auto !important;user-select:auto !important;text-align:left !important;}._pgfpyhv:hover{-webkit - text - decoration - line: underline !important;-moz-text-decoration-line:underline !important;text-decoration-line:underline !important;color:#008489 !important;}._pgfpyhv:focus{-webkit - text - decoration - line: underline !important;-moz-text-decoration-line:underline !important;text-decoration-line:underline !important;}@supports(--custom: properties){._pgfpyhv{color:var(--color-text-link, #008489) !important;font-family:var(--font-font_family, Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif) !important;-webkit-text-decoration-line:var(--font-link-text-decoration-line, none) !important;-moz-text-decoration-line:var(--font-link-text-decoration-line, none) !important;text-decoration-line:var(--font-link-text-decoration-line, none) !important;}._pgfpyhv:hover{-webkit - text - decoration - line: var(--font-link-text-decoration-line-hover, underline) !important;-moz-text-decoration-line:var(--font-link-text-decoration-line-hover, underline) !important;text-decoration-line:var(--font-link-text-decoration-line-hover, underline) !important;color:var(--color-text-link-hover, #008489) !important;}._pgfpyhv:focus{-webkit - text - decoration - line: var(--font-link-text-decoration-line-focus, underline) !important;-moz-text-decoration-line:var(--font-link-text-decoration-line-focus, underline) !important;text-decoration-line:var(--font-link-text-decoration-line-focus, underline) !important;}._pgfpyhv:active{color: var(--color-text-link-active, #006C70) !important;}}._pgfpyhv:active{color: #006C70 !important;outline:0px !important;}" }} />
                                         <div data-hypernova-key="edit_profilephone_numbersbundlejs" data-hypernova-id="1870cbb1-404d-4a62-a6c0-d8b1a607e24d"><div dir="ltr" data-reactroot><div style={{ marginTop: '9px' }}><div><strong>No phone number entered</strong><div style={{ marginTop: '4px' }}><div className="text-muted">This is so your hosts, guests, and Airbnb can contact you. We’ll send you booking requests, reminders, and other notifications.</div></div><div style={{ marginTop: '8px' }}><button type="button" className="_pgfpyhv" aria-busy="false">Add a phone number</button></div></div></div></div></div>
                                     </div>
                                 </div>
 
                                 <div className="row row-condensed space-4">
-                                    <label className="text-right col-sm-3" htmlFor="user_profile_info_preferred_language">
+                                    <label className="col-3" >
                                         Preferred Language
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div className="col-9">
                                         <div className="select">
-                                            <select id="user_profile_info_preferred_language" name="user[preferred_locale]"><option value="id">Bahasa Indonesia</option>
-                                                <option value="ms">Bahasa Melayu</option>
-                                                <option value="ca">Català</option>
-                                                <option value="da">Dansk</option>
-                                                <option value="de">Deutsch</option>
-                                                <option value="en" selected="selected">English</option>
-                                                <option value="es">Español</option>
-                                                <option value="el">Eλληνικά</option>
-                                                <option value="fr">Français</option>
-                                                <option value="hr">Hrvatski</option>
-                                                <option value="it">Italiano</option>
-                                                <option value="hu">Magyar</option>
-                                                <option value="nl">Nederlands</option>
-                                                <option value="no">Norsk</option>
-                                                <option value="pl">Polski</option>
-                                                <option value="pt">Português</option>
-                                                <option value="fi">Suomi</option>
-                                                <option value="sv">Svenska</option>
-                                                <option value="tr">Türkçe</option>
-                                                <option value="is">Íslenska</option>
-                                                <option value="cs">Čeština</option>
-                                                <option value="ru">Русский</option>
-                                                <option value="th">ภาษาไทย</option>
-                                                <option value="zh">中文 (简体)</option>
-                                                <option value="zh-TW">中文 (繁體)</option>
-                                                <option value="ja">日本語</option>
-                                                <option value="ko">한국어</option></select>
+                                            <select className="border-none input-search cursorPointer" value={this.state.selectedLanguage} onChange={this.handeChangeLanguage}  >
+                                                {this.state.language.map(function (object, index) {
+                                                    return <option value={object.Id} key={index}>{object.Name}</option>
+                                                })}
+                                            </select>
+
                                         </div>
                                         <div className="text-muted space-top-1">We'll send you messages in this language.</div>
                                     </div>
                                 </div>
                                 <div className="row row-condensed space-4">
-                                    <label className="text-right col-sm-3" htmlFor="user_profile_info_preferred_currency">
+                                    <label className="col-3" >
                                         Preferred Currency
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div className="col-9">
                                         <div className="select">
                                             <select id="user_profile_info_preferred_currency" name="user[native_currency]"><option value="AUD">Australian dollar</option>
                                                 <option value="BRL">Brazilian real</option>
@@ -357,19 +403,19 @@ class ProfileComponent extends Component {
                                     </div>
                                 </div>
                                 <div className="row row-condensed space-4">
-                                    <label className="text-right col-sm-3" htmlFor="user_profile_info_current_city">
+                                    <label className="col-3">
                                         Where You Live
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div className="col-9">
                                         <input id="user_profile_info_current_city" name="user_profile_info[current_city]" placeholder="e.g. Paris, France / Brooklyn, NY / Chicago, IL" size={30} type="text" />
                                     </div>
                                 </div>
                                 <div className="row row-condensed space-4">
-                                    <label className="text-right col-sm-3" htmlFor="user_profile_info_about">
+                                    <label className="col-3">
                                         Describe Yourself
                                     </label>
-                                    <div className="col-sm-9">
-                                        <textarea cols={40} id="user_profile_info_about" name="user_profile_info[about]" rows={5} defaultValue={""} />
+                                    <div className="col-9">
+                                        <textarea cols={40} value={this.state.customer.Introduction} rows={5} />
                                         <div className="text-muted space-top-1">Airbnb is built on relationships. Help other people get to know you.<br /><br />Tell them about the things you like: What are 5 things you can’t live without? Share your favorite travel destinations, books, movies, shows, music, food.<br /><br />Tell them what it’s like to have you as a guest or host: What’s your style of traveling? Of Airbnb hosting?<br /><br />Tell them about you: Do you have a life motto?</div>
                                     </div>
                                 </div>
@@ -380,11 +426,50 @@ class ProfileComponent extends Component {
 
                             </div>
                         </div>
+                        <div className="panel space-4">
+                            <div className="panel-header">
+                                <h2 className="edit-profile-section-heading">
+                                    Work Travel
+                                </h2>
+                            </div>
+                            <div className="panel-body">
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3" >
+                                        Work Email <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                    </label>
+                                    <div className="col-9">
+                                        <input id="user_first_name" name="user[first_name]" size="30" type="text" value="email" />
+                                        <div className="text-muted space-top-1">Find homes perfect for work trips by choosing the Trip type filter on your next search. Learn more</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary btn-large" >Save
+                        </button>
                     </div>
                 </div>
+
             </div >
         )
     }
 }
 
-export default ProfileComponent
+const mapStateToProps = (state) => {
+    let store = state.signUpReducers
+    console.log("GET STORE FROM PROFILE", store);
+    console.log("this.props")
+    return { cusId: store }
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//     return null
+//     //action
+//     // return {
+//     //     handleLogin: (creds) => dispatch((loginUser(creds))),
+//     //     setToken: (token) => dispatch(saveCreds(token)),
+//     //     logoutUser: () => dispatch(logoutUser()),
+//     //     handleSignUp: (creds) => dispatch(signUp(creds)),
+//     // }
+// }
+// export default ProfileComponent;
+export default connect(mapStateToProps)(ProfileComponent);
