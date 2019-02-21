@@ -43,13 +43,13 @@ class HomeComponent extends Component {
             maxPrice: 5000000,
             amount: "₫500000  - ₫5000000+",
             roomType: 0,
-            selectDistrict: null,
+            selectDistrict: "",
             adultsGuest: 0,
             childrensGuest: 0,
             infantsGuest: 0,
             totalGuest: 0,
             popoverOpen: false,
-            valueGuest: null,
+            valueGuest: "",
             numberOfMonths : 1,
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -499,7 +499,7 @@ class HomeComponent extends Component {
                                                     <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
 
                                                     <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect"  required>
-                                                        <option  value="" disabled hidden selected>Enter a destination or property</option>
+                                                        <option  value="" disabled hidden >Enter a destination or property</option>
 
                                                         {this.state.district.map(function (object, index) {
                                                             return <option value={object.districtid} key={index}>{object.name}</option>
