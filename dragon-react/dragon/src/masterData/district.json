@@ -1,14 +1,5 @@
 [
     {
-        "districtid": 0,
-        "provinceid": 1,
-        "name": "Enter a destination or property",
-        "type": "Quận",
-        "location": "21 02 08 N  ,   105 49 38 E",
-        "lat": 21.03555556,
-        "long": 105.82722222
-    },
-    {
         "districtid": 1,
         "provinceid": 1,
         "name": "Ba Đình",
