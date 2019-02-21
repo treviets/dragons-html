@@ -1,0 +1,32 @@
+[
+    {
+        "Code": "VN",
+        "Id": 1,
+        "Name": "Vietnamese"
+    },
+    {
+        "Code": "EN",
+        "Id": 2,
+        "Name": "English"
+    },
+    {
+        "Code": "KO",
+        "Id": 3,
+        "Name": "한국어"
+    },
+    {
+        "Code": "DE",
+        "Id": 4,
+        "Name": "Deutsch"
+    },
+    {
+        "Code": "FR",
+        "Id": 5,
+        "Name": "Français"
+    },
+    {
+        "Code": "TH",
+        "Id": 6,
+        "Name": "ภาษาไทย"
+    }
+]

@@ -1,8 +1,8 @@
 import axios from 'axios'
 import qs from 'qs'
 const apiConfig = {
-    // baseUrl: 'http://localhost:8080/'
-    baseUrl: 'https://payment.iparkingstg.com/'
+    baseUrl: 'http://localhost:8080/'
+    // baseUrl: 'https://payment.iparkingstg.com/'
 }
 
 export function setAuthorizationToken(token) {

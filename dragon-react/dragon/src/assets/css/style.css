@@ -240,6 +240,7 @@ body{
     float: left;
     width: 78% !important;
     overflow: auto overlay !important;
+    float: left;
 }
 .main-slider {
     /* padding-right: 32px !important;

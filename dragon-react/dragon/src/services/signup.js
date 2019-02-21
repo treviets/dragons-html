@@ -1,4 +1,5 @@
 import { postFromUrl, getFromUrl } from "../actions/apiUtils";
+// import { url } from "inspector";
 const HomeService = {
 
     createdUser: async function () {
@@ -24,6 +25,9 @@ const HomeService = {
                     }
                 });
             const data = response.data;
+            localStorage.setItem('info', JSON.parse(data))
+            console.log("localStorage")
+            console.log(localStorage)
             return data
 
         } catch (e) {
@@ -59,6 +63,19 @@ const HomeService = {
                         "Content-Type": "multipart/form-data"
                     }
                 });
+            const data = response.data;
+            return data
+
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
+    },
+    async getInfoDetailCustomer(id) {
+        var urlBase = "/dragons/customer/detail/by_id?customer_id=" + id
+        try {
+            const response = await getFromUrl(urlBase);
             const data = response.data;
             return data
 
