@@ -43,7 +43,6 @@ export function loginUser(creds) {
                 $('#buttonClose').click();
                 $('#buttonCloseSocial').click()
 
-
             }
         }).catch(err => {
             console.log("Error:", err)

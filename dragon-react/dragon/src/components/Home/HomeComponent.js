@@ -10,6 +10,9 @@ import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import district from '../../masterData/district.json'
 import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+
+import {Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 
@@ -21,8 +24,8 @@ class HomeComponent extends Component {
 
         this.state = {
             selectGuest: "",
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: null,
+            endDate: null,
             countPlus: 1,
             is_listHome: true,
             listHome: [],
@@ -40,13 +43,16 @@ class HomeComponent extends Component {
             maxPrice: 5000000,
             amount: "₫500000  - ₫5000000+",
             roomType: 0,
-            selectDistrict: 0,
+            selectDistrict: "",
             adultsGuest: 0,
             childrensGuest: 0,
             infantsGuest: 0,
             totalGuest: 0,
             popoverOpen: false,
-            valueGuest: 'Number of Guests'
+            valueGuest: "",
+            numberOfMonths : 1,
+            focusedInput:null,  
+
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
         this.handleChangeToTime = this.handleChangeToTime.bind(this)
@@ -494,95 +500,102 @@ class HomeComponent extends Component {
                                                 <span className="cursorPointer" style={{ display: 'block', position: 'relative' }}>
                                                     <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
 
-                                                    <select className="border-none input-search cursorPointer" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect"  >
+                                                    <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect"  required>
+                                                        <option  value="" disabled hidden >Enter a destination or property</option>
+
                                                         {this.state.district.map(function (object, index) {
                                                             return <option value={object.districtid} key={index}>{object.name}</option>
+                                                 
                                                         })}
                                                     </select>
                                                 </span>
                                             </div>
-                                            <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
-                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }}>
-                                                    <DatePicker className="border-none input-search cursorPointer" id="checkIn" ref="check" placeholderText="Check In"
-                                                        selected={this.state.startDate}
-                                                        onChange={this.handleChangeFromTime}
-                                                    />
-                                                    <i className="fa fa-calendar icon-search cursorPointer" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                            <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
-                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }}>
-                                                    <DatePicker className="border-none input-search cursorPointer" id="checkOut" placeholderText="Check Out"
-                                                        selected={this.state.endDate}
-                                                        onChange={this.handleChangeToTime}
+                                            <div className="col-md-4 col-sm-4 col-init col-search cursorPointer" >
+                                                <span className="cursorPointer search-date" style={{ display: 'block', position: 'relative', margin: '5px' }}>
+                                                   
+                                                    <DateRangePicker
+                                                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                                        startDateId="DateInput__screen-reader-message-start" // PropTypes.string.isRequired,
+                                                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                                        endDateId="DateInput__screen-reader-message-end" // PropTypes.string.isRequired
+                                                        onDatesChange={({ startDate, endDate }) => this.setState({startDate, endDate })} 
+                                                        focusedInput={this.state.focusedInput}
+                                                        onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                                        // PropTypes.func.isRequired,
+                                                        readOnly={true}
+                                                        orientation={window.matchMedia("(max-width: 374px)").matches?"vertical":"horizontal"}
+                                                        numberOfMonths={this.state.numberOfMonths}
+                                                        startDatePlaceholderText="Start date"
+                                                        endDatePlaceholderText="End date"
                                                     />
                                                     <i className="fa fa-calendar icon-search cursorPointer" aria-hidden="true"></i>
                                                 </span>
                                             </div>
 
                                             <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
-                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }}>
-                                                    <input id="PopoverLegacy" className="border-none input-search cursorPointer" role="button" value={this.state.valueGuest} onChange={({value}) =>this.setState({valueGuest:value})}/>
+                                                <span id="search-guests" className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }}>
 
-                                                    <UncontrolledPopover id="popoverLegacyPop" trigger="legacy" placement="bottom" target="PopoverLegacy">
-                                                        <PopoverBody  >
-                                                            <div className="" role="tooltip">
-                                                                <div className="col-md-12 font-size16" >
-                                                                    <div className="row">
-                                                                        <div className="col-md-6">
-                                                                            <p>Adults</p>
-                                                                            <p></p>
-                                                                        </div>
-                                                                        <div className="col-md-2 col-init-no" >
-                                                                            <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                        </div>
-                                                                        <div className="col-md-2">
-                                                                            {this.state.adultsGuest}+
-                                                    </div>
-                                                                        <div className="col-md-2 col-init-no">
-                                                                            <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <br />
-                                                                <div className="col-md-12 font-size16">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6">
-                                                                            <label>Children</label>
-                                                                            <p className="font-size14">Ages 2-12</p>
-                                                                        </div>
-                                                                        <div className="col-md-2 col-init-no">
-                                                                            <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                        </div>
-                                                                        <div className="col-md-2">
-                                                                            {this.state.childrensGuest}+
-                                                    </div>
-                                                                        <div className="col-md-2 col-init-no">
-                                                                            <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-12 font-size16">
-                                                                    <div className="row">
-                                                                        <div className="col-md-6">
-                                                                            <label>Infants</label>
-                                                                            <p className="font-size14">Under 2</p>
-                                                                        </div>
-                                                                        <div className="col-md-2 col-init-no">
-                                                                            <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                        </div>
-                                                                        <div className="col-md-2">
-                                                                            {this.state.infantsGuest}+
-                                                    </div>
-                                                                        <div className="col-md-2 col-init-no">
-                                                                            <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                   <OverlayTrigger  rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                id="popover-search-guests"
+                                                >
+                                                <div className="" role="tooltip">
+                                                    <div className="col-md-12 col-12 font-size16" >
+                                                        <div className="row">
+                                                            <div className="col-md-5 col-5">
+                                                                <p>Adults</p>
+                                                                <p></p>
                                                             </div>
-                                                        </PopoverBody>
-                                                    </UncontrolledPopover>
+                                                            <div className="col-md-2 col-2 col-init-no" >
+                                                                <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-3 col-3">
+                                                                {this.state.adultsGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
+                                                    <div className="col-md-12 col-12 font-size16">
+                                                        <div className="row">
+                                                            <div className="col-md-5 col-5">
+                                                                <label>Children</label>
+                                                                <p className="font-size14">Ages 2-12</p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-3 col-3">
+                                                            {this.state.childrensGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12 col-12 font-size16">
+                                                        <div className="row">
+                                                            <div className="col-md-5 col-5">
+                                                                <label>Infants</label>
+                                                                <p className="font-size14">Under 2</p>
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            </div>
+                                                            <div className="col-md-3 col-3">
+                                                            {this.state.infantsGuest}+
+                                                            </div>
+                                                            <div className="col-md-2 col-2 col-init-no">
+                                                                <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{height: "1em", width: "1em", display: "block", fill: "currentcolor"}}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </Popover>}>
+                                                <input id="PopoverLegacy" readOnly className="border-none input-search cursorPointer" role="button" placeholder="Number of Guests" value={this.state.valueGuest} onChange={({value}) =>this.setState({valueGuest:value})} readOnly={true}/>
 
+                                                </OverlayTrigger>
 
                                                     <i className="fa fa-angle-down icon-search cursorPointer" aria-hidden="true"></i>
                                                 </span>

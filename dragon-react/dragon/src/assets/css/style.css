@@ -220,6 +220,9 @@ body{
 ._v72lrv {
     padding-top: 8px !important;
 }
+.menu.no-padding-lr-mobile{
+    width: 100% !important;
+}
 
 .left-menu{       
     bottom: 0px !important;
@@ -234,6 +237,7 @@ body{
     width: 22%;
 }
 .right-home{
+    float: left;
     width: 78% !important;
     overflow: auto overlay !important;
     float: left;
@@ -293,6 +297,34 @@ body{
     #modalbookPopover{
         min-width: 430px !important;
     }
+    .search-date .DateInput_input input{
+        padding: 2px 2px 9px !important;
+    }
+    .search-date .DateRangePicker.DateRangePicker_1 .DateInput{
+        width: 78px !important;
+    }
+    .select-search{
+        width: 88% !important;
+    }
+    #popover-search-guests {
+        margin-left: 57px !important;
+    }
+}
+@media (max-width:767px){   
+    #PopoverLegacy{
+        margin-left: 10px !important;
+        width: 87% !important;
+    }
+    .search-date .DateRangePicker_picker.DateRangePicker_picker_1  {
+        top: 35px !important;
+        left: -20px !important;
+
+    }
+    #popover-search-guests {
+        min-width: 94% !important;
+        margin-left: 10px !important;
+        margin-top: 5px !important;
+    }
 }
 @media (min-width:414px) and (max-width: 767px){
     .popover.show.popoverBookModal.bs-popover-bottom
@@ -302,6 +334,8 @@ body{
     #modalbookPopover{
         min-width: 340px !important;
     }
+    
+    
 }
 @media (min-width:375px) and (max-width: 413px){
     .popover.show.popoverBookModal.bs-popover-bottom
@@ -325,6 +359,9 @@ body{
     }
     .box-book .DateRangePicker.DateRangePicker_1 .DateInput{
         width: 100px !important;
+    }
+    .search-date .DateRangePicker_picker.DateRangePicker_picker_1 .DayPicker_transitionContainer.DayPicker_transitionContainer_1{
+        height: 380px !important;
     }
     
 }
@@ -674,6 +711,7 @@ body{
 }
 .col-search{
     background-color: white;
+    border-radius: 3px;
 }
 .button-search{
     font-weight: bold;
@@ -782,6 +820,7 @@ select::-ms-expand {
     .search-home {
         padding-left: 0 !important;
         padding-right: 0 !important;
+        border-radius: 3px;
     }
     .left-responsive {
         position: initial !important;
@@ -820,9 +859,6 @@ select::-ms-expand {
 
 @media (max-width: 1023px){
 
-    .input-search {
-        width: 80%;
-    }
     .menu {
         padding: 0px !important;
     }
@@ -1128,3 +1164,55 @@ select::-ms-expand {
 .margin-right15{
     margin-right:15px;
 }
+
+.popover-content{
+    padding-top: 15px;
+}
+
+.popover{
+    opacity: 1 !important;
+}
+
+#popover-search-guests{
+    /* top: 42% !important;
+    left: 60.5% !important; */
+    min-width: 20%;
+    margin-left: 40px ;
+    margin-top: 15px;
+    padding-right: 15px;
+}
+
+.search-date .DateRangePicker.DateRangePicker_1 input {
+    font-size: 14px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.search-date .DateRangePicker.DateRangePicker_1{
+    width: 90%;
+}
+.search-date .DateRangePicker.DateRangePicker_1 .DateInput{
+    width: 100px;
+}
+
+.search-date .DateRangePicker.DateRangePicker_1 .DateRangePickerInput{
+    border:none !important;
+}
+
+.search-date .DateInput_fang.DateInput_fang_1{
+    display: none !important;
+}
+
+#inlineFormCustomSelect:required:invalid{
+    color: gray !important;
+}
+#inlineFormCustomSelect option{
+    color: #484848 !important;
+}
+
+.search-date .DateRangePicker_picker  {
+    top: 40px !important;
+    left: -10px !important;
+    border-radius: 2px;
+}
+
