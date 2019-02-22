@@ -153,9 +153,8 @@ class ProfileComponent extends Component {
                                     <a href="#" aria-selected="true" className="sidenav-item">Edit Profile</a>
                                     {/* <a href="https://www.airbnb.com/users/edit/237420104" aria-selected="true" className="sidenav-item">Edit Profile</a> */}
                                 </li>
-                                <li>
+                                {/*<li>
                                     <a href="#" aria-selected="false" className="sidenav-item">Photos</a>
-                                    {/* <a href="https://www.airbnb.com/users/edit/237420104?section=media" aria-selected="false" className="sidenav-item">Photos</a> */}
 
                                 </li>
                                 <li>
@@ -168,8 +167,7 @@ class ProfileComponent extends Component {
                                 <li>
                                     <a href="#" aria-selected="false" className="sidenav-item">References</a>
                                 </li>
-                                <li>
-                                </li>
+                               */}
                                 <div className="btnView">
                                     <a href="/users/show/237420104" className="btn btn-block space-top-4">View Profile</a>
                                 </div>
