@@ -306,6 +306,9 @@ body{
     .select-search{
         width: 88% !important;
     }
+    #popover-search-guests {
+        margin-left: 57px !important;
+    }
 }
 @media (max-width:767px){   
     #PopoverLegacy{
@@ -316,6 +319,11 @@ body{
         top: 35px !important;
         left: -20px !important;
 
+    }
+    #popover-search-guests {
+        min-width: 94% !important;
+        margin-left: 10px !important;
+        margin-top: 5px !important;
     }
 }
 @media (min-width:414px) and (max-width: 767px){
@@ -353,7 +361,7 @@ body{
         width: 100px !important;
     }
     .search-date .DateRangePicker_picker.DateRangePicker_picker_1 .DayPicker_transitionContainer.DayPicker_transitionContainer_1{
-        height: 350px !important;
+        height: 380px !important;
     }
     
 }
@@ -1169,8 +1177,8 @@ select::-ms-expand {
     /* top: 42% !important;
     left: 60.5% !important; */
     min-width: 20%;
-    margin-left: 40px !important;
-    margin-top: 15px !important;
+    margin-left: 40px ;
+    margin-top: 15px;
     padding-right: 15px;
 }
 

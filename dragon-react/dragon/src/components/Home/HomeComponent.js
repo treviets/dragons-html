@@ -51,6 +51,8 @@ class HomeComponent extends Component {
             popoverOpen: false,
             valueGuest: "",
             numberOfMonths : 1,
+            focusedInput:null,  
+
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
         this.handleChangeToTime = this.handleChangeToTime.bind(this)
@@ -591,7 +593,7 @@ class HomeComponent extends Component {
                                                     </div>
                                                 </div>
                                                 </Popover>}>
-                                                <input id="PopoverLegacy" readOnly className="border-none input-search cursorPointer" role="button" placeholder="Number of Guests" value={this.state.valueGuest} onChange={({value}) =>this.setState({valueGuest:value})}/>
+                                                <input id="PopoverLegacy" readOnly className="border-none input-search cursorPointer" role="button" placeholder="Number of Guests" value={this.state.valueGuest} onChange={({value}) =>this.setState({valueGuest:value})} readOnly={true}/>
 
                                                 </OverlayTrigger>
 
