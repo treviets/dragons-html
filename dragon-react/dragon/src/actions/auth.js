@@ -21,7 +21,7 @@ function loginError(message) {
 export function loginUser(creds) {
     return (dispatch) => {
         dispatch(requestLogin(creds))
-        postFromUrl('/dragons/login/account', creds,{
+        postFromUrl('/dragons/login/account', creds, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -32,8 +32,13 @@ export function loginUser(creds) {
                 dispatch(loginError(data.Message))
                 alert(data.Message)
             } else {
-                const token = data.Data;
+                console.log("data-login", data)
+                const token = data.Data.token;
+                const cusId = data.Data.cusId;
                 localStorage.setItem('accessToken', token)
+                localStorage.setItem('cusId', cusId)
+
+                console.log("localStorage-login", localStorage)
                 dispatch(receiveLogin(token))
                 $('#buttonClose').click();
                 $('#buttonCloseSocial').click()
@@ -49,7 +54,7 @@ export function loginUser(creds) {
 export function loginUserSocial(creds) {
     return (dispatch) => {
         dispatch(requestLogin(creds))
-        postFromUrl('/dragons/login/social', creds,{
+        postFromUrl('/dragons/login/social', creds, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -94,6 +99,8 @@ export function logoutUser() {
     return (dispatch) => {
         dispatch(requestLogout())
         localStorage.removeItem('accessToken')
+        localStorage.clear()
+        console.log("storage-logout", localStorage)
         dispatch(receiveLogout())
     }
 }

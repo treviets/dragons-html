@@ -4,7 +4,9 @@ import '../assets/css/profile.css';
 import service from '../services/signup.js';
 import { connect } from 'react-redux';
 import language from '../masterData/language.json'
-import { lang } from 'moment';
+import moment, { lang } from 'moment';
+import { Link, Redirect } from 'react-router-dom'
+
 
 
 
@@ -17,50 +19,130 @@ class ProfileComponent extends Component {
             customer: Object,
             currency: [],
             language: [],
-            selectedLanguage: 0
-
+            selectedLanguage: 0,
+            selectedMonth: 0,
+            selectedDay: 0,
+            SelectedYear: 0,
+            optionMonth: [],
+            optionDay: [],
+            firstName: '',
+            lastName: '',
+            gender: 1,
+            birthDate: '',
+            emailAddress: '',
+            phone: '',
+            hometown: '',
+            desc: '',
+            workEmail: '',
+            school: '',
+            work: '',
+            showPassWord: true,
+            pass: '',
         }
 
         this.getInfoCustomer = this.getInfoCustomer.bind(this);
         this.handeChangeLanguage = this.handeChangeLanguage.bind(this);
+        this.handeChangeCurrency = this.handeChangeCurrency.bind(this)
+        this.updateInfo = this.updateInfo.bind(this)
+
 
     }
     //call function when loadpage
     componentWillMount(state) {
-        // alert('componentWillMount sẽ được gọi ở đây');
-        // console.log(state.accessToken);
         this.getInfoCustomer();
     }
     handeChangeLanguage(event) {
         this.setState({ selectedLanguage: event.target.value })
     }
+    handeChangeCurrency(event) {
+        this.setState({ selectedCurrency: event.target.value })
+    }
+
+    onChange = (e) => {
+        var target = e.target;
+        var name = target.name;
+        var value = target.value;
+        this.setState({
+            [name]: value
+        });
+    };
+    async updateInfo() {
+        // this.setState({
+        //     showHomepage: true
+        // })
+        console.log(this.state)
+        var cus = {
+            // Id: this.state.cusId,
+            Id: 1,
+            FirstName: this.state.firstName,
+            LastName: this.state.lastName,
+            Email: this.state.emailAddress,
+            Password: "123123123",
+            Phone: this.state.phone,
+            Status: 1,
+            Avatar: "",
+            DateOfBirth: this.state.birthDate,
+            PreferLanguage: this.state.selectedLanguage,
+            PreferCurrency: this.state.selectedCurrency,
+            Hometown: this.state.address,
+            Introduction: this.state.desc,
+            School: this.state.school,
+            Work: this.state.work,
+            WorkEmail: this.state.workEmail
+        }
+        var obj = {
+            Customer: cus,
+            EmergencyContact: [],
+            Language: [],
+            Currency: [],
+            GuestProfile: []
+        }
+        // const res = await service.updateInfoDetailCustomer(obj)
+        //console.log(res)
+
+
+    }
     async getInfoCustomer() {
         var cusId = localStorage.getItem("cusId")
         console.log("cusId localStorage", cusId)
-        // const res = await service.getInfoDetailCustomer(cusId);
         const res = await service.getInfoDetailCustomer(1);
 
-        console.log("info")
-        var languageLoad = [];
+        var item = res.Data
 
-        if (res.Data.Language !== []) {
-            languageLoad = res.Data.Language
-        } else {
-            languageLoad = language
-        }
+        var customer = item.Customer
+        var dateString = moment.unix(customer.DateOfBirth / 1000).utc();
+
+
+        console.log("info")
         this.setState({
-            customer: res.Data.Customer,
-            language: languageLoad,
-            currency: res.Data.Currency,
-            cusId: cusId
+            customer: item.Customer,
+            language: item.Language,
+            currency: item.Currency,
+            cusId: cusId,
+            selectedLanguage: customer.PreferLanguage,
+            selectedCurrency: customer.PreferCurrency,
+            firstName: customer.FirstName,
+            lastName: customer.LastName,
+            work: customer.Work,
+            desc: customer.Introduction,
+            emailAddress: customer.Email,
+            workEmail: customer.WorkEmail,
+            school: customer.School,
+            birthDate: dateString,
+            phone: customer.Phone,
+            address: customer.Hometown,
         })
+        // var day = dateString.date();
+        // var month = dateString.month() + 1;
+        // var year = dateString.year();
+        // alert(year)
         console.log("Object Info", this.state.customer)
         // console.log("Language", this.state.language)
-        console.log("Language", languageLoad)
         console.log("Currency", this.state.currency)
 
     }
     render() {
+        // 
         return (
             <div className="page-container-responsive space-top-4 space-4">
                 <br />
@@ -108,7 +190,7 @@ class ProfileComponent extends Component {
                                         First Name
                                     </label>
                                     <div className="col-9">
-                                        <input size="30" type="text" value={this.state.customer.FirstName} />
+                                        <input size="30" value={this.state.firstName} onChange={this.onChange} name="firstName" />
                                     </div>
                                 </div>
                                 <div className="row row-condensed space-4">
@@ -116,7 +198,7 @@ class ProfileComponent extends Component {
                                         Last Name
                                     </label>
                                     <div className="col-9">
-                                        <input id="user_first_name" name="user[first_name]" size="30" type="text" value={this.state.customer.LastName} />
+                                        <input type="text" value={this.state.lastName} onChange={this.onChange} name="lastName" />
                                         <div className="text-muted space-top-1">
                                             Your public profile only shows your first name. When you request a booking, your host will see your first and last name.
                                         </div>
@@ -144,7 +226,7 @@ class ProfileComponent extends Component {
                                         <fieldset>
                                             {/* <legend className="screen-reader-only">Birthday</legend> */}
                                             <div className="select">
-                                                <select aria-label="Month" id="user_birthdate_2i" name="user[birthdate(2i)]">
+                                                <select aria-label="Month" id="user_birthdate_2i" name="birthDate">
                                                     {/* <select value={this.props.Selected}>
                                                         {
                                                             this.state.currency.map(function (item) {
@@ -320,13 +402,13 @@ class ProfileComponent extends Component {
                                         Email Addresss  <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
                                     </label>
                                     <div className="col-9">
-                                        <input size="30" type="text" value={this.state.customer.Email} />
+                                        <input size="30" type="text" value={this.state.emailAddress} name="emailAddress" onChange={this.onChange} />
                                         <div className="text-muted space-top-1">
                                             We won’t share your private email address with other Airbnb users. Learn more.
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row row-condensed space-4">
+                                {/* <div className="row row-condensed space-4">
                                     <label className="col-3">
                                         Phone Numbers
                                     </label>
@@ -334,7 +416,7 @@ class ProfileComponent extends Component {
                                         <style data-aphrodite="data-aphrodite" dangerouslySetInnerHTML={{ __html: "._pgfpyhv{color: #008489 !important;font:inherit !important;font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;-webkit-text-decoration-line:none !important;-moz-text-decoration-line:none !important;text-decoration-line:none !important;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;background:transparent !important;border:0px !important;cursor:pointer !important;margin:0px !important;padding:0px !important;-webkit-user-select:auto !important;-moz-user-select:auto !important;-ms-user-select:auto !important;user-select:auto !important;text-align:left !important;}._pgfpyhv:hover{-webkit - text - decoration - line: underline !important;-moz-text-decoration-line:underline !important;text-decoration-line:underline !important;color:#008489 !important;}._pgfpyhv:focus{-webkit - text - decoration - line: underline !important;-moz-text-decoration-line:underline !important;text-decoration-line:underline !important;}@supports(--custom: properties){._pgfpyhv{color:var(--color-text-link, #008489) !important;font-family:var(--font-font_family, Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif) !important;-webkit-text-decoration-line:var(--font-link-text-decoration-line, none) !important;-moz-text-decoration-line:var(--font-link-text-decoration-line, none) !important;text-decoration-line:var(--font-link-text-decoration-line, none) !important;}._pgfpyhv:hover{-webkit - text - decoration - line: var(--font-link-text-decoration-line-hover, underline) !important;-moz-text-decoration-line:var(--font-link-text-decoration-line-hover, underline) !important;text-decoration-line:var(--font-link-text-decoration-line-hover, underline) !important;color:var(--color-text-link-hover, #008489) !important;}._pgfpyhv:focus{-webkit - text - decoration - line: var(--font-link-text-decoration-line-focus, underline) !important;-moz-text-decoration-line:var(--font-link-text-decoration-line-focus, underline) !important;text-decoration-line:var(--font-link-text-decoration-line-focus, underline) !important;}._pgfpyhv:active{color: var(--color-text-link-active, #006C70) !important;}}._pgfpyhv:active{color: #006C70 !important;outline:0px !important;}" }} />
                                         <div data-hypernova-key="edit_profilephone_numbersbundlejs" data-hypernova-id="1870cbb1-404d-4a62-a6c0-d8b1a607e24d"><div dir="ltr" data-reactroot><div style={{ marginTop: '9px' }}><div><strong>No phone number entered</strong><div style={{ marginTop: '4px' }}><div className="text-muted">This is so your hosts, guests, and Airbnb can contact you. We’ll send you booking requests, reminders, and other notifications.</div></div><div style={{ marginTop: '8px' }}><button type="button" className="_pgfpyhv" aria-busy="false">Add a phone number</button></div></div></div></div></div>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="row row-condensed space-4">
                                     <label className="col-3" >
@@ -358,46 +440,11 @@ class ProfileComponent extends Component {
                                     </label>
                                     <div className="col-9">
                                         <div className="select">
-                                            <select id="user_profile_info_preferred_currency" name="user[native_currency]"><option value="AUD">Australian dollar</option>
-                                                <option value="BRL">Brazilian real</option>
-                                                <option value="BGN">Bulgarian lev</option>
-                                                <option value="CAD">Canadian dollar</option>
-                                                <option value="CLP">Chilean peso</option>
-                                                <option value="CNY">Chinese yuan</option>
-                                                <option value="COP">Colombian peso</option>
-                                                <option value="CRC">Costa Rican colon</option>
-                                                <option value="HRK">Croatian kuna</option>
-                                                <option value="CZK">Czech koruna</option>
-                                                <option value="DKK">Danish krone</option>
-                                                <option value="AED">Emirati dirham</option>
-                                                <option value="EUR">Euro</option>
-                                                <option value="HKD">Hong Kong dollar</option>
-                                                <option value="HUF">Hungarian forint</option>
-                                                <option value="INR">Indian rupee</option>
-                                                <option value="ILS">Israeli new shekel</option>
-                                                <option value="JPY">Japanese yen</option>
-                                                <option value="MYR">Malaysian ringgit</option>
-                                                <option value="MXN">Mexican peso</option>
-                                                <option value="MAD">Moroccan dirham</option>
-                                                <option value="TWD">New Taiwan dollar</option>
-                                                <option value="NZD">New Zealand dollar</option>
-                                                <option value="NOK">Norwegian krone</option>
-                                                <option value="PEN">Peruvian sol</option>
-                                                <option value="PHP">Philippine peso</option>
-                                                <option value="PLN">Polish zloty</option>
-                                                <option value="GBP">Pound sterling</option>
-                                                <option value="RON">Romanian leu</option>
-                                                <option value="RUB">Russian ruble</option>
-                                                <option value="SAR">Saudi Arabian riyal</option>
-                                                <option value="SGD">Singapore dollar</option>
-                                                <option value="ZAR">South African rand</option>
-                                                <option value="KRW">South Korean won</option>
-                                                <option value="SEK">Swedish krona</option>
-                                                <option value="CHF">Swiss franc</option>
-                                                <option value="THB">Thai baht</option>
-                                                <option value="TRY">Turkish lira</option>
-                                                <option value="USD">United States dollar</option>
-                                                <option value="UYU">Uruguayan peso</option></select>
+                                            <select className="border-none input-search cursorPointer" value={this.state.selectedCurrency} onChange={this.handeChangeCurrency}  >
+                                                {this.state.currency.map(function (object, index) {
+                                                    return <option value={object.Id} key={index}>{object.Name}</option>
+                                                })}
+                                            </select>
                                         </div>
                                         <div className="text-muted space-top-1">We’ll show you prices in this currency.</div>
                                     </div>
@@ -407,7 +454,7 @@ class ProfileComponent extends Component {
                                         Where You Live
                                     </label>
                                     <div className="col-9">
-                                        <input id="user_profile_info_current_city" name="user_profile_info[current_city]" placeholder="e.g. Paris, France / Brooklyn, NY / Chicago, IL" size={30} type="text" />
+                                        <input size={30} type="text" value={this.state.address} name="address" onChange={this.onChange} />
                                     </div>
                                 </div>
                                 <div className="row row-condensed space-4">
@@ -415,15 +462,20 @@ class ProfileComponent extends Component {
                                         Describe Yourself
                                     </label>
                                     <div className="col-9">
-                                        <textarea cols={40} value={this.state.customer.Introduction} rows={5} />
+                                        <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
                                         <div className="text-muted space-top-1">Airbnb is built on relationships. Help other people get to know you.<br /><br />Tell them about the things you like: What are 5 things you can’t live without? Share your favorite travel destinations, books, movies, shows, music, food.<br /><br />Tell them what it’s like to have you as a guest or host: What’s your style of traveling? Of Airbnb hosting?<br /><br />Tell them about you: Do you have a life motto?</div>
                                     </div>
                                 </div>
-
-
-
-
-
+                                {this.state.showPassWord ?
+                                    <div className="row row-condensed space-4">
+                                        <label className="col-3" >
+                                            Mật khẩu
+                                    </label>
+                                        <div className="col-9">
+                                            <input size="30" value={this.state.pass} onChange={this.onChange} name="pass" />
+                                        </div>
+                                    </div>
+                                    : null}
                             </div>
                         </div>
                         <div className="panel space-4">
@@ -438,14 +490,54 @@ class ProfileComponent extends Component {
                                         Work Email <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
                                     </label>
                                     <div className="col-9">
-                                        <input id="user_first_name" name="user[first_name]" size="30" type="text" value="email" />
+                                        <input size="30" type="text" value={this.state.workEmail} name="workEmail" onChange={this.onChange} />
                                         <div className="text-muted space-top-1">Find homes perfect for work trips by choosing the Trip type filter on your next search. Learn more</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-primary btn-large" >Save
-                        </button>
+                        <div className="panel space-4">
+                            <div className="panel-header">
+                                <h2 className="edit-profile-section-heading">
+                                    Option
+                                </h2>
+                            </div>
+                            <div className="panel-body">
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3" >
+                                        School <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                    </label>
+                                    <div className="col-9">
+                                        <input size="30" type="text" value={this.state.school} name="school" onChange={this.onChange} />
+                                    </div>
+                                </div>
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3" >
+                                        Work <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                    </label>
+                                    <div className="col-9">
+                                        <input size="30" type="text" value={this.state.work} name="work" onChange={this.onChange} />
+                                    </div>
+                                </div>
+                                {/* <div className="row row-condensed space-4">
+                                    <label className="col-3" >
+                                        Hometown <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                    </label>
+                                    <div className="col-9">
+                                        <input size="30" type="text" value={this.state.customer.Hometown} />
+                                    </div>
+                                </div> */}
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3" >
+                                        Phone <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
+                                    </label>
+                                    <div className="col-9">
+                                        <input size="30" type="text" value={this.state.phone} name="phone" onChange={this.onChange} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" className="btn btn-primary btn-large" onClick={this.updateInfo}>Save</button>
                     </div>
                 </div>
 
@@ -454,22 +546,11 @@ class ProfileComponent extends Component {
     }
 }
 
+
 const mapStateToProps = (state) => {
     let store = state.signUpReducers
     console.log("GET STORE FROM PROFILE", store);
     console.log("this.props")
     return { cusId: store }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return null
-//     //action
-//     // return {
-//     //     handleLogin: (creds) => dispatch((loginUser(creds))),
-//     //     setToken: (token) => dispatch(saveCreds(token)),
-//     //     logoutUser: () => dispatch(logoutUser()),
-//     //     handleSignUp: (creds) => dispatch(signUp(creds)),
-//     // }
-// }
-// export default ProfileComponent;
 export default connect(mapStateToProps)(ProfileComponent);

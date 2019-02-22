@@ -206,7 +206,7 @@ class PageHeader extends Component {
                             {
                                 localStorage.getItem('accessToken') ?
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Account</a>
+                                        <a className="nav-link" href="/update/profile">Account</a>
                                     </li>
                                     :
                                     <li className="nav-item">
