@@ -64,8 +64,10 @@ export function loginUserSocial(creds) {
                 dispatch(loginError(data.Message))
                 alert(data.Message)
             } else {
-                const token = data.Data;
+                const token = data.Data.token;
+                const cusId = data.Data.cusId;
                 localStorage.setItem('accessToken', token)
+                localStorage.setItem('cusId', cusId)
                 dispatch(receiveLogin(token))
                 $('#buttonClose').click()
                 $('#buttonCloseSocial').click()
