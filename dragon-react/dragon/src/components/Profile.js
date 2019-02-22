@@ -72,8 +72,8 @@ class ProfileComponent extends Component {
         // })
         console.log(this.state)
         var cus = {
-            // Id: this.state.cusId,
-            Id: 1,
+            Id: this.state.cusId,
+            // Id: 1,
             FirstName: this.state.firstName,
             LastName: this.state.lastName,
             Email: this.state.emailAddress,
@@ -97,7 +97,7 @@ class ProfileComponent extends Component {
             Currency: [],
             GuestProfile: []
         }
-        // const res = await service.updateInfoDetailCustomer(obj)
+        const res = await service.updateInfoDetailCustomer(obj)
         //console.log(res)
 
 
@@ -105,13 +105,12 @@ class ProfileComponent extends Component {
     async getInfoCustomer() {
         var cusId = localStorage.getItem("cusId")
         console.log("cusId localStorage", cusId)
-        const res = await service.getInfoDetailCustomer(1);
+        const res = await service.getInfoDetailCustomer(cusId);
 
         var item = res.Data
 
         var customer = item.Customer
         var dateString = moment.unix(customer.DateOfBirth / 1000).utc();
-
 
         console.log("info")
         this.setState({
