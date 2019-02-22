@@ -23,6 +23,7 @@ export function signUp(creds) {
                 const cusId = data.Data.id;
                 console.log("cusId", cusId)
                 localStorage.setItem('cusId', cusId)
+                localStorage.setItem('isSocial', false)
                 var isFetching = false;
                 dispatch(receiveSignUp(cusId, isFetching))
             }

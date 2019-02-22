@@ -36,7 +36,7 @@ class ProfileComponent extends Component {
             workEmail: '',
             school: '',
             work: '',
-            showPassWord: true,
+            isSocial: localStorage.getItem('isSocial'),
             pass: '',
         }
 
@@ -77,7 +77,7 @@ class ProfileComponent extends Component {
             FirstName: this.state.firstName,
             LastName: this.state.lastName,
             Email: this.state.emailAddress,
-            Password: "123123123",
+            Password: this.state.pass,
             Phone: this.state.phone,
             Status: 1,
             Avatar: "",
@@ -463,13 +463,13 @@ class ProfileComponent extends Component {
                                         <div className="text-muted space-top-1">Airbnb is built on relationships. Help other people get to know you.<br /><br />Tell them about the things you like: What are 5 things you can’t live without? Share your favorite travel destinations, books, movies, shows, music, food.<br /><br />Tell them what it’s like to have you as a guest or host: What’s your style of traveling? Of Airbnb hosting?<br /><br />Tell them about you: Do you have a life motto?</div>
                                     </div>
                                 </div>
-                                {this.state.showPassWord ?
+                                {this.state.isSocial === "false" ?
                                     <div className="row row-condensed space-4">
                                         <label className="col-3" >
                                             Mật khẩu
                                     </label>
                                         <div className="col-9">
-                                            <input size="30" value={this.state.pass} onChange={this.onChange} name="pass" />
+                                            <input size="30" value={this.state.pass} onChange={this.onChange} name="pass" type="password" />
                                         </div>
                                     </div>
                                     : null}

@@ -37,6 +37,7 @@ export function loginUser(creds) {
                 const cusId = data.Data.cusId;
                 localStorage.setItem('accessToken', token)
                 localStorage.setItem('cusId', cusId)
+                localStorage.setItem('isSocial', false)
 
                 console.log("localStorage-login", localStorage)
                 dispatch(receiveLogin(token))
@@ -68,6 +69,7 @@ export function loginUserSocial(creds) {
                 const cusId = data.Data.cusId;
                 localStorage.setItem('accessToken', token)
                 localStorage.setItem('cusId', cusId)
+                localStorage.setItem('isSocial', true)
                 dispatch(receiveLogin(token))
                 $('#buttonClose').click()
                 $('#buttonCloseSocial').click()
