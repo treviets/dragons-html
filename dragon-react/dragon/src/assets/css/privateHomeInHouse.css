@@ -96,9 +96,10 @@ select {
 .footer-request > i {
     position: absolute;
     font-size: 40px;
-    right: 45px;
+    right: 0px;
     bottom: 30px;
     color: #d1ad5c;
+    top:0px;
 }
 .div-Guest {
     background-color: gray;
