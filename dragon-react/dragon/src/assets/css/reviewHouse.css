@@ -4,7 +4,7 @@
 }
 .box-title{
       border: 1px solid rgb(228, 228, 228);   
-      height: 65px;
+      /* height: 65px; */
       border-radius: .25rem;
       padding: 12px;
 }
