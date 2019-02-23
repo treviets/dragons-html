@@ -16,15 +16,17 @@ export function signUp(creds) {
                 "Content-Type": "multipart/form-data"
             }
         }).then((response) => {
+            console.log("data-handle singup", response.data)
             const data = response.data;
             if (data.Status !== 'OK') {
                 alert(data.Message)
             } else {
-                const cusId = data.Data.id;
+                const cusId = data.Data.cusId;
                 console.log("cusId", cusId)
                 localStorage.setItem('cusId', cusId)
+                localStorage.setItem('accessToken', data.Data.token)
                 localStorage.setItem('isSocial', false)
-                var isFetching = false;
+                let isFetching = false;
                 dispatch(receiveSignUp(cusId, isFetching))
             }
         }).catch(err => {

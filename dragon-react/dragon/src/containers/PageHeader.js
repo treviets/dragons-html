@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { loginUser, saveCreds, logoutUser } from '../actions/auth';
 import '../assets/fonts/font-css.css';
 import { signUp } from '../actions/signUpAction';
+import Profile from '../components/Profile';
 
 
 
@@ -113,9 +114,9 @@ class PageHeader extends Component {
         this.props.handleSignUp(formData);
 
 
-        //var res = await service.signUpCustomer(formData);
+        // var res = await service.signUpCustomer(formData);
 
-        // console.log(res.Data)
+        // console.log("resData", res)
         // if (res.Status !== "OK") {
         //     alert(res.Message)
         // } else {
@@ -160,6 +161,10 @@ class PageHeader extends Component {
 
 
     render() {
+        const {
+            selectedOption,
+            selectedMonth
+        } = this.state;
         if (this.props.isAuthenticated) {
             this
                 .props
@@ -167,13 +172,9 @@ class PageHeader extends Component {
             // window.location.replace('/')
             // this.props.history.push('/');
         }
-        if (this.props.cusId !== null && this.props.isFetching !== true) {
-            return <Redirect to="/update/profile" />
-        }
-        const {
-            selectedOption,
-            selectedMonth
-        } = this.state;
+        // if (this.props.cusId !== null && this.props.isFetching !== true) {
+        //     return <Redirect to="/update/profile" />
+        // } else {
         return (
             <div  >
                 <nav className="navbar navbar-expand-lg bg-blue" id="header" >
@@ -433,6 +434,7 @@ class PageHeader extends Component {
             </div>
         );
     }
+
 }
 const mapStateToProps = (state) => {
     //lay data tu store gan this.props cua component

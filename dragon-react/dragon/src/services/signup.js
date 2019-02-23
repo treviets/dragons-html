@@ -24,16 +24,16 @@ const HomeService = {
                         "Content-Type": "multipart/form-data"
                     }
                 });
-            const data = response.data;
-            localStorage.setItem('info', JSON.parse(data))
-            console.log("localStorage")
+            const data = response.Data;
+            localStorage.setItem('cusId', data.cusId)
+            localStorage.setItem('isSocial', false)
             console.log(localStorage)
             return data
 
         } catch (e) {
-            if (e.response.status === 401) {
+            // if (e.response.status === 401) {
 
-            }
+            // }
         }
     },
 
