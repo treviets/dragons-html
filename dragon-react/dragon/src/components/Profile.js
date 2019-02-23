@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import language from '../masterData/language.json'
 import moment, { lang } from 'moment';
 import { Link, Redirect } from 'react-router-dom'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 
 
@@ -28,7 +31,7 @@ class ProfileComponent extends Component {
             firstName: '',
             lastName: '',
             gender: 1,
-            birthDate: '',
+            birthDate: new Date(),
             emailAddress: '',
             phone: '',
             hometown: '',
@@ -38,12 +41,15 @@ class ProfileComponent extends Component {
             work: '',
             isSocial: localStorage.getItem('isSocial'),
             pass: '',
+            backHome: false,
+            erro: '',
         }
 
         this.getInfoCustomer = this.getInfoCustomer.bind(this);
         this.handeChangeLanguage = this.handeChangeLanguage.bind(this);
         this.handeChangeCurrency = this.handeChangeCurrency.bind(this)
         this.updateInfo = this.updateInfo.bind(this)
+        this.handleChangeBirthDate = this.handleChangeBirthDate.bind(this);
 
 
     }
@@ -66,14 +72,14 @@ class ProfileComponent extends Component {
             [name]: value
         });
     };
+    handleChangeBirthDate(date) {
+        this.setState({
+            birthDate: date
+        });
+    }
     async updateInfo() {
-        // this.setState({
-        //     showHomepage: true
-        // })
-        console.log(this.state)
         var cus = {
             Id: this.state.cusId,
-            // Id: 1,
             FirstName: this.state.firstName,
             LastName: this.state.lastName,
             Email: this.state.emailAddress,
@@ -97,20 +103,30 @@ class ProfileComponent extends Component {
             Currency: [],
             GuestProfile: []
         }
+        console.log(cus)
         const res = await service.updateInfoDetailCustomer(obj)
-        //console.log(res)
-
-
+        //console.log("res: ===",res)
+        if (res.Status === "OK") {
+            this.setState({
+                backHome: true
+            })
+        } else {
+            this.setState({
+                erro: "Update Fail"
+            })
+        }
     }
+
     async getInfoCustomer() {
         var cusId = localStorage.getItem("cusId")
-        console.log("cusId localStorage", cusId)
         const res = await service.getInfoDetailCustomer(cusId);
 
         var item = res.Data
 
         var customer = item.Customer
         var dateString = moment.unix(customer.DateOfBirth / 1000).utc();
+        // alert(dateString.format('L'))
+        // alert(moment.unix(customer.DateOfBirth / 1000).utc().format('L'))
 
         console.log("info")
         this.setState({
@@ -127,7 +143,7 @@ class ProfileComponent extends Component {
             emailAddress: customer.Email,
             workEmail: customer.WorkEmail,
             school: customer.School,
-            birthDate: dateString,
+            birthDate: Date.parse(dateString),
             phone: customer.Phone,
             address: customer.Hometown,
         })
@@ -135,13 +151,15 @@ class ProfileComponent extends Component {
         // var month = dateString.month() + 1;
         // var year = dateString.year();
         // alert(year)
-        console.log("Object Info", this.state.customer)
+        // console.log("Object Info", this.state.customer)
         // console.log("Language", this.state.language)
-        console.log("Currency", this.state.currency)
+        // console.log("Currency", this.state.currency)
 
     }
     render() {
-        // 
+        if (this.state.backHome === true) {
+            return <Redirect to="/" />
+        }
         return (
             <div className="page-container-responsive space-top-4 space-4">
                 <br />
@@ -220,17 +238,13 @@ class ProfileComponent extends Component {
                                         Birth Date  <i aria-label="Private" className="fa fa-lock icon-lock icon-ebisu" data-behavior="tooltip" role="img" tabindex="0"></i>
                                     </label>
                                     <div className="col-9">
-                                        <fieldset>
-                                            {/* <legend className="screen-reader-only">Birthday</legend> */}
+                                        <DatePicker
+                                            selected={this.state.birthDate}
+                                            onChange={this.handleChangeBirthDate}
+                                        />
+                                        {/* <fieldset>
                                             <div className="select">
                                                 <select aria-label="Month" id="user_birthdate_2i" name="birthDate">
-                                                    {/* <select value={this.props.Selected}>
-                                                        {
-                                                            this.state.currency.map(function (item) {
-                                                                return <option value={this.state.currency.Name}>{this.state.currencyitem.Name}</option>;
-                                                            })
-                                                        }
-                                                    </select>); */}
                                                     <option value="">Month</option>
                                                     <option selected="selected" value="1">January</option>
                                                     <option value="2">February</option>
@@ -390,7 +404,7 @@ class ProfileComponent extends Component {
                                                 </select>
 
                                             </div>
-                                        </fieldset>
+                                        </fieldset> */}
                                         <div className="text-muted space-top-1">The magical day you were dropped from the sky by a stork. We use this data for analysis and never share it with other users.</div>
                                     </div>
                                 </div>
