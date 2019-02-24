@@ -78,6 +78,9 @@
 select {
     height: 34px !important;
 }
+.content-request > p {
+        font-size: 12px !important;
+}
 .content-request > span > b {
     font-size: 30px;
     font-weight: bold;
@@ -89,6 +92,7 @@ select {
     background-color:#c19d64;
     color: white;
     font-weight: bold;
+    height: 50px;
 }
 .footer-request {
     position: relative;
@@ -335,4 +339,8 @@ select {
     opacity: 1 !important;
     min-width:350px !important ;
     
+}
+.dont-change{
+    font-size: 12px;
+    text-align: center
 }

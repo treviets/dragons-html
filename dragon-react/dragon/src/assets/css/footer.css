@@ -1,5 +1,7 @@
 .footer {
     border-top: 1px rgb(228, 228, 228) solid;
+        width: 100%;
+    float: left;
 
 }
 .title-footer {
@@ -36,4 +38,7 @@ ul li a {
     margin-left: 8px !important;
     margin-right: -20px !important;
     line-height: 1 !important;
+}
+.footer-info{
+        text-align: center;
 }

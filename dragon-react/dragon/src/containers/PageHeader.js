@@ -19,6 +19,7 @@ import Profile from '../components/Profile';
 
 
 
+
 const optionsMonth = [
     { value: '1', label: 'January' },
     { value: '2', label: 'February' },
@@ -179,7 +180,9 @@ class PageHeader extends Component {
             <div  >
                 <nav className="navbar navbar-expand-lg bg-blue" id="header" >
                     <a className="navbar-brand" href="/">
-                        <img className="logo-company" src="../img/icondragon.jpg" />
+                        {/* <img className="logo-company" src="../img/icondragon.jpg" /> */}
+                        <img className="logo-company" src="../img/icondragon1.jpg" />
+
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

@@ -753,7 +753,7 @@ class DetailHouseComponent extends Component {
                                             <span className="font-title" style={{ fontSize: "22px" }}>
                                                 ₫{this.currencyFormat(this.props.room.Price)}
                                             </span>
-                                            <span className="font-size12 font-medium">per night</span>
+                                            <span className="font-size12 font-medium"> per night</span>
 
                                             <p>
                                                 <span>
@@ -891,20 +891,12 @@ class DetailHouseComponent extends Component {
 
                                                     </div>
                                                 </div>
-                                                <br />
-
                                                 <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
-                                                <p style={{ textAlign: 'center', fontFamily: 'sans-serif' }}>You won't be charged yet</p>
-                                            </div>
-                                            <hr />
-                                            <div className="footer-request">
-                                                <p>This home is on people's minds.</p>
-                                                <p> It's been viewed 500+ times in the past week</p>
-                                                <i className="fa fa-lightbulb-o logo-created" aria-hidden="true"></i>
+                                                <br />
+                                                {/* <p style={{ textAlign: 'center', fontFamily: 'sans-serif', fontSize: '12px !important' }}>You won't be charged yet</p> */}
+                                                <p className="dont-change">You won't be charged yet</p>
                                             </div>
                                         </div>
-                                        <br />
-                                        <p style={{ textAlign: 'center' }}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
                                         <div className="div-Guest" hidden={this.state.showGuests}>
                                             <div className="row">
                                                 <div className="col-md-6 title-choose">
@@ -939,6 +931,9 @@ class DetailHouseComponent extends Component {
 
                                         </div>
                                     </div>
+                                    <br />
+                                    <p style={{ textAlign: 'center', fontfamily: 'sans-serif' }}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
+
                                 </div>
                             </div>
                         </div>
