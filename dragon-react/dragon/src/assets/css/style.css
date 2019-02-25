@@ -231,9 +231,9 @@ body{
     transform: translateZ(0px) !important;
     vertical-align: top !important;
     z-index: 1 !important;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 500px;
+    /* overflow-y: scroll; */
+    /* overflow-x: hidden; */
+    /* height: 500px; */
     width: 22%;
 }
 .right-home{

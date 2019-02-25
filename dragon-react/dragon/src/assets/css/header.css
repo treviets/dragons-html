@@ -2,8 +2,11 @@
     height: 81px;
 } */
 .navbar-brand img{
-    height: 50px;
-    width: 50px;
+    height: 55px;
+    width: 55px;
+    border: 1px solid #ddd;
+    border-radius: 27px;
+
 }
 
 .navbar .row {

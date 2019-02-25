@@ -4,7 +4,7 @@
 }
 .box-title{
       border: 1px solid rgb(228, 228, 228);   
-      height: 65px;
+      /* height: 65px; */
       border-radius: .25rem;
       padding: 12px;
 }
@@ -106,7 +106,7 @@
 }
 .box-room-img{
     float: left;
-    width: 100px;
+    width: 30%;
     background-color: red;
     height: 80px;
 
