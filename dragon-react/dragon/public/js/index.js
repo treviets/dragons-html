@@ -18,10 +18,7 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
-    $('.DateInput_input.DateInput_input_1').on('mousedown', function(event) {
-        // do your magic
-        event.preventDefault();
-    });
+   
    
     window.onscroll = function() {myFunction()};
         var header = document.getElementById("header");

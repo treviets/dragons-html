@@ -40,7 +40,7 @@ const HomeService = {
             }
         }
     },
-    searchRoom: async function (province,from,to,number_of_guest,min, max, roomType) {
+     searchRoom: async function (province,from,to,number_of_guest,min, max, roomType) {
         try {
             const response = await getFromUrl(
                 "/dragons/room/list?province="+province+"&from="+from+"&to="+to+"&number_of_guest="+number_of_guest
