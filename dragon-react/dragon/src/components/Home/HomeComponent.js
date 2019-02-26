@@ -352,12 +352,12 @@ class HomeComponent extends Component {
         this.state.district = district
         console.log(this.state.district)
         this.handlegetListHomes()
-        // window.onpopstate = () => {
-        //     if (!this.state.is_Detail) {
-        //         $(".footer").show()
-
-        //     }
-        // }
+        
+        window.onpopstate = () => {
+            if (!this.state.is_listHome) {
+                this.setState({is_listHome:true})
+            }
+        }
 
 
     }
@@ -497,14 +497,29 @@ class HomeComponent extends Component {
                                     <div className="col-md-12 col-sm-12 col-init" >
                                         <div className="row">
                                             <div className="col-md-3 col-sm-3 col-init col-search cursorPointer">
-                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative' }}>
+                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative' }} >
                                                     <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
+                                                    
+                                                    {/* <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                        id="popover-search-destination"
+                                                    >
+                                                        <div className="" role="tooltip">
+                                                            <ul className="">
+                                                                {this.state.listHome.map(function (object, index) {
+                                                                    return <li data-value={object.Id} key={index}>{object.Name}</li>
 
+                                                                })}
+                                                            </ul>
+                                                        </div>
+                                                    </Popover>}>
+                                                        <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueGuest} onChange={({ value }) => this.setState({ valueGuest: value })} readOnly={true} />
+
+                                                    </OverlayTrigger> */}
                                                     <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect" required>
                                                         <option value="" disabled hidden >Enter a destination or property</option>
 
-                                                        {this.state.district.map(function (object, index) {
-                                                            return <option value={object.districtid} key={index}>{object.name}</option>
+                                                        {this.state.listHome.map(function (object, index) {
+                                                            return <option value={object.Id} key={index}>{object.Name}</option>
 
                                                         })}
                                                     </select>
