@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { loginUser, saveCreds, logoutUser } from '../actions/auth';
 import '../assets/fonts/font-css.css';
 import { signUp } from '../actions/signUpAction';
-import Profile from '../components/Profile';
+import Profile from '../components/Profile/Profile';
 
 
 

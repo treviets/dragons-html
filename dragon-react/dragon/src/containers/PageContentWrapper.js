@@ -10,7 +10,9 @@ import PastTripComponent from "../components/PastTrip"
 import TodayComponent from '../components/Today';
 import UpdatePhone from '../components/UpdatePhone';
 import ReviewHouse from '../components/ReviewHouse';
-import Profile from '../components/Profile';
+import Profile from '../components/Profile/Profile';
+import Photo from '../components/Profile/PhotoProfile';
+
 
 
 
@@ -51,6 +53,9 @@ class PageContainerWrapper extends Component {
                 break;
             case types.profile:
                 _view = <Profile />;
+                break;
+            case types.photo:
+                _view = <Photo />;
                 break;
             default:
                 _view = "";

@@ -245,3 +245,34 @@
     font-size: 16px;
 }
 
+.profile_pic_container {
+    display: inline-block;
+    position: relative;
+}
+.profile-pic-background {
+    position: absolute;
+    top: 0;
+    left: auto;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+}
+.media-photo {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    background-color: #bbb;
+}
+.media-photo img{
+    /* height: 225px; */
+    width: 225px;
+    position: relative;
+}
+.photo-info {
+    margin-top: 10% !important;
+}
+.photo-info p {
+    text-align: left
+}

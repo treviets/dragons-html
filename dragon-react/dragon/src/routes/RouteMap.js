@@ -14,6 +14,7 @@ const types = {
     updatePhone: '8',
     reviewHouse: '9',
     profile: '10',
+    photo: '11',
 
 }
 
@@ -61,6 +62,10 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.profile} />,
                 path: '/update/profile'
+            },
+            {
+                component: () => <PageContentWrapper type={types.photo} />,
+                path: '/update/photo'
             }
 
         ]
