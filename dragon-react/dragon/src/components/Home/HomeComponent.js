@@ -352,12 +352,12 @@ class HomeComponent extends Component {
         this.state.district = district
         console.log(this.state.district)
         this.handlegetListHomes()
-        // window.onpopstate = () => {
-        //     if (!this.state.is_Detail) {
-        //         $(".footer").show()
-
-        //     }
-        // }
+        
+        window.onpopstate = () => {
+            if (!this.state.is_listHome) {
+                this.setState({is_listHome:true})
+            }
+        }
 
 
     }
