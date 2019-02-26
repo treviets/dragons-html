@@ -497,7 +497,7 @@ class HomeComponent extends Component {
                                     <div className="col-md-12 col-sm-12 col-init" >
                                         <div className="row">
                                             <div className="col-md-3 col-sm-3 col-init col-search cursorPointer">
-                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative' }} style={{ display: 'block', position: 'relative', margin: '5px' }}>
+                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative' }} >
                                                     <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
                                                     
                                                     {/* <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
