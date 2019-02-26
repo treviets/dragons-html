@@ -503,8 +503,8 @@ class HomeComponent extends Component {
                                                     <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect" required>
                                                         <option value="" disabled hidden >Enter a destination or property</option>
 
-                                                        {this.state.district.map(function (object, index) {
-                                                            return <option value={object.districtid} key={index}>{object.name}</option>
+                                                        {this.state.listHome.map(function (object, index) {
+                                                            return <option value={object.Id} key={index}>{object.Name}</option>
 
                                                         })}
                                                     </select>
