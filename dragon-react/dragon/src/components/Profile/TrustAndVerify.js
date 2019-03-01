@@ -10,11 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-
-
-
-
-class ProfileComponent extends Component {
+class TrustAndVerify extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -53,27 +49,11 @@ class ProfileComponent extends Component {
     componentWillMount(state) {
         this.getInfoCustomer();
     }
-    handeChangeLanguage(event) {
-        this.setState({ selectedLanguage: event.target.value })
-    }
-    handeChangeCurrency(event) {
-        this.setState({ selectedCurrency: event.target.value })
-    }
 
-    onChange = (e) => {
-        var target = e.target;
-        var name = target.name;
-        var value = target.value;
-        this.setState({
-            [name]: value
-        });
-    };
 
     async getInfoCustomer() {
         var cusId = localStorage.getItem("cusId")
         const res = await service.getInfoDetailCustomer(cusId);
-
-        console.log(res)
 
         var item = res.Data
 
@@ -125,21 +105,6 @@ class ProfileComponent extends Component {
                                     <li>
                                         <Link to="/update/verify">Trust and Verification</Link>
                                     </li>
-                                    {/*<li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Photos</a>
-
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Trust and Verification</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Reviews</a>
-
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">References</a>
-                                </li>
-                               */}
                                     <div className="btnView">
                                         <a href="/users/show/237420104" className="btn btn-block space-top-4">Photo</a>
                                     </div>
@@ -150,39 +115,52 @@ class ProfileComponent extends Component {
                             <div className="panel space-4">
                                 <div className="panel-header">
                                     <h2 className="edit-profile-section-heading">
-                                        Profile Photo
+                                        Your verified info
                                     </h2>
                                 </div>
-                                <div className="panel-body photos-section">
-                                    <div className="row">
-                                        <div className="col-lg-4 text-center">
-                                            <div className="profile_pic_container picture-main space-sm-2 space-md-2">
-                                                <div className="media-photo profile-pic-background">
-                                                    {this.state.socialAccount === null ?
-                                                        <img alt="Tran" height="225" src="../img/customer.png" title="Tran" width="225" />
-                                                        :
-                                                        <img alt="Tran" height="225" src={this.state.socialAccount.img} title="Tran" width="225" />
+                                <div className="panel-body">
+                                    <ul className="info-email-box">
+                                        <li>
+                                            <h4>Email address</h4>
+                                            <p className="description">You have confirmed your email: <b>{this.state.emailAddress}</b>.
+                                            A confirmed email is important to allow us to securely communicate with you.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {/* Your social accounts */}
+                            <div className="panel space-4">
+                                <div className="panel-header">
+                                    <h2 className="edit-profile-section-heading">
+                                        Your social accounts
+                                    </h2>
+                                </div>
+                                <div className="panel-body">
+                                    <ul className="info-email-box">
+                                        <li>
+                                            <h4>Phone number</h4>
+                                            <p className="description">Make it easier to communicate with a verified phone number. We’ll send you a code by SMS or read it to you over the phone. Enter the code below to confirm that you’re the person on the other end.</p>
+                                            <p className="description">Your number is only shared with another Airbnb member once you have a confirmed booking.</p>
+                                        </li>
+                                        <li class="facebook1 unverified space-4 clearfix">
+                                            <h4>Facebook</h4>
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <p class="description verification-text-description">
+                                                        Sign in with Facebook and discover your trusted connections to hosts and guests all over the world.
+                                                    </p>
+                                                </div>
 
-                                                    }
-
-
-
-                                                    {/* <img alt="Tran" height="225" src="https://a0.muscache.com/im/pictures/user/ed45f966-ca3d-4b13-8e45-8aa8c07e60ff.jpg?aki_policy=profile_x_medium" title="Tran" width="225" /> */}
-                                                    {/* <img alt="Tran" height="225" src="../img/customer.png" title="Tran" width="225" /> */}
-
+                                                <div class="col-5">
+                                                    <div class="connect-button">
+                                                        <a href="https://www.facebook.com/v2.0/dialog/oauth?client_id=138566025676&amp;redirect_uri=https%3A%2F%2Fwww.airbnb.com%2Fusers%2Fpopulate_from_facebook&amp;scope=email%2Cuser_birthday%2Cuser_likes%2Cuser_hometown%2Cuser_location%2Cuser_friends&amp;state=redirect_params%5Baction%5D%3Dedit_verification%26redirect_params%5Bcontroller%5D%3Dusers%26redirect_params%5Bid%5D%3D237420104" class="btn btn-block large facebook-button" data-populate_uri="https://www.airbnb.com/users/populate_from_facebook?from=edit_verification" data-redirect_uri="https://www.airbnb.com/users/populate_from_facebook">Connect</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            {/* <img src="https://lh6.googleusercontent.com/--8RE7QbEgDY/AAAAAAAAAAI/AAAAAAAAArY/zW6oj1O9DiQ/s96-c/photo.jpg" alt="Logo" /> */}
-                                        </div>
-                                        <div className="col-lg-8">
-                                            <div className="photo-info">
-                                                <br />
-                                                <p>
-                                                    Clear frontal face photos are an important way for hosts and guests to learn about each other. It’s not much fun to host a landscape! Be sure to use a photo that clearly shows your face and doesn’t include any personal or sensitive info you’d rather not have hosts or guests see.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -200,4 +178,4 @@ const mapStateToProps = (state) => {
     console.log("GET STORE FROM PROFILE", store);
     return { cusId: store }
 }
-export default connect(mapStateToProps)(ProfileComponent);
+export default connect(mapStateToProps)(TrustAndVerify);

@@ -15,6 +15,7 @@ const types = {
     reviewHouse: '9',
     profile: '10',
     photo: '11',
+    verify: '12',
 
 }
 
@@ -66,6 +67,10 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.photo} />,
                 path: '/update/photo'
+            },
+            {
+                component: () => <PageContentWrapper type={types.verify} />,
+                path: '/update/verify'
             }
 
         ]

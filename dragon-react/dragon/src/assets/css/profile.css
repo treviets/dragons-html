@@ -276,3 +276,25 @@
 .photo-info p {
     text-align: left
 }
+.info-email-box {
+    padding-left: 10px
+}
+.space-4{
+    margin-bottom: 24px;
+}
+.col-5 {
+    width: 41.66667%;
+    float: left;
+}
+.connect-button{
+        border: 1px solid gray;
+}
+
+@media (max-width: 743px){
+   .col-7{
+        float: none !important;
+        margin-bottom: 24px !important;
+        width: auto !important;
+    } 
+   
+}
