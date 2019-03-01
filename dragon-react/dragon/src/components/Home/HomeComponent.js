@@ -30,7 +30,7 @@ class HomeComponent extends Component {
             is_listHome: true,
             listHome: [],
             listRoom: [],
-            listDestinate:[{Id:1,Name:"aa"}, {Id:2,Name:"bb"}, {Id:3,Name:"cc"}],
+            listDestinate: [{ Id: 1, Name: "aa" }, { Id: 2, Name: "bb" }, { Id: 3, Name: "cc" }],
             nameHome: "",
             is_Detail: false,
             room: {},
@@ -45,7 +45,7 @@ class HomeComponent extends Component {
             amount: "₫500000  - ₫5000000+",
             roomType: 0,
             selectDistrict: "",
-            valueDistrict:"",
+            valueDistrict: "",
             adultsGuest: 0,
             childrensGuest: 0,
             infantsGuest: 0,
@@ -80,16 +80,16 @@ class HomeComponent extends Component {
         this.renderListDestinate = this.renderListDestinate.bind(this)
         this.handleSetDestinate = this.handleSetDestinate.bind(this)
     }
-    renderListDestinate(home, index){
-        var onClick = this.handleSetDestinate.bind(this,home.Id, home.Name);
-        var clss="search-destinate"
-        return <li ref={"destiante-"+home.Id} id={"destiante-"+home.Id} className={this.state.selectDistrict==home.Id?"search-destinate active-search-destinate": "search-destinate"} key={index} onClick={onClick}>
-        <span style={{marginLeft:'10px',marginRight:'10px'}}>{home.Name}</span>
+    renderListDestinate(home, index) {
+        var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
+        var clss = "search-destinate"
+        return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+            <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
         </li>
     }
-    handleSetDestinate(id,name){
+    handleSetDestinate(id, name) {
 
-        this.setState({selectDistrict:id,valueDistrict:name})
+        this.setState({ selectDistrict: id, valueDistrict: name })
         this.refs.overlayDestinate.hide();
     }
     handleHomeType(type) {
@@ -109,6 +109,8 @@ class HomeComponent extends Component {
                 .unix() + 86340;
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
         console.log(res)
+
+        console.log("log-thoai")
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false })
 
@@ -123,24 +125,24 @@ class HomeComponent extends Component {
     }
     async handleSearch() {
         var from = null
-        if(this.state.startDate != null){
-        var from = moment(this.state.startDate, "DD/MM/YYYY")
-            .startOf("day")
-            .unix();
-        }else {
+        if (this.state.startDate != null) {
+            var from = moment(this.state.startDate, "DD/MM/YYYY")
+                .startOf("day")
+                .unix();
+        } else {
             from = 0
         }
         var to = null
-        if(this.state.endDate != null){
-        var to =
-            moment(this.state.endDate, "DD/MM/YYYY")
-                .startOf("day")
-                .unix() + 86340;
-        }else {
+        if (this.state.endDate != null) {
+            var to =
+                moment(this.state.endDate, "DD/MM/YYYY")
+                    .startOf("day")
+                    .unix() + 86340;
+        } else {
             to = 0
         }
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
-        if(res.Data == null){
+        if (res.Data == null) {
             res.Data = []
         }
         this.setState({ listRoom: res.Data })
@@ -380,10 +382,10 @@ class HomeComponent extends Component {
         this.state.district = district
         console.log(this.state.district)
         this.handlegetListHomes()
-        
+
         window.onpopstate = () => {
             if (!this.state.is_listHome) {
-                this.setState({is_listHome:true})
+                this.setState({ is_listHome: true })
             }
         }
 
@@ -414,7 +416,7 @@ class HomeComponent extends Component {
             if (this.state.childrensGuest < 5) {
                 this.state.childrensGuest = this.state.childrensGuest + 1
                 this.state.totalGuest = this.state.totalGuest + 1
-                if (this.state.childrensGuest == 1 && this.state.adultsGuest == 0 ){
+                if (this.state.childrensGuest == 1 && this.state.adultsGuest == 0) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
                     this.state.totalGuest = this.state.totalGuest + 1
                 }
@@ -422,7 +424,7 @@ class HomeComponent extends Component {
         } else if (type == 3) {
             if (this.state.infantsGuest < 5) {
                 this.state.infantsGuest = this.state.infantsGuest + 1
-                if (this.state.infantsGuest == 1 && this.state.adultsGuest == 0 ){
+                if (this.state.infantsGuest == 1 && this.state.adultsGuest == 0) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
                     this.state.totalGuest = this.state.totalGuest + 1
                 }
@@ -434,9 +436,9 @@ class HomeComponent extends Component {
         } else {
             guests = this.state.totalGuest + " Guests"
         }
-        if (this.state.infantsGuest > 0 ) {
+        if (this.state.infantsGuest > 0) {
             var infants = " Infants"
-            if (this.state.infantsGuest == 1){
+            if (this.state.infantsGuest == 1) {
                 infants = " Infant"
             }
             guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
@@ -468,9 +470,9 @@ class HomeComponent extends Component {
         } else {
             guests = this.state.totalGuest + " Guests"
         }
-        if (this.state.infantsGuest > 0 ) {
+        if (this.state.infantsGuest > 0) {
             var infants = " Infants"
-            if (this.state.infantsGuest == 1){
+            if (this.state.infantsGuest == 1) {
                 infants = " Infant"
             }
             guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
@@ -547,17 +549,17 @@ class HomeComponent extends Component {
                                             <div className="col-md-3 col-sm-3 col-init col-search cursorPointer">
                                                 <span className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }} >
                                                     <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
-                                                    
+
                                                     <OverlayTrigger ref="overlayDestinate" rootClose={true} trigger="click" placement="bottom" overlay={<Popover
                                                         id="popover-search-destination"
                                                     >
                                                         <div className="font-my" role="tooltip">
                                                             <ul>
-                                                            {this.state.listHome.map(this.renderListDestinate)}
+                                                                {this.state.listHome.map(this.renderListDestinate)}
                                                             </ul>
                                                         </div>
                                                     </Popover>}>
-                                                        <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueDistrict}  readOnly={true} />
+                                                        <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueDistrict} readOnly={true} />
 
                                                     </OverlayTrigger>
                                                     {/* <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect" required>
