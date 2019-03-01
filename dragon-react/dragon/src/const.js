@@ -1,2 +1,2 @@
-export const apiImg = 'https://payment.iparkingstg.com/dragons'
+export const apiImg = 'http://tdh.thedragonshost.com:8080/dragons'
 
