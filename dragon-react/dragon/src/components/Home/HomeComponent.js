@@ -109,6 +109,7 @@ class HomeComponent extends Component {
                 .unix() + 86340;
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
         console.log(res)
+        console.log(res)
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false })
 
