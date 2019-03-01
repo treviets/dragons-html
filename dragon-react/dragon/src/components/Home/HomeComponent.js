@@ -30,6 +30,7 @@ class HomeComponent extends Component {
             is_listHome: true,
             listHome: [],
             listRoom: [],
+            is_RoomNull:false,
             listDestinate: [{ Id: 1, Name: "aa" }, { Id: 2, Name: "bb" }, { Id: 3, Name: "cc" }],
             nameHome: "",
             is_Detail: false,
@@ -144,6 +145,7 @@ class HomeComponent extends Component {
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
         if (res.Data == null) {
             res.Data = []
+            this.setState({is_RoomNull:true})
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false })
@@ -954,11 +956,19 @@ class HomeComponent extends Component {
                                                     </div>
                                                 </div>
                                                 <div className="col-md-12">
-                                                    <div className="row">
-                                                        {this.state.listRoom.map(this.renderListRooms)}
+                                                  
+                                                        {!this.state.is_RoomNull
+                                                        ?
+                                                        <div className="row">
+                                                            {this.state.listRoom.map(this.renderListRooms)}
+                                                        </div>
+                                                        :
+                                                        <span >Không tìm được phòng trống </span>
+
+                                                        }
 
                                                     </div>
-                                                </div>
+                                                
                                             </div>
                                         }
                                     </div>
