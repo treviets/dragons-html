@@ -122,15 +122,27 @@ class HomeComponent extends Component {
         });
     }
     async handleSearch() {
+        var from = null
+        if(this.state.startDate != null){
         var from = moment(this.state.startDate, "DD/MM/YYYY")
             .startOf("day")
             .unix();
+        }else {
+            from = 0
+        }
+        var to = null
+        if(this.state.endDate != null){
         var to =
             moment(this.state.endDate, "DD/MM/YYYY")
                 .startOf("day")
                 .unix() + 86340;
+        }else {
+            to = 0
+        }
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
-        console.log(res)
+        if(res.Data == null){
+            res.Data = []
+        }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false })
 

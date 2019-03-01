@@ -40,11 +40,33 @@ const HomeService = {
             }
         }
     },
-     searchRoom: async function (province,from,to,number_of_guest,min, max, roomType) {
+     searchRoom: async function (homeId,from,to,number_of_guest,min, max, roomType) {
         try {
+            
+            if(homeId==""){
+                homeId = 0
+            }
+            var url =  "/dragons/room/list?homeId="+homeId
+            if(from!=null){
+                url+="&from="+from
+            }
+            if(to!=null){
+                url+="&to="+to
+            }
+            if(min!=null){
+                url+="&min="+min
+            }
+            if(max!=null){
+                url+="&max="+max
+            }
+            if(number_of_guest!=null){
+                url+="&number_of_guest="+number_of_guest
+            }
+            if(roomType!=null){
+                url+="&roomtype="+roomType
+            }
             const response = await getFromUrl(
-                "/dragons/room/list?homeId="+province+"&from="+from+"&to="+to+"&number_of_guest="+number_of_guest
-            +"&min="+min+"&max="+max+"&roomtype="+roomType)
+                url)
             const data = response.data;
             return data
             
