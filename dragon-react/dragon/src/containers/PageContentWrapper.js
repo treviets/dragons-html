@@ -12,6 +12,9 @@ import UpdatePhone from '../components/UpdatePhone';
 import ReviewHouse from '../components/ReviewHouse';
 import Profile from '../components/Profile/Profile';
 import Photo from '../components/Profile/PhotoProfile';
+import Verify from '../components/Profile/TrustAndVerify';
+
+
 
 
 
@@ -56,6 +59,9 @@ class PageContainerWrapper extends Component {
                 break;
             case types.photo:
                 _view = <Photo />;
+                break;
+            case types.verify:
+                _view = <Verify />;
                 break;
             default:
                 _view = "";

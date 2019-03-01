@@ -173,23 +173,10 @@ class ProfileComponent extends Component {
                                     </li>
                                     <li>
                                         <Link to="/update/photo">Photos</Link>
-                                        {/* <a href="#" aria-selected="false" className="sidenav-item">Photos</a> */}
                                     </li>
-                                    {/*<li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Photos</a>
-
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Trust and Verification</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Reviews</a>
-
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">References</a>
-                                </li>
-                               */}
+                                    <li>
+                                        <Link to="/update/verify">Trust and Verification</Link>
+                                    </li>
                                     <div className="btnView">
                                         <a href="/users/show/237420104" className="btn btn-block space-top-4">View Profile</a>
                                     </div>

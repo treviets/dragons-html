@@ -352,10 +352,10 @@ class HomeComponent extends Component {
         this.state.district = district
         console.log(this.state.district)
         this.handlegetListHomes()
-        
+
         window.onpopstate = () => {
             if (!this.state.is_listHome) {
-                this.setState({is_listHome:true})
+                this.setState({ is_listHome: true })
             }
         }
 
@@ -499,7 +499,7 @@ class HomeComponent extends Component {
                                             <div className="col-md-3 col-sm-3 col-init col-search cursorPointer">
                                                 <span className="cursorPointer" style={{ display: 'block', position: 'relative' }} >
                                                     <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
-                                                    
+
                                                     {/* <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
                                                         id="popover-search-destination"
                                                     >
