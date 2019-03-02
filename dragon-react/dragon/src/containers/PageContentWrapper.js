@@ -13,6 +13,7 @@ import ReviewHouse from '../components/ReviewHouse';
 import Profile from '../components/Profile/Profile';
 import Photo from '../components/Profile/PhotoProfile';
 import Verify from '../components/Profile/TrustAndVerify';
+import ViewProfile from '../components/Profile/ViewProfile';
 
 
 
@@ -62,6 +63,9 @@ class PageContainerWrapper extends Component {
                 break;
             case types.verify:
                 _view = <Verify />;
+                break;
+            case types.viewProfile:
+                _view = <ViewProfile />;
                 break;
             default:
                 _view = "";
