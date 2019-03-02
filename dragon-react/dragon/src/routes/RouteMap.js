@@ -16,6 +16,7 @@ const types = {
     profile: '10',
     photo: '11',
     verify: '12',
+    viewProfile:'13',
 
 }
 
@@ -71,6 +72,10 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.verify} />,
                 path: '/update/verify'
+            },
+            {
+                component: () => <PageContentWrapper type={types.viewProfile} />,
+                path: '/view/profile'
             }
 
         ]

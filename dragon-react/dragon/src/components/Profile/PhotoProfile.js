@@ -125,23 +125,8 @@ class ProfileComponent extends Component {
                                     <li>
                                         <Link to="/update/verify">Trust and Verification</Link>
                                     </li>
-                                    {/*<li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Photos</a>
-
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Trust and Verification</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">Reviews</a>
-
-                                </li>
-                                <li>
-                                    <a href="#" aria-selected="false" className="sidenav-item">References</a>
-                                </li>
-                               */}
                                     <div className="btnView">
-                                        <a href="/users/show/237420104" className="btn btn-block space-top-4">Photo</a>
+                                        <a href="/view/profile" className="btn btn-block space-top-4">View Profile</a>
                                     </div>
                                 </ul>
                             </div>

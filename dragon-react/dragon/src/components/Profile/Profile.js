@@ -178,7 +178,7 @@ class ProfileComponent extends Component {
                                         <Link to="/update/verify">Trust and Verification</Link>
                                     </li>
                                     <div className="btnView">
-                                        <a href="/users/show/237420104" className="btn btn-block space-top-4">View Profile</a>
+                                        <a href="/view/profile" className="btn btn-block space-top-4">View Profile</a>
                                     </div>
                                 </ul>
                             </div>

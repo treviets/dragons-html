@@ -196,10 +196,10 @@ class PageHeader extends Component {
                         <ul className="navbar-nav row-direction  font-medium" >
 
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Become a host</a>
+                                <a className="nav-link" href="/">Become a host</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Help</a>
+                                <a className="nav-link" href="/">Help</a>
                             </li>
                             {/* <li className="nav-item">
                                 <a className="nav-link" href="#">
