@@ -20,7 +20,11 @@ class ReviewHouse extends Component {
             amount: 0,
             nights: 0,
             price: 0,
+            homeId: 0,
+            cleanFeel: 0,
+            serviceFee: 0,
             title: "",
+            totalGuest:0,
             guests: 0,
             policy: [],
             message: "waiting..."
@@ -109,13 +113,13 @@ class ReviewHouse extends Component {
         var bookingJson = {
             CustomerId: user.id,
             FromDate: from,
-            HomeId: this.props.homeId,
-            NumberOfGuess: this.props.totalGuest,
+            HomeId: this.state.homeId,
+            NumberOfGuess: this.state.totalGuest,
             NumberOfNights: this.state.nights,
             Price: this.state.price,
             RoomId: this.state.room.RoomId,
             ToDate: to,
-            TotalAmount: this.props.amount
+            TotalAmount: this.state.amount
         }
         var myJSON = JSON.stringify(bookingJson);
         const res = await bookingService.bookingCreate(myJSON)
@@ -146,13 +150,24 @@ class ReviewHouse extends Component {
         var date = dates[1].split(",")
         return date[0]
     }
-    componentDidMount() {
-        var diffInDates = moment(this.props.endDate).diff(moment(this.props.startDate), 'days');
-        var policies = this.props.room.Policies
+    componentWillMount() {
+            var homeId =localStorage.getItem("homeId")
+            var cleanFee =localStorage.getItem("bookcleanFee")
+            var serviceFee =localStorage.getItem("bookserviceFee")
+            var totalGuest = localStorage.getItem("booktotalGuest")
+            var price = localStorage.getItem("bookprice")
+            var room =JSON.parse(localStorage.getItem("bookroomData"))
+            var start = localStorage.getItem("bookstartDate")
+            var end = localStorage.getItem("bookendDate")
+            var totalAmount = localStorage.getItem("booktotalAmount")
+            var valueguests = localStorage.getItem("bookvalueGuest")
+        var diffInDates = moment(end).diff(moment(start), 'days');
+        var policies = room.Policies
         this.setState({
-            nights: diffInDates, checkIn: this.props.startDate, checkOut: this.props.endDate,
-            amount: this.props.totalAmount, room: this.props.room, price: this.props.price,
-            guests: this.props.guests, policy: policies
+            nights: diffInDates, checkIn: start, checkOut: end,
+            amount: totalAmount, room: room, price: price,
+            guests: valueguests, policy: policies, homeId: homeId, cleanFee: cleanFee, serviceFee: serviceFee,
+            totalGuest: totalGuest
         })
 
     }
@@ -184,6 +199,8 @@ class ReviewHouse extends Component {
     }
     render() {
         return (
+    <div className="detailRoom">
+        <div className="divbody">
             <div className="container">
                 <br />
                 <div className="row body-review colorTitle">
@@ -331,14 +348,14 @@ class ReviewHouse extends Component {
                                         Cleaning fee
                                     </p>
                                     <p className="price-total">
-                                        đ{this.currencyFormat(this.props.cleanFee)}
+                                        đ{this.currencyFormat(this.state.cleanFee)}
                                     </p>
 
                                     <p className="price-info">
                                         Service fee
                                     </p>
                                     <p className="price-total">
-                                        ₫{this.currencyFormat(this.props.serviceFee)}
+                                        ₫{this.currencyFormat(this.state.serviceFee)}
                                     </p>
 
                                 </div>
@@ -353,7 +370,7 @@ class ReviewHouse extends Component {
                                         Total (VND)
                                     </div>
                                     <div className="price-total">
-                                        ₫{this.currencyFormat(this.props.amount)}
+                                        ₫{this.currencyFormat(this.state.amount)}
                                     </div>
 
                                 </div>
@@ -387,6 +404,8 @@ class ReviewHouse extends Component {
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
         )
     }
 }

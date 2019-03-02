@@ -59,7 +59,7 @@ const routes = [
             },
             {
                 component: () => <PageContentWrapper type={types.reviewHouse} />,
-                path: '/review/house'
+                path: '/review/book'
             },
             {
                 component: () => <PageContentWrapper type={types.profile} />,

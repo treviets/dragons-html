@@ -12,7 +12,7 @@ import moment from 'moment'
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-
+import { Route, Redirect,Switch } from 'react-router'
 
 
 
@@ -280,6 +280,16 @@ class DetailHouseComponent extends Component {
         if (localStorage.getItem('accessToken')) {
             $("#img-Room").hide()
             $("#backListRoom").hide()
+
+            localStorage.setItem("bookcleanFee",this.state.cleanfee)
+            localStorage.setItem("bookserviceFee",this.state.servicefee)
+            localStorage.setItem("booktotalGuest",this.state.totalGuest)
+            localStorage.setItem("bookprice",this.state.room.Price)
+            localStorage.setItem("bookroomData",JSON.stringify(this.state.roomData))
+            localStorage.setItem("bookstartDate",this.state.startDate)
+            localStorage.setItem("bookendDate",this.state.endDate)
+            localStorage.setItem("booktotalAmount",this.state.totalAmount)
+            localStorage.setItem("bookvalueGuest",this.state.valueGuest)
             this.setState({ is_reviewBook: true })
         } else {
             console.log("aa")
@@ -470,8 +480,14 @@ class DetailHouseComponent extends Component {
 
     render() {
         if (this.state.is_reviewBook) {
-            return <ReviewHouse to='/review/house' homeId={this.state.homeId} cleanFee={this.state.cleanfee} serviceFee={this.state.servicefee} totalGuest={this.state.totalGuest} price={this.state.room.Price} room={this.state.roomData} startDate={this.state.startDate} endDate={this.state.endDate} amount={this.state.totalAmount} guests={this.state.valueGuest} />
-        } else {
+            return (<Redirect  push to={{
+                pathname: "/review/book",
+                search: "?bookRoomId="+this.state.room.Id,
+                target:"_blank"
+                
+              }}/>
+
+             )        } else {
 
             return (
                 <div className="detailRoom">
@@ -516,11 +532,8 @@ class DetailHouseComponent extends Component {
 
                         </div>
 
-                        <div className="divbody">
-                            <div className="container">
-                                <div className="container">
-                                </div>
-                            </div>
+                <div className="divbody">
+                       
 
                 <div className="fontfamily container">
                     <div className="container">
