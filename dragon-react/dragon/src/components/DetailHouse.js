@@ -129,36 +129,51 @@ class DetailHouseComponent extends Component {
     }
     handlePlus(type) {
         console.log(type)
-        if (type == 1) {
-            if (this.state.adultsGuest < 12) {
-                this.state.adultsGuest = this.state.adultsGuest + 1
-                this.state.totalGuest = this.state.totalGuest + 1
+        if(this.state.totalGuest < this.state.room.NumberOfGuest){
+            if (type == 1) {
+                if (this.state.adultsGuest < 12) {
+                    this.state.adultsGuest = this.state.adultsGuest + 1
+                    this.state.totalGuest = this.state.totalGuest + 1
+                }
+            } else if (type == 2) {
+                if (this.state.childrensGuest < 5) {
+                    this.state.childrensGuest = this.state.childrensGuest + 1
+                    this.state.totalGuest = this.state.totalGuest + 1
+                    if (this.state.childrensGuest == 1 && this.state.adultsGuest == 0) {
+                        this.state.adultsGuest = this.state.adultsGuest + 1
+                        this.state.totalGuest = this.state.totalGuest + 1
+                    }
+                }
+            } else if (type == 3) {
+                if (this.state.infantsGuest < 5) {
+                    this.state.infantsGuest = this.state.infantsGuest + 1
+                    if (this.state.infantsGuest == 1 && this.state.adultsGuest == 0) {
+                        this.state.adultsGuest = this.state.adultsGuest + 1
+                        this.state.totalGuest = this.state.totalGuest + 1
+                    }
+                }
             }
-        } else if (type == 2) {
-            if (this.state.childrensGuest < 5) {
-                this.state.childrensGuest = this.state.childrensGuest + 1
-                this.state.totalGuest = this.state.totalGuest + 1
+            var guests = ""
+            if (this.state.totalGuest == 0 || this.state.totalGuest == 1) {
+                guests = this.state.totalGuest + " Guest"
+            } else {
+                guests = this.state.totalGuest + " Guests"
             }
-        } else if (type == 3) {
-            if (this.state.infantsGuest < 5) {
-                this.state.infantsGuest = this.state.infantsGuest + 1
-                this.state.totalGuest = this.state.totalGuest + 1
+            if (this.state.infantsGuest > 0) {
+                var infants = " Infants"
+                if (this.state.infantsGuest == 1) {
+                    infants = " Infant"
+                }
+                guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
             }
+            this.setState({ valueGuest: guests })
         }
-        var guests = ""
-        if (this.state.totalGuest == 0 || this.state.totalGuest == 1) {
-            guests = this.state.totalGuest + " Guest"
-        } else {
-            guests = this.state.totalGuest + " Guests"
-        }
-        this.setState({ valueGuest: guests })
-
 
 
     }
     handleMinus(type) {
         if (type == 1) {
-            if (this.state.adultsGuest > 0) {
+            if (this.state.adultsGuest > 1) {
                 this.state.adultsGuest = this.state.adultsGuest - 1
                 this.state.totalGuest = this.state.totalGuest - 1
             }
@@ -170,7 +185,6 @@ class DetailHouseComponent extends Component {
         } else if (type == 3) {
             if (this.state.infantsGuest > 0) {
                 this.state.infantsGuest = this.state.infantsGuest - 1
-                this.state.totalGuest = this.state.totalGuest - 1
             }
         }
         var guests = ""
@@ -179,19 +193,29 @@ class DetailHouseComponent extends Component {
         } else {
             guests = this.state.totalGuest + " Guests"
         }
+        if (this.state.infantsGuest > 0) {
+            var infants = " Infants"
+            if (this.state.infantsGuest == 1) {
+                infants = " Infant"
+            }
+            guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
+        }
 
         this.setState({ valueGuest: guests })
 
     }
     componentWillMount() {
-        $("#price").hide()
-        $(".footer").show()
-        $("#price-modal").hide()
+       
         this.state.imgsRoom =JSON.parse(localStorage.getItem('imgsRoom'))
         this.state.room=JSON.parse(localStorage.getItem('room'))
         this.state.homeId=localStorage.getItem('homeId')
         this.state.roomType=localStorage.getItem('roomType')
         this.loadData()
+    }
+    componentDidMount(){
+        $("#price").hide()
+        $(".footer").show()
+        $("#price-modal").hide()
     }
     async loadData() {
      
@@ -1219,6 +1243,7 @@ class DetailHouseComponent extends Component {
             )
         }
     }
+    Ư
 }
 
 export default DetailHouseComponent    
