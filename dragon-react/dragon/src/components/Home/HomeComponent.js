@@ -11,11 +11,10 @@ import DatePicker from 'react-datepicker'
 import district from '../../masterData/district.json'
 import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-
+import { Route, Redirect,Switch } from 'react-router'
 const Range = Slider.Range;
 
 class HomeComponent extends Component {
@@ -55,6 +54,7 @@ class HomeComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
+ 
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -127,7 +127,7 @@ class HomeComponent extends Component {
     async handleSearch() {
         var from = null
         if (this.state.startDate != null) {
-            var from = moment(this.state.startDate, "DD/MM/YYYY")
+            from = moment(this.state.startDate, "DD/MM/YYYY")
                 .startOf("day")
                 .unix();
         } else {
@@ -135,7 +135,7 @@ class HomeComponent extends Component {
         }
         var to = null
         if (this.state.endDate != null) {
-            var to =
+            to =
                 moment(this.state.endDate, "DD/MM/YYYY")
                     .startOf("day")
                     .unix() + 86340;
@@ -165,6 +165,11 @@ class HomeComponent extends Component {
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
+        localStorage.setItem('homeId',room.HomeId)
+        localStorage.setItem('room',JSON.stringify(room))
+        localStorage.setItem('roomType',roomType)
+        localStorage.setItem('imgsRoom',JSON.stringify(imgs))
+
         this.setState({ homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
@@ -300,7 +305,7 @@ class HomeComponent extends Component {
                                                 <span>
                                                     <span className="_12kw8n71">
                                                         <span className="_12kw8n71">
-                                                            <span className="_1m8bb6v">Price</span>
+                                                              <span className="_1m8bb6v">Price</span>
                                                             <span>₫{this.currencyFormat(room.Price)}</span>
                                                         </span> per night
                                                 </span>
@@ -486,61 +491,17 @@ class HomeComponent extends Component {
 
 
     render() {
-        return (
-            <div>
-                {this.state.is_Detail ?
-                    <div className="detailRoom">
-                        <div className="img-Room" id="img-Room">
-                            <div className="row desktop" >
-                                <div className="col-md-6 col-init-no parent borderAll height300" >
-                                    <img className="child-left" src={Constants.apiImg + this.state.imgsRoom[0].Image} />
-                                </div>
-                                <div className="col-md-6 col-init-no">
-                                    <div className="row col-init-no">
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
-                                        </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
-                                        </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[4].Image} />
-                                        </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[3].Image} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row tablet" >
-                                <div className="col-md-8 col-init-no parent  borderAll height300" >
-                                    <img className="child-left" style={{ marginTop: '0px' }} src={Constants.apiImg + this.state.imgsRoom[3].Image} />
-                                </div>
-                                <div className="col-md-4 col-init-no">
-                                    <div className="row col-init-no">
-                                        <div className="col-md-12 col-init-no parent  borderAll  height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
-                                        </div>
-                                        <div className="col-md-12 col-init-no parent  borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
-                                        </div>
+        if(this.state.is_Detail){
+            return (<Redirect  push to={{
+                pathname: "/detail/house",
+                search: "?room="+this.state.room.Id,
+                target:"_blank"
+                
+              }}/>
 
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div className="divbody">
-                            <div className="container">
-                                <div className="container">
-                                    <span onClick={this.handleBackRoom} className="container backList" id="backListRoom" >All List </span>
-                                </div>
-                            </div>
-                            <DetailHouse homeId={this.state.homeId} room={this.state.room} roomType={this.state.roomType} imgsRoom={this.state.imgsRoom} />
-                        </div>
-                    </div>
-                    :
+             )
+        }else {
+        return (           
                     <div>
                         <div id="header-search" className="banner menu-header font-size14" >
                             <img src="img/banner-travel-insurance-2000x400.jpg" className="banner-menu" ></img>
@@ -976,10 +937,9 @@ class HomeComponent extends Component {
                             </div>
                         </div>
                     </div>
-                }
-
-            </div>
+        
         )
+    }
     }
 }
 

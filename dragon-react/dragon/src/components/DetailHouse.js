@@ -66,8 +66,10 @@ class DetailHouseComponent extends Component {
             focusedInput: null,
             numberOfMonths: 1,
             focusedInput1: null,
-
-
+            imgsRoom:[],
+            room:null,
+            roomType:null,
+            homeId:null
 
 
         };
@@ -103,7 +105,7 @@ class DetailHouseComponent extends Component {
             if (guest == 0) {
                 guest = 1
             }
-            var total = this.props.room.Price * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
+            var total = this.state.room.Price * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
             this.setState({
                 nights: diffInDates, totalAmount: total
             });
@@ -122,7 +124,7 @@ class DetailHouseComponent extends Component {
         if (guest == 0) {
             guest = 1
         }
-        var total = this.props.room.Price * this.state.nights + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
+        var total = this.state.room.Price * this.state.nights + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
         this.setState({ totalAmount: total })
     }
     handlePlus(type) {
@@ -181,15 +183,19 @@ class DetailHouseComponent extends Component {
         this.setState({ valueGuest: guests })
 
     }
-    componentDidMount() {
-        console.log(localStorage.accessToken)
+    componentWillMount() {
         $("#price").hide()
         $(".footer").show()
         $("#price-modal").hide()
+        this.state.imgsRoom =JSON.parse(localStorage.getItem('imgsRoom'))
+        this.state.room=JSON.parse(localStorage.getItem('room'))
+        this.state.homeId=localStorage.getItem('homeId')
+        this.state.roomType=localStorage.getItem('roomType')
         this.loadData()
     }
     async loadData() {
-        const res = await homeService.getDetailRoom(this.props.room.Id)
+     
+        const res = await homeService.getDetailRoom(this.state.room.Id)
         var countNothing = 0
         for (var i = 0; i < res.Data.Amenities.length; i++) {
             if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() == 'Not included'.toUpperCase()) {
@@ -265,10 +271,10 @@ class DetailHouseComponent extends Component {
         //     HomeId: this.props.homeId,
         //     NumberOfGuess: this.state.selectGuest,
         //     NumberOfNights: diffInDates,
-        //     Price: this.props.room.Price,
+        //     Price: this.state.room.Price,
         //     RoomId: this.state.roomData.RoomId,
         //     ToDate: to,
-        //     TotalAmount: this.props.room.Price * diffInDates
+        //     TotalAmount: this.state.room.Price * diffInDates
         // }
         // var myJSON = JSON.stringify(bookingJson);
         // const res = await bookingService.bookingCreate(myJSON)
@@ -392,7 +398,7 @@ class DetailHouseComponent extends Component {
         if (guest == 0) {
             guest = 1
         }
-        var total = this.props.room.Price * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
+        var total = this.state.room.Price * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
         this.setState({
             endDate: date, nights: diffInDates, totalAmount: total
         });
@@ -440,17 +446,65 @@ class DetailHouseComponent extends Component {
 
     render() {
         if (this.state.is_reviewBook) {
-            return <ReviewHouse to='/review/house' homeId={this.props.homeId} cleanFee={this.state.cleanfee} serviceFee={this.state.servicefee} totalGuest={this.state.totalGuest} price={this.props.room.Price} room={this.state.roomData} startDate={this.state.startDate} endDate={this.state.endDate} amount={this.state.totalAmount} guests={this.state.valueGuest} />
+            return <ReviewHouse to='/review/house' homeId={this.state.homeId} cleanFee={this.state.cleanfee} serviceFee={this.state.servicefee} totalGuest={this.state.totalGuest} price={this.state.room.Price} room={this.state.roomData} startDate={this.state.startDate} endDate={this.state.endDate} amount={this.state.totalAmount} guests={this.state.valueGuest} />
         } else {
 
             return (
+                <div className="detailRoom">
+                        <div className="img-Room" id="img-Room">
+                            <div className="row desktop" >
+                                <div className="col-md-6 col-init-no parent borderAll height300" >
+                                    <img className="child-left" src={Constants.apiImg + this.state.imgsRoom[0].Image} />
+                                </div>
+                                <div className="col-md-6 col-init-no">
+                                    <div className="row col-init-no">
+                                        <div className="col-md-6 col-init-no parent borderAll height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
+                                        </div>
+                                        <div className="col-md-6 col-init-no parent borderAll height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
+                                        </div>
+                                        <div className="col-md-6 col-init-no parent borderAll height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[4].Image} />
+                                        </div>
+                                        <div className="col-md-6 col-init-no parent borderAll height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[3].Image} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row tablet" >
+                                <div className="col-md-8 col-init-no parent  borderAll height300" >
+                                    <img className="child-left" style={{ marginTop: '0px' }} src={Constants.apiImg + this.state.imgsRoom[3].Image} />
+                                </div>
+                                <div className="col-md-4 col-init-no">
+                                    <div className="row col-init-no">
+                                        <div className="col-md-12 col-init-no parent  borderAll  height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
+                                        </div>
+                                        <div className="col-md-12 col-init-no parent  borderAll height150">
+                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div className="divbody">
+                            <div className="container">
+                                <div className="container">
+                                </div>
+                            </div>
+
                 <div className="fontfamily container">
                     <div className="container">
                         <div className="privateRom">
                             <div className="row">
                                 <div className="col-xl-7 col-lg-12">
                                     <div className="container">
-                                        <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.props.roomType}</span></a>
+                                        <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.state.roomType}</span></a>
                                         <div className="optionTitle">
                                             <div className="row">
                                                 <div className="title col-md-10 col-sm-12">
@@ -472,7 +526,7 @@ class DetailHouseComponent extends Component {
                                                 <div className="margin-right15" style={{ display: "inline-block" }}>
                                                     <div style={{ display: "table" }}>
                                                         <div style={{ display: "table-cell" }}>
-                                                            <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.props.room.NumberOfGuest} guests</span>
+                                                            <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.NumberOfGuest} guests</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -500,7 +554,7 @@ class DetailHouseComponent extends Component {
                                             </div>
                                             <div className="row font-size16 font-medium icon-furniture-reps">
                                                 <div className="col-6">
-                                                    <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.props.room.NumberOfGuest} guests</span>
+                                                    <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.NumberOfGuest} guests</span>
                                                 </div>
                                                 <div className="col-6">
                                                     <span>{this.state.roomData.Bedroom} bedrooms</span>
@@ -751,7 +805,7 @@ class DetailHouseComponent extends Component {
                                     <div className="request-to-book">
                                         <div className="content-request">
                                             <span className="font-title" style={{ fontSize: "22px" }}>
-                                                ₫{this.currencyFormat(this.props.room.Price)}
+                                                ₫{this.currencyFormat(this.state.room.Price)}
                                             </span>
                                             <span className="font-size12 font-medium"> per night</span>
 
@@ -862,10 +916,10 @@ class DetailHouseComponent extends Component {
                                                     <div className="price-group font-size14 font-weight400">
 
                                                         <p className="price-info">
-                                                            ₫{this.currencyFormat(this.props.room.Price)} x {this.currencyFormat(this.state.nights)} nights
+                                                            ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
                                                     </p>
                                                         <p className="price-total">
-                                                            ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.props.room.Price * this.state.nights : this.props.room.Price * this.state.nights)}
+                                                            ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
                                                         </p>
                                                         <hr />
                                                         <p className="price-info">
@@ -945,7 +999,7 @@ class DetailHouseComponent extends Component {
                                 <div className="row">
                                     <div className="col-md-9 col-6">
                                         <span className="font-title" style={{ fontSize: "22px" }}>
-                                            ₫{this.currencyFormat(this.props.room.Price)}
+                                            ₫{this.currencyFormat(this.state.room.Price)}
                                         </span>
                                         <span className="font-size12 font-medium">per night</span>
                                     </div>
@@ -965,7 +1019,7 @@ class DetailHouseComponent extends Component {
                                     </div>
                                     <div className="content-request">
                                         <span className="font-title" style={{ fontSize: "22px" }}>
-                                            ₫{this.currencyFormat(this.props.room.Price)}
+                                            ₫{this.currencyFormat(this.state.room.Price)}
                                         </span>
                                         <span className="font-size12 font-medium">per night</span>
 
@@ -1078,10 +1132,10 @@ class DetailHouseComponent extends Component {
                                                 <div className="price-group font-size14 font-weight400">
 
                                                     <p className="price-info">
-                                                        ₫{this.currencyFormat(this.props.room.Price)} x {this.currencyFormat(this.state.nights)} nights
+                                                        ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
                                                     </p>
                                                     <p className="price-total">
-                                                        ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.props.room.Price * this.state.nights : this.props.room.Price * this.state.nights)}
+                                                        ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
                                                     </p>
                                                     <hr />
                                                     <p className="price-info">
@@ -1159,7 +1213,9 @@ class DetailHouseComponent extends Component {
                         </div>
                     </div>
 
-                </div>
+                    </div>
+            </div>
+        </div>
             )
         }
     }
