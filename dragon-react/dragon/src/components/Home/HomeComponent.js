@@ -171,7 +171,6 @@ class HomeComponent extends Component {
         localStorage.setItem('imgsRoom',JSON.stringify(imgs))
 
         this.setState({ homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
-
     }
     handleBackHome() {
         this.setState({ is_listHome: true })
@@ -496,6 +495,7 @@ class HomeComponent extends Component {
             return (<Redirect  push to={{
                 pathname: "/detail/house",
                 search: "?room="+this.state.room.Id,
+                target:"_blank"
                 
               }}/>
 
