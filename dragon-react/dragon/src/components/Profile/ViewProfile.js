@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import '../../assets/css/profile.css';
 import service from '../../services/signup.js';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { Link, Redirect } from 'react-router-dom'
 import "react-datepicker/dist/react-datepicker.css";
 
