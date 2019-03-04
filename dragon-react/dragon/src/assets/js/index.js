@@ -15,6 +15,8 @@ $(document).ready(function() {
     //     }
     // });
     
+    // $("#lightboxBackdrop").find(".arrow_b9bbag-o_O-arrow__direction__left_shhpn5-o_O-arrow__size__medium_9f7hgo").style.display = "flex "
+
     $( "#popoverLegacyPop").parents().addClass( "popoverSearch" );
     window.onscroll = function() {myFunction()};
         var header = document.getElementById("header");

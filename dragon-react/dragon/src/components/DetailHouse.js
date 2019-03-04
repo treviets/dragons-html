@@ -13,6 +13,7 @@ import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import { Route, Redirect,Switch } from 'react-router'
+import Lightbox from 'react-images';
 
 
 
@@ -69,7 +70,11 @@ class DetailHouseComponent extends Component {
             imgsRoom:[],
             room:null,
             roomType:null,
-            homeId:null
+            homeId:null,
+            lightboxIsOpen:false,
+            currentImage: 0,
+
+
 
 
         };
@@ -90,8 +95,45 @@ class DetailHouseComponent extends Component {
         this.renderDetailAccessibility = this.renderDetailAccessibility.bind(this);
         this.calprice = this.calprice.bind(this)
         this.handeChangeDate = this.handeChangeDate.bind(this)
+        this.openLightbox = this.openLightbox.bind(this)
+        this.closeLightbox = this.closeLightbox.bind(this)
+        this.gotoNext = this.gotoNext.bind(this);
+		this.gotoPrevious = this.gotoPrevious.bind(this);
+		this.gotoImage = this.gotoImage.bind(this);
+		this.handleClickImage = this.handleClickImage.bind(this);
 
     }
+    closeLightbox(){
+        this.setState({lightboxIsOpen:false,currentImage: 0,})
+
+    }
+    openLightbox (index, event) {
+		event.preventDefault();
+		this.setState({
+			currentImage: index,
+			lightboxIsOpen: true,
+		});
+	}
+    gotoPrevious () {
+		this.setState({
+			currentImage: this.state.currentImage - 1,
+		});
+	}
+	gotoNext () {
+        if (this.state.currentImage === this.state.imgsRoom.length - 1) this.state.currentImage = -1;
+
+		this.setState({
+			currentImage: this.state.currentImage + 1,
+		});
+	}
+	gotoImage (index) {
+		this.setState({
+			currentImage: index,
+		});
+	}
+	handleClickImage () {
+		this.gotoNext();
+	}
     handeChangeDate(st, end) {
         st = st.startOf('day')
         if (end != null) {
@@ -206,7 +248,11 @@ class DetailHouseComponent extends Component {
     }
     componentWillMount() {
        
-        this.state.imgsRoom =JSON.parse(localStorage.getItem('imgsRoom'))
+        var imgsRoom =JSON.parse(localStorage.getItem('imgsRoom'))
+        for(var i = 0;i<imgsRoom.length;i++){
+            var img = {src:Constants.apiImg+imgsRoom[i].Image}
+            this.state.imgsRoom.push(img)
+        }
         this.state.room=JSON.parse(localStorage.getItem('room'))
         this.state.homeId=localStorage.getItem('homeId')
         this.state.roomType=localStorage.getItem('roomType')
@@ -492,23 +538,36 @@ class DetailHouseComponent extends Component {
             return (
                 <div className="detailRoom">
                         <div className="img-Room" id="img-Room">
+                        <Lightbox
+                        images={this.state.imgsRoom}
+                        isOpen={this.state.lightboxIsOpen}
+                        onClickImage={this.handleClickImage}
+					    onClickNext={this.gotoNext}
+					    onClickPrev={this.gotoPrevious}
+					    onClickThumbnail={this.gotoImage}
+                        onClose={this.closeLightbox}
+                        showImageCount={true}
+                        showThumbnails={true}
+                        enableKeyboardInput = {true}
+                        currentImage={this.state.currentImage}
+                        />
                             <div className="row desktop" >
-                                <div className="col-md-6 col-init-no parent borderAll height300" >
-                                    <img className="child-left" src={Constants.apiImg + this.state.imgsRoom[0].Image} />
+                                <div className="col-md-6 col-init-no parent borderAll height300" onClick={(e) => this.openLightbox(0, e)} >
+                                    <img className="child-left" src={this.state.imgsRoom[0].src} />
                                 </div>
                                 <div className="col-md-6 col-init-no">
-                                    <div className="row col-init-no">
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
+                                    <div className="row col-init-no" >
+                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(1, e)}>
+                                            <img className="child-right" src={this.state.imgsRoom[1].src} />
                                         </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
+                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(2, e)}>
+                                            <img className="child-right" src={this.state.imgsRoom[2].src} />
                                         </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[4].Image} />
+                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(4, e)}>
+                                            <img className="child-right" src={this.state.imgsRoom[4].src} />
                                         </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[3].Image} />
+                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(3, e)}>
+                                            <img className="child-right" src={this.state.imgsRoom[3].src} />
                                         </div>
                                     </div>
                                 </div>
