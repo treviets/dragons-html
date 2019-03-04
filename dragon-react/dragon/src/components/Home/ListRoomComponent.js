@@ -17,7 +17,7 @@ import Slider from 'rc-slider';
 import { Route, Redirect,Switch } from 'react-router'
 const Range = Slider.Range;
 
-class HomeComponent extends Component {
+class ListRoomComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -143,16 +143,12 @@ class HomeComponent extends Component {
             to = 0
         }
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
-        var isnull = false
         if (res.Data == null) {
             res.Data = []
-            isnull = true
             this.setState({is_RoomNull:true})
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false })
-        localStorage.setItem("rooms",JSON.stringify(res.Data))
-        localStorage.setItem("isRoomNull",isnull)
 
     }
     handeChangeDistrict(event) {
@@ -372,44 +368,32 @@ class HomeComponent extends Component {
             </div>
         </div>;
     }
-    handleGetDetail(id,name) {
-        this.GetDetailHome(id,name)
+    handleGetDetail(id, name) {
+        this.setState({ nameHome: name })
+        this.GetDetailHome(id)
 
     }
-    async GetDetailHome(id,name) {
-        const res = await homeService.getDetailHome(id)
-        var isnull =  false
-        if (res.Data == null) {
-            res.Data = []
-            isnull =  true
-            this.setState({is_RoomNull:true})
-        }
-        this.setState({ listRoom: res.Data })
-
-        localStorage.setItem("rooms",JSON.stringify(res.Data))
-        localStorage.setItem("isRoomNull",isnull)
-        localStorage.setItem("nameHome",name)
-
+    async GetDetailHome(id) {
         this.setState({ is_listHome: false })
-
+        const res = await homeService.getDetailHome(id)
+        this.setState({ listRoom: res.Data })
+        console.log(this.state.listRoom)
     }
 
-    componentWillMount(){
-        this.handlegetListHomes()
+    componentWillMount() {
+        // $(".footer").hide()
+        var listRooms = JSON.parse(localStorage.getItem("rooms"))
+     
+        var isRoomNull = localStorage.getItem("isRoomNull") == 'true'
+        var name = localStorage.getItem("nameHome")
 
+        console.log(isRoomNull)
+        this.setState({listRoom:listRooms, is_RoomNull: isRoomNull, nameHome:name})
     }
 
     componentDidMount() {
         // $(".footer").hide()
         $(".footer").show()
-        this.state.district = district
-        console.log(this.state.district)
-
-        window.onpopstate = () => {
-            if (!this.state.is_listHome) {
-                this.setState({ is_listHome: true })
-            }
-        }
 
 
     }
@@ -905,26 +889,33 @@ class HomeComponent extends Component {
 
                                 <div className="right-home">
                                     <div className="container main-slider no-padding-lr-mobile">
-                                        {this.state.is_listHome ?
+                                            <div className="listRoom">
+                                                <div className="_1avdemu">
+                                                    <div className="_76dwae">
+                                                        <h3 className="_jmmm34f">
+                                                            <span onClick={this.handleBackHome} className="backList">All Lists </span>
 
-                                            <div className="listHome">
-                                                <br></br>
-                                                <div className="title-list">The Dragons's list</div>
-                                                <br></br>
-                                                <div className="col-md-12">
-                                                    <div className="row">
-                                                        {this.state.listHome.map(this.renderListHomes)}
-
+                                                            <div>
+                                                                <div>{this.state.nameHome}</div>
+                                                            </div>
+                                                        </h3>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            :
-                                            <Redirect  push to={{
-                                                pathname: "/listroom",
+                                                <div className="col-md-12">
+                                                  
+                                                        {!this.state.is_RoomNull
+                                                        ?
+                                                        <div className="row">
+                                                            {this.state.listRoom.map(this.renderListRooms)}
+                                                        </div>
+                                                        :
+                                                        <span >Không tìm được phòng trống </span>
 
+                                                        }
+
+                                                    </div>
                                                 
-                                              }}/>
-                                        }
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -936,4 +927,4 @@ class HomeComponent extends Component {
     }
 }
 
-export default HomeComponent                
+export default ListRoomComponent                

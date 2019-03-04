@@ -17,6 +17,7 @@ const types = {
     photo: '11',
     verify: '12',
     viewProfile:'13',
+    listroom:'14',
 
 }
 
@@ -76,6 +77,10 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.viewProfile} />,
                 path: '/view/profile'
+            },
+            {
+                component: () => <PageContentWrapper type={types.listroom} />,
+                path: '/listroom'
             }
 
         ]
