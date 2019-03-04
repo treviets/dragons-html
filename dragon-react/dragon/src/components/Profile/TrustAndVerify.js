@@ -106,7 +106,7 @@ class TrustAndVerify extends Component {
                                         <Link to="/update/verify">Trust and Verification</Link>
                                     </li>
                                     <div className="btnView">
-                                        <a href="/view/profile" className="btn btn-block space-top-4">View Profile</a>
+                                        <Link to="/view/profile" className="btn btn-block space-top-4">View Profile</Link>
                                     </div>
                                 </ul>
                             </div>

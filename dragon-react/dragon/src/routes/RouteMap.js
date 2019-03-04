@@ -16,7 +16,7 @@ const types = {
     profile: '10',
     photo: '11',
     verify: '12',
-    viewProfile:'13',
+    viewProfile: '13',
     listroom:'14',
 
 }
