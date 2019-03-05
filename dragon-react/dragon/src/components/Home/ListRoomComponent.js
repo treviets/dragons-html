@@ -389,11 +389,13 @@ class ListRoomComponent extends Component {
 
         console.log(isRoomNull)
         this.setState({listRoom:listRooms, is_RoomNull: isRoomNull, nameHome:name})
+        this.handlegetListHomes()
     }
 
     componentDidMount() {
         // $(".footer").hide()
         $(".footer").show()
+
 
 
     }

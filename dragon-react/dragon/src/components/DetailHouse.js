@@ -549,6 +549,7 @@ class DetailHouseComponent extends Component {
                         showImageCount={true}
                         showThumbnails={true}
                         enableKeyboardInput = {true}
+                        preventScroll={false}
                         currentImage={this.state.currentImage}
                         />
                             <div className="row desktop" >
