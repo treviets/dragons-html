@@ -3,6 +3,7 @@ import '../assets/css/reviewHouse.css'
 import 'jquery-ui-bundle/jquery-ui.css';
 import moment from 'moment'
 import bookingService from '../services/booking.js'
+import homeService from '../services/home.js'
 import $ from "jquery";
 import * as jquery from 'jquery';
 
@@ -27,10 +28,12 @@ class ReviewHouse extends Component {
             totalGuest:0,
             guests: 0,
             policy: [],
-            message: "waiting..."
+            message: "waiting...",
+            roomId:0
         }
         this.handleBook = this.handleBook.bind(this)
         this.renderPolices = this.renderPolices.bind(this)
+        this.loadData = this.loadData.bind(this)
     }
     renderPolices(policy, index) {
         if (policy.Name.toUpperCase() == "No pets".toUpperCase()) {
@@ -150,25 +153,53 @@ class ReviewHouse extends Component {
         var date = dates[1].split(",")
         return date[0]
     }
-    componentWillMount() {
-            var homeId =localStorage.getItem("homeId")
-            var cleanFee =localStorage.getItem("bookcleanFee")
-            var serviceFee =localStorage.getItem("bookserviceFee")
-            var totalGuest = localStorage.getItem("booktotalGuest")
-            var price = localStorage.getItem("bookprice")
-            var room =JSON.parse(localStorage.getItem("bookroomData"))
-            var start = localStorage.getItem("bookstartDate")
-            var end = localStorage.getItem("bookendDate")
-            var totalAmount = localStorage.getItem("booktotalAmount")
-            var valueguests = localStorage.getItem("bookvalueGuest")
+    UNSAFE_componentWillMount() {
+        var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
+        search =  decodeURI(search).replace(/\\/g, '')
+        
+        search = search.replace(/"{/g,"{")
+        search = search.replace(/}"/g,"}")
+        search = search.replace(/"\[/g,"[")
+        search = search.replace(/]"/g,"]")
+        search = search.replace("#showReviewBook","")
+        search = search.replace("#hideReviewBook","")
+        var CircularJSON = require('circular-json');
+        var object = CircularJSON.parse(search)
+            var homeId =object.homeId
+            var cleanFee =object.bookcleanFee
+            var serviceFee =object.bookserviceFee
+            var totalGuest = object.booktotalGuest
+            var price = object.bookprice
+            var start = object.bookstartDate
+            var end = object.bookendDate
+            var totalAmount = object.booktotalAmount
+            var valueguests = object.bookvalueGuest
+            var roomId = object.roomId
         var diffInDates = moment(end).diff(moment(start), 'days');
-        var policies = room.Policies
+        this.loadData(roomId)
         this.setState({
             nights: diffInDates, checkIn: start, checkOut: end,
-            amount: totalAmount, room: room, price: price,
-            guests: valueguests, policy: policies, homeId: homeId, cleanFee: cleanFee, serviceFee: serviceFee,
-            totalGuest: totalGuest
+            amount: totalAmount,  price: price,
+            guests: valueguests, homeId: homeId, cleanFee: cleanFee, serviceFee: serviceFee,
+            totalGuest: totalGuest,roomId : roomId
         })
+  
+    }
+    // componentDidMount() {
+    //     this._isMounted = true;
+        
+    // }
+    async loadData(roomId) {
+        
+
+        const res = await homeService.getDetailRoom(roomId)
+        var policies = res.Data.Policies
+        if (this._isMounted) {
+            this.setState({
+                room: res.Data,
+                policy: policies,
+            })
+        }
 
     }
     currencyFormat = (uv) => {

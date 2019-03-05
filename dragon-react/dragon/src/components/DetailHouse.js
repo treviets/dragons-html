@@ -73,6 +73,7 @@ class DetailHouseComponent extends Component {
             homeId:null,
             lightboxIsOpen:false,
             currentImage: 0,
+            dataBook:null
 
 
 
@@ -247,15 +248,24 @@ class DetailHouseComponent extends Component {
 
     }
     componentWillMount() {
-       
-        var imgsRoom =JSON.parse(localStorage.getItem('imgsRoom'))
+        var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
+        search =  decodeURI(search).replace(/\\/g, '')
+        
+        search = search.replace(/"{/g,"{")
+        search = search.replace(/}"/g,"}")
+        search = search.replace(/"\[/g,"[")
+        search = search.replace(/]"/g,"]")
+
+        var CircularJSON = require('circular-json');
+        var object = CircularJSON.parse(search)
+        var imgsRoom =object.imgsRoom
         for(var i = 0;i<imgsRoom.length;i++){
             var img = {src:Constants.apiImg+imgsRoom[i].Image}
             this.state.imgsRoom.push(img)
         }
-        this.state.room=JSON.parse(localStorage.getItem('room'))
-        this.state.homeId=localStorage.getItem('homeId')
-        this.state.roomType=localStorage.getItem('roomType')
+        this.state.room=object.room
+        this.state.homeId=object.homeId
+        this.state.roomType=object.roomType
         this.loadData()
     }
     componentDidMount(){
@@ -326,17 +336,10 @@ class DetailHouseComponent extends Component {
         if (localStorage.getItem('accessToken')) {
             $("#img-Room").hide()
             $("#backListRoom").hide()
-
-            localStorage.setItem("bookcleanFee",this.state.cleanfee)
-            localStorage.setItem("bookserviceFee",this.state.servicefee)
-            localStorage.setItem("booktotalGuest",this.state.totalGuest)
-            localStorage.setItem("bookprice",this.state.room.Price)
-            localStorage.setItem("bookroomData",JSON.stringify(this.state.roomData))
-            localStorage.setItem("bookstartDate",this.state.startDate)
-            localStorage.setItem("bookendDate",this.state.endDate)
-            localStorage.setItem("booktotalAmount",this.state.totalAmount)
-            localStorage.setItem("bookvalueGuest",this.state.valueGuest)
-            this.setState({ is_reviewBook: true })
+            var object= {roomId:this.state.room.Id,bookcleanFee:this.state.cleanfee,bookserviceFee:this.state.servicefee,booktotalGuest:this.state.totalGuest,
+                bookprice:this.state.room.Price,bookstartDate:this.state.startDate,
+                bookendDate:this.state.endDate,booktotalAmount:this.state.totalAmount,bookvalueGuest:this.state.valueGuest}
+            this.setState({ is_reviewBook: true , dataBook:object})
         } else {
             console.log("aa")
             $('#btn-login').click()
@@ -528,7 +531,7 @@ class DetailHouseComponent extends Component {
         if (this.state.is_reviewBook) {
             return (<Redirect  push to={{
                 pathname: "/review/book",
-                search: "?bookRoomId="+this.state.room.Id,
+                search: "?"+JSON.stringify(this.state.dataBook),
                 target:"_blank"
                 
               }}/>

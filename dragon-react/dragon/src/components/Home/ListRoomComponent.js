@@ -54,7 +54,7 @@ class ListRoomComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
- 
+            detail:null
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -165,12 +165,9 @@ class ListRoomComponent extends Component {
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
-        localStorage.setItem('homeId',room.HomeId)
-        localStorage.setItem('room',JSON.stringify(room))
-        localStorage.setItem('roomType',roomType)
-        localStorage.setItem('imgsRoom',JSON.stringify(imgs))
+        var object = {homeId:room.HomeId,room:JSON.stringify(room),roomType:roomType,imgsRoom:JSON.stringify(imgs)}
 
-        this.setState({ homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
+        this.setState({detail:object, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
         this.setState({ is_listHome: true })
@@ -495,7 +492,7 @@ class ListRoomComponent extends Component {
         if(this.state.is_Detail){
             return (<Redirect  push to={{
                 pathname: "/detail/house",
-                search: "?room="+this.state.room.Id,
+                search: "?"+JSON.stringify(this.state.detail),
                 target:"_blank"
                 
               }}/>
