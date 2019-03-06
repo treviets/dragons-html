@@ -168,14 +168,13 @@ class ProfileComponent extends Component {
                             <div className="sidenav">
                                 <ul className="sidenav-list">
                                     <li>
-                                        <Link to="/update/profile">Edit Profile</Link>
-                                        {/* <a href="#" aria-selected="true" className="sidenav-item">Edit Profile</a> */}
+                                        <Link to="/update/profile" className="sidenav-item">Edit Profile</Link>
                                     </li>
                                     <li>
-                                        <Link to="/update/photo">Photos</Link>
+                                        <Link to="/update/photo" className="sidenav-item">Photos</Link>
                                     </li>
                                     <li>
-                                        <Link to="/update/verify">Trust and Verification</Link>
+                                        <Link to="/update/verify" className="sidenav-item">Trust and Verification</Link>
                                     </li>
                                     <div className="btnView">
                                         <Link to="/view/profile" className="btn btn-block space-top-4">View Profile</Link>
@@ -188,7 +187,7 @@ class ProfileComponent extends Component {
                                 <div className="panel-header">
                                     <h2 className="edit-profile-section-heading">
                                         Required
-                                </h2>
+                                    </h2>
                                 </div>
                                 <div className="panel-body">
                                     <div className="row row-condensed space-4">

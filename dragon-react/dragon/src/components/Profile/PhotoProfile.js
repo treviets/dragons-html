@@ -116,14 +116,14 @@ class ProfileComponent extends Component {
                             <div className="sidenav">
                                 <ul className="sidenav-list">
                                     <li>
-                                        <Link to="/update/profile">Edit Profile</Link>
+                                        <Link to="/update/profile" className="sidenav-item">Edit Profile</Link>
                                         {/* <a href="#" aria-selected="true" className="sidenav-item">Edit Profile</a> */}
                                     </li>
                                     <li>
-                                        <Link to="/update/profile">Photos</Link>
+                                        <Link to="/update/profile" className="sidenav-item">Photos</Link>
                                     </li>
                                     <li>
-                                        <Link to="/update/verify">Trust and Verification</Link>
+                                        <Link to="/update/verify" className="sidenav-item">Trust and Verification</Link>
                                     </li>
                                     <div className="btnView">
                                         <Link to="/view/profile" className="btn btn-block space-top-4">View Profile</Link>

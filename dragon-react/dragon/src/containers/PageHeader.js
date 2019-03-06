@@ -13,6 +13,7 @@ import { loginUser, saveCreds, logoutUser } from '../actions/auth';
 import '../assets/fonts/font-css.css';
 import { signUp } from '../actions/signUpAction';
 import Profile from '../components/Profile/Profile';
+import Facebook from '../components/Facebook'
 
 
 
@@ -181,7 +182,7 @@ class PageHeader extends Component {
                 <nav className="navbar navbar-expand-lg bg-blue" id="header" >
                     <a className="navbar-brand" href="/">
                         {/* <img className="logo-company" src="../img/icondragon.jpg" /> */}
-                        <img className="logo-company" src="../img/icondragon1.jpg" />
+                        <img className="logo-company" src="../img/TDH-Web.png" />
 
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
@@ -296,15 +297,11 @@ class PageHeader extends Component {
                                 <div id='social-icons-conatainer'>
                                     <div className=''>
                                         <div className="modal-social-icons">
-                                            <a href='#' className="btn btn-default facebook">
+                                            <Facebook />
+                                            {/* <a href='#' className="btn btn-default facebook">
                                                 <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
-                                            </a>
-                                            <Googlegg />
-
-
-                                            {/* <a href='#' className="btn btn-default google">
-                                                <i className="fa fa-google-plus modal-icons"></i> Continue with Google
                                             </a> */}
+                                            <Googlegg />
                                         </div>
                                         <div className="conatainer divhr">
                                             <p >or</p>
@@ -328,10 +325,12 @@ class PageHeader extends Component {
                             </div>
 
                             <div className="modal-body login-modal">
-                                <a href='#' className="btn btn-default facebook">
+                                {/* <a href='#' className="btn btn-default facebook">
                                     <i className="fa fa-facebook modal-icons">
                                     </i>  Login with Facebook
-                                </a>
+                                </a> */}
+                                <Facebook />
+
 
                                 <Googlegg />
                                 <div className="conatainer divhr">
