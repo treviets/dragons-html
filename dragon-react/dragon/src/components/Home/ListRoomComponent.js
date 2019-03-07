@@ -134,6 +134,8 @@ class ListRoomComponent extends Component {
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
             this.setState({is_RoomNull:true})
+        } else {
+            this.setState({is_RoomNull:false})
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false,nameHome : "" })
@@ -166,6 +168,8 @@ class ListRoomComponent extends Component {
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
             this.setState({is_RoomNull:true})
+        } else {
+            this.setState({is_RoomNull:false})
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false,nameHome : "" })
@@ -201,6 +205,8 @@ class ListRoomComponent extends Component {
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
             this.setState({is_RoomNull:true})
+        } else {
+            this.setState({is_RoomNull:false})
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false, nameHome:"" })
