@@ -14,15 +14,7 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-// import { Redirect } from 'react-router'
-import {
-    withRouter,
-    BrowserRouter,
-    Redirect,
-    Switch,
-    Route  } from "react-router-dom";
-import { renderRoutes } from 'react-router-config'
-import ListRoomComponent from './ListRoomComponent';
+import { Route, Redirect,Switch } from 'react-router'
 const Range = Slider.Range;
 
 class HomeComponent extends Component {
@@ -62,7 +54,7 @@ class HomeComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
- 
+            searchStatement:null
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -109,16 +101,31 @@ class HomeComponent extends Component {
         this.handleFilter(this.state.roomType)
     }
     async handleFilter(type) {
-        var from = moment(this.state.startDate, "DD/MM/YYYY")
-            .startOf("day")
-            .unix();
-        var to =
-            moment(this.state.endDate, "DD/MM/YYYY")
+        var from = null
+        if (this.state.startDate != null) {
+            from = moment(this.state.startDate, "DD/MM/YYYY")
                 .startOf("day")
-                .unix() + 86340;
-        const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
+                .unix();
+        } else {
+            from = 0
+        }
+        var to = null
+        if (this.state.endDate != null) {
+            to =
+                moment(this.state.endDate, "DD/MM/YYYY")
+                    .startOf("day")
+                    .unix() + 86340;
+        } else {
+            to = 0
+        }
+        // // const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
+        // // console.log(res)
+        // // console.log("log-thoai")
+        // // console.log(res)
+        // // this.setState({ listRoom: res.Data })
 
-        this.setState({ listRoom: res.Data })
+        this.setState({ searchStatement: {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:this.state.selectDistrict,from:from,to:to,totalGuest:this.state.totalGuest,min:this.state.min,max:this.state.max,type:type,is_DetailHome:false} })
+
         this.setState({ is_listHome: false })
 
     }
@@ -148,17 +155,17 @@ class HomeComponent extends Component {
         } else {
             to = 0
         }
-        const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
-        var isnull = false
-        if (res.Data == null) {
-            res.Data = []
-            isnull = true
-            this.setState({is_RoomNull:true})
-        }
-        this.setState({ listRoom: res.Data })
+        // const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
+        // var isnull = false
+        // if (res.Data == null) {
+        //     res.Data = []
+        //     isnull = true
+        //     this.setState({is_RoomNull:true})
+        // }
+        this.setState({ searchStatement: {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:this.state.selectDistrict,from,to:to,totalGuest:this.state.totalGuest,min:null,max:null,type:0,is_DetailHome:false} })
         this.setState({ is_listHome: false })
-        localStorage.setItem("rooms",JSON.stringify(res.Data))
-        localStorage.setItem("isRoomNull",isnull)
+    
+
 
     }
     handeChangeDistrict(event) {
@@ -179,6 +186,7 @@ class HomeComponent extends Component {
         localStorage.setItem('room',JSON.stringify(room))
         localStorage.setItem('roomType',roomType)
         localStorage.setItem('imgsRoom',JSON.stringify(imgs))
+
         this.setState({ homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
@@ -382,27 +390,42 @@ class HomeComponent extends Component {
 
     }
     async GetDetailHome(id,name) {
-        const res = await homeService.getDetailHome(id)
-        var isnull =  false
-        if (res.Data == null) {
-            res.Data = []
-            isnull =  true
-            this.setState({is_RoomNull:true})
+        var from = null
+        if (this.state.startDate != null) {
+            from = moment(this.state.startDate, "DD/MM/YYYY")
+                .startOf("day")
+                .unix();
+        } else {
+            from = 0
         }
-        this.setState({ listRoom: res.Data })
+        var to = null
+        if (this.state.endDate != null) {
+            to =
+                moment(this.state.endDate, "DD/MM/YYYY")
+                    .startOf("day")
+                    .unix() + 86340;
+        } else {
+            to = 0
+        }
+        // const res = await homeService.getDetailHome(id)
+        // var isnull =  false
+        // if (res.Data == null) {
+        //     res.Data = []
+        //     isnull =  true
+        //     this.setState({is_RoomNull:true})
+        // }
+        // this.setState({ listRoom: res.Data })
 
-        localStorage.setItem("rooms",JSON.stringify(res.Data))
-        localStorage.setItem("isRoomNull",isnull)
-        localStorage.setItem("nameHome",name)
+        // localStorage.setItem("rooms",JSON.stringify(res.Data))
+        // localStorage.setItem("isRoomNull",isnull)
+        // localStorage.setItem("nameHome",name)
+        this.setState({ searchStatement: {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:id,name:name,from:from,to:to,totalGuest:this.state.totalGuest,min:this.state.min,max:this.state.max,type:this.state.roomType,is_DetailHome:true} })
 
         this.setState({ is_listHome: false })
 
     }
 
     componentWillMount(){
-        if(window.location.pathname.includes("/listroom")){
-            this.setState({is_listHome:false})
-        }
         this.handlegetListHomes()
 
     }
@@ -427,6 +450,7 @@ class HomeComponent extends Component {
         this.setState({ listHome: res.Data })
     }
     handleChangeFromTime(date) {
+        console.log(date)
         this.setState({
             startDate: date,
         });
@@ -912,10 +936,9 @@ class HomeComponent extends Component {
                                 </div>
 
                                 <div className="right-home">
-                                
-                                    
+                                    <div className="container main-slider no-padding-lr-mobile">
                                         {this.state.is_listHome ?
-                                        <div className="container main-slider no-padding-lr-mobile">
+
                                             <div className="listHome">
                                                 <br></br>
                                                 <div className="title-list">The Dragons's list</div>
@@ -927,29 +950,14 @@ class HomeComponent extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                             :
-                                        <div>
-                                              {renderRoutes(this.props.route.routes)}
-
-                                            
-                                            <Switch>
-                                                <Route path="/listroom" exact component={ListRoomComponent} />
-                                                <Redirect  push to={{
+                                            <Redirect  push to={{
                                                 pathname: "/listroom",
-
+                                                search:"?"+JSON.stringify(this.state.searchStatement)
                                                 
-                                                }}/>
-                                            </Switch>
-
-
-
-                                        </div>
-                                         
+                                              }}/>
                                         }
-                                  
-                                        
-                                   
+                                    </div>
                                 </div>
                             </div>
                         </div>
