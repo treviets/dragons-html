@@ -29,9 +29,6 @@ class PageContainerWrapper extends Component {
     render() {
         let _view = null;
         switch (this.props.type) {
-            case types.home:
-                _view = <HomeComponent />;
-                break;
             case types.detailHouse:
                 _view = <DetailHouseComponent />;
                 break;

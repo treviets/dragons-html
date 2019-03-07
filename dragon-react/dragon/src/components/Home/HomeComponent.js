@@ -14,7 +14,15 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import { Route, Redirect,Switch } from 'react-router'
+// import { Redirect } from 'react-router'
+import {
+    withRouter,
+    BrowserRouter,
+    Redirect,
+    Switch,
+    Route  } from "react-router-dom";
+import { renderRoutes } from 'react-router-config'
+import ListRoomComponent from './ListRoomComponent';
 const Range = Slider.Range;
 
 class HomeComponent extends Component {
@@ -109,9 +117,7 @@ class HomeComponent extends Component {
                 .startOf("day")
                 .unix() + 86340;
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
-        console.log(res)
-        console.log("log-thoai")
-        console.log(res)
+
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false })
 
@@ -173,7 +179,6 @@ class HomeComponent extends Component {
         localStorage.setItem('room',JSON.stringify(room))
         localStorage.setItem('roomType',roomType)
         localStorage.setItem('imgsRoom',JSON.stringify(imgs))
-
         this.setState({ homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
@@ -395,6 +400,9 @@ class HomeComponent extends Component {
     }
 
     componentWillMount(){
+        if(window.location.pathname.includes("/listroom")){
+            this.setState({is_listHome:false})
+        }
         this.handlegetListHomes()
 
     }
@@ -904,9 +912,10 @@ class HomeComponent extends Component {
                                 </div>
 
                                 <div className="right-home">
-                                    <div className="container main-slider no-padding-lr-mobile">
+                                
+                                    
                                         {this.state.is_listHome ?
-
+                                        <div className="container main-slider no-padding-lr-mobile">
                                             <div className="listHome">
                                                 <br></br>
                                                 <div className="title-list">The Dragons's list</div>
@@ -918,14 +927,29 @@ class HomeComponent extends Component {
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                             :
-                                            <Redirect  push to={{
+                                        <div>
+                                              {renderRoutes(this.props.route.routes)}
+
+                                            
+                                            <Switch>
+                                                <Route path="/listroom" exact component={ListRoomComponent} />
+                                                <Redirect  push to={{
                                                 pathname: "/listroom",
 
                                                 
-                                              }}/>
+                                                }}/>
+                                            </Switch>
+
+
+
+                                        </div>
+                                         
                                         }
-                                    </div>
+                                  
+                                        
+                                   
                                 </div>
                             </div>
                         </div>

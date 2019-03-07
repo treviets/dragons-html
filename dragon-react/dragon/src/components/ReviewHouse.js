@@ -153,7 +153,7 @@ class ReviewHouse extends Component {
         var date = dates[1].split(",")
         return date[0]
     }
-    UNSAFE_componentWillMount() {
+    componentWillMount() {
         var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
         search =  decodeURI(search).replace(/\\/g, '')
         
@@ -176,13 +176,14 @@ class ReviewHouse extends Component {
             var valueguests = object.bookvalueGuest
             var roomId = object.roomId
         var diffInDates = moment(end).diff(moment(start), 'days');
-        this.loadData(roomId)
+        
         this.setState({
             nights: diffInDates, checkIn: start, checkOut: end,
             amount: totalAmount,  price: price,
             guests: valueguests, homeId: homeId, cleanFee: cleanFee, serviceFee: serviceFee,
-            totalGuest: totalGuest,roomId : roomId
+            totalGuest: totalGuest, roomId : roomId
         })
+        this.loadData(roomId)
   
     }
     // componentDidMount() {
@@ -194,12 +195,10 @@ class ReviewHouse extends Component {
 
         const res = await homeService.getDetailRoom(roomId)
         var policies = res.Data.Policies
-        if (this._isMounted) {
             this.setState({
                 room: res.Data,
                 policy: policies,
             })
-        }
 
     }
     currencyFormat = (uv) => {

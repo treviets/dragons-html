@@ -26,11 +26,6 @@ const routes = [
         component: App,
         routes: [
             {
-                component: () => <PageContentWrapper type={types.home} />,
-                exact: true,
-                path: '/'
-            },
-            {
                 component: () => <PageContentWrapper type={types.detailHouse} />,
                 path: '/detail/house'
             },

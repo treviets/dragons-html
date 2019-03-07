@@ -4,8 +4,7 @@ const BookingService = {
 
     bookingCreate: async function (bookingJson) {
         try {
-            console.log("aaa")
-            console.log(bookingJson)
+
             const response = await postFromUrl(
                 "/dragons/booking/create_booking",bookingJson);
             const data = response.data;
