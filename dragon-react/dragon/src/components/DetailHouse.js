@@ -322,13 +322,15 @@ class DetailHouseComponent extends Component {
         var momentRange = require('moment-range');
         momentRange.extendMoment(moment);
         var ranges = []
+        var rangesCheck = []
         for(var i = 0;i<res.Data.BookingDate.length;i++){
              var range= moment.range(moment.unix(res.Data.BookingDate[i].FromDate/1000).format("MM/DD/YYYY"), moment.unix(res.Data.BookingDate[i].ToDate/1000).format("MM/DD/YYYY"))
              for(var j = 0;j<Array.from(range.by('day')).length;j++){
                  var today= new Date()
                 if(moment(today,"MM/DD/YYYY").startOf('day').unix() <= moment(Array.from(range.by('day'))[j],"MM/DD/YYYY").startOf('day').unix()  ){
-                    if($.inArray(ranges,Array.from(range.by('day'))[j]) == -1){
+                    if(rangesCheck.indexOf(moment(Array.from(range.by('day'))[j],"MM/DD/YYYY").startOf('day').unix() ) == -1){
                         ranges.push(Array.from(range.by('day'))[j])
+                        rangesCheck.push(moment(Array.from(range.by('day'))[j],"MM/DD/YYYY").startOf('day').unix())
                     }
               
 
@@ -336,7 +338,7 @@ class DetailHouseComponent extends Component {
              }
              
         }
-
+        console.log(ranges)
         var lengthReviews = res.Data.Reviews.length
         var lengthAccessibility = res.Data.Accessibilities.length
         var lengthamenities = res.Data.Amenities.length - countNothing
