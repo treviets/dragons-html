@@ -2,10 +2,11 @@
     height: 81px;
 } */
 .navbar-brand img{
-    height: 55px;
+    /* height: 55px;
     width: 55px;
     border: 1px solid #ddd;
-    border-radius: 27px;
+    border-radius: 27px; */
+    position: relative;
 
 }
 
@@ -155,4 +156,14 @@
 #inlineFormCustomSelect{
     background-color: white;
     margin-left: 10px;
+}
+.metro{
+    display: inline-block !important;
+    font-weight: bold !important;
+    padding: 10px 42px 10px 0px !important;
+    width: 100%;
+    border-radius: 4px !important;
+    border-width: 2px !important;
+    border-style: solid !important;
+
 }

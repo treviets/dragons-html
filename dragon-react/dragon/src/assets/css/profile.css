@@ -396,3 +396,9 @@ img {
 .viewProfile .report{
     margin-left: 10px;
 }
+ .sidenav-item {
+    display: block;
+    padding: 6px 0;
+    font-size: 16px;
+    color: #767676;
+}
