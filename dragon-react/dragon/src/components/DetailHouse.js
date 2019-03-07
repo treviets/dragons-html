@@ -73,8 +73,8 @@ class DetailHouseComponent extends Component {
             homeId:null,
             lightboxIsOpen:false,
             currentImage: 0,
-            dataBook:null
-
+            dataBook:null,
+            rangesDateBlock:[],
 
 
 
@@ -319,12 +319,30 @@ class DetailHouseComponent extends Component {
                 this.state.accessParking.push(res.Data.Accessibilities[i])
             }
         }
+        var momentRange = require('moment-range');
+        momentRange.extendMoment(moment);
+        var ranges = []
+        for(var i = 0;i<res.Data.BookingDate.length;i++){
+             var range= moment.range(moment.unix(res.Data.BookingDate[i].FromDate/1000).format("MM/DD/YYYY"), moment.unix(res.Data.BookingDate[i].ToDate/1000).format("MM/DD/YYYY"))
+             for(var j = 0;j<Array.from(range.by('day')).length;j++){
+                 var today= new Date()
+                if(moment(today,"MM/DD/YYYY").startOf('day').unix() <= moment(Array.from(range.by('day'))[j],"MM/DD/YYYY").startOf('day').unix()  ){
+                    if($.inArray(ranges,Array.from(range.by('day'))[j]) == -1){
+                        ranges.push(Array.from(range.by('day'))[j])
+                    }
+              
+
+                }
+             }
+             
+        }
+
         var lengthReviews = res.Data.Reviews.length
         var lengthAccessibility = res.Data.Accessibilities.length
         var lengthamenities = res.Data.Amenities.length - countNothing
         this.setState({
             lengthAccessibility: lengthAccessibility, lengthReviews: lengthReviews, lengthAmenitiesChoose: lengthamenities, roomData: res.Data, numberReviews: res.Data.Reviews.length, amenities: res.Data.Amenities,
-            cleanfee: res.Data.CleaningFee, servicefee: res.Data.ServiceFee
+            cleanfee: res.Data.CleaningFee, servicefee: res.Data.ServiceFee,rangesDateBlock:ranges
         })
 
     }
@@ -935,6 +953,7 @@ class DetailHouseComponent extends Component {
                                                     numberOfMonths={this.state.numberOfMonths}
                                                     startDatePlaceholderText="Check in"
                                                     endDatePlaceholderText="Check out"
+                                                    isDayBlocked = {day => this.state.rangesDateBlock.filter(d => d.isSame(day, 'day')).length > 0}
                                                 />
                                             </div>
 
@@ -1147,6 +1166,7 @@ class DetailHouseComponent extends Component {
                                                 onFocusChange={focusedInput1 => this.setState({ focusedInput1 })}
                                                 // PropTypes.func.isRequired,
                                                 readOnly={true}
+                                                isDayBlocked = {day => this.state.rangesDateBlock.filter(d => d.isSame(day, 'day')).length > 0}
 
                                                 numberOfMonths={this.state.numberOfMonths}
                                                 startDatePlaceholderText="Check in"
