@@ -54,7 +54,8 @@ class ListRoomComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
-            detail:null
+            detail:null,
+            lengthLocation:0
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -80,6 +81,13 @@ class ListRoomComponent extends Component {
         this.handleHomeType = this.handleHomeType.bind(this);
         this.renderListDestinate = this.renderListDestinate.bind(this)
         this.handleSetDestinate = this.handleSetDestinate.bind(this)
+        this.fillterSearch = this.fillterSearch.bind(this);
+        this.handleFilterSearch = this.handleFilterSearch.bind(this);
+    }
+    componentDidUpdate(){
+        if(window.history.length>this.state.lengthLocation){
+            window.location.reload()
+        }
     }
     renderListDestinate(home, index) {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
@@ -105,6 +113,38 @@ class ListRoomComponent extends Component {
         this.handleFilter(this.state.roomType)
     }
     async handleFilter(type) {
+        var from = null
+        if (this.state.startDate != null) {
+            from = moment(this.state.startDate, "DD/MM/YYYY")
+                .startOf("day")
+                .unix();
+        } else {
+            from = 0
+        }
+        var to = null
+        if (this.state.endDate != null) {
+            to =
+                moment(this.state.endDate, "DD/MM/YYYY")
+                    .startOf("day")
+                    .unix() + 86340;
+        } else {
+            to = 0
+        }
+        const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
+        if (res.Data == null || res.Data.length < 1) {
+            res.Data = []
+            this.setState({is_RoomNull:true})
+        }
+        this.setState({ listRoom: res.Data })
+        this.setState({ is_listHome: false,nameHome : "" })
+        var searchStatement = JSON.stringify( {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:this.state.selectDistrict,from:from,to:to,totalGuest:this.state.totalGuest,min:this.state.min,max:this.state.max,type:type,is_DetailHome:false})
+        window.history.pushState({urlPath:'/listroom?'+searchStatement},"",'/listroom?'+searchStatement);
+
+    }
+    fillterSearch() {
+        this.handleFilter(this.state.roomType)
+    }
+    async handleFilterSearch(type) {
         var from = null
         if (this.state.startDate != null) {
             from = moment(this.state.startDate, "DD/MM/YYYY")
@@ -164,7 +204,10 @@ class ListRoomComponent extends Component {
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false, nameHome:"" })
+        var searchStatement = JSON.stringify( {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:this.state.selectDistrict,from,to:to,totalGuest:this.state.totalGuest,min:null,max:null,type:0,is_DetailHome:false})
+        window.history.pushState({urlPath:'/listroom?'+searchStatement},"",'/listroom?'+searchStatement);
 
+        
     }
     handeChangeDistrict(event) {
         this.setState({ selectDistrict: event.target.value })
@@ -418,11 +461,11 @@ class ListRoomComponent extends Component {
         if(object.max != null){
             this.setState({max:object.max})
         }
-        this.setState({valueDistrict:object.valueDistrict,adultsGuest:object.adultsGuest,childrensGuest:object.childrensGuest,infantsGuest:object.infantsGuest,valueGuest:object.valueGuest, selectDistrict:object.homeId, totalGuest:object.totalGuest, roomType:object.type})
+        this.setState({valueDistrict:object.valueDistrict,adultsGuest:object.adultsGuest,childrensGuest:object.childrensGuest,infantsGuest:object.infantsGuest,valueGuest:object.valueGuest, selectDistrict:object.homeId, totalGuest:object.totalGuest, roomType:object.type,lengthLocation:window.history.length})
         if(object.is_DetailHome){
             this.handleGetDetail(object.homeId, object.name)
         }else {
-            this.fillter()
+            this.fillterSearch()
         }
 
         this.handlegetListHomes()
