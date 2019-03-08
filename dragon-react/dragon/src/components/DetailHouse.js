@@ -248,6 +248,12 @@ class DetailHouseComponent extends Component {
 
     }
     componentDidMount() {
+        
+        $("#price").hide()
+        $(".footer").show()
+        $("#price-modal").hide()
+    }
+    componentWillMount(){
         var search = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
         search = decodeURI(search).replace(/\\/g, '')
 
@@ -267,13 +273,7 @@ class DetailHouseComponent extends Component {
         this.state.homeId = object.homeId
         this.state.roomType = object.roomType
         this.loadData()
-        $("#price").hide()
-        $(".footer").show()
-        $("#price-modal").hide()
     }
-    // componentDidMount(){
-        
-    // }
     async loadData() {
 
         const res = await homeService.getDetailRoom(this.state.room.Id)
