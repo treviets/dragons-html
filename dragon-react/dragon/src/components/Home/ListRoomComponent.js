@@ -22,6 +22,7 @@ class ListRoomComponent extends Component {
         super(props);
 
         this.state = {
+            searchString:"",
             selectGuest: "",
             startDate: null,
             endDate: null,
@@ -55,7 +56,8 @@ class ListRoomComponent extends Component {
             numberOfMonths: 1,
             focusedInput: null,
             detail:null,
-            lengthLocation:0
+            lengthLocation:0,
+            is_DetailHome:false
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -85,9 +87,28 @@ class ListRoomComponent extends Component {
         this.handleFilterSearch = this.handleFilterSearch.bind(this);
     }
     componentDidUpdate(){
-        if(window.history.length>this.state.lengthLocation){
-            window.location.reload()
+        // if(window.history.length>this.state.lengthLocation){
+        //     window.location.reload()
+        // }
+        var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
+        search =  decodeURI(search).replace(/\\/g, '')
+        
+        search = search.replace(/"{/g,"{")
+        search = search.replace(/}"/g,"}")
+        search = search.replace(/"\[/g,"[")
+        search = search.replace(/]"/g,"]")
+        if (search != this.state.searchString){
+            var CircularJSON = require('circular-json');
+            var object = CircularJSON.parse(search)
+            console.log(object)
+            this.setState({searchString:search})
+            if(object.is_DetailHome){
+                this.handleGetDetail(object.homeId, object.name)
+            }else {
+                this.fillterSearch()
+            }
         }
+        
     }
     renderListDestinate(home, index) {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
@@ -211,8 +232,9 @@ class ListRoomComponent extends Component {
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false, nameHome:"" })
         var searchStatement = JSON.stringify( {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:this.state.selectDistrict,from,to:to,totalGuest:this.state.totalGuest,min:null,max:null,type:0,is_DetailHome:false})
+        
         window.history.pushState({urlPath:'/listroom?'+searchStatement},"",'/listroom?'+searchStatement);
-
+        this.setState({ searchString: searchStatement })
         
     }
     handeChangeDistrict(event) {
@@ -441,7 +463,9 @@ class ListRoomComponent extends Component {
         console.log(this.state.listRoom)
     }
 
-    componentWillMount() {
+ 
+    componentDidMount() {
+        
         // $(".footer").hide()
         var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
         search =  decodeURI(search).replace(/\\/g, '')
@@ -453,7 +477,6 @@ class ListRoomComponent extends Component {
 
         var CircularJSON = require('circular-json');
         var object = CircularJSON.parse(search)
-        console.log(object)
         
         if(object.from != null && object.from != 0){
             this.setState({startDate:moment.unix(object.from)})
@@ -467,20 +490,14 @@ class ListRoomComponent extends Component {
         if(object.max != null){
             this.setState({max:object.max})
         }
-        this.setState({valueDistrict:object.valueDistrict,adultsGuest:object.adultsGuest,childrensGuest:object.childrensGuest,infantsGuest:object.infantsGuest,valueGuest:object.valueGuest, selectDistrict:object.homeId, totalGuest:object.totalGuest, roomType:object.type,lengthLocation:window.history.length})
+        this.setState({searchString:search,valueDistrict:object.valueDistrict,adultsGuest:object.adultsGuest,childrensGuest:object.childrensGuest,infantsGuest:object.infantsGuest,valueGuest:object.valueGuest, selectDistrict:object.homeId, totalGuest:object.totalGuest, roomType:object.type,lengthLocation:window.history.length,is_DetailHome:object.is_DetailHome})
         if(object.is_DetailHome){
             this.handleGetDetail(object.homeId, object.name)
         }else {
             this.fillterSearch()
         }
-
-        this.handlegetListHomes()
-       
-    }
-
-    componentDidMount() {
-        // $(".footer").hide()
         $(".footer").show()
+        this.handlegetListHomes()
 
         switch (this.state.roomType) {
             case 1:

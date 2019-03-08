@@ -153,7 +153,7 @@ class ReviewHouse extends Component {
         var date = dates[1].split(",")
         return date[0]
     }
-    componentWillMount() {
+    componentDidMount() {
         var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
         search =  decodeURI(search).replace(/\\/g, '')
         
@@ -228,6 +228,7 @@ class ReviewHouse extends Component {
         return priceString
     }
     render() {
+        if(this.state.roomId!=0){
         return (
     <div className="detailRoom">
         <div className="divbody">
@@ -437,6 +438,9 @@ class ReviewHouse extends Component {
         </div>
     </div>
         )
+    }else {
+        return (<div></div>)
+    }
     }
 }
 

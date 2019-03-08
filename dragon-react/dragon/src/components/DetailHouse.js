@@ -247,7 +247,7 @@ class DetailHouseComponent extends Component {
         this.setState({ valueGuest: guests })
 
     }
-    componentWillMount() {
+    componentDidMount() {
         var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
         search =  decodeURI(search).replace(/\\/g, '')
         
@@ -267,12 +267,13 @@ class DetailHouseComponent extends Component {
         this.state.homeId=object.homeId
         this.state.roomType=object.roomType
         this.loadData()
-    }
-    componentDidMount(){
         $("#price").hide()
         $(".footer").show()
         $("#price-modal").hide()
     }
+    // componentDidMount(){
+        
+    // }
     async loadData() {
      
         const res = await homeService.getDetailRoom(this.state.room.Id)
@@ -548,6 +549,7 @@ class DetailHouseComponent extends Component {
     }
 
     render() {
+        
         if (this.state.is_reviewBook) {
             return (<Redirect  push to={{
                 pathname: "/review/book",
@@ -557,7 +559,7 @@ class DetailHouseComponent extends Component {
               }}/>
 
              )        } else {
-
+                if(this.state.room != null){
             return (
                 <div className="detailRoom">
                         <div className="img-Room" id="img-Room">
@@ -1339,9 +1341,11 @@ class DetailHouseComponent extends Component {
             </div>
         </div>
             )
+        }else {
+            return (<div></div>)
         }
     }
-    Ư
+}
 }
 
 export default DetailHouseComponent    

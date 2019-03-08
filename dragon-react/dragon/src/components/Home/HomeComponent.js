@@ -425,12 +425,10 @@ class HomeComponent extends Component {
 
     }
 
-    componentWillMount(){
-        this.handlegetListHomes()
-
-    }
 
     componentDidMount() {
+ 
+
         // $(".footer").hide()
         $(".footer").show()
         this.state.district = district
@@ -441,7 +439,7 @@ class HomeComponent extends Component {
                 this.setState({ is_listHome: true })
             }
         }
-
+        this.handlegetListHomes()
 
     }
     async handlegetListHomes() {
