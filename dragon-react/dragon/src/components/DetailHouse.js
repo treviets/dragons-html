@@ -12,7 +12,7 @@ import moment from 'moment'
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-import { Route, Redirect,Switch } from 'react-router'
+import { Route, Redirect, Switch } from 'react-router'
 import Lightbox from 'react-images';
 
 
@@ -67,14 +67,14 @@ class DetailHouseComponent extends Component {
             focusedInput: null,
             numberOfMonths: 1,
             focusedInput1: null,
-            imgsRoom:[],
-            room:null,
-            roomType:null,
-            homeId:null,
-            lightboxIsOpen:false,
+            imgsRoom: [],
+            room: null,
+            roomType: null,
+            homeId: null,
+            lightboxIsOpen: false,
             currentImage: 0,
-            dataBook:null,
-            rangesDateBlock:[],
+            dataBook: null,
+            rangesDateBlock: [],
 
 
 
@@ -99,42 +99,42 @@ class DetailHouseComponent extends Component {
         this.openLightbox = this.openLightbox.bind(this)
         this.closeLightbox = this.closeLightbox.bind(this)
         this.gotoNext = this.gotoNext.bind(this);
-		this.gotoPrevious = this.gotoPrevious.bind(this);
-		this.gotoImage = this.gotoImage.bind(this);
-		this.handleClickImage = this.handleClickImage.bind(this);
+        this.gotoPrevious = this.gotoPrevious.bind(this);
+        this.gotoImage = this.gotoImage.bind(this);
+        this.handleClickImage = this.handleClickImage.bind(this);
 
     }
-    closeLightbox(){
-        this.setState({lightboxIsOpen:false,currentImage: 0,})
+    closeLightbox() {
+        this.setState({ lightboxIsOpen: false, currentImage: 0, })
 
     }
-    openLightbox (index, event) {
-		event.preventDefault();
-		this.setState({
-			currentImage: index,
-			lightboxIsOpen: true,
-		});
-	}
-    gotoPrevious () {
-		this.setState({
-			currentImage: this.state.currentImage - 1,
-		});
-	}
-	gotoNext () {
+    openLightbox(index, event) {
+        event.preventDefault();
+        this.setState({
+            currentImage: index,
+            lightboxIsOpen: true,
+        });
+    }
+    gotoPrevious() {
+        this.setState({
+            currentImage: this.state.currentImage - 1,
+        });
+    }
+    gotoNext() {
         if (this.state.currentImage === this.state.imgsRoom.length - 1) this.state.currentImage = -1;
 
-		this.setState({
-			currentImage: this.state.currentImage + 1,
-		});
-	}
-	gotoImage (index) {
-		this.setState({
-			currentImage: index,
-		});
-	}
-	handleClickImage () {
-		this.gotoNext();
-	}
+        this.setState({
+            currentImage: this.state.currentImage + 1,
+        });
+    }
+    gotoImage(index) {
+        this.setState({
+            currentImage: index,
+        });
+    }
+    handleClickImage() {
+        this.gotoNext();
+    }
     handeChangeDate(st, end) {
         st = st.startOf('day')
         if (end != null) {
@@ -172,7 +172,7 @@ class DetailHouseComponent extends Component {
     }
     handlePlus(type) {
         console.log(type)
-        if(this.state.totalGuest < this.state.room.NumberOfGuest){
+        if (this.state.totalGuest < this.state.room.NumberOfGuest) {
             if (type == 1) {
                 if (this.state.adultsGuest < 12) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
@@ -248,33 +248,33 @@ class DetailHouseComponent extends Component {
 
     }
     componentWillMount() {
-        var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
-        search =  decodeURI(search).replace(/\\/g, '')
-        
-        search = search.replace(/"{/g,"{")
-        search = search.replace(/}"/g,"}")
-        search = search.replace(/"\[/g,"[")
-        search = search.replace(/]"/g,"]")
+        var search = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
+        search = decodeURI(search).replace(/\\/g, '')
+
+        search = search.replace(/"{/g, "{")
+        search = search.replace(/}"/g, "}")
+        search = search.replace(/"\[/g, "[")
+        search = search.replace(/]"/g, "]")
 
         var CircularJSON = require('circular-json');
         var object = CircularJSON.parse(search)
-        var imgsRoom =object.imgsRoom
-        for(var i = 0;i<imgsRoom.length;i++){
-            var img = {src:Constants.apiImg+imgsRoom[i].Image}
+        var imgsRoom = object.imgsRoom
+        for (var i = 0; i < imgsRoom.length; i++) {
+            var img = { src: Constants.apiImg + imgsRoom[i].Image }
             this.state.imgsRoom.push(img)
         }
-        this.state.room=object.room
-        this.state.homeId=object.homeId
-        this.state.roomType=object.roomType
+        this.state.room = object.room
+        this.state.homeId = object.homeId
+        this.state.roomType = object.roomType
         this.loadData()
     }
-    componentDidMount(){
+    componentDidMount() {
         $("#price").hide()
         $(".footer").show()
         $("#price-modal").hide()
     }
     async loadData() {
-     
+
         const res = await homeService.getDetailRoom(this.state.room.Id)
         var countNothing = 0
         for (var i = 0; i < res.Data.Amenities.length; i++) {
@@ -323,20 +323,20 @@ class DetailHouseComponent extends Component {
         momentRange.extendMoment(moment);
         var ranges = []
         var rangesCheck = []
-        for(var i = 0;i<res.Data.BookingDate.length;i++){
-             var range= moment.range(moment.unix(res.Data.BookingDate[i].FromDate/1000).format("MM/DD/YYYY"), moment.unix(res.Data.BookingDate[i].ToDate/1000).format("MM/DD/YYYY"))
-             for(var j = 0;j<Array.from(range.by('day')).length;j++){
-                 var today= new Date()
-                if(moment(today,"MM/DD/YYYY").startOf('day').unix() <= moment(Array.from(range.by('day'))[j],"MM/DD/YYYY").startOf('day').unix()  ){
-                    if(rangesCheck.indexOf(moment(Array.from(range.by('day'))[j],"MM/DD/YYYY").startOf('day').unix() ) == -1){
+        for (var i = 0; i < res.Data.BookingDate.length; i++) {
+            var range = moment.range(moment.unix(res.Data.BookingDate[i].FromDate / 1000).format("MM/DD/YYYY"), moment.unix(res.Data.BookingDate[i].ToDate / 1000).format("MM/DD/YYYY"))
+            for (var j = 0; j < Array.from(range.by('day')).length; j++) {
+                var today = new Date()
+                if (moment(today, "MM/DD/YYYY").startOf('day').unix() <= moment(Array.from(range.by('day'))[j], "MM/DD/YYYY").startOf('day').unix()) {
+                    if (rangesCheck.indexOf(moment(Array.from(range.by('day'))[j], "MM/DD/YYYY").startOf('day').unix()) == -1) {
                         ranges.push(Array.from(range.by('day'))[j])
-                        rangesCheck.push(moment(Array.from(range.by('day'))[j],"MM/DD/YYYY").startOf('day').unix())
+                        rangesCheck.push(moment(Array.from(range.by('day'))[j], "MM/DD/YYYY").startOf('day').unix())
                     }
-              
+
 
                 }
-             }
-             
+            }
+
         }
         console.log(ranges)
         var lengthReviews = res.Data.Reviews.length
@@ -344,7 +344,7 @@ class DetailHouseComponent extends Component {
         var lengthamenities = res.Data.Amenities.length - countNothing
         this.setState({
             lengthAccessibility: lengthAccessibility, lengthReviews: lengthReviews, lengthAmenitiesChoose: lengthamenities, roomData: res.Data, numberReviews: res.Data.Reviews.length, amenities: res.Data.Amenities,
-            cleanfee: res.Data.CleaningFee, servicefee: res.Data.ServiceFee,rangesDateBlock:ranges
+            cleanfee: res.Data.CleaningFee, servicefee: res.Data.ServiceFee, rangesDateBlock: ranges
         })
 
     }
@@ -356,10 +356,12 @@ class DetailHouseComponent extends Component {
         if (localStorage.getItem('accessToken')) {
             $("#img-Room").hide()
             $("#backListRoom").hide()
-            var object= {roomId:this.state.room.Id,bookcleanFee:this.state.cleanfee,bookserviceFee:this.state.servicefee,booktotalGuest:this.state.totalGuest,
-                bookprice:this.state.room.Price,bookstartDate:this.state.startDate,
-                bookendDate:this.state.endDate,booktotalAmount:this.state.totalAmount,bookvalueGuest:this.state.valueGuest}
-            this.setState({ is_reviewBook: true , dataBook:object})
+            var object = {
+                roomId: this.state.room.Id, bookcleanFee: this.state.cleanfee, bookserviceFee: this.state.servicefee, booktotalGuest: this.state.totalGuest,
+                bookprice: this.state.room.Price, bookstartDate: this.state.startDate,
+                bookendDate: this.state.endDate, booktotalAmount: this.state.totalAmount, bookvalueGuest: this.state.valueGuest
+            }
+            this.setState({ is_reviewBook: true, dataBook: object })
         } else {
             console.log("aa")
             $('#btn-login').click()
@@ -549,795 +551,796 @@ class DetailHouseComponent extends Component {
 
     render() {
         if (this.state.is_reviewBook) {
-            return (<Redirect  push to={{
+            return (<Redirect push to={{
                 pathname: "/review/book",
-                search: "?"+JSON.stringify(this.state.dataBook),
-                target:"_blank"
-                
-              }}/>
+                search: "?" + JSON.stringify(this.state.dataBook),
+                target: "_blank"
 
-             )        } else {
+            }} />
+
+            )
+        } else {
 
             return (
                 <div className="detailRoom">
-                        <div className="img-Room" id="img-Room">
+                    <div className="img-Room" id="img-Room">
                         <Lightbox
-                        images={this.state.imgsRoom}
-                        isOpen={this.state.lightboxIsOpen}
-                        onClickImage={this.handleClickImage}
-					    onClickNext={this.gotoNext}
-					    onClickPrev={this.gotoPrevious}
-					    onClickThumbnail={this.gotoImage}
-                        onClose={this.closeLightbox}
-                        showImageCount={true}
-                        showThumbnails={true}
-                        enableKeyboardInput = {true}
-                        preventScroll={false}
-                        currentImage={this.state.currentImage}
+                            images={this.state.imgsRoom}
+                            isOpen={this.state.lightboxIsOpen}
+                            onClickImage={this.handleClickImage}
+                            onClickNext={this.gotoNext}
+                            onClickPrev={this.gotoPrevious}
+                            onClickThumbnail={this.gotoImage}
+                            onClose={this.closeLightbox}
+                            showImageCount={true}
+                            showThumbnails={true}
+                            enableKeyboardInput={true}
+                            preventScroll={false}
+                            currentImage={this.state.currentImage}
                         />
-                            <div className="row desktop" >
-                                <div className="col-md-6 col-init-no parent borderAll height300" onClick={(e) => this.openLightbox(0, e)} >
-                                    <img className="child-left" src={this.state.imgsRoom[0].src} />
-                                </div>
-                                <div className="col-md-6 col-init-no">
-                                    <div className="row col-init-no" >
-                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(1, e)}>
-                                            <img className="child-right" src={this.state.imgsRoom[1].src} />
-                                        </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(2, e)}>
-                                            <img className="child-right" src={this.state.imgsRoom[2].src} />
-                                        </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(4, e)}>
-                                            <img className="child-right" src={this.state.imgsRoom[4].src} />
-                                        </div>
-                                        <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(3, e)}>
-                                            <img className="child-right" src={this.state.imgsRoom[3].src} />
-                                        </div>
+                        <div className="row desktop" >
+                            <div className="col-md-6 col-init-no parent borderAll height300" onClick={(e) => this.openLightbox(0, e)} >
+                                <img className="child-left" src={this.state.imgsRoom[0].src} />
+                            </div>
+                            <div className="col-md-6 col-init-no">
+                                <div className="row col-init-no" >
+                                    <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(1, e)}>
+                                        <img className="child-right" src={this.state.imgsRoom[1].src} />
+                                    </div>
+                                    <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(2, e)}>
+                                        <img className="child-right" src={this.state.imgsRoom[2].src} />
+                                    </div>
+                                    <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(4, e)}>
+                                        <img className="child-right" src={this.state.imgsRoom[4].src} />
+                                    </div>
+                                    <div className="col-md-6 col-init-no parent borderAll height150" onClick={(e) => this.openLightbox(3, e)}>
+                                        <img className="child-right" src={this.state.imgsRoom[3].src} />
                                     </div>
                                 </div>
                             </div>
-                            <div className="row tablet" >
-                                <div className="col-md-8 col-init-no parent  borderAll height300" >
-                                    <img className="child-left" style={{ marginTop: '0px' }} src={Constants.apiImg + this.state.imgsRoom[3].Image} />
-                                </div>
-                                <div className="col-md-4 col-init-no">
-                                    <div className="row col-init-no">
-                                        <div className="col-md-12 col-init-no parent  borderAll  height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
-                                        </div>
-                                        <div className="col-md-12 col-init-no parent  borderAll height150">
-                                            <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
-                                        </div>
-
+                        </div>
+                        <div className="row tablet" >
+                            <div className="col-md-8 col-init-no parent  borderAll height300" >
+                                <img className="child-left" style={{ marginTop: '0px' }} src={Constants.apiImg + this.state.imgsRoom[3].Image} />
+                            </div>
+                            <div className="col-md-4 col-init-no">
+                                <div className="row col-init-no">
+                                    <div className="col-md-12 col-init-no parent  borderAll  height150">
+                                        <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[1].Image} />
                                     </div>
+                                    <div className="col-md-12 col-init-no parent  borderAll height150">
+                                        <img className="child-right" src={Constants.apiImg + this.state.imgsRoom[2].Image} />
+                                    </div>
+
                                 </div>
                             </div>
-
                         </div>
 
-                <div className="divbody">
-                       
+                    </div>
 
-                <div className="fontfamily container">
-                    <div className="container">
-                        <div className="privateRom">
-                            <div className="row">
-                                <div className="col-xl-7 col-lg-12">
-                                    <div className="container">
-                                        <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.state.roomType}</span></a>
-                                        <div className="optionTitle">
-                                            <div className="row">
-                                                <div className="title col-md-10 col-sm-12">
-                                                    <p className="title font-size32 font-title">{this.state.roomData.Title}</p>
-                                                </div>
-                                                <div className="col-md-2 avatar-detail">
-                                                    <img className="avatar" src="../img/icondragon.jpg" alt="" />
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-10">
-                                                    <label>Thành phố Vũng Tàu</label>
-                                                </div>
-                                                <div className="col-2">
-                                                    <img style={{ width: "40px", height: "40px" }} src="../img/icondragon.jpg" alt="" />
-                                                </div>
-                                            </div>
-                                            <div className="font-size16 font-medium icon-furniture">
-                                                <div className="margin-right15" style={{ display: "inline-block" }}>
-                                                    <div style={{ display: "table" }}>
-                                                        <div style={{ display: "table-cell" }}>
+                    <div className="divbody">
+
+
+                        <div className="fontfamily container">
+                            <div className="container">
+                                <div className="privateRom">
+                                    <div className="row">
+                                        <div className="col-xl-7 col-lg-12">
+                                            <div className="container">
+                                                <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.state.roomType}</span></a>
+                                                <div className="optionTitle">
+                                                    <div className="row">
+                                                        <div className="title col-md-10 col-sm-12">
+                                                            <p className="title font-size32 font-title">{this.state.roomData.Title}</p>
+                                                        </div>
+                                                        <div className="col-md-2 avatar-detail">
+                                                            <img className="avatar" src="../img/icondragon.jpg" alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-10">
+                                                            <label>Thành phố Vũng Tàu</label>
+                                                        </div>
+                                                        <div className="col-2">
+                                                            <img style={{ width: "40px", height: "40px" }} src="../img/icondragon.jpg" alt="" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="font-size16 font-medium icon-furniture">
+                                                        <div className="margin-right15" style={{ display: "inline-block" }}>
+                                                            <div style={{ display: "table" }}>
+                                                                <div style={{ display: "table-cell" }}>
+                                                                    <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.NumberOfGuest} guests</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="margin-right15" style={{ display: "inline-block" }}>
+                                                            <div style={{ display: "table" }}>
+                                                                <div style={{ display: "table-cell" }}>
+                                                                    <span>{this.state.roomData.Bedroom} bedrooms</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="margin-right15" style={{ display: "inline-block" }}>
+                                                            <div style={{ display: "table" }}>
+                                                                <div style={{ display: "table-cell" }}>
+                                                                    <span>{this.state.roomData.Bed} beds</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="margin-right15" style={{ display: "inline-block" }}>
+                                                            <div style={{ display: "table" }}>
+                                                                <div style={{ display: "table-cell" }}>
+                                                                    <span>{this.state.roomData.Bath} share bath</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row font-size16 font-medium icon-furniture-reps">
+                                                        <div className="col-6">
                                                             <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.NumberOfGuest} guests</span>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div className="margin-right15" style={{ display: "inline-block" }}>
-                                                    <div style={{ display: "table" }}>
-                                                        <div style={{ display: "table-cell" }}>
+                                                        <div className="col-6">
                                                             <span>{this.state.roomData.Bedroom} bedrooms</span>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div className="margin-right15" style={{ display: "inline-block" }}>
-                                                    <div style={{ display: "table" }}>
-                                                        <div style={{ display: "table-cell" }}>
-                                                            <span>{this.state.roomData.Bed} beds</span>
+                                                        <div className="col-6">
+                                                            <i className="fa fa-users margin-right15" style={{ color: "white" }} aria-hidden="true"></i><span>{this.state.roomData.Bed} beds</span>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div className="margin-right15" style={{ display: "inline-block" }}>
-                                                    <div style={{ display: "table" }}>
-                                                        <div style={{ display: "table-cell" }}>
+                                                        <div className="col-6">
                                                             <span>{this.state.roomData.Bath} share bath</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="row font-size16 font-medium icon-furniture-reps">
-                                                <div className="col-6">
-                                                    <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.NumberOfGuest} guests</span>
-                                                </div>
-                                                <div className="col-6">
-                                                    <span>{this.state.roomData.Bedroom} bedrooms</span>
-                                                </div>
-                                                <div className="col-6">
-                                                    <i className="fa fa-users margin-right15" style={{ color: "white" }} aria-hidden="true"></i><span>{this.state.roomData.Bed} beds</span>
-                                                </div>
-                                                <div className="col-6">
-                                                    <span>{this.state.roomData.Bath} share bath</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <hr />
-                                        <div className="description font-size16">
-                                            <p dangerouslySetInnerHTML={{ __html: this.state.roomData.Description }} />
-
-                                            <a href="#show" className="readmore font-medium" id="show">Read more about the space</a>
-                                            <svg className="readmore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
-                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                            </svg>
-
-                                            <div className="space-detail">
-                                                <p className="font-medium">The Space</p>
-                                                <p dangerouslySetInnerHTML={{ __html: this.state.roomData.TheSpace }} />
-                                                <p className="font-medium">Guest access</p>
-                                                <p dangerouslySetInnerHTML={{ __html: this.state.roomData.GuestAccess }} />
-                                                <p className="font-medium">Interaction with guests</p>
-                                                <p dangerouslySetInnerHTML={{ __html: this.state.roomData.InteractionWithGuests }} />
-                                                <p className="font-medium">Other things to note</p>
-                                                <p dangerouslySetInnerHTML={{ __html: this.state.roomData.OtherThings }} />
-                                            </div>
-
-                                            <a href="#hide" className="hidemore font-medium" id="hide">Hide</a>
-                                            <svg className="hidemore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
-                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                            </svg>
-
-                                        </div>
-                                        <br />
-                                        <hr />
-                                        {this.state.lengthAmenitiesChoose > 0 ?
-                                            <div>
-                                                <p className="font-title font-size16">Amenities</p>
-                                                <div className="col-md-12 col-init-no">
-                                                    <div className="row font-size16">
-                                                        {this.state.amenities.map(this.renderAmenities)}
-                                                    </div>
-                                                    <p className="readmore cursorPointer font-medium" data-toggle="modal" data-target="#amenities-modal">Show all {this.state.lengthAmenitiesChoose} amenities</p>
-
-                                                </div>
-                                                <div style={{ zIndex: 10000 }} className="modal fade" id="amenities-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div className="modal-dialog">
-                                                        <div className="modal-content">
-                                                            <div className="modal-body login-modal">
-                                                                <div id='social-icons-conatainer'>
-                                                                    <div className="cursorPointer" data-dismiss="modal" aria-hidden="true">
-                                                                        <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{ height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)' }}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
-                                                                    </div>
-                                                                    <br />
-                                                                    <p className="font-size24 font-title">Amenities</p>
-                                                                    <p className="font-size18 font-title">Basic</p>
-                                                                    {this.state.amenityBasic.map(this.renderDetailAmenties)}
-                                                                    <br />
-                                                                    <p className="font-size18 font-title">Family features</p>
-                                                                    {this.state.amenityFamilyFeatures.map(this.renderDetailAmenties)}
-                                                                    <br />
-                                                                    <p className="font-size18 font-title">Facilities</p>
-                                                                    {this.state.amenityFacilities.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Dining</p>
-                                                                    {this.state.amenityDining.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Guest access</p>
-                                                                    {this.state.amenityGuestAccess.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Logistics</p>
-                                                                    {this.state.amenityLogistics.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Bed and bath</p>
-                                                                    {this.state.amenityBedAndBath.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Outdoor</p>
-                                                                    {this.state.amenityOutDoor.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Location</p>
-                                                                    {this.state.amenityLocation.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Safety features</p>
-                                                                    {this.state.amenitySafetyFeatures.map(this.renderDetailAmenties)}
-                                                                    <br />
-
-                                                                    <p className="font-size18 font-title">Not included</p>
-                                                                    {this.state.amenityNotIncluded.map(this.renderDetailAmenties)}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <br />
                                                 <hr />
-                                            </div>
-                                            : null
-                                        }
-                                        {this.state.lengthAccessibility > 0 ?
-                                            <div>
-                                                <p className="font-title font-size16">Accessibilities</p>
-                                                <div className="col-md-12 col-init-no">
-                                                    <div className="row font-size16">
-                                                        {this.state.accessEnteringHome.map(this.renderAccessibilities)}
+                                                <div className="description font-size16">
+                                                    <p dangerouslySetInnerHTML={{ __html: this.state.roomData.Description }} />
+
+                                                    <a href="#show" className="readmore font-medium" id="show">Read more about the space</a>
+                                                    <svg className="readmore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
+                                                        <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                    </svg>
+
+                                                    <div className="space-detail">
+                                                        <p className="font-medium">The Space</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: this.state.roomData.TheSpace }} />
+                                                        <p className="font-medium">Guest access</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: this.state.roomData.GuestAccess }} />
+                                                        <p className="font-medium">Interaction with guests</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: this.state.roomData.InteractionWithGuests }} />
+                                                        <p className="font-medium">Other things to note</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: this.state.roomData.OtherThings }} />
                                                     </div>
-                                                    <p className="readmore cursorPointer font-medium" data-toggle="modal" data-target="#accessibility-modal">Show all</p>
+
+                                                    <a href="#hide" className="hidemore font-medium" id="hide">Hide</a>
+                                                    <svg className="hidemore" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
+                                                        <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                    </svg>
 
                                                 </div>
-                                                <div style={{ zIndex: 10000 }} className="modal fade" id="accessibility-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div className="modal-dialog">
-                                                        <div className="modal-content">
-                                                            <div className="modal-body accessibility-modal">
+                                                <br />
+                                                <hr />
+                                                {this.state.lengthAmenitiesChoose > 0 ?
+                                                    <div>
+                                                        <p className="font-title font-size16">Amenities</p>
+                                                        <div className="col-md-12 col-init-no">
+                                                            <div className="row font-size16">
+                                                                {this.state.amenities.map(this.renderAmenities)}
+                                                            </div>
+                                                            <p className="readmore cursorPointer font-medium" data-toggle="modal" data-target="#amenities-modal">Show all {this.state.lengthAmenitiesChoose} amenities</p>
 
-                                                                <div id='social-icons-conatainer'>
-                                                                    <div className="cursorPointer" data-dismiss="modal" aria-hidden="true">
-                                                                        <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{ height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)' }}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
-                                                                    </div>
-                                                                    <br />
-                                                                    <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '45px', width: '45px', display: 'block', fill: 'currentcolor' }}><path d="m3.89 13.85c-1.45 2.35-1.11 5.42.86 7.4 1.97 1.97 5.03 2.31 7.37.88.24-.14.54-.07.69.17.14.24.07.54-.17.69-2.74 1.67-6.3 1.27-8.6-1.03-2.31-2.31-2.7-5.89-1.01-8.63.15-.23.45-.31.69-.16.23.15.31.45.16.69zm8.72-2.82 2.61-3.39-4.63-2.53-2.24 2.24c-.2.2-.51.2-.71 0s-.2-.51 0-.71l2.37-2.37c.24-.24.6-.29.89-.13l4.93 2.69.79-1.03c-.39-.51-.63-1.13-.63-1.82 0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3c-.61 0-1.17-.18-1.64-.49l-3.93 5.11c.17.14.36.28.52.44.58.58 1.04 1.24 1.37 1.95h3.84c.41 0 .75.34.75.75 0 .07-.01.14-.03.21l-1.78 6.22 1.05.35c.26.09.4.37.32.63-.09.26-.37.4-.63.32l-1.41-.47c-.3-.1-.48-.43-.39-.73l1.79-6.27h-3.13c.56 1.88.33 3.95-.75 5.69-.15.23-.45.31-.69.16-.23-.15-.31-.45-.16-.69 1.46-2.35 1.12-5.42-.86-7.4s-5.05-2.32-7.4-.86c-.23.15-.54.07-.69-.16s-.07-.54.16-.69c2.26-1.4 5.08-1.36 7.3-.02zm4.39-7.03c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z" fillRule="evenodd"></path></svg>
-                                                                    <p className="font-size24 font-title">Accessibility</p>
-                                                                    <p className="font-size16 font-medium">Entering the home</p>
-                                                                    <div className="col-md-12">
-                                                                        <div className="row">
-                                                                            {this.state.accessEnteringHome.map(this.renderDetailAccessibility)}
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr />
-                                                                    <p className="font-size16 font-medium">Getting around</p>
-                                                                    <div className="col-md-12">
-                                                                        <div className="row">
-                                                                            {this.state.accessGettingAround.map(this.renderDetailAccessibility)}
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr />
-                                                                    <p className="font-size16 font-medium">Bedroom</p>
-                                                                    <div className="col-md-12">
-                                                                        <div className="row">
-                                                                            {this.state.accessBedroom.map(this.renderDetailAccessibility)}
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr />
-                                                                    <p className="font-size16 font-medium">Bathroom</p>
-                                                                    <div className="col-md-12">
-                                                                        <div className="row">
-                                                                            {this.state.accessBathroom.map(this.renderDetailAccessibility)}
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr />
-                                                                    <p className="font-size16 font-medium">Common areas</p>
-                                                                    <div className="col-md-12">
-                                                                        <div className="row">
-                                                                            {this.state.accessCommonAreas.map(this.renderDetailAccessibility)}
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr />
-                                                                    <p className="font-size16 font-medium">Parking</p>
-                                                                    <div className="col-md-12">
-                                                                        <div className="row">
-                                                                            {this.state.accessParking.map(this.renderDetailAccessibility)}
+                                                        </div>
+                                                        <div style={{ zIndex: 10000 }} className="modal fade" id="amenities-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div className="modal-dialog">
+                                                                <div className="modal-content">
+                                                                    <div className="modal-body login-modal">
+                                                                        <div id='social-icons-conatainer'>
+                                                                            <div className="cursorPointer" data-dismiss="modal" aria-hidden="true">
+                                                                                <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{ height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)' }}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
+                                                                            </div>
+                                                                            <br />
+                                                                            <p className="font-size24 font-title">Amenities</p>
+                                                                            <p className="font-size18 font-title">Basic</p>
+                                                                            {this.state.amenityBasic.map(this.renderDetailAmenties)}
+                                                                            <br />
+                                                                            <p className="font-size18 font-title">Family features</p>
+                                                                            {this.state.amenityFamilyFeatures.map(this.renderDetailAmenties)}
+                                                                            <br />
+                                                                            <p className="font-size18 font-title">Facilities</p>
+                                                                            {this.state.amenityFacilities.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Dining</p>
+                                                                            {this.state.amenityDining.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Guest access</p>
+                                                                            {this.state.amenityGuestAccess.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Logistics</p>
+                                                                            {this.state.amenityLogistics.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Bed and bath</p>
+                                                                            {this.state.amenityBedAndBath.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Outdoor</p>
+                                                                            {this.state.amenityOutDoor.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Location</p>
+                                                                            {this.state.amenityLocation.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Safety features</p>
+                                                                            {this.state.amenitySafetyFeatures.map(this.renderDetailAmenties)}
+                                                                            <br />
+
+                                                                            <p className="font-size18 font-title">Not included</p>
+                                                                            {this.state.amenityNotIncluded.map(this.renderDetailAmenties)}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <hr />
                                                     </div>
-                                                </div>
-                                                <hr />
-                                            </div>
-                                            : null
-                                        }
-                                        {this.state.lengthReviews > 0 ?
-                                            <div>
-                                                {this.state.lengthReviews > 1 ?
-                                                    <p className="font-title font-size24">{this.state.lengthReviews} Reviews</p>
-                                                    :
-                                                    <p className="font-title font-size24">{this.state.lengthReviews} Review</p>
+                                                    : null
                                                 }
-                                                <hr />
-                                                {this.state.roomData.Reviews.map(this.renderReviews)}
-                                            </div>
-                                            : null
-                                        }
-                                        <div className="TheNeighBorhood">
-                                            <p className="font-size24 font-title">The neighborhood</p>
-                                            <p dangerouslySetInnerHTML={{ __html: this.state.roomData.AboutNeighborhood }} />
-
-                                            <a href="#showNeighborhood" className="readmoreNeighBorhood font-medium" id="showNeighborhood">Read more about the neighborhood</a>
-                                            <svg className="readmoreNeighBorhood" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
-                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                            </svg>
-                                            <div className="neightbor-detail">
-                                                <p className="font-medium">Getting around</p>
-                                                <p dangerouslySetInnerHTML={{ __html: this.state.roomData.GetAround }} />
-                                            </div>
-                                            <a href="#hideNeighborhood" className="hidemoreNeighBorhood font-medium" id="hideNeighborhood">Hide</a>
-                                            <svg className="hidemoreNeighBorhood" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
-                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                            </svg>
-                                        </div>
-
-
-                                        {this.state.roomData.HouseRuleDescriptions != null || this.state.roomData.HouseRuleDescriptions != ""
-
-                                            ?
-                                            <div className="TheNeighBorhood">
-                                                <hr />
-                                                <br />
-                                                <p className="font-size24 font-title">Policies</p>
-                                                <p className="font-size16 font-title">House Rules</p>
-                                                <p dangerouslySetInnerHTML={{ __html: this.state.roomData.HouseRuleDescriptions }} />
-
-                                                <a href="#showRules" className="readmoreRules font-medium" id="showRules">Read all rules</a>
-                                                <svg className="readmoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
-                                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                </svg>
-                                                <div className="rules-detail">
-                                                    <p dangerouslySetInnerHTML={{ __html: this.state.roomData.AdditionalRules }} />
-                                                </div>
-                                                <a href="#hideRules" className="hidemoreRules font-medium" id="hideRules">Hide</a>
-                                                <svg className="hidemoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
-                                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                </svg>
-                                                <hr />
-                                                <p className="font-size16 font-title">Cancellations</p>
-                                                <div dangerouslySetInnerHTML={{ __html: this.state.roomData.PolicyCancel }}>
-                                                </div>
-                                            </div>
-                                            : null
-
-                                        }
-
-                                        <br />
-                                    </div>
-                                </div>
-                                <div className="col-xl-5 col-lg-12 form-booking">
-                                    <div className="request-to-book">
-                                        <div className="content-request">
-                                            <span className="font-title" style={{ fontSize: "22px" }}>
-                                                ₫{this.currencyFormat(this.state.room.Price)}
-                                            </span>
-                                            <span className="font-size12 font-medium"> per night</span>
-
-                                            <p>
-                                                <span>
-                                                    <i className="fa fa-star" aria-hidden="true"></i>
-                                                    <i className="fa fa-star" aria-hidden="true"></i>
-                                                    <i className="fa fa-star" aria-hidden="true"></i>
-                                                    <i className="fa fa-star" aria-hidden="true"></i>
-                                                    <i className="fa fa-star" aria-hidden="true"></i>
-                                                    <i className="fa fa-star" aria-hidden="true"></i>
-                                                    65
-                                        </span>
-                                            </p>
-                                            <hr />
-                                            <div className="form-group box-book">
-                                                <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Dates</div>
-                                                <DateRangePicker
-                                                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                                                    startDateId="DateInput__screen-reader-message-checkin" // PropTypes.string.isRequired,
-                                                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                                                    endDateId="DateInput__screen-reader-message-checkout" // PropTypes.string.isRequired
-                                                    onDatesChange={({ startDate, endDate }) => this.handeChangeDate(startDate, endDate)}
-                                                    focusedInput={this.state.focusedInput}
-                                                    onFocusChange={focusedInput => this.setState({ focusedInput })}
-                                                    // PropTypes.func.isRequired,
-                                                    numberOfMonths={this.state.numberOfMonths}
-                                                    startDatePlaceholderText="Check in"
-                                                    endDatePlaceholderText="Check out"
-                                                    isDayBlocked = {day => this.state.rangesDateBlock.filter(d => d.isSame(day, 'day')).length > 0}
-                                                />
-                                            </div>
-
-                                            <div className="form-group">
-                                                <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Guests</div>
-                                                <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
-                                                    id="bookPopover"
-                                                    onBlur={this.calprice}
-                                                >
-                                                    <div className="" role="tooltip">
-                                                        <div className="col-md-12 col-12 font-size16" >
-                                                            <div className="row">
-                                                                <div className="col-md-6 col-5">
-                                                                    <p>Adults</p>
-                                                                    <p></p>
-                                                                </div>
-                                                                <div className="col-md-2 col-2 col-init-no" >
-                                                                    <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                </div>
-                                                                <div className="col-md-2 col-3">
-                                                                    {this.state.adultsGuest}+
+                                                {this.state.lengthAccessibility > 0 ?
+                                                    <div>
+                                                        <p className="font-title font-size16">Accessibilities</p>
+                                                        <div className="col-md-12 col-init-no">
+                                                            <div className="row font-size16">
+                                                                {this.state.accessEnteringHome.map(this.renderAccessibilities)}
                                                             </div>
-                                                                <div className="col-md-2 col-2 col-init-no">
-                                                                    <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                            <p className="readmore cursorPointer font-medium" data-toggle="modal" data-target="#accessibility-modal">Show all</p>
+
+                                                        </div>
+                                                        <div style={{ zIndex: 10000 }} className="modal fade" id="accessibility-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div className="modal-dialog">
+                                                                <div className="modal-content">
+                                                                    <div className="modal-body accessibility-modal">
+
+                                                                        <div id='social-icons-conatainer'>
+                                                                            <div className="cursorPointer" data-dismiss="modal" aria-hidden="true">
+                                                                                <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{ height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)' }}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
+                                                                            </div>
+                                                                            <br />
+                                                                            <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '45px', width: '45px', display: 'block', fill: 'currentcolor' }}><path d="m3.89 13.85c-1.45 2.35-1.11 5.42.86 7.4 1.97 1.97 5.03 2.31 7.37.88.24-.14.54-.07.69.17.14.24.07.54-.17.69-2.74 1.67-6.3 1.27-8.6-1.03-2.31-2.31-2.7-5.89-1.01-8.63.15-.23.45-.31.69-.16.23.15.31.45.16.69zm8.72-2.82 2.61-3.39-4.63-2.53-2.24 2.24c-.2.2-.51.2-.71 0s-.2-.51 0-.71l2.37-2.37c.24-.24.6-.29.89-.13l4.93 2.69.79-1.03c-.39-.51-.63-1.13-.63-1.82 0-1.66 1.34-3 3-3s3 1.34 3 3-1.34 3-3 3c-.61 0-1.17-.18-1.64-.49l-3.93 5.11c.17.14.36.28.52.44.58.58 1.04 1.24 1.37 1.95h3.84c.41 0 .75.34.75.75 0 .07-.01.14-.03.21l-1.78 6.22 1.05.35c.26.09.4.37.32.63-.09.26-.37.4-.63.32l-1.41-.47c-.3-.1-.48-.43-.39-.73l1.79-6.27h-3.13c.56 1.88.33 3.95-.75 5.69-.15.23-.45.31-.69.16-.23-.15-.31-.45-.16-.69 1.46-2.35 1.12-5.42-.86-7.4s-5.05-2.32-7.4-.86c-.23.15-.54.07-.69-.16s-.07-.54.16-.69c2.26-1.4 5.08-1.36 7.3-.02zm4.39-7.03c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z" fillRule="evenodd"></path></svg>
+                                                                            <p className="font-size24 font-title">Accessibility</p>
+                                                                            <p className="font-size16 font-medium">Entering the home</p>
+                                                                            <div className="col-md-12">
+                                                                                <div className="row">
+                                                                                    {this.state.accessEnteringHome.map(this.renderDetailAccessibility)}
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <p className="font-size16 font-medium">Getting around</p>
+                                                                            <div className="col-md-12">
+                                                                                <div className="row">
+                                                                                    {this.state.accessGettingAround.map(this.renderDetailAccessibility)}
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <p className="font-size16 font-medium">Bedroom</p>
+                                                                            <div className="col-md-12">
+                                                                                <div className="row">
+                                                                                    {this.state.accessBedroom.map(this.renderDetailAccessibility)}
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <p className="font-size16 font-medium">Bathroom</p>
+                                                                            <div className="col-md-12">
+                                                                                <div className="row">
+                                                                                    {this.state.accessBathroom.map(this.renderDetailAccessibility)}
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <p className="font-size16 font-medium">Common areas</p>
+                                                                            <div className="col-md-12">
+                                                                                <div className="row">
+                                                                                    {this.state.accessCommonAreas.map(this.renderDetailAccessibility)}
+                                                                                </div>
+                                                                            </div>
+                                                                            <hr />
+                                                                            <p className="font-size16 font-medium">Parking</p>
+                                                                            <div className="col-md-12">
+                                                                                <div className="row">
+                                                                                    {this.state.accessParking.map(this.renderDetailAccessibility)}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <hr />
+                                                    </div>
+                                                    : null
+                                                }
+                                                {this.state.lengthReviews > 0 ?
+                                                    <div>
+                                                        {this.state.lengthReviews > 1 ?
+                                                            <p className="font-title font-size24">{this.state.lengthReviews} Reviews</p>
+                                                            :
+                                                            <p className="font-title font-size24">{this.state.lengthReviews} Review</p>
+                                                        }
+                                                        <hr />
+                                                        {this.state.roomData.Reviews.map(this.renderReviews)}
+                                                    </div>
+                                                    : null
+                                                }
+                                                <div className="TheNeighBorhood">
+                                                    <p className="font-size24 font-title">The neighborhood</p>
+                                                    <p dangerouslySetInnerHTML={{ __html: this.state.roomData.AboutNeighborhood }} />
+
+                                                    <a href="#showNeighborhood" className="readmoreNeighBorhood font-medium" id="showNeighborhood">Read more about the neighborhood</a>
+                                                    <svg className="readmoreNeighBorhood" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
+                                                        <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                    </svg>
+                                                    <div className="neightbor-detail">
+                                                        <p className="font-medium">Getting around</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: this.state.roomData.GetAround }} />
+                                                    </div>
+                                                    <a href="#hideNeighborhood" className="hidemoreNeighBorhood font-medium" id="hideNeighborhood">Hide</a>
+                                                    <svg className="hidemoreNeighBorhood" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
+                                                        <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                    </svg>
+                                                </div>
+
+
+                                                {this.state.roomData.HouseRuleDescriptions != null || this.state.roomData.HouseRuleDescriptions != ""
+
+                                                    ?
+                                                    <div className="TheNeighBorhood">
+                                                        <hr />
                                                         <br />
-                                                        <div className="col-md-12 col-12 font-size16">
-                                                            <div className="row">
-                                                                <div className="col-md-6 col-5">
-                                                                    <label>Children</label>
-                                                                    <p className="font-size14">Ages 2-12</p>
-                                                                </div>
-                                                                <div className="col-md-2 col-2 col-init-no">
-                                                                    <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                </div>
-                                                                <div className="col-md-2 col-3">
-                                                                    {this.state.childrensGuest}+
-                                                            </div>
-                                                                <div className="col-md-2 col-2 col-init-no">
-                                                                    <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                </div>
-                                                            </div>
+                                                        <p className="font-size24 font-title">Policies</p>
+                                                        <p className="font-size16 font-title">House Rules</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: this.state.roomData.HouseRuleDescriptions }} />
+
+                                                        <a href="#showRules" className="readmoreRules font-medium" id="showRules">Read all rules</a>
+                                                        <svg className="readmoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
+                                                            <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                        </svg>
+                                                        <div className="rules-detail">
+                                                            <p dangerouslySetInnerHTML={{ __html: this.state.roomData.AdditionalRules }} />
                                                         </div>
-                                                        <div className="col-md-12 col-12 font-size16">
-                                                            <div className="row">
-                                                                <div className="col-md-6 col-5">
-                                                                    <label>Infants</label>
-                                                                    <p className="font-size14">Under 2</p>
-                                                                </div>
-                                                                <div className="col-md-2 col-2 col-init-no">
-                                                                    <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                </div>
-                                                                <div className="col-md-2 col-3">
-                                                                    {this.state.infantsGuest}+
-                                                            </div>
-                                                                <div className="col-md-2 col-2 col-init-no">
-                                                                    <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                </div>
-                                                            </div>
+                                                        <a href="#hideRules" className="hidemoreRules font-medium" id="hideRules">Hide</a>
+                                                        <svg className="hidemoreRules" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
+                                                            <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                        </svg>
+                                                        <hr />
+                                                        <p className="font-size16 font-title">Cancellations</p>
+                                                        <div dangerouslySetInnerHTML={{ __html: this.state.roomData.PolicyCancel }}>
                                                         </div>
                                                     </div>
-                                                </Popover>}>
-                                                    <button id="PopoverBook" style={{ paddingBottom: '5px' }} aria-haspopup="true" aria-expanded="true" className="button-menu"><div className="label-button">{this.state.totalGuest == 0 ? "Guest" : this.state.valueGuest}</div>
-                                                        <span className="span-button">
-                                                            <div className="span-icon-button" style={{ transform: 'rotate(0deg)' }}>
-                                                                <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '1em', width: '1em', display: 'block', fill: 'currentcolor' }}>
-                                                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                                </svg>
+                                                    : null
+
+                                                }
+
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div className="col-xl-5 col-lg-12 form-booking">
+                                            <div className="request-to-book">
+                                                <div className="content-request">
+                                                    <span className="font-title" style={{ fontSize: "22px" }}>
+                                                        ₫{this.currencyFormat(this.state.room.Price)}
+                                                    </span>
+                                                    <span className="font-size12 font-medium"> per night</span>
+
+                                                    <p>
+                                                        <span>
+                                                            <i className="fa fa-star" aria-hidden="true"></i>
+                                                            <i className="fa fa-star" aria-hidden="true"></i>
+                                                            <i className="fa fa-star" aria-hidden="true"></i>
+                                                            <i className="fa fa-star" aria-hidden="true"></i>
+                                                            <i className="fa fa-star" aria-hidden="true"></i>
+                                                            <i className="fa fa-star" aria-hidden="true"></i>
+                                                            65
+                                        </span>
+                                                    </p>
+                                                    <hr />
+                                                    <div className="form-group box-book">
+                                                        <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Dates</div>
+                                                        <DateRangePicker
+                                                            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                                            startDateId="DateInput__screen-reader-message-checkin" // PropTypes.string.isRequired,
+                                                            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                                            endDateId="DateInput__screen-reader-message-checkout" // PropTypes.string.isRequired
+                                                            onDatesChange={({ startDate, endDate }) => this.handeChangeDate(startDate, endDate)}
+                                                            focusedInput={this.state.focusedInput}
+                                                            onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                                            // PropTypes.func.isRequired,
+                                                            numberOfMonths={this.state.numberOfMonths}
+                                                            startDatePlaceholderText="Check in"
+                                                            endDatePlaceholderText="Check out"
+                                                            isDayBlocked={day => this.state.rangesDateBlock.filter(d => d.isSame(day, 'day')).length > 0}
+                                                        />
+                                                    </div>
+
+                                                    <div className="form-group">
+                                                        <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Guests</div>
+                                                        <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                            id="bookPopover"
+                                                            onBlur={this.calprice}
+                                                        >
+                                                            <div className="" role="tooltip">
+                                                                <div className="col-md-12 col-12 font-size16" >
+                                                                    <div className="row">
+                                                                        <div className="col-md-6 col-5">
+                                                                            <p>Adults</p>
+                                                                            <p></p>
+                                                                        </div>
+                                                                        <div className="col-md-2 col-2 col-init-no" >
+                                                                            <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                        </div>
+                                                                        <div className="col-md-2 col-3">
+                                                                            {this.state.adultsGuest}
+                                                                        </div>
+                                                                        <div className="col-md-2 col-2 col-init-no">
+                                                                            <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <br />
+                                                                <div className="col-md-12 col-12 font-size16">
+                                                                    <div className="row">
+                                                                        <div className="col-md-6 col-5">
+                                                                            <label>Children</label>
+                                                                            <p className="font-size14">Ages 2-12</p>
+                                                                        </div>
+                                                                        <div className="col-md-2 col-2 col-init-no">
+                                                                            <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                        </div>
+                                                                        <div className="col-md-2 col-3">
+                                                                            {this.state.childrensGuest}
+                                                                        </div>
+                                                                        <div className="col-md-2 col-2 col-init-no">
+                                                                            <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-12 col-12 font-size16">
+                                                                    <div className="row">
+                                                                        <div className="col-md-6 col-5">
+                                                                            <label>Infants</label>
+                                                                            <p className="font-size14">Under 2</p>
+                                                                        </div>
+                                                                        <div className="col-md-2 col-2 col-init-no">
+                                                                            <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                        </div>
+                                                                        <div className="col-md-2 col-3">
+                                                                            {this.state.infantsGuest}
+                                                                        </div>
+                                                                        <div className="col-md-2 col-2 col-init-no">
+                                                                            <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </span>
-                                                    </button>
-                                                </OverlayTrigger>
+                                                        </Popover>}>
+                                                            <button id="PopoverBook" style={{ paddingBottom: '5px' }} aria-haspopup="true" aria-expanded="true" className="button-menu"><div className="label-button">{this.state.totalGuest == 0 ? "Guest" : this.state.valueGuest}</div>
+                                                                <span className="span-button">
+                                                                    <div className="span-icon-button" style={{ transform: 'rotate(0deg)' }}>
+                                                                        <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '1em', width: '1em', display: 'block', fill: 'currentcolor' }}>
+                                                                            <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </span>
+                                                            </button>
+                                                        </OverlayTrigger>
 
-                                                <br />
-                                                <br />
-                                                <div className="container div-price" id="price">
-                                                    <div className="price-group font-size14 font-weight400">
+                                                        <br />
+                                                        <br />
+                                                        <div className="container div-price" id="price">
+                                                            <div className="price-group font-size14 font-weight400">
 
-                                                        <p className="price-info">
-                                                            ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
+                                                                <p className="price-info">
+                                                                    ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
                                                     </p>
-                                                        <p className="price-total">
-                                                            ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
-                                                        </p>
-                                                        <hr />
-                                                        <p className="price-info">
-                                                            Cleaning fee
+                                                                <p className="price-total">
+                                                                    ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
+                                                                </p>
+                                                                <hr />
+                                                                <p className="price-info">
+                                                                    Cleaning fee
                                                     </p>
-                                                        <p className="price-total">
-                                                            đ{this.currencyFormat(this.state.cleanfee)}
-                                                        </p>
-                                                        <hr />
-                                                        <p className="price-info">
-                                                            Service fee
+                                                                <p className="price-total">
+                                                                    đ{this.currencyFormat(this.state.cleanfee)}
+                                                                </p>
+                                                                <hr />
+                                                                <p className="price-info">
+                                                                    Service fee
                                                     </p>
-                                                        <p className="price-total">
-                                                            ₫{this.currencyFormat(this.state.servicefee)}
-                                                        </p>
-                                                        <hr />
-                                                        <div className="price-info">
-                                                            <b> Total (VND) </b>
+                                                                <p className="price-total">
+                                                                    ₫{this.currencyFormat(this.state.servicefee)}
+                                                                </p>
+                                                                <hr />
+                                                                <div className="price-info">
+                                                                    <b> Total (VND) </b>
+                                                                </div>
+                                                                <div className="price-total">
+                                                                    ₫{this.currencyFormat(this.state.totalAmount)}
+                                                                </div>
+
+                                                            </div>
                                                         </div>
-                                                        <div className="price-total">
-                                                            ₫{this.currencyFormat(this.state.totalAmount)}
-                                                        </div>
-
+                                                        <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
+                                                        <br />
+                                                        {/* <p style={{ textAlign: 'center', fontFamily: 'sans-serif', fontSize: '12px !important' }}>You won't be charged yet</p> */}
+                                                        <p className="dont-change">You won't be charged yet</p>
                                                     </div>
                                                 </div>
-                                                <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
-                                                <br />
-                                                {/* <p style={{ textAlign: 'center', fontFamily: 'sans-serif', fontSize: '12px !important' }}>You won't be charged yet</p> */}
-                                                <p className="dont-change">You won't be charged yet</p>
-                                            </div>
-                                        </div>
-                                        <div className="div-Guest" hidden={this.state.showGuests}>
-                                            <div className="row">
-                                                <div className="col-md-6 title-choose">
-                                                    <span>Adults</span>
-                                                </div>
-                                                <div className="col-md-6 group-button-config">
-                                                    <button className="button-config" onClick={this.handleMinus}>-</button>
-                                                    <label type="text" />{this.state.countPlus}
-                                                    <button className="button-config" onClick={this.handlePlus}>+</button>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-6 title-choose">
-                                                    <span>Children</span>
-                                                </div>
-                                                <div className="col-md-6 group-button-config">
-                                                    <button className="button-config" onClick={this.handleMinus}>-</button>
-                                                    <label type="text" />{this.state.countPlus}
-                                                    <button className="button-config" onClick={this.handlePlus}>+</button>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-6 title-choose">
-                                                    <span>Infants</span>
-                                                </div>
-                                                <div className="col-md-6 group-button-config">
-                                                    <button className="button-config" onClick={this.handleMinus}>-</button>
-                                                    <label type="text" />{this.state.countPlus}
-                                                    <button className="button-config" onClick={this.handlePlus}>+</button>
+                                                <div className="div-Guest" hidden={this.state.showGuests}>
+                                                    <div className="row">
+                                                        <div className="col-md-6 title-choose">
+                                                            <span>Adults</span>
+                                                        </div>
+                                                        <div className="col-md-6 group-button-config">
+                                                            <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                            <label type="text" />{this.state.countPlus}
+                                                            <button className="button-config" onClick={this.handlePlus}>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-md-6 title-choose">
+                                                            <span>Children</span>
+                                                        </div>
+                                                        <div className="col-md-6 group-button-config">
+                                                            <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                            <label type="text" />{this.state.countPlus}
+                                                            <button className="button-config" onClick={this.handlePlus}>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-md-6 title-choose">
+                                                            <span>Infants</span>
+                                                        </div>
+                                                        <div className="col-md-6 group-button-config">
+                                                            <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                            <label type="text" />{this.state.countPlus}
+                                                            <button className="button-config" onClick={this.handlePlus}>+</button>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
+                                            <br />
+                                            <p style={{ textAlign: 'center', fontfamily: 'sans-serif' }}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
 
                                         </div>
                                     </div>
-                                    <br />
-                                    <p style={{ textAlign: 'center', fontfamily: 'sans-serif' }}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
-
                                 </div>
-                            </div>
-                        </div>
 
-                    </div>
-                    <div className="footer-booking">
-                        <div className="divbody footer-booking-content">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-md-9 col-6">
-                                        <span className="font-title" style={{ fontSize: "22px" }}>
-                                            ₫{this.currencyFormat(this.state.room.Price)}
-                                        </span>
-                                        <span className="font-size12 font-medium">per night</span>
-                                    </div>
-                                    <div className="col-md-3 col-6">
-                                        <button className="form-control btnRequest" data-toggle="modal" data-target="#book-modal">Book</button>
+                            </div>
+                            <div className="footer-booking">
+                                <div className="divbody footer-booking-content">
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-md-9 col-6">
+                                                <span className="font-title" style={{ fontSize: "22px" }}>
+                                                    ₫{this.currencyFormat(this.state.room.Price)}
+                                                </span>
+                                                <span className="font-size12 font-medium">per night</span>
+                                            </div>
+                                            <div className="col-md-3 col-6">
+                                                <button className="form-control btnRequest" data-toggle="modal" data-target="#book-modal">Book</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div style={{ zIndex: 10000 }} className="modal fade" id="book-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div className="modal-dialog modal-dialog-centered">
-                            <div className="modal-content">
-                                <div className="modal-body book-modal">
-                                    <div style={{ paddingTop: '20px', paddingLeft: '20px' }} className="cursorPointer" data-dismiss="modal" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{ height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)' }}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
-                                    </div>
-                                    <div className="content-request">
-                                        <span className="font-title" style={{ fontSize: "22px" }}>
-                                            ₫{this.currencyFormat(this.state.room.Price)}
+                            <div style={{ zIndex: 10000 }} className="modal fade" id="book-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div className="modal-dialog modal-dialog-centered">
+                                    <div className="modal-content">
+                                        <div className="modal-body book-modal">
+                                            <div style={{ paddingTop: '20px', paddingLeft: '20px' }} className="cursorPointer" data-dismiss="modal" aria-hidden="true">
+                                                <svg viewBox="0 0 24 24" role="img" aria-label="Close" focusable="false" style={{ height: '16px', width: '16px', display: 'block', fill: 'rgb(118, 118, 118)' }}><path d="m23.25 24c-.19 0-.38-.07-.53-.22l-10.72-10.72-10.72 10.72c-.29.29-.77.29-1.06 0s-.29-.77 0-1.06l10.72-10.72-10.72-10.72c-.29-.29-.29-.77 0-1.06s.77-.29 1.06 0l10.72 10.72 10.72-10.72c.29-.29.77-.29 1.06 0s .29.77 0 1.06l-10.72 10.72 10.72 10.72c.29.29.29.77 0 1.06-.15.15-.34.22-.53.22" fillRule="evenodd"></path></svg>
+                                            </div>
+                                            <div className="content-request">
+                                                <span className="font-title" style={{ fontSize: "22px" }}>
+                                                    ₫{this.currencyFormat(this.state.room.Price)}
+                                                </span>
+                                                <span className="font-size12 font-medium">per night</span>
+
+                                                <p>
+                                                    <span>
+                                                        <i className="fa fa-star" aria-hidden="true"></i>
+                                                        <i className="fa fa-star" aria-hidden="true"></i>
+                                                        <i className="fa fa-star" aria-hidden="true"></i>
+                                                        <i className="fa fa-star" aria-hidden="true"></i>
+                                                        <i className="fa fa-star" aria-hidden="true"></i>
+                                                        <i className="fa fa-star" aria-hidden="true"></i>
+                                                        65
                                         </span>
-                                        <span className="font-size12 font-medium">per night</span>
+                                                </p>
+                                                <hr />
+                                                <div className="form-group box-book">
+                                                    <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Dates</div>
+                                                    <DateRangePicker
+                                                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                                        startDateId="DateInput__screen-reader-message-checkin-modal" // PropTypes.string.isRequired,
+                                                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                                        endDateId="DateInput__screen-reader-message-checkout-modal" // PropTypes.string.isRequired
+                                                        onDatesChange={({ startDate, endDate }) => this.handeChangeDate(startDate, endDate)}
+                                                        focusedInput={this.state.focusedInput1}
+                                                        onFocusChange={focusedInput1 => this.setState({ focusedInput1 })}
+                                                        // PropTypes.func.isRequired,
+                                                        readOnly={true}
+                                                        isDayBlocked={day => this.state.rangesDateBlock.filter(d => d.isSame(day, 'day')).length > 0}
 
-                                        <p>
-                                            <span>
-                                                <i className="fa fa-star" aria-hidden="true"></i>
-                                                <i className="fa fa-star" aria-hidden="true"></i>
-                                                <i className="fa fa-star" aria-hidden="true"></i>
-                                                <i className="fa fa-star" aria-hidden="true"></i>
-                                                <i className="fa fa-star" aria-hidden="true"></i>
-                                                <i className="fa fa-star" aria-hidden="true"></i>
-                                                65
-                                        </span>
-                                        </p>
-                                        <hr />
-                                        <div className="form-group box-book">
-                                            <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Dates</div>
-                                            <DateRangePicker
-                                                startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                                                startDateId="DateInput__screen-reader-message-checkin-modal" // PropTypes.string.isRequired,
-                                                endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                                                endDateId="DateInput__screen-reader-message-checkout-modal" // PropTypes.string.isRequired
-                                                onDatesChange={({ startDate, endDate }) => this.handeChangeDate(startDate, endDate)}
-                                                focusedInput={this.state.focusedInput1}
-                                                onFocusChange={focusedInput1 => this.setState({ focusedInput1 })}
-                                                // PropTypes.func.isRequired,
-                                                readOnly={true}
-                                                isDayBlocked = {day => this.state.rangesDateBlock.filter(d => d.isSame(day, 'day')).length > 0}
+                                                        numberOfMonths={this.state.numberOfMonths}
+                                                        startDatePlaceholderText="Check in"
+                                                        endDatePlaceholderText="Check out"
+                                                    />
+                                                </div>
 
-                                                numberOfMonths={this.state.numberOfMonths}
-                                                startDatePlaceholderText="Check in"
-                                                endDatePlaceholderText="Check out"
-                                            />
-                                        </div>
+                                                <div className="form-group">
+                                                    <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Guests</div>
+                                                    <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                        id="modalbookPopover"
+                                                        onBlur={this.calprice}
+                                                    >
+                                                        <div className="" role="tooltip">
+                                                            <div className="col-md-12 col-12 font-size16" >
+                                                                <div className="row">
+                                                                    <div className="col-md-6 col-5">
+                                                                        <p>Adults</p>
+                                                                        <p></p>
+                                                                    </div>
+                                                                    <div className="col-md-2 col-2 col-init-no" >
+                                                                        <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                    </div>
+                                                                    <div className="col-md-2 col-3">
+                                                                        {this.state.adultsGuest}
+                                                                    </div>
+                                                                    <div className="col-md-2 col-2 col-init-no">
+                                                                        <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <div className="col-md-12 col-12 font-size16">
+                                                                <div className="row">
+                                                                    <div className="col-md-6 col-5">
+                                                                        <label>Children</label>
+                                                                        <p className="font-size14">Ages 2-12</p>
+                                                                    </div>
+                                                                    <div className="col-md-2 col-2 col-init-no">
+                                                                        <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                    </div>
+                                                                    <div className="col-md-2 col-3">
+                                                                        {this.state.childrensGuest}
+                                                                    </div>
+                                                                    <div className="col-md-2 col-2 col-init-no">
+                                                                        <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="col-md-12 col-12 font-size16">
+                                                                <div className="row">
+                                                                    <div className="col-md-6 col-5">
+                                                                        <label>Infants</label>
+                                                                        <p className="font-size14">Under 2</p>
+                                                                    </div>
+                                                                    <div className="col-md-2 col-2 col-init-no">
+                                                                        <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                    </div>
+                                                                    <div className="col-md-2 col-3">
+                                                                        {this.state.infantsGuest}
+                                                                    </div>
+                                                                    <div className="col-md-2 col-2 col-init-no">
+                                                                        <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </Popover>}>
+                                                        <button id="PopoverBookModal" style={{ paddingBottom: '5px' }} aria-haspopup="true" aria-expanded="true" className="button-menu"><div className="label-button">{this.state.totalGuest == 0 ? "Guest" : this.state.valueGuest}</div>
+                                                            <span className="span-button">
+                                                                <div className="span-icon-button" style={{ transform: 'rotate(0deg)' }}>
+                                                                    <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '1em', width: '1em', display: 'block', fill: 'currentcolor' }}>
+                                                                        <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                                    </svg>
+                                                                </div>
+                                                            </span>
+                                                        </button>
+                                                    </OverlayTrigger>
 
-                                        <div className="form-group">
-                                            <div className="font-size12 font-medium label-book" style={{ marginTop: '16px', marginBottom: '6px' }}>Guests</div>
-                                            <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
-                                                id="modalbookPopover"
-                                                onBlur={this.calprice}
-                                            >
-                                                <div className="" role="tooltip">
-                                                    <div className="col-md-12 col-12 font-size16" >
-                                                        <div className="row">
-                                                            <div className="col-md-6 col-5">
-                                                                <p>Adults</p>
-                                                                <p></p>
+                                                    <br />
+                                                    <br />
+                                                    <div className="container div-price" id="price-modal">
+                                                        <div className="price-group font-size14 font-weight400">
+
+                                                            <p className="price-info">
+                                                                ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
+                                                    </p>
+                                                            <p className="price-total">
+                                                                ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
+                                                            </p>
+                                                            <hr />
+                                                            <p className="price-info">
+                                                                Cleaning fee
+                                                    </p>
+                                                            <p className="price-total">
+                                                                đ{this.currencyFormat(this.state.cleanfee)}
+                                                            </p>
+                                                            <hr />
+                                                            <p className="price-info">
+                                                                Service fee
+                                                    </p>
+                                                            <p className="price-total">
+                                                                ₫{this.currencyFormat(this.state.servicefee)}
+                                                            </p>
+                                                            <hr />
+                                                            <div className="price-info">
+                                                                <b> Total (VND) </b>
                                                             </div>
-                                                            <div className="col-md-2 col-2 col-init-no" >
-                                                                <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                            <div className="price-total">
+                                                                ₫{this.currencyFormat(this.state.totalAmount)}
                                                             </div>
-                                                            <div className="col-md-2 col-3">
-                                                                {this.state.adultsGuest}+
-                                                            </div>
-                                                            <div className="col-md-2 col-2 col-init-no">
-                                                                <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <br />
-                                                    <div className="col-md-12 col-12 font-size16">
-                                                        <div className="row">
-                                                            <div className="col-md-6 col-5">
-                                                                <label>Children</label>
-                                                                <p className="font-size14">Ages 2-12</p>
-                                                            </div>
-                                                            <div className="col-md-2 col-2 col-init-no">
-                                                                <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                            </div>
-                                                            <div className="col-md-2 col-3">
-                                                                {this.state.childrensGuest}+
-                                                            </div>
-                                                            <div className="col-md-2 col-2 col-init-no">
-                                                                <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-md-12 col-12 font-size16">
-                                                        <div className="row">
-                                                            <div className="col-md-6 col-5">
-                                                                <label>Infants</label>
-                                                                <p className="font-size14">Under 2</p>
-                                                            </div>
-                                                            <div className="col-md-2 col-2 col-init-no">
-                                                                <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                            </div>
-                                                            <div className="col-md-2 col-3">
-                                                                {this.state.infantsGuest}+
-                                                            </div>
-                                                            <div className="col-md-2 col-2 col-init-no">
-                                                                <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
+                                                    <button className="form-control btnRequest" onClick={this.handeBooking} data-dismiss="modal">Book</button>
+                                                    <p style={{ textAlign: 'center', fontFamily: 'sans-serif' }}>You won't be charged yet</p>
                                                 </div>
-                                            </Popover>}>
-                                                <button id="PopoverBookModal" style={{ paddingBottom: '5px' }} aria-haspopup="true" aria-expanded="true" className="button-menu"><div className="label-button">{this.state.totalGuest == 0 ? "Guest" : this.state.valueGuest}</div>
-                                                    <span className="span-button">
-                                                        <div className="span-icon-button" style={{ transform: 'rotate(0deg)' }}>
-                                                            <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '1em', width: '1em', display: 'block', fill: 'currentcolor' }}>
-                                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                            </svg>
-                                                        </div>
-                                                    </span>
-                                                </button>
-                                            </OverlayTrigger>
-
-                                            <br />
-                                            <br />
-                                            <div className="container div-price" id="price-modal">
-                                                <div className="price-group font-size14 font-weight400">
-
-                                                    <p className="price-info">
-                                                        ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
-                                                    </p>
-                                                    <p className="price-total">
-                                                        ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
-                                                    </p>
-                                                    <hr />
-                                                    <p className="price-info">
-                                                        Cleaning fee
-                                                    </p>
-                                                    <p className="price-total">
-                                                        đ{this.currencyFormat(this.state.cleanfee)}
-                                                    </p>
-                                                    <hr />
-                                                    <p className="price-info">
-                                                        Service fee
-                                                    </p>
-                                                    <p className="price-total">
-                                                        ₫{this.currencyFormat(this.state.servicefee)}
-                                                    </p>
-                                                    <hr />
-                                                    <div className="price-info">
-                                                        <b> Total (VND) </b>
-                                                    </div>
-                                                    <div className="price-total">
-                                                        ₫{this.currencyFormat(this.state.totalAmount)}
-                                                    </div>
-
+                                                <hr />
+                                                <div className="footer-request">
+                                                    <p>This home is on people's minds.</p>
+                                                    <p> It's been viewed 500+ times in the past week</p>
+                                                    <i className="fa fa-lightbulb-o logo-created" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                             <br />
+                                            <p style={{ textAlign: 'center' }}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
+                                            <div className="div-Guest" hidden={this.state.showGuests}>
+                                                <div className="row">
+                                                    <div className="col-md-6 title-choose">
+                                                        <span>Adults</span>
+                                                    </div>
+                                                    <div className="col-md-6 group-button-config">
+                                                        <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                        <label type="text" />{this.state.countPlus}
+                                                        <button className="button-config" onClick={this.handlePlus}>+</button>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-md-6 title-choose">
+                                                        <span>Children</span>
+                                                    </div>
+                                                    <div className="col-md-6 group-button-config">
+                                                        <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                        <label type="text" />{this.state.countPlus}
+                                                        <button className="button-config" onClick={this.handlePlus}>+</button>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-md-6 title-choose">
+                                                        <span>Infants</span>
+                                                    </div>
+                                                    <div className="col-md-6 group-button-config">
+                                                        <button className="button-config" onClick={this.handleMinus}>-</button>
+                                                        <label type="text" />{this.state.countPlus}
+                                                        <button className="button-config" onClick={this.handlePlus}>+</button>
+                                                    </div>
+                                                </div>
 
-                                            <button className="form-control btnRequest" onClick={this.handeBooking} data-dismiss="modal">Book</button>
-                                            <p style={{ textAlign: 'center', fontFamily: 'sans-serif' }}>You won't be charged yet</p>
-                                        </div>
-                                        <hr />
-                                        <div className="footer-request">
-                                            <p>This home is on people's minds.</p>
-                                            <p> It's been viewed 500+ times in the past week</p>
-                                            <i className="fa fa-lightbulb-o logo-created" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <p style={{ textAlign: 'center' }}><i className="fa fa-flag-o" aria-hidden="true"></i> Report this listing</p>
-                                    <div className="div-Guest" hidden={this.state.showGuests}>
-                                        <div className="row">
-                                            <div className="col-md-6 title-choose">
-                                                <span>Adults</span>
-                                            </div>
-                                            <div className="col-md-6 group-button-config">
-                                                <button className="button-config" onClick={this.handleMinus}>-</button>
-                                                <label type="text" />{this.state.countPlus}
-                                                <button className="button-config" onClick={this.handlePlus}>+</button>
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div className="col-md-6 title-choose">
-                                                <span>Children</span>
-                                            </div>
-                                            <div className="col-md-6 group-button-config">
-                                                <button className="button-config" onClick={this.handleMinus}>-</button>
-                                                <label type="text" />{this.state.countPlus}
-                                                <button className="button-config" onClick={this.handlePlus}>+</button>
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-md-6 title-choose">
-                                                <span>Infants</span>
-                                            </div>
-                                            <div className="col-md-6 group-button-config">
-                                                <button className="button-config" onClick={this.handleMinus}>-</button>
-                                                <label type="text" />{this.state.countPlus}
-                                                <button className="button-config" onClick={this.handlePlus}>+</button>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-
-                    </div>
-            </div>
-        </div>
+                </div>
             )
         }
     }

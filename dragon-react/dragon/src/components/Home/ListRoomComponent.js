@@ -14,7 +14,7 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import { Route, Redirect,Switch } from 'react-router'
+import { Route, Redirect, Switch } from 'react-router'
 const Range = Slider.Range;
 
 class ListRoomComponent extends Component {
@@ -29,7 +29,7 @@ class ListRoomComponent extends Component {
             is_listHome: true,
             listHome: [],
             listRoom: [],
-            is_RoomNull:false,
+            is_RoomNull: false,
             listDestinate: [{ Id: 1, Name: "aa" }, { Id: 2, Name: "bb" }, { Id: 3, Name: "cc" }],
             nameHome: "",
             is_Detail: false,
@@ -54,8 +54,8 @@ class ListRoomComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
-            detail:null,
-            lengthLocation:0
+            detail: null,
+            lengthLocation: 0
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -84,8 +84,8 @@ class ListRoomComponent extends Component {
         this.fillterSearch = this.fillterSearch.bind(this);
         this.handleFilterSearch = this.handleFilterSearch.bind(this);
     }
-    componentDidUpdate(){
-        if(window.history.length>this.state.lengthLocation){
+    componentDidUpdate() {
+        if (window.history.length > this.state.lengthLocation) {
             window.location.reload()
         }
     }
@@ -102,8 +102,8 @@ class ListRoomComponent extends Component {
         this.refs.overlayDestinate.hide();
     }
     handleHomeType(type) {
-      
-        if (type == this.state.roomType){
+
+        if (type == this.state.roomType) {
             type = 0
         }
         this.setState({ roomType: type })
@@ -133,14 +133,14 @@ class ListRoomComponent extends Component {
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
-            this.setState({is_RoomNull:true})
+            this.setState({ is_RoomNull: true })
         } else {
-            this.setState({is_RoomNull:false})
+            this.setState({ is_RoomNull: false })
         }
         this.setState({ listRoom: res.Data })
-        this.setState({ is_listHome: false,nameHome : "" })
-        var searchStatement = JSON.stringify( {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:this.state.selectDistrict,from:from,to:to,totalGuest:this.state.totalGuest,min:this.state.min,max:this.state.max,type:type,is_DetailHome:false})
-        window.history.pushState({urlPath:'/listroom?'+searchStatement},"",'/listroom?'+searchStatement);
+        this.setState({ is_listHome: false, nameHome: "" })
+        var searchStatement = JSON.stringify({ valueDistrict: this.state.valueDistrict, adultsGuest: this.state.adultsGuest, childrensGuest: this.state.childrensGuest, infantsGuest: this.state.infantsGuest, valueGuest: this.state.valueGuest, homeId: this.state.selectDistrict, from: from, to: to, totalGuest: this.state.totalGuest, min: this.state.min, max: this.state.max, type: type, is_DetailHome: false })
+        window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
 
     }
     fillterSearch() {
@@ -167,12 +167,12 @@ class ListRoomComponent extends Component {
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
-            this.setState({is_RoomNull:true})
+            this.setState({ is_RoomNull: true })
         } else {
-            this.setState({is_RoomNull:false})
+            this.setState({ is_RoomNull: false })
         }
         this.setState({ listRoom: res.Data })
-        this.setState({ is_listHome: false,nameHome : "" })
+        this.setState({ is_listHome: false, nameHome: "" })
 
     }
     onSliderChange(value) {
@@ -204,16 +204,16 @@ class ListRoomComponent extends Component {
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
-            this.setState({is_RoomNull:true})
+            this.setState({ is_RoomNull: true })
         } else {
-            this.setState({is_RoomNull:false})
+            this.setState({ is_RoomNull: false })
         }
         this.setState({ listRoom: res.Data })
-        this.setState({ is_listHome: false, nameHome:"" })
-        var searchStatement = JSON.stringify( {valueDistrict:this.state.valueDistrict,adultsGuest:this.state.adultsGuest,childrensGuest:this.state.childrensGuest,infantsGuest:this.state.infantsGuest,valueGuest:this.state.valueGuest,homeId:this.state.selectDistrict,from,to:to,totalGuest:this.state.totalGuest,min:null,max:null,type:0,is_DetailHome:false})
-        window.history.pushState({urlPath:'/listroom?'+searchStatement},"",'/listroom?'+searchStatement);
+        this.setState({ is_listHome: false, nameHome: "" })
+        var searchStatement = JSON.stringify({ valueDistrict: this.state.valueDistrict, adultsGuest: this.state.adultsGuest, childrensGuest: this.state.childrensGuest, infantsGuest: this.state.infantsGuest, valueGuest: this.state.valueGuest, homeId: this.state.selectDistrict, from, to: to, totalGuest: this.state.totalGuest, min: null, max: null, type: 0, is_DetailHome: false })
+        window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
 
-        
+
     }
     handeChangeDistrict(event) {
         this.setState({ selectDistrict: event.target.value })
@@ -229,9 +229,9 @@ class ListRoomComponent extends Component {
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
-        var object = {homeId:room.HomeId,room:JSON.stringify(room),roomType:roomType,imgsRoom:JSON.stringify(imgs)}
+        var object = { homeId: room.HomeId, room: JSON.stringify(room), roomType: roomType, imgsRoom: JSON.stringify(imgs) }
 
-        this.setState({detail:object, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
+        this.setState({ detail: object, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
         this.setState({ is_listHome: true })
@@ -311,7 +311,7 @@ class ListRoomComponent extends Component {
 
     }
     renderListRooms(room, index) {
-        
+
         var typeroom = this.typeRoom(room.RoomType)
         var imgs = room.Images
         var onClick = this.handleGetDetailRoom.bind(this, room, typeroom, imgs);
@@ -365,7 +365,7 @@ class ListRoomComponent extends Component {
                                                 <span>
                                                     <span className="_12kw8n71">
                                                         <span className="_12kw8n71">
-                                                              <span className="_1m8bb6v">Price</span>
+                                                            <span className="_1m8bb6v">Price</span>
                                                             <span>₫{this.currencyFormat(room.Price)}</span>
                                                         </span> per night
                                                 </span>
@@ -443,39 +443,39 @@ class ListRoomComponent extends Component {
 
     componentWillMount() {
         // $(".footer").hide()
-        var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
-        search =  decodeURI(search).replace(/\\/g, '')
-        
-        search = search.replace(/"{/g,"{")
-        search = search.replace(/}"/g,"}")
-        search = search.replace(/"\[/g,"[")
-        search = search.replace(/]"/g,"]")
+        var search = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
+        search = decodeURI(search).replace(/\\/g, '')
+
+        search = search.replace(/"{/g, "{")
+        search = search.replace(/}"/g, "}")
+        search = search.replace(/"\[/g, "[")
+        search = search.replace(/]"/g, "]")
 
         var CircularJSON = require('circular-json');
         var object = CircularJSON.parse(search)
         console.log(object)
-        
-        if(object.from != null && object.from != 0){
-            this.setState({startDate:moment.unix(object.from)})
+
+        if (object.from != null && object.from != 0) {
+            this.setState({ startDate: moment.unix(object.from) })
         }
-        if(object.to != null && object.to != 0){
-            this.setState({endDate:moment.unix(object.to)})
+        if (object.to != null && object.to != 0) {
+            this.setState({ endDate: moment.unix(object.to) })
         }
-        if(object.min != null){
-            this.setState({min:object.min})
+        if (object.min != null) {
+            this.setState({ min: object.min })
         }
-        if(object.max != null){
-            this.setState({max:object.max})
+        if (object.max != null) {
+            this.setState({ max: object.max })
         }
-        this.setState({valueDistrict:object.valueDistrict,adultsGuest:object.adultsGuest,childrensGuest:object.childrensGuest,infantsGuest:object.infantsGuest,valueGuest:object.valueGuest, selectDistrict:object.homeId, totalGuest:object.totalGuest, roomType:object.type,lengthLocation:window.history.length})
-        if(object.is_DetailHome){
+        this.setState({ valueDistrict: object.valueDistrict, adultsGuest: object.adultsGuest, childrensGuest: object.childrensGuest, infantsGuest: object.infantsGuest, valueGuest: object.valueGuest, selectDistrict: object.homeId, totalGuest: object.totalGuest, roomType: object.type, lengthLocation: window.history.length })
+        if (object.is_DetailHome) {
             this.handleGetDetail(object.homeId, object.name)
-        }else {
+        } else {
             this.fillterSearch()
         }
 
         this.handlegetListHomes()
-       
+
     }
 
     componentDidMount() {
@@ -489,7 +489,7 @@ class ListRoomComponent extends Component {
                 $("#DynamicFilterSpanItem-room_types-Entire_home").addClass("_veamvre")
                 $("#DynamicFilterSpanItem-room_types-Entire_home").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
 
-            break;
+                break;
             case 2:
                 break;
             case 3:
@@ -600,41 +600,41 @@ class ListRoomComponent extends Component {
 
 
     render() {
-        if(this.state.is_Detail){
-            return (<Redirect  push to={{
+        if (this.state.is_Detail) {
+            return (<Redirect push to={{
                 pathname: "/detail/house",
-                search: "?"+JSON.stringify(this.state.detail),
-                target:"_blank"
-                
-              }}/>
+                search: "?" + JSON.stringify(this.state.detail),
+                target: "_blank"
 
-             )
-        }else {
-        return (           
-                    <div>
-                        <div id="header-search" className="banner menu-header font-size14" >
-                            <img src="img/banner-travel-insurance-2000x400.jpg" className="banner-menu" ></img>
-                            <div className="card-search">
-                                <div className="search-home">
-                                    <div className="col-md-12 col-sm-12 col-init" >
-                                        <div className="row">
-                                            <div className="col-md-3 col-sm-3 col-init col-search cursorPointer">
-                                                <span className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }} >
-                                                    <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
+            }} />
 
-                                                    <OverlayTrigger ref="overlayDestinate" rootClose={true} trigger="click" placement="bottom" overlay={<Popover
-                                                        id="popover-search-destination"
-                                                    >
-                                                        <div className="font-my" role="tooltip">
-                                                            <ul>
-                                                                {this.state.listHome.map(this.renderListDestinate)}
-                                                            </ul>
-                                                        </div>
-                                                    </Popover>}>
-                                                        <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueDistrict} readOnly={true} />
+            )
+        } else {
+            return (
+                <div>
+                    <div id="header-search" className="banner menu-header font-size14" >
+                        <img src="img/banner-travel-insurance-2000x400.jpg" className="banner-menu" ></img>
+                        <div className="card-search">
+                            <div className="search-home">
+                                <div className="col-md-12 col-sm-12 col-init" >
+                                    <div className="row">
+                                        <div className="col-md-3 col-sm-3 col-init col-search cursorPointer">
+                                            <span className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }} >
+                                                <i className="fa fa-map-marker icon-search cursorPointer" aria-hidden="true"></i>
 
-                                                    </OverlayTrigger>
-                                                    {/* <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect" required>
+                                                <OverlayTrigger ref="overlayDestinate" rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                    id="popover-search-destination"
+                                                >
+                                                    <div className="font-my" role="tooltip">
+                                                        <ul>
+                                                            {this.state.listHome.map(this.renderListDestinate)}
+                                                        </ul>
+                                                    </div>
+                                                </Popover>}>
+                                                    <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueDistrict} readOnly={true} />
+
+                                                </OverlayTrigger>
+                                                {/* <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect" required>
                                                         <option value="" disabled hidden >Enter a destination or property</option>
 
                                                         {this.state.listHome.map(function (object, index) {
@@ -642,114 +642,114 @@ class ListRoomComponent extends Component {
 
                                                         })}
                                                     </select> */}
-                                                </span>
-                                            </div>
-                                            <div className="col-md-4 col-sm-4 col-init col-search cursorPointer" >
-                                                <span className="cursorPointer search-date" style={{ display: 'block', position: 'relative', margin: '5px' }}>
+                                            </span>
+                                        </div>
+                                        <div className="col-md-4 col-sm-4 col-init col-search cursorPointer" >
+                                            <span className="cursorPointer search-date" style={{ display: 'block', position: 'relative', margin: '5px' }}>
 
-                                                    <DateRangePicker
-                                                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                                                        startDateId="DateInput__screen-reader-message-start" // PropTypes.string.isRequired,
-                                                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                                                        endDateId="DateInput__screen-reader-message-end" // PropTypes.string.isRequired
-                                                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-                                                        focusedInput={this.state.focusedInput}
-                                                        onFocusChange={focusedInput => this.setState({ focusedInput })}
-                                                        // PropTypes.func.isRequired,
-                                                        readOnly={true}
-                                                        orientation={window.matchMedia("(max-width: 374px)").matches ? "vertical" : "horizontal"}
-                                                        numberOfMonths={this.state.numberOfMonths}
-                                                        startDatePlaceholderText="Start date"
-                                                        endDatePlaceholderText="End date"
-                                                    />
-                                                    <i className="fa fa-calendar icon-search cursorPointer" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
+                                                <DateRangePicker
+                                                    startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                                                    startDateId="DateInput__screen-reader-message-start" // PropTypes.string.isRequired,
+                                                    endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                                                    endDateId="DateInput__screen-reader-message-end" // PropTypes.string.isRequired
+                                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                                                    focusedInput={this.state.focusedInput}
+                                                    onFocusChange={focusedInput => this.setState({ focusedInput })}
+                                                    // PropTypes.func.isRequired,
+                                                    readOnly={true}
+                                                    orientation={window.matchMedia("(max-width: 374px)").matches ? "vertical" : "horizontal"}
+                                                    numberOfMonths={this.state.numberOfMonths}
+                                                    startDatePlaceholderText="Start date"
+                                                    endDatePlaceholderText="End date"
+                                                />
+                                                <i className="fa fa-calendar icon-search cursorPointer" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
 
-                                            <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
-                                                <span id="search-guests" className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }}>
+                                        <div className="col-md-2 col-sm-2 col-init col-search cursorPointer" >
+                                            <span id="search-guests" className="cursorPointer" style={{ display: 'block', position: 'relative', margin: '5px' }}>
 
-                                                    <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
-                                                        id="popover-search-guests"
-                                                    >
-                                                        <div className="font-my" role="tooltip">
-                                                            <div className="col-md-12 col-12 font-size16" >
-                                                                <div className="row">
-                                                                    <div className="col-md-5 col-5">
-                                                                        <p>Adults</p>
-                                                                        <p></p>
-                                                                    </div>
-                                                                    <div className="col-md-2 col-2 col-init-no" >
-                                                                        <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                    </div>
-                                                                    <div className="col-md-3 col-3">
-                                                                        {this.state.adultsGuest}+
-                                                            </div>
-                                                                    <div className="col-md-2 col-2 col-init-no">
-                                                                        <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                    </div>
+                                                <OverlayTrigger rootClose={true} trigger="click" placement="bottom" overlay={<Popover
+                                                    id="popover-search-guests"
+                                                >
+                                                    <div className="font-my" role="tooltip">
+                                                        <div className="col-md-12 col-12 font-size16" >
+                                                            <div className="row">
+                                                                <div className="col-md-5 col-5">
+                                                                    <p>Adults</p>
+                                                                    <p></p>
                                                                 </div>
-                                                            </div>
-                                                            <br />
-                                                            <div className="col-md-12 col-12 font-size16">
-                                                                <div className="row">
-                                                                    <div className="col-md-5 col-5">
-                                                                        <label>Children</label>
-                                                                        <p className="font-size14">Ages 2-12</p>
-                                                                    </div>
-                                                                    <div className="col-md-2 col-2 col-init-no">
-                                                                        <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                    </div>
-                                                                    <div className="col-md-3 col-3">
-                                                                        {this.state.childrensGuest}+
-                                                            </div>
-                                                                    <div className="col-md-2 col-2 col-init-no">
-                                                                        <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                    </div>
+                                                                <div className="col-md-2 col-2 col-init-no" >
+                                                                    <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
                                                                 </div>
-                                                            </div>
-                                                            <div className="col-md-12 col-12 font-size16">
-                                                                <div className="row">
-                                                                    <div className="col-md-5 col-5">
-                                                                        <label>Infants</label>
-                                                                        <p className="font-size14">Under 2</p>
-                                                                    </div>
-                                                                    <div className="col-md-2 col-2 col-init-no">
-                                                                        <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                    </div>
-                                                                    <div className="col-md-3 col-3">
-                                                                        {this.state.infantsGuest}+
-                                                            </div>
-                                                                    <div className="col-md-2 col-2 col-init-no">
-                                                                        <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                    </div>
+                                                                <div className="col-md-3 col-3">
+                                                                    {this.state.adultsGuest}
+                                                                </div>
+                                                                <div className="col-md-2 col-2 col-init-no">
+                                                                    <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </Popover>}>
-                                                        <input id="PopoverLegacy" readOnly className="border-none input-search cursorPointer" role="button" placeholder="Number of Guests" value={this.state.valueGuest} onChange={({ value }) => this.setState({ valueGuest: value })} readOnly={true} />
+                                                        <br />
+                                                        <div className="col-md-12 col-12 font-size16">
+                                                            <div className="row">
+                                                                <div className="col-md-5 col-5">
+                                                                    <label>Children</label>
+                                                                    <p className="font-size14">Ages 2-12</p>
+                                                                </div>
+                                                                <div className="col-md-2 col-2 col-init-no">
+                                                                    <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                </div>
+                                                                <div className="col-md-3 col-3">
+                                                                    {this.state.childrensGuest}
+                                                                </div>
+                                                                <div className="col-md-2 col-2 col-init-no">
+                                                                    <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-md-12 col-12 font-size16">
+                                                            <div className="row">
+                                                                <div className="col-md-5 col-5">
+                                                                    <label>Infants</label>
+                                                                    <p className="font-size14">Under 2</p>
+                                                                </div>
+                                                                <div className="col-md-2 col-2 col-init-no">
+                                                                    <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
+                                                                </div>
+                                                                <div className="col-md-3 col-3">
+                                                                    {this.state.infantsGuest}
+                                                                </div>
+                                                                <div className="col-md-2 col-2 col-init-no">
+                                                                    <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Popover>}>
+                                                    <input id="PopoverLegacy" readOnly className="border-none input-search cursorPointer" role="button" placeholder="Number of Guests" value={this.state.valueGuest} onChange={({ value }) => this.setState({ valueGuest: value })} readOnly={true} />
 
-                                                    </OverlayTrigger>
+                                                </OverlayTrigger>
 
-                                                    <i className="fa fa-angle-down icon-search cursorPointer" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                            <div className="col-md-2 col-sm-2 col-init col-search" style={{ background: '#c19d64' }}>
-                                                <button className="button-search cursorPointer" style={{ margin: '5px' }} onClick={this.handleSearch} >Search</button>
-                                            </div>
+                                                <i className="fa fa-angle-down icon-search cursorPointer" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <div className="col-md-2 col-sm-2 col-init col-search" style={{ background: '#c19d64' }}>
+                                            <button className="button-search cursorPointer" style={{ margin: '5px' }} onClick={this.handleSearch} >Search</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="home">
+                    </div>
+                    <div className="home">
 
-                            <div className="col-md-12">
-                                <div className="left-menu left-responsive ">
-                                    <div className="menu no-padding-lr-mobile">
-                                        <div className="_1lr8j2n8">
-                                            {/* <div style={{ marginTop: '16px', marginBottom: '8px' }}><div className="label-menu"> Guests </div></div> */}
-                                            {/* <button id="PopoverLegacyLeft" aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest == 0 ? "Guest" : this.state.valueGuest}</div>
+                        <div className="col-md-12">
+                            <div className="left-menu left-responsive ">
+                                <div className="menu no-padding-lr-mobile">
+                                    <div className="_1lr8j2n8">
+                                        {/* <div style={{ marginTop: '16px', marginBottom: '8px' }}><div className="label-menu"> Guests </div></div> */}
+                                        {/* <button id="PopoverLegacyLeft" aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest == 0 ? "Guest" : this.state.valueGuest}</div>
                                                 <span className="span-button">
                                                     <div className="span-icon-button" style={{ transform: 'rotate(0deg)' }}>
                                                         <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '1em', width: '1em', display: 'block', fill: 'currentcolor' }}>
@@ -759,7 +759,7 @@ class ListRoomComponent extends Component {
                                                 </span>
                                             </button> */}
 
-                                            {/* <UncontrolledPopover onBlur={this.fillter} id="popoverLegacyleft" trigger="legacy" placement="bottom" target="PopoverLegacyLeft">
+                                        {/* <UncontrolledPopover onBlur={this.fillter} id="popoverLegacyleft" trigger="legacy" placement="bottom" target="PopoverLegacyLeft">
                                                 <PopoverBody>
                                                     <div className="" role="tooltip">
                                                         <div className="col-md-12 font-size16" >
@@ -817,221 +817,221 @@ class ListRoomComponent extends Component {
                                                     </div>
                                                 </PopoverBody>
                                             </UncontrolledPopover> */}
-                                        </div>
-                                        <span>
-                                            <span style={{ fontSize: '0px' }}></span>
-                                            <div className="price-range">
-                                                <button type="button" className="button-price" id="btn-open-range" aria-expanded="true" aria-busy="false">
-                                                    <div className="_12d0llg5">
-                                                        <div className="_qo24lwc">
-                                                            <span className="_1r804a6o">
-                                                                <div className="_ng4pvpo">Price range</div>
-                                                            </span>
-                                                        </div>
-                                                        <div className="_1iti0ju">
-                                                            <span className="_9zwlhy1">
-                                                                <div className="_36rlri">
-                                                                    <div className="_fhmr8ze"></div>
-                                                                    <div className="_fhmr8ze">
-                                                                        <div style={{ marginLeft: '8px' }}>
-                                                                            <div className="_d5depq" style={{ transform: 'rotate(180deg)' }}>
-                                                                                <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', display: 'block', fill: 'rgb(118, 118, 118)' }}>
-                                                                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                                                </svg>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div style={{ marginTop: '8px' }} id="amount-range-private" >
-                                                        <div className="_1r804a6o" id="amount-hide" style={{ fontSize: '12px !important' }}>{this.state.amount}</div>
-                                                    </div>
-                                                </button>
-                                                <div id="select-range">
-                                                    <div className="_x01z5ll">
-                                                        <div style={{ marginTop: '16px' }}>
-                                                            <div style={{ marginBottom: '-16px' }}>
-                                                                <div style={{ marginBottom: '16px' }}>
-                                                                    <div>
-                                                                        <div style={{ marginBottom: '16px' }}>
-                                                                            <div style={{ marginBottom: '16px' }}>
-                                                                                <div style={{ marginBottom: '8px' }}>
-                                                                                    <div className="_12kw8n71" style={{ fontSize: '12px' }}>The average nightly price is ₫1,763,582</div>
-                                                                                </div>
-                                                                                <div className="_z6hmjh">
-                                                                                    <div style={{ marginTop: '16px' }}>
-
-                                                                                        <div className="_sh9qj2d">
-                                                                                            <Range onBlur={this.fillter} defaultValue={[500000, 5000000]} min={this.state.min} max={this.state.max} onChange={this.onSliderChange} />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div style={{ marginTop: '40px' }}>
-                                                                                    <div className="_1r804a6o" id="amount">{this.state.amount}</div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </span>
-                                        <span>
-                                            <span style={{ fontSize: '0px' }}></span>
-                                            <div className="price-range">
-                                                <button type="button" className="button-price" id="open-checkbox" aria-expanded="true" aria-busy="false">
-                                                    <div className="_12d0llg5">
-                                                        <div className="_qo24lwc">
-                                                            <span className="_1r804a6o">
-                                                                <div className="_ng4pvpo">Home type</div>
-                                                            </span>
-                                                        </div>
-                                                        <div className="_1iti0ju">
-                                                            <span className="_9zwlhy1">
-                                                                <div className="_36rlri">
-                                                                    <div className="_fhmr8ze"></div>
-                                                                    <div className="_fhmr8ze">
-                                                                        <div style={{ marginLeft: '8px' }}>
-                                                                            <div className="_d5depq" style={{ transform: 'rotate(180deg)' }}>
-                                                                                <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', display: 'block', fill: 'rgb(118, 118, 118)' }}>
-                                                                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                                                </svg>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div style={{ marginTop: '8px' }} id="Entire"><div className="_4r6fry" style={{ fontSize: '14px' }}>Entire place</div></div>
-                                                </button>
-                                                <div id="Entire-checkbox">
-                                                    <div className="_x01z5ll">
-                                                        <div style={{ marginTop: '16px' }}>
-                                                            <div style={{ marginBottom: '-16px' }}>
-                                                                <div style={{ marginBottom: '16px' }}>
-                                                                    <div>
-                                                                        <div>
-                                                                            <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Entire_home">
-                                                                                <div className="_gyif22">
-                                                                                    <div className="_73ihd0r">
-                                                                                        <span className="_foa2bi">
-                                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Entire_home" name="room_types-Entire_home" value="on" onChange={(e) => this.handleHomeType(1, e)} />
-                                                                                            <span data-fake-checkbox="true" data-style-select="false" id="DynamicFilterSpanItem-room_types-Entire_home" data-style-default="true" className="_fhj4ui">
-
-                                                                                            </span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div className="_zkrkb6">
-                                                                                        <span className="_f7dcovm">
-                                                                                            <div className="_9zwlhy1">Entire place</div>
-                                                                                        </span>
-                                                                                        <span className="_wzwtzh8">
-                                                                                            <span className="_tnaqre1">Have a place to yourself</span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div style={{ marginBottom: '16px' }}>
-                                                                    <div>
-                                                                        <div>
-                                                                            <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Private_room">
-                                                                                <div className="_gyif22">
-                                                                                    <div className="_73ihd0r">
-                                                                                        <span className="_foa2bi">
-                                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Private_room" name="room_types-Private_room" value="on" onChange={(e) => this.handleHomeType(3, e)} />
-                                                                                            <span data-fake-checkbox="true" data-style-select="false" data-style-default="true" id="DynamicFilterSpanItem-room_types-Private_room" className="_fhj4ui"></span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div className="_zkrkb6">
-                                                                                        <span className="_f7dcovm">
-                                                                                            <div className="_9zwlhy1">Private room</div>
-                                                                                        </span>
-                                                                                        <span className="_wzwtzh8">
-                                                                                            <span className="_tnaqre1">Have your own room and share some common spaces</span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div style={{ marginBottom: '16px' }}>
-                                                                    <div>
-                                                                        <div>
-                                                                            <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Shared_room">
-                                                                                <div className="_gyif22">
-                                                                                    <div className="_73ihd0r">
-                                                                                        <span className="_foa2bi">
-                                                                                            <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Shared_room" name="room_types-Shared_room" value="on" onChange={(e) => this.handleHomeType(4, e)} />
-                                                                                            <span data-fake-checkbox="true" data-style-select="false" id="DynamicFilterSpanItem-room_types-Shared_room" data-style-default="true" className="_fhj4ui"></span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div className="_zkrkb6">
-                                                                                        <span className="_f7dcovm">
-                                                                                            <div className="_9zwlhy1">Shared room</div>
-                                                                                        </span>
-                                                                                        <span className="_wzwtzh8">
-                                                                                            <span className="_tnaqre1">Stay in a shared space, like a common room</span>
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </span>
                                     </div>
-                                </div>
-
-                                <div className="right-home">
-                                    <div className="container main-slider no-padding-lr-mobile">
-                                            <div className="listRoom">
-                                                <div className="_1avdemu">
-                                                    <div className="_76dwae">
-                                                        <h3 className="_jmmm34f">   
-                                                            <div>
-                                                                <div>{this.state.nameHome}</div>
+                                    <span>
+                                        <span style={{ fontSize: '0px' }}></span>
+                                        <div className="price-range">
+                                            <button type="button" className="button-price" id="btn-open-range" aria-expanded="true" aria-busy="false">
+                                                <div className="_12d0llg5">
+                                                    <div className="_qo24lwc">
+                                                        <span className="_1r804a6o">
+                                                            <div className="_ng4pvpo">Price range</div>
+                                                        </span>
+                                                    </div>
+                                                    <div className="_1iti0ju">
+                                                        <span className="_9zwlhy1">
+                                                            <div className="_36rlri">
+                                                                <div className="_fhmr8ze"></div>
+                                                                <div className="_fhmr8ze">
+                                                                    <div style={{ marginLeft: '8px' }}>
+                                                                        <div className="_d5depq" style={{ transform: 'rotate(180deg)' }}>
+                                                                            <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', display: 'block', fill: 'rgb(118, 118, 118)' }}>
+                                                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </h3>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-12">
-                                                  
-                                                        {!this.state.is_RoomNull
-                                                        ?
-                                                        <div className="row">
-                                                            {this.state.listRoom.map(this.renderListRooms)}
+                                                <div style={{ marginTop: '8px' }} id="amount-range-private" >
+                                                    <div className="_1r804a6o" id="amount-hide" style={{ fontSize: '12px !important' }}>{this.state.amount}</div>
+                                                </div>
+                                            </button>
+                                            <div id="select-range">
+                                                <div className="_x01z5ll">
+                                                    <div style={{ marginTop: '16px' }}>
+                                                        <div style={{ marginBottom: '-16px' }}>
+                                                            <div style={{ marginBottom: '16px' }}>
+                                                                <div>
+                                                                    <div style={{ marginBottom: '16px' }}>
+                                                                        <div style={{ marginBottom: '16px' }}>
+                                                                            <div style={{ marginBottom: '8px' }}>
+                                                                                <div className="_12kw8n71" style={{ fontSize: '12px' }}>The average nightly price is ₫1,763,582</div>
+                                                                            </div>
+                                                                            <div className="_z6hmjh">
+                                                                                <div style={{ marginTop: '16px' }}>
+
+                                                                                    <div className="_sh9qj2d">
+                                                                                        <Range onBlur={this.fillter} defaultValue={[500000, 5000000]} min={this.state.min} max={this.state.max} onChange={this.onSliderChange} />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style={{ marginTop: '40px' }}>
+                                                                                <div className="_1r804a6o" id="amount">{this.state.amount}</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        :
-                                                        <span >Không tìm được phòng trống </span>
-
-                                                        }
-
                                                     </div>
-                                                
+                                                </div>
                                             </div>
+                                        </div>
+                                    </span>
+                                    <span>
+                                        <span style={{ fontSize: '0px' }}></span>
+                                        <div className="price-range">
+                                            <button type="button" className="button-price" id="open-checkbox" aria-expanded="true" aria-busy="false">
+                                                <div className="_12d0llg5">
+                                                    <div className="_qo24lwc">
+                                                        <span className="_1r804a6o">
+                                                            <div className="_ng4pvpo">Home type</div>
+                                                        </span>
+                                                    </div>
+                                                    <div className="_1iti0ju">
+                                                        <span className="_9zwlhy1">
+                                                            <div className="_36rlri">
+                                                                <div className="_fhmr8ze"></div>
+                                                                <div className="_fhmr8ze">
+                                                                    <div style={{ marginLeft: '8px' }}>
+                                                                        <div className="_d5depq" style={{ transform: 'rotate(180deg)' }}>
+                                                                            <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', display: 'block', fill: 'rgb(118, 118, 118)' }}>
+                                                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div style={{ marginTop: '8px' }} id="Entire"><div className="_4r6fry" style={{ fontSize: '14px' }}>Entire place</div></div>
+                                            </button>
+                                            <div id="Entire-checkbox">
+                                                <div className="_x01z5ll">
+                                                    <div style={{ marginTop: '16px' }}>
+                                                        <div style={{ marginBottom: '-16px' }}>
+                                                            <div style={{ marginBottom: '16px' }}>
+                                                                <div>
+                                                                    <div>
+                                                                        <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Entire_home">
+                                                                            <div className="_gyif22">
+                                                                                <div className="_73ihd0r">
+                                                                                    <span className="_foa2bi">
+                                                                                        <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Entire_home" name="room_types-Entire_home" value="on" onChange={(e) => this.handleHomeType(1, e)} />
+                                                                                        <span data-fake-checkbox="true" data-style-select="false" id="DynamicFilterSpanItem-room_types-Entire_home" data-style-default="true" className="_fhj4ui">
+
+                                                                                        </span>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className="_zkrkb6">
+                                                                                    <span className="_f7dcovm">
+                                                                                        <div className="_9zwlhy1">Entire place</div>
+                                                                                    </span>
+                                                                                    <span className="_wzwtzh8">
+                                                                                        <span className="_tnaqre1">Have a place to yourself</span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div style={{ marginBottom: '16px' }}>
+                                                                <div>
+                                                                    <div>
+                                                                        <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Private_room">
+                                                                            <div className="_gyif22">
+                                                                                <div className="_73ihd0r">
+                                                                                    <span className="_foa2bi">
+                                                                                        <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Private_room" name="room_types-Private_room" value="on" onChange={(e) => this.handleHomeType(3, e)} />
+                                                                                        <span data-fake-checkbox="true" data-style-select="false" data-style-default="true" id="DynamicFilterSpanItem-room_types-Private_room" className="_fhj4ui"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className="_zkrkb6">
+                                                                                    <span className="_f7dcovm">
+                                                                                        <div className="_9zwlhy1">Private room</div>
+                                                                                    </span>
+                                                                                    <span className="_wzwtzh8">
+                                                                                        <span className="_tnaqre1">Have your own room and share some common spaces</span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div style={{ marginBottom: '16px' }}>
+                                                                <div>
+                                                                    <div>
+                                                                        <label className="_4m7syz" htmlFor="DynamicFilterCheckboxItem-room_types-Shared_room">
+                                                                            <div className="_gyif22">
+                                                                                <div className="_73ihd0r">
+                                                                                    <span className="_foa2bi">
+                                                                                        <input type="checkbox" className="_fcv8ql" aria-invalid="false" id="DynamicFilterCheckboxItem-room_types-Shared_room" name="room_types-Shared_room" value="on" onChange={(e) => this.handleHomeType(4, e)} />
+                                                                                        <span data-fake-checkbox="true" data-style-select="false" id="DynamicFilterSpanItem-room_types-Shared_room" data-style-default="true" className="_fhj4ui"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div className="_zkrkb6">
+                                                                                    <span className="_f7dcovm">
+                                                                                        <div className="_9zwlhy1">Shared room</div>
+                                                                                    </span>
+                                                                                    <span className="_wzwtzh8">
+                                                                                        <span className="_tnaqre1">Stay in a shared space, like a common room</span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="right-home">
+                                <div className="container main-slider no-padding-lr-mobile">
+                                    <div className="listRoom">
+                                        <div className="_1avdemu">
+                                            <div className="_76dwae">
+                                                <h3 className="_jmmm34f">
+                                                    <div>
+                                                        <div>{this.state.nameHome}</div>
+                                                    </div>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12">
+
+                                            {!this.state.is_RoomNull
+                                                ?
+                                                <div className="row">
+                                                    {this.state.listRoom.map(this.renderListRooms)}
+                                                </div>
+                                                :
+                                                <span >Không tìm được phòng trống </span>
+
+                                            }
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-        
-        )
-    }
+                </div>
+
+            )
+        }
     }
 }
 
