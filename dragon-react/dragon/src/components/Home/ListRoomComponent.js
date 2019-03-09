@@ -22,10 +22,10 @@ class ListRoomComponent extends Component {
         super(props);
 
         this.state = {
-            searchString:"",
+            searchString: "",
             selectGuest: "",
-            startDate: null,
-            endDate: null,
+            // startDate: null,
+            // endDate: null,
             countPlus: 1,
             is_listHome: true,
             listHome: [],
@@ -39,8 +39,8 @@ class ListRoomComponent extends Component {
             imgsRoom: [],
             homeId: 0,
             district,
-            minSearch:null,
-            maxSearch:null,
+            minSearch: null,
+            maxSearch: null,
             min: 200000,
             max: 10000000,
             minPrice: 500000,
@@ -57,9 +57,9 @@ class ListRoomComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
-            detail:null,
-            lengthLocation:0,
-            is_DetailHome:false
+            detail: null,
+            lengthLocation: 0,
+            is_DetailHome: false
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -91,29 +91,29 @@ class ListRoomComponent extends Component {
 
     }
 
-    componentDidUpdate(){
-        var searchStatement = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
-        searchStatement =  decodeURI(searchStatement).replace(/\\/g, '')
-        
+    componentDidUpdate() {
+        var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
+        searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
+
         // if(window.history.length>this.state.lengthLocation){
         //     window.location.reload()
         // }
         // var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
         // search =  decodeURI(search).replace(/\\/g, '')
-        
+
         // search = search.replace(/"{/g,"{")
         // search = search.replace(/}"/g,"}")
         // search = search.replace(/"\[/g,"[")
         // search = search.replace(/]"/g,"]")
-        if (searchStatement != this.state.searchString){
-            if(!this.state.is_Detail){
+        if (searchStatement != this.state.searchString) {
+            if (!this.state.is_Detail) {
                 var search = window.location.href
                 var url = new URL(search);
 
-                this.setState({searchString:searchStatement})
-                if(url.searchParams.get("is_DetailHome")){
+                this.setState({ searchString: searchStatement })
+                if (url.searchParams.get("is_DetailHome")) {
                     this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
-                }else {
+                } else {
                     this.fillterSearch()
                 }
             }
@@ -140,7 +140,7 @@ class ListRoomComponent extends Component {
         this.setState({ roomType: type })
         this.handleFilter(type)
     }
-    fillterPrice(){
+    fillterPrice() {
         this.state.minSearch = this.state.minPrice
         this.state.maxSearch = this.state.maxPrice
         this.fillter()
@@ -175,7 +175,7 @@ class ListRoomComponent extends Component {
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false, nameHome: "" })
-        var searchStatement = "valueDistrict="+ this.state.valueDistrict+"&adultsGuest="+ this.state.adultsGuest+"&childrensGuest="+this.state.childrensGuest+"&infantsGuest="+this.state.infantsGuest+"&valueGuest="+this.state.valueGuest+"&homeId="+this.state.selectDistrict+"&from="+from+"&to="+to+"&totalGuest="+this.state.totalGuest+"&min="+this.state.minPrice+"&max="+this.state.maxPrice+"&type="+type+"&is_DetailHome="+false 
+        var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + this.state.minPrice + "&max=" + this.state.maxPrice + "&type=" + type + "&is_DetailHome=" + false
         window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
 
     }
@@ -246,10 +246,10 @@ class ListRoomComponent extends Component {
         }
         this.setState({ listRoom: res.Data })
 
-        this.setState({ is_listHome: false, nameHome:"" })
-        var searchStatement = "valueDistrict="+ this.state.valueDistrict+"&adultsGuest="+ this.state.adultsGuest+"&childrensGuest="+this.state.childrensGuest+"&infantsGuest="+this.state.infantsGuest+"&valueGuest="+this.state.valueGuest+"&homeId="+this.state.selectDistrict+"&from="+from+"&to="+to+"&totalGuest="+this.state.totalGuest+"&min="+null+"&max="+null+"&type="+0+"&is_DetailHome="+false 
-        
-        window.history.pushState({urlPath:'/listroom?'+searchStatement},"",'/listroom?'+searchStatement);
+        this.setState({ is_listHome: false, nameHome: "" })
+        var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + null + "&max=" + null + "&type=" + 0 + "&is_DetailHome=" + false
+
+        window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
         this.setState({ searchString: searchStatement })
     }
     handeChangeDistrict(event) {
@@ -266,7 +266,7 @@ class ListRoomComponent extends Component {
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
-        var search = "homeId="+ room.HomeId+"&roomId=" +room.Id+"&roomType=" +roomType+"&price="+room.Price
+        var search = "homeId=" + room.HomeId + "&roomId=" + room.Id + "&roomType=" + roomType + "&price=" + room.Price
 
         this.setState({ detail: search, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
@@ -472,8 +472,8 @@ class ListRoomComponent extends Component {
 
     }
     async GetDetailHome(id) {
-        
-        this.setState({ is_listHome: false,is_RoomNull:false })
+
+        this.setState({ is_listHome: false, is_RoomNull: false })
         const res = await homeService.getDetailHome(id)
         this.setState({ listRoom: res.Data })
         console.log(this.state.listRoom)
@@ -483,36 +483,36 @@ class ListRoomComponent extends Component {
 
     componentDidMount() {
         // $(".footer").hide()
-  
+
         // $(".footer").hide()
-        var searchStatement = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
-        searchStatement =  decodeURI(searchStatement).replace(/\\/g, '')
+        var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
+        searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
         var search = window.location.href
         var url = new URL(search);
         if (!url.searchParams.get("is_DetailHome")) {
-            this.setState({valueDistrict:null})
+            this.setState({ valueDistrict: null })
             this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
         } else {
             if (url.searchParams.get("from") != null && url.searchParams.get("from") != 0) {
                 this.setState({ startDate: moment.unix(url.searchParams.get("from")) })
             }
             if (url.searchParams.get("to") != null && url.searchParams.get("to") != 0) {
-                this.setState({ endDate: moment.unix(url.searchParams.get("from")) })
+                this.setState({ endDate: moment.unix(url.searchParams.get("to")) })
             }
             if (url.searchParams.get("min") != null) {
-                this.setState({ minPrice: url.searchParams.get("min"),minSearch:url.searchParams.get("min")})
+                this.setState({ minPrice: url.searchParams.get("min"), minSearch: url.searchParams.get("min") })
             }
             if (url.searchParams.get("max") != null) {
-                this.setState({ maxPrice: url.searchParams.get("max"),maxSearch:url.searchParams.get("max") })
+                this.setState({ maxPrice: url.searchParams.get("max"), maxSearch: url.searchParams.get("max") })
             }
-    
-    
-            this.setState({valueDistrict:url.searchParams.get("valueDistrict"),adultsGuest:url.searchParams.get("adultsGuest"),childrensGuest:url.searchParams.get("childrensGuest"),infantsGuest:url.searchParams.get("infantsGuest"),valueGuest:url.searchParams.get("valueGuest"), selectDistrict:url.searchParams.get("homeId"), totalGuest:url.searchParams.get("totalGuest"), roomType:url.searchParams.get("type"),lengthLocation:window.history.length,is_DetailHome:url.searchParams.get("is_DetailHome")})
+
+
+            this.setState({ valueDistrict: url.searchParams.get("valueDistrict"), adultsGuest: url.searchParams.get("adultsGuest"), childrensGuest: url.searchParams.get("childrensGuest"), infantsGuest: url.searchParams.get("infantsGuest"), valueGuest: url.searchParams.get("valueGuest"), selectDistrict: url.searchParams.get("homeId"), totalGuest: url.searchParams.get("totalGuest"), roomType: url.searchParams.get("type"), lengthLocation: window.history.length, is_DetailHome: url.searchParams.get("is_DetailHome") })
 
             this.fillterSearch()
         }
 
-        this.setState({searchString:searchStatement})
+        this.setState({ searchString: searchStatement })
         this.handlegetListHomes()
         $(".footer").show()
 
@@ -637,7 +637,7 @@ class ListRoomComponent extends Component {
         if (this.state.is_Detail) {
             return (<Redirect push to={{
                 pathname: "/detail/house",
-                search: "?" +this.state.detail,
+                search: "?" + this.state.detail,
                 target: "_blank"
 
             }} />
@@ -660,15 +660,15 @@ class ListRoomComponent extends Component {
                                                     id="popover-search-destination"
                                                 >
                                                     <div className="font-my" role="tooltip">
-                                                       
+
                                                         {this.state.listHome.length > 0 ?
-                                                         <ul>
-                                                        {this.state.listHome.map(this.renderListDestinate)}
-                                                        </ul>
-                                                        : null
+                                                            <ul>
+                                                                {this.state.listHome.map(this.renderListDestinate)}
+                                                            </ul>
+                                                            : null
                                                         }
-                                                            
-                                                        
+
+
                                                     </div>
                                                 </Popover>}>
                                                     <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueDistrict} readOnly={true} />
