@@ -56,7 +56,8 @@ class HomeComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
-            searchStatement: null
+            searchStatement: null,
+            selectedHomeId: ""
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -432,6 +433,7 @@ class HomeComponent extends Component {
         this.setState({ searchStatement:"homeId=" +id+"&is_DetailHome="+true+"&name="+name+"&valueDistrict="})
 
         this.setState({ is_listHome: false })
+        this.setState({selectedHomeId: "homeId=" + id})
 
     }
 
@@ -961,7 +963,7 @@ class HomeComponent extends Component {
                                         :
                                         <Redirect push to={{
                                             pathname: "/listroom",
-                                            search: "?"+this.state.searchStatement
+                                            search: "?"+this.state.selectedHomeId
 
                                         }} />
                                     }
