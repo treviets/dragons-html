@@ -38,6 +38,8 @@ class HomeComponent extends Component {
             imgsRoom: [],
             homeId: 0,
             district,
+            minSearch:null,
+            maxSearch:null,
             min: 200000,
             max: 10000000,
             minPrice: 500000,
@@ -76,6 +78,8 @@ class HomeComponent extends Component {
         this.toggle = this.toggle.bind(this);
         this.onSliderChange = this.onSliderChange.bind(this)
         this.fillter = this.fillter.bind(this);
+        this.fillterPrice = this.fillterPrice.bind(this);
+
         this.handleFilter = this.handleFilter.bind(this);
         this.handleHomeType = this.handleHomeType.bind(this);
         this.renderListDestinate = this.renderListDestinate.bind(this)
@@ -96,6 +100,11 @@ class HomeComponent extends Component {
     handleHomeType(type) {
         this.setState({ roomType: type })
         this.handleFilter(type)
+    }
+    fillterPrice(){
+        this.state.minSearch = this.state.minPrice
+        this.state.maxSearch = this.state.maxPrice
+        this.fillter()
     }
     fillter() {
         this.handleFilter(this.state.roomType)
@@ -124,7 +133,7 @@ class HomeComponent extends Component {
         // // console.log(res)
         // // this.setState({ listRoom: res.Data })
 
-        this.setState({ searchStatement: { valueDistrict: this.state.valueDistrict, adultsGuest: this.state.adultsGuest, childrensGuest: this.state.childrensGuest, infantsGuest: this.state.infantsGuest, valueGuest: this.state.valueGuest, homeId: this.state.selectDistrict, from: from, to: to, totalGuest: this.state.totalGuest, min: this.state.min, max: this.state.max, type: type, is_DetailHome: false } })
+        this.setState({ searchStatement:"valueDistrict="+ this.state.valueDistrict+"&adultsGuest="+ this.state.adultsGuest+"&childrensGuest="+this.state.childrensGuest+"&infantsGuest="+this.state.infantsGuest+"&valueGuest="+this.state.valueGuest+"&homeId="+this.state.selectDistrict+"&from="+from+"&to="+to+"&totalGuest="+this.state.totalGuest+"&min="+this.state.minPrice+"&max="+this.state.maxPrice+"&type="+type+"&is_DetailHome="+false })
 
         this.setState({ is_listHome: false })
 
@@ -162,7 +171,8 @@ class HomeComponent extends Component {
         //     isnull = true
         //     this.setState({is_RoomNull:true})
         // }
-        this.setState({ searchStatement: { valueDistrict: this.state.valueDistrict, adultsGuest: this.state.adultsGuest, childrensGuest: this.state.childrensGuest, infantsGuest: this.state.infantsGuest, valueGuest: this.state.valueGuest, homeId: this.state.selectDistrict, from, to: to, totalGuest: this.state.totalGuest, min: null, max: null, type: 0, is_DetailHome: false } })
+        this.setState({ searchStatement:"valueDistrict="+ this.state.valueDistrict+"&adultsGuest="+ this.state.adultsGuest+"&childrensGuest="+this.state.childrensGuest+"&infantsGuest="+this.state.infantsGuest+"&valueGuest="+this.state.valueGuest+"&homeId="+this.state.selectDistrict+"&from="+from+"&to="+to+"&totalGuest="+this.state.totalGuest+"&min="+null+"&max="+null+"&type="+0+"&is_DetailHome="+false })
+
         this.setState({ is_listHome: false })
 
 
@@ -419,7 +429,7 @@ class HomeComponent extends Component {
         // localStorage.setItem("rooms",JSON.stringify(res.Data))
         // localStorage.setItem("isRoomNull",isnull)
         // localStorage.setItem("nameHome",name)
-        this.setState({ searchStatement: { valueDistrict: this.state.valueDistrict, adultsGuest: this.state.adultsGuest, childrensGuest: this.state.childrensGuest, infantsGuest: this.state.infantsGuest, valueGuest: this.state.valueGuest, homeId: id, name: name, from: from, to: to, totalGuest: this.state.totalGuest, min: this.state.min, max: this.state.max, type: this.state.roomType, is_DetailHome: true } })
+        this.setState({ searchStatement:"homeId=" +id+"&is_DetailHome="+true+"&name="+name+"&valueDistrict="})
 
         this.setState({ is_listHome: false })
 
@@ -800,7 +810,7 @@ class HomeComponent extends Component {
                                                                                 <div style={{ marginTop: '16px' }}>
 
                                                                                     <div className="_sh9qj2d">
-                                                                                        <Range onBlur={this.fillter} defaultValue={[500000, 5000000]} min={this.state.min} max={this.state.max} onChange={this.onSliderChange} />
+                                                                                        <Range onBlur={this.fillterPrice} defaultValue={[500000, 5000000]} min={this.state.min} max={this.state.max} onChange={this.onSliderChange} />
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -951,7 +961,7 @@ class HomeComponent extends Component {
                                         :
                                         <Redirect push to={{
                                             pathname: "/listroom",
-                                            search: "?" + JSON.stringify(this.state.searchStatement)
+                                            search: "?"+this.state.searchStatement
 
                                         }} />
                                     }

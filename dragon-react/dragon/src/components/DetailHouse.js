@@ -255,7 +255,6 @@ class DetailHouseComponent extends Component {
     componentWillMount(){
         var search = window.location.href
         var url = new URL(search);
-        var c = url.searchParams.get("homeId");
 
         // search = search.replace(/"\[/g, "[")
         // search = search.replace(/]"/g, "]")

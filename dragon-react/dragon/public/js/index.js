@@ -12,6 +12,10 @@ $(document).ready(function() {
            
     //     }
     // });
+    // $("#price").hide()
+    // $(".footer").show()
+    // $("#price-modal").hide()
+
     $('[data-toggle="popover"]').popover(); 
     $('#PopoverLegacy').on('mousedown', function(event) {
         // do your magic
