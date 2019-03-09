@@ -266,7 +266,8 @@ class ListRoomComponent extends Component {
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
-        var search = "homeId=" + room.HomeId + "&roomId=" + room.Id + "&roomType=" + roomType + "&price=" + room.Price
+        // var search = "homeId=" + room.HomeId + "&roomId=" + room.Id + "&roomType=" + roomType + "&price=" + room.Price
+        var search = "roomId=" + room.Id;
 
         this.setState({ detail: search, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
