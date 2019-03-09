@@ -254,9 +254,9 @@ class ListRoomComponent extends Component {
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
-        var object = { homeId: room.HomeId, room: JSON.stringify(room), roomType: roomType, imgsRoom: JSON.stringify(imgs) }
+        var search = "homeId="+ room.HomeId+"&roomId=" +room.Id+"&roomType=" +roomType+"&price="+room.Price
 
-        this.setState({ detail: object, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
+        this.setState({ detail: search, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
         this.setState({ is_listHome: true })
@@ -631,7 +631,7 @@ class ListRoomComponent extends Component {
         if (this.state.is_Detail) {
             return (<Redirect push to={{
                 pathname: "/detail/house",
-                search: "?" + JSON.stringify(this.state.detail),
+                search: "?" +this.state.detail,
                 target: "_blank"
 
             }} />

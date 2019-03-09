@@ -75,7 +75,7 @@ class DetailHouseComponent extends Component {
             currentImage: 0,
             dataBook: null,
             rangesDateBlock: [],
-
+            roomPrice:0,
 
 
         };
@@ -148,7 +148,7 @@ class DetailHouseComponent extends Component {
             if (guest == 0) {
                 guest = 1
             }
-            var total = this.state.room.Price * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
+            var total = this.state.roomPrice * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
             this.setState({
                 nights: diffInDates, totalAmount: total
             });
@@ -167,7 +167,7 @@ class DetailHouseComponent extends Component {
         if (guest == 0) {
             guest = 1
         }
-        var total = this.state.room.Price * this.state.nights + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
+        var total = this.state.roomPrice * this.state.nights + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
         this.setState({ totalAmount: total })
     }
     handlePlus(type) {
@@ -247,36 +247,36 @@ class DetailHouseComponent extends Component {
         this.setState({ valueGuest: guests })
 
     }
-    componentDidMount() {
-        
+    componentDidMount() {      
         $("#price").hide()
         $(".footer").show()
         $("#price-modal").hide()
     }
     componentWillMount(){
-        var search = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
-        search = decodeURI(search).replace(/\\/g, '')
+        var search = window.location.href
+        var url = new URL(search);
+        var c = url.searchParams.get("homeId");
 
-        search = search.replace(/"{/g, "{")
-        search = search.replace(/}"/g, "}")
-        search = search.replace(/"\[/g, "[")
-        search = search.replace(/]"/g, "]")
+        // search = search.replace(/"\[/g, "[")
+        // search = search.replace(/]"/g, "]")
 
-        var CircularJSON = require('circular-json');
-        var object = CircularJSON.parse(search)
-        var imgsRoom = object.imgsRoom
-        for (var i = 0; i < imgsRoom.length; i++) {
-            var img = { src: Constants.apiImg + imgsRoom[i].Image }
-            this.state.imgsRoom.push(img)
-        }
-        this.state.room = object.room
-        this.state.homeId = object.homeId
-        this.state.roomType = object.roomType
-        this.loadData()
+        // var CircularJSON = require('circular-json');
+        // var object = CircularJSON.parse(search)
+        // console.log(search)
+        // var imgsRoom = object.imgsRoom
+        // for (var i = 0; i < imgsRoom.length; i++) {
+        //     var img = { src: Constants.apiImg + imgsRoom[i].Image }
+        //     this.state.imgsRoom.push(img)
+        // }
+        // this.state.room = object.room
+        this.state.homeId =  url.searchParams.get("homeId");
+        this.state.roomType = url.searchParams.get("roomType");
+        this.state.roomPrice = url.searchParams.get("price");
+        this.loadData(url.searchParams.get("roomId"))
     }
-    async loadData() {
+    async loadData(roomId) {
 
-        const res = await homeService.getDetailRoom(this.state.room.Id)
+        const res = await homeService.getDetailRoom(roomId)
         var countNothing = 0
         for (var i = 0; i < res.Data.Amenities.length; i++) {
             if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() == 'Not included'.toUpperCase()) {
@@ -320,6 +320,12 @@ class DetailHouseComponent extends Component {
                 this.state.accessParking.push(res.Data.Accessibilities[i])
             }
         }
+
+        
+        for (var i = 0; i < res.Data.Images.length; i++) {
+            var img = { src: Constants.apiImg + res.Data.Images[i].Image }
+            this.state.imgsRoom.push(img)
+        }
         var momentRange = require('moment-range');
         momentRange.extendMoment(moment);
         var ranges = []
@@ -345,7 +351,7 @@ class DetailHouseComponent extends Component {
         var lengthamenities = res.Data.Amenities.length - countNothing
         this.setState({
             lengthAccessibility: lengthAccessibility, lengthReviews: lengthReviews, lengthAmenitiesChoose: lengthamenities, roomData: res.Data, numberReviews: res.Data.Reviews.length, amenities: res.Data.Amenities,
-            cleanfee: res.Data.CleaningFee, servicefee: res.Data.ServiceFee, rangesDateBlock: ranges
+            cleanfee: res.Data.CleaningFee, servicefee: res.Data.ServiceFee, rangesDateBlock: ranges,room: res.Data
         })
 
     }
@@ -357,12 +363,12 @@ class DetailHouseComponent extends Component {
         if (localStorage.getItem('accessToken')) {
             $("#img-Room").hide()
             $("#backListRoom").hide()
-            var object = {
-                roomId: this.state.room.Id, bookcleanFee: this.state.cleanfee, bookserviceFee: this.state.servicefee, booktotalGuest: this.state.totalGuest,
-                bookprice: this.state.room.Price, bookstartDate: this.state.startDate,
-                bookendDate: this.state.endDate, booktotalAmount: this.state.totalAmount, bookvalueGuest: this.state.valueGuest
-            }
-            this.setState({ is_reviewBook: true, dataBook: object })
+            var search = 
+                "roomId="+this.state.room.Id+"&bookcleanFee="+ this.state.cleanfee+"&bookserviceFee="+ this.state.servicefee+"&booktotalGuest="+ this.state.totalGuest+
+                "&bookprice="+ this.state.roomPrice+"&bookstartDate="+ this.state.startDate+
+                "&bookendDate="+this.state.endDate+"&booktotalAmount="+this.state.totalAmount+"&bookvalueGuest="+this.state.valueGuest
+            
+            this.setState({ is_reviewBook: true, dataBook: search })
         } else {
             console.log("aa")
             $('#btn-login').click()
@@ -377,10 +383,10 @@ class DetailHouseComponent extends Component {
         //     HomeId: this.props.homeId,
         //     NumberOfGuess: this.state.selectGuest,
         //     NumberOfNights: diffInDates,
-        //     Price: this.state.room.Price,
+        //     Price: this.state.roomPrice,
         //     RoomId: this.state.roomData.RoomId,
         //     ToDate: to,
-        //     TotalAmount: this.state.room.Price * diffInDates
+        //     TotalAmount: this.state.roomPrice * diffInDates
         // }
         // var myJSON = JSON.stringify(bookingJson);
         // const res = await bookingService.bookingCreate(myJSON)
@@ -504,7 +510,7 @@ class DetailHouseComponent extends Component {
         if (guest == 0) {
             guest = 1
         }
-        var total = this.state.room.Price * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
+        var total = this.state.roomPrice * diffInDates + parseInt(this.state.cleanfee) + parseInt(this.state.servicefee)
         this.setState({
             endDate: date, nights: diffInDates, totalAmount: total
         });
@@ -555,7 +561,7 @@ class DetailHouseComponent extends Component {
         if (this.state.is_reviewBook) {
             return (<Redirect push to={{
                 pathname: "/review/book",
-                search: "?" + JSON.stringify(this.state.dataBook),
+                search: "?" + this.state.dataBook,
                 target: "_blank"
 
             }} />
@@ -930,7 +936,7 @@ class DetailHouseComponent extends Component {
                                             <div className="request-to-book">
                                                 <div className="content-request">
                                                     <span className="font-title" style={{ fontSize: "22px" }}>
-                                                        ₫{this.currencyFormat(this.state.room.Price)}
+                                                        ₫{this.currencyFormat(this.state.roomPrice)}
                                                     </span>
                                                     <span className="font-size12 font-medium"> per night</span>
 
@@ -1042,10 +1048,10 @@ class DetailHouseComponent extends Component {
                                                             <div className="price-group font-size14 font-weight400">
 
                                                                 <p className="price-info">
-                                                                    ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
+                                                                    ₫{this.currencyFormat(this.state.roomPrice)} x {this.currencyFormat(this.state.nights)} nights
                                                     </p>
                                                                 <p className="price-total">
-                                                                    ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
+                                                                    ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.roomPrice * this.state.nights : this.state.roomPrice * this.state.nights)}
                                                                 </p>
                                                                 <hr />
                                                                 <p className="price-info">
@@ -1125,7 +1131,7 @@ class DetailHouseComponent extends Component {
                                         <div className="row">
                                             <div className="col-md-9 col-6">
                                                 <span className="font-title" style={{ fontSize: "22px" }}>
-                                                    ₫{this.currencyFormat(this.state.room.Price)}
+                                                    ₫{this.currencyFormat(this.state.roomPrice)}
                                                 </span>
                                                 <span className="font-size12 font-medium">per night</span>
                                             </div>
@@ -1145,7 +1151,7 @@ class DetailHouseComponent extends Component {
                                             </div>
                                             <div className="content-request">
                                                 <span className="font-title" style={{ fontSize: "22px" }}>
-                                                    ₫{this.currencyFormat(this.state.room.Price)}
+                                                    ₫{this.currencyFormat(this.state.roomPrice)}
                                                 </span>
                                                 <span className="font-size12 font-medium">per night</span>
 
@@ -1259,10 +1265,10 @@ class DetailHouseComponent extends Component {
                                                         <div className="price-group font-size14 font-weight400">
 
                                                             <p className="price-info">
-                                                                ₫{this.currencyFormat(this.state.room.Price)} x {this.currencyFormat(this.state.nights)} nights
+                                                                ₫{this.currencyFormat(this.state.roomPrice)} x {this.currencyFormat(this.state.nights)} nights
                                                     </p>
                                                             <p className="price-total">
-                                                                ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.room.Price * this.state.nights : this.state.room.Price * this.state.nights)}
+                                                                ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.roomPrice * this.state.nights : this.state.roomPrice * this.state.nights)}
                                                             </p>
                                                             <hr />
                                                             <p className="price-info">

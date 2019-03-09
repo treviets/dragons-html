@@ -154,27 +154,21 @@ class ReviewHouse extends Component {
         return date[0]
     }
     componentDidMount() {
-        var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
-        search =  decodeURI(search).replace(/\\/g, '')
-        
-        search = search.replace(/"{/g,"{")
-        search = search.replace(/}"/g,"}")
-        search = search.replace(/"\[/g,"[")
-        search = search.replace(/]"/g,"]")
-        search = search.replace("#showReviewBook","")
-        search = search.replace("#hideReviewBook","")
-        var CircularJSON = require('circular-json');
-        var object = CircularJSON.parse(search)
-            var homeId =object.homeId
-            var cleanFee =object.bookcleanFee
-            var serviceFee =object.bookserviceFee
-            var totalGuest = object.booktotalGuest
-            var price = object.bookprice
-            var start = object.bookstartDate
-            var end = object.bookendDate
-            var totalAmount = object.booktotalAmount
-            var valueguests = object.bookvalueGuest
-            var roomId = object.roomId
+        var search = window.location.href
+
+        var url = new URL(search);
+
+
+        var homeId =url.searchParams.get("homeId")
+        var cleanFee =url.searchParams.get("bookcleanFee")
+        var serviceFee =url.searchParams.get("bookserviceFee")
+        var totalGuest = url.searchParams.get("booktotalGuest")
+        var price =url.searchParams.get("bookprice")
+        var start =url.searchParams.get("bookstartDate")
+        var end =url.searchParams.get("bookendDate")
+        var totalAmount =url.searchParams.get("booktotalAmount")
+        var valueguests =url.searchParams.get("bookvalueGuest")
+        var roomId = url.searchParams.get("roomId")
         var diffInDates = moment(end).diff(moment(start), 'days');
         
         this.setState({
