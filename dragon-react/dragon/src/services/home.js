@@ -7,7 +7,7 @@ const HomeService = {
                 "/dragons/home/all");
             const data = response.data;
             return data
-            
+
         } catch (e) {
             if (e.response.status === 401) {
 
@@ -16,11 +16,14 @@ const HomeService = {
     },
     getDetailHome: async function (homeId) {
         try {
+            if (homeId == null) {
+                homeId = 0;
+            }
             const response = await getFromUrl(
-                "/dragons/room/by_home_id/?homeId="+homeId);
+                "/dragons/room/by_home_id/?homeId=" + homeId);
             const data = response.data;
             return data
-            
+
         } catch (e) {
             if (e.response.status === 401) {
 
@@ -30,46 +33,46 @@ const HomeService = {
     getDetailRoom: async function (roomId) {
         try {
             const response = await getFromUrl(
-                "/dragons/room_detail/by_room_id?roomId="+roomId);
+                "/dragons/room_detail/by_room_id?roomId=" + roomId);
             const data = response.data;
             return data
-            
+
         } catch (e) {
             if (e.response.status === 401) {
 
             }
         }
     },
-     searchRoom: async function (homeId,from,to,number_of_guest,min, max, roomType) {
+    searchRoom: async function (homeId, from, to, number_of_guest, min, max, roomType) {
         try {
-            
-            if(homeId==""){
+
+            if (homeId == "" || homeId == null) {
                 homeId = 0
             }
-            var url =  "/dragons/room/list?homeId="+homeId
-            if(from!=null){
-                url+="&from="+from
+            var url = "/dragons/room/list?homeId=" + homeId
+            if (from != null) {
+                url += "&from=" + from
             }
-            if(to!=null){
-                url+="&to="+to
+            if (to != null) {
+                url += "&to=" + to
             }
-            if(min!=null){
-                url+="&min="+min
+            if (min != null) {
+                url += "&min=" + min
             }
-            if(max!=null){
-                url+="&max="+max
+            if (max != null) {
+                url += "&max=" + max
             }
-            if(number_of_guest!=null){
-                url+="&number_of_guest="+number_of_guest
+            if (number_of_guest != null) {
+                url += "&number_of_guest=" + number_of_guest
             }
-            if(roomType!=null){
-                url+="&roomtype="+roomType
+            if (roomType != null) {
+                url += "&roomtype=" + roomType
             }
             const response = await getFromUrl(
                 url)
             const data = response.data;
             return data
-            
+
         } catch (e) {
             if (e.response.status === 401) {
 

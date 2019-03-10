@@ -476,7 +476,9 @@ class ListRoomComponent extends Component {
 
         this.setState({ is_listHome: false, is_RoomNull: false })
         const res = await homeService.getDetailHome(id)
-        this.setState({ listRoom: res.Data })
+        if (res && res.Data) {
+            this.setState({ listRoom: res.Data })
+        }
         console.log(this.state.listRoom)
     }
 

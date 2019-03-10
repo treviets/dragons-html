@@ -344,3 +344,9 @@ select {
     font-size: 12px;
     text-align: center
 }
+.sweet-loading  {
+    text-align: center;
+}
+.sweet-loading > div {
+        border-color: rgb(54, 215, 183) rgb(54, 215, 183) transparent;
+}
