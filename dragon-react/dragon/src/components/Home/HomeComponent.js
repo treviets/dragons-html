@@ -38,8 +38,8 @@ class HomeComponent extends Component {
             imgsRoom: [],
             homeId: 0,
             district,
-            minSearch:null,
-            maxSearch:null,
+            minSearch: null,
+            maxSearch: null,
             min: 200000,
             max: 10000000,
             minPrice: 500000,
@@ -102,7 +102,7 @@ class HomeComponent extends Component {
         this.setState({ roomType: type })
         this.handleFilter(type)
     }
-    fillterPrice(){
+    fillterPrice() {
         this.state.minSearch = this.state.minPrice
         this.state.maxSearch = this.state.maxPrice
         this.fillter()
@@ -134,7 +134,7 @@ class HomeComponent extends Component {
         // // console.log(res)
         // // this.setState({ listRoom: res.Data })
 
-        this.setState({ searchStatement:"valueDistrict="+ this.state.valueDistrict+"&adultsGuest="+ this.state.adultsGuest+"&childrensGuest="+this.state.childrensGuest+"&infantsGuest="+this.state.infantsGuest+"&valueGuest="+this.state.valueGuest+"&homeId="+this.state.selectDistrict+"&from="+from+"&to="+to+"&totalGuest="+this.state.totalGuest+"&min="+this.state.minPrice+"&max="+this.state.maxPrice+"&type="+type+"&is_DetailHome="+false })
+        //this.setState({ searchStatement: "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + this.state.minPrice + "&max=" + this.state.maxPrice + "&type=" + type + "&is_DetailHome=" + false })
 
         this.setState({ is_listHome: false })
 
@@ -148,6 +148,9 @@ class HomeComponent extends Component {
         });
     }
     async handleSearch() {
+
+        localStorage.removeItem('startDay')
+        localStorage.removeItem('endDay')
         var from = null
         if (this.state.startDate != null) {
             from = moment(this.state.startDate, "DD/MM/YYYY")
@@ -156,15 +159,21 @@ class HomeComponent extends Component {
         } else {
             from = 0
         }
+        localStorage.setItem('startDay', from)
         var to = null
         if (this.state.endDate != null) {
             to =
                 moment(this.state.endDate, "DD/MM/YYYY")
                     .startOf("day")
                     .unix() + 86340;
+
         } else {
             to = 0
         }
+        localStorage.setItem('endDay', to)
+
+        localStorage.setItem("totalGuest", this.state.totalGuest)
+        localStorage.setItem("district", this.state.selectDistrict)
         // const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
         // var isnull = false
         // if (res.Data == null) {
@@ -172,7 +181,7 @@ class HomeComponent extends Component {
         //     isnull = true
         //     this.setState({is_RoomNull:true})
         // }
-        this.setState({ searchStatement:"valueDistrict="+ this.state.valueDistrict+"&adultsGuest="+ this.state.adultsGuest+"&childrensGuest="+this.state.childrensGuest+"&infantsGuest="+this.state.infantsGuest+"&valueGuest="+this.state.valueGuest+"&homeId="+this.state.selectDistrict+"&from="+from+"&to="+to+"&totalGuest="+this.state.totalGuest+"&min="+null+"&max="+null+"&type="+0+"&is_DetailHome="+false })
+        //this.setState({ searchStatement: "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + null + "&max=" + null + "&type=" + 0 + "&is_DetailHome=" + false })
 
         this.setState({ is_listHome: false })
 
@@ -430,16 +439,16 @@ class HomeComponent extends Component {
         // localStorage.setItem("rooms",JSON.stringify(res.Data))
         // localStorage.setItem("isRoomNull",isnull)
         // localStorage.setItem("nameHome",name)
-        this.setState({ searchStatement:"homeId=" +id+"&is_DetailHome="+true+"&name="+name+"&valueDistrict="})
+        // this.setState({ searchStatement: "homeId=" + id + "&is_DetailHome=" + true + "&name=" + name + "&valueDistrict=" })
 
         this.setState({ is_listHome: false })
-        this.setState({selectedHomeId: "homeId=" + id})
+        this.setState({ selectedHomeId: "homeId=" + id })
 
     }
 
 
     componentDidMount() {
- 
+
 
         // $(".footer").hide()
         $(".footer").show()
@@ -963,7 +972,7 @@ class HomeComponent extends Component {
                                         :
                                         <Redirect push to={{
                                             pathname: "/listroom",
-                                            search: "?"+this.state.selectedHomeId
+                                            search: "?" + this.state.selectedHomeId
 
                                         }} />
                                     }

@@ -24,8 +24,8 @@ class ListRoomComponent extends Component {
         this.state = {
             searchString: "",
             selectGuest: "",
-            // startDate: null,
-            // endDate: null,
+            startDate: null,
+            endDate: null,
             countPlus: 1,
             is_listHome: true,
             listHome: [],
@@ -95,16 +95,6 @@ class ListRoomComponent extends Component {
         var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
         searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
 
-        // if(window.history.length>this.state.lengthLocation){
-        //     window.location.reload()
-        // }
-        // var search = window.location.href.substr(window.location.href.indexOf("?")+1,window.location.href.length-1);
-        // search =  decodeURI(search).replace(/\\/g, '')
-
-        // search = search.replace(/"{/g,"{")
-        // search = search.replace(/}"/g,"}")
-        // search = search.replace(/"\[/g,"[")
-        // search = search.replace(/]"/g,"]")
         if (searchStatement != this.state.searchString) {
             if (!this.state.is_Detail) {
                 var search = window.location.href
@@ -175,8 +165,8 @@ class ListRoomComponent extends Component {
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false, nameHome: "" })
-        var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + this.state.minPrice + "&max=" + this.state.maxPrice + "&type=" + type + "&is_DetailHome=" + false
-        window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
+        // var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + this.state.minPrice + "&max=" + this.state.maxPrice + "&type=" + type + "&is_DetailHome=" + false
+        // window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
 
     }
     fillterSearch() {
@@ -247,10 +237,10 @@ class ListRoomComponent extends Component {
         this.setState({ listRoom: res.Data })
 
         this.setState({ is_listHome: false, nameHome: "" })
-        var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + null + "&max=" + null + "&type=" + 0 + "&is_DetailHome=" + false
+        // var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + null + "&max=" + null + "&type=" + 0 + "&is_DetailHome=" + false
 
-        window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
-        this.setState({ searchString: searchStatement })
+        // window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
+        // this.setState({ searchString: searchStatement })
     }
     handeChangeDistrict(event) {
         this.setState({ selectDistrict: event.target.value })
@@ -482,50 +472,74 @@ class ListRoomComponent extends Component {
         console.log(this.state.listRoom)
     }
 
+    componentWillMount() {
+        this.setState({
+            selectDistrict: 1
+        })
+    }
+
 
 
     componentDidMount() {
-        // $(".footer").hide()
-
         // $(".footer").hide()
         var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
         searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
         var search = window.location.href
         var url = new URL(search);
-        if (!url.searchParams.get("is_DetailHome")) {
-            this.setState({ valueDistrict: null })
-            this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
+        console.log(moment.unix(localStorage.getItem("startDay")))
+        if (parseInt(localStorage.getItem("startDay")) === 0) {
+            this.setState({
+                startDate: null
+            })
         } else {
-            if (url.searchParams.get("from") != null && url.searchParams.get("from") != 0) {
-                this.setState({ startDate: moment.unix(url.searchParams.get("from")) })
-            }
-            if (url.searchParams.get("to") != null && url.searchParams.get("to") != 0) {
-                this.setState({ endDate: moment.unix(url.searchParams.get("to")) })
-            }
-            if (url.searchParams.get("min") != null) {
-                this.setState({ minPrice: url.searchParams.get("min"), minSearch: url.searchParams.get("min") })
-            }
-            if (url.searchParams.get("max") != null) {
-                this.setState({ maxPrice: url.searchParams.get("max"), maxSearch: url.searchParams.get("max") })
-            }
+            this.setState({ startDate: moment.unix(localStorage.getItem("startDay")) })
 
-
-            this.setState({ valueDistrict: url.searchParams.get("valueDistrict"), adultsGuest: url.searchParams.get("adultsGuest"), childrensGuest: url.searchParams.get("childrensGuest"), infantsGuest: url.searchParams.get("infantsGuest"), valueGuest: url.searchParams.get("valueGuest"), selectDistrict: url.searchParams.get("homeId"), totalGuest: url.searchParams.get("totalGuest"), roomType: url.searchParams.get("type"), lengthLocation: window.history.length, is_DetailHome: url.searchParams.get("is_DetailHome") })
-
-            this.fillterSearch()
         }
+        if (parseInt(localStorage.getItem("endDay")) === 0) {
+            this.setState({ endDate: null })
+        } else {
+            this.setState({ endDate: moment.unix(localStorage.getItem("endDay")) })
+        }
+        // this.setState({ startDate: moment.unix(localStorage.getItem("startDay")) })
+        this.setState({ totalGuest: localStorage.getItem("totalGuest") })
+        // this.setState({ selectDistrict: parseInt(localStorage.getItem("district")) })
 
-        this.setState({ searchString: searchStatement })
+        console.log(this.state)
+
+
+
+        // if (!url.searchParams.get("is_DetailHome")) {
+        //     this.setState({ valueDistrict: null })
+        //     this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
+        // } else {
+        //     if (url.searchParams.get("from") != null && url.searchParams.get("from") != 0) {
+        //         this.setState({ startDate: moment.unix(url.searchParams.get("from")) })
+        //     }
+        //     if (url.searchParams.get("to") != null && url.searchParams.get("to") != 0) {
+        //         this.setState({ endDate: moment.unix(url.searchParams.get("to")) })
+        //     }
+        //     if (url.searchParams.get("min") != null) {
+        //         this.setState({ minPrice: url.searchParams.get("min"), minSearch: url.searchParams.get("min") })
+        //     }
+        //     if (url.searchParams.get("max") != null) {
+        //         this.setState({ maxPrice: url.searchParams.get("max"), maxSearch: url.searchParams.get("max") })
+        //     }
+
+
+        //     // this.setState({ valueDistrict: url.searchParams.get("valueDistrict"), adultsGuest: url.searchParams.get("adultsGuest"), childrensGuest: url.searchParams.get("childrensGuest"), infantsGuest: url.searchParams.get("infantsGuest"), valueGuest: url.searchParams.get("valueGuest"), selectDistrict: url.searchParams.get("homeId"), totalGuest: url.searchParams.get("totalGuest"), roomType: url.searchParams.get("type"), lengthLocation: window.history.length, is_DetailHome: url.searchParams.get("is_DetailHome") })
+
+        //     // this.fillterSearch()
+        // }
+
+        // this.setState({ searchString: searchStatement })
         this.handlegetListHomes()
         $(".footer").show()
 
         switch (this.state.roomType) {
             case 1:
-
-                $("#DynamicFilterSpanItem-room_types-Entire_home").removeClass("_fhj4ui")
-                $("#DynamicFilterSpanItem-room_types-Entire_home").addClass("_veamvre")
+                $("#DynamicFilterSpanItem-room_types-Entire_home").removeClass("_fhj4ui");
+                $("#DynamicFilterSpanItem-room_types-Entire_home").addClass("_veamvre");
                 $("#DynamicFilterSpanItem-room_types-Entire_home").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
-
                 break;
             case 2:
                 break;
@@ -533,13 +547,13 @@ class ListRoomComponent extends Component {
                 $("#DynamicFilterSpanItem-room_types-Private_room").removeClass("_fhj4ui")
                 $("#DynamicFilterSpanItem-room_types-Private_room").addClass("_veamvre")
                 $("#DynamicFilterSpanItem-room_types-Private_room").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
-
                 break;
             case 4:
                 $("#DynamicFilterSpanItem-room_types-Shared_room").removeClass("_fhj4ui")
                 $("#DynamicFilterSpanItem-room_types-Shared_room").addClass("_veamvre")
                 $("#DynamicFilterSpanItem-room_types-Shared_room").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
-
+                break;
+            default:
                 break;
         }
 
@@ -677,14 +691,7 @@ class ListRoomComponent extends Component {
                                                     <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueDistrict} readOnly={true} />
 
                                                 </OverlayTrigger>
-                                                {/* <select className="border-none input-search cursorPointer select-search" value={this.state.selectDistrict} onChange={this.handeChangeDistrict} id="inlineFormCustomSelect" required>
-                                                        <option value="" disabled hidden >Enter a destination or property</option>
 
-                                                        {this.state.listHome.map(function (object, index) {
-                                                            return <option value={object.Id} key={index}>{object.Name}</option>
-
-                                                        })}
-                                                    </select> */}
                                             </span>
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-init col-search cursorPointer" >
@@ -791,75 +798,7 @@ class ListRoomComponent extends Component {
                             <div className="left-menu left-responsive ">
                                 <div className="menu no-padding-lr-mobile">
                                     <div className="_1lr8j2n8">
-                                        {/* <div style={{ marginTop: '16px', marginBottom: '8px' }}><div className="label-menu"> Guests </div></div> */}
-                                        {/* <button id="PopoverLegacyLeft" aria-haspopup="true" aria-expanded="false" aria-controls="menuItemComponent-date_picker" className="button-menu"><div className="label-button">{this.state.totalGuest == 0 ? "Guest" : this.state.valueGuest}</div>
-                                                <span className="span-button">
-                                                    <div className="span-icon-button" style={{ transform: 'rotate(0deg)' }}>
-                                                        <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '1em', width: '1em', display: 'block', fill: 'currentcolor' }}>
-                                                            <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                                        </svg>
-                                                    </div>
-                                                </span>
-                                            </button> */}
 
-                                        {/* <UncontrolledPopover onBlur={this.fillter} id="popoverLegacyleft" trigger="legacy" placement="bottom" target="PopoverLegacyLeft">
-                                                <PopoverBody>
-                                                    <div className="" role="tooltip">
-                                                        <div className="col-md-12 font-size16" >
-                                                            <div className="row">
-                                                                <div className="col-md-6">
-                                                                    <p>Adults</p>
-                                                                    <p></p>
-                                                                </div>
-                                                                <div className="col-md-2 col-init-no" >
-                                                                    <button onClick={(e) => this.handleMinus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                </div>
-                                                                <div className="col-md-2">
-                                                                    {this.state.adultsGuest}+
-                                                    </div>
-                                                                <div className="col-md-2 col-init-no">
-                                                                    <button onClick={(e) => this.handlePlus(1, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br />
-                                                        <div className="col-md-12 font-size16">
-                                                            <div className="row">
-                                                                <div className="col-md-6">
-                                                                    <label>Children</label>
-                                                                    <p className="font-size14">Ages 2-12</p>
-                                                                </div>
-                                                                <div className="col-md-2 col-init-no">
-                                                                    <button onClick={(e) => this.handleMinus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                </div>
-                                                                <div className="col-md-2">
-                                                                    {this.state.childrensGuest}+
-                                                    </div>
-                                                                <div className="col-md-2 col-init-no">
-                                                                    <button onClick={(e) => this.handlePlus(2, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-md-12 font-size16">
-                                                            <div className="row">
-                                                                <div className="col-md-6">
-                                                                    <label>Infants</label>
-                                                                    <p className="font-size14">Under 2</p>
-                                                                </div>
-                                                                <div className="col-md-2 col-init-no">
-                                                                    <button onClick={(e) => this.handleMinus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="subtract" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect></svg></button>
-                                                                </div>
-                                                                <div className="col-md-2">
-                                                                    {this.state.infantsGuest}+
-                                                    </div>
-                                                                <div className="col-md-2 col-init-no">
-                                                                    <button onClick={(e) => this.handlePlus(3, e)} className="btn btn-guest" type="button" aria-busy="false"><svg viewBox="0 0 24 24" role="img" aria-label="add" focusable="false" style={{ height: "1em", width: "1em", display: "block", fill: "currentcolor" }}><rect height="2" rx="1" width="12" x="0" y="11"></rect><rect height="12" rx="1" width="2" x="5" y="6"></rect></svg></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </PopoverBody>
-                                            </UncontrolledPopover> */}
                                     </div>
                                     <span>
                                         <span style={{ fontSize: '0px' }}></span>
