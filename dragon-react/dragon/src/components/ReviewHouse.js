@@ -25,11 +25,11 @@ class ReviewHouse extends Component {
             cleanFeel: 0,
             serviceFee: 0,
             title: "",
-            totalGuest:0,
+            totalGuest: 0,
             guests: 0,
             policy: [],
             message: "waiting...",
-            roomId:0
+            roomId: 0
         }
         this.handleBook = this.handleBook.bind(this)
         this.renderPolices = this.renderPolices.bind(this)
@@ -158,41 +158,48 @@ class ReviewHouse extends Component {
 
         var url = new URL(search);
 
-
-        var homeId =url.searchParams.get("homeId")
-        var cleanFee =url.searchParams.get("bookcleanFee")
-        var serviceFee =url.searchParams.get("bookserviceFee")
+        var homeId = url.searchParams.get("homeId")
+        var cleanFee = url.searchParams.get("bookcleanFee")
+        var serviceFee = url.searchParams.get("bookserviceFee")
         var totalGuest = url.searchParams.get("booktotalGuest")
-        var price =url.searchParams.get("bookprice")
-        var start =url.searchParams.get("bookstartDate")
-        var end =url.searchParams.get("bookendDate")
-        var totalAmount =url.searchParams.get("booktotalAmount")
-        var valueguests =url.searchParams.get("bookvalueGuest")
+        var price = url.searchParams.get("bookprice")
+        var start = url.searchParams.get("bookstartDate")
+        var end = url.searchParams.get("bookendDate")
+        var totalAmount = url.searchParams.get("booktotalAmount")
+        var valueguests = url.searchParams.get("bookvalueGuest")
         var roomId = url.searchParams.get("roomId")
-        var diffInDates = moment(end).diff(moment(start), 'days');
-        
+        var diffInDates = moment.unix(end / 1000).diff(moment.unix(start / 1000), 'days');
+
+
         this.setState({
-            nights: diffInDates, checkIn: start, checkOut: end,
-            amount: totalAmount,  price: price,
-            guests: valueguests, homeId: homeId, cleanFee: cleanFee, serviceFee: serviceFee,
-            totalGuest: totalGuest, roomId : roomId
+            nights: diffInDates,
+            checkIn: moment.unix(start / 1000),
+            checkOut: moment.unix(end / 1000),
+            amount: totalAmount,
+            price: price,
+            guests: valueguests,
+            homeId: homeId,
+            cleanFee: cleanFee,
+            serviceFee: serviceFee,
+            totalGuest: totalGuest,
+            roomId: roomId
         })
         this.loadData(roomId)
-  
+
     }
     // componentDidMount() {
     //     this._isMounted = true;
-        
+
     // }
     async loadData(roomId) {
-        
+
 
         const res = await homeService.getDetailRoom(roomId)
         var policies = res.Data.Policies
-            this.setState({
-                room: res.Data,
-                policy: policies,
-            })
+        this.setState({
+            room: res.Data,
+            policy: policies,
+        })
 
     }
     currencyFormat = (uv) => {
@@ -222,219 +229,219 @@ class ReviewHouse extends Component {
         return priceString
     }
     render() {
-        if(this.state.roomId!=0){
-        return (
-    <div className="detailRoom">
-        <div className="divbody">
-            <div className="container">
-                <br />
-                <div className="row body-review colorTitle">
-                    <div className="col-md-7 col-sm-12">
-                        <div className="title-review">
-                            <p>Review house rules</p>
-                        </div>
-                        <div className="box-title font-size14">
-                            <div className="img-eye ">
-                                <img className="_1o93hs7" style={{ height: '40px', width: '36px' }} alt="" src={require("../assets/img/icon-uc-eye.gif")} />
-                            </div>
-                            <div className="content-eye">
-                                <span><b>People are eyeing this place</b> </span><span> 8 others are looking at it for these dates.</span>
-                            </div>
-                        </div>
-                        <div className="info-booking">
-                            <div className="title-box font-size18">
-                                <p>{this.state.nights} nights in Thành Phố Vũng tàu</p>
-                            </div>
-                            <div className="book-checkin">
-                                <div className="box-date">
-                                    <b>
-                                        <span className="font-size12">{this.formatMonth(this.state.checkIn)}</span>
-                                        <br />
-                                        <span className="font-size16">{this.formatDate(this.state.checkIn)}</span>
-                                    </b>
-                                </div>
-                                <div className="box-date-info">
-                                    <span className="font-size14">{this.formatdayofweek(this.state.checkIn)} check-in</span>
-                                    <br />
-                                    <span className="font-size16">After {this.state.room.CheckIn}</span>
-                                </div>
-                            </div>
+        if (this.state.roomId != 0) {
+            return (
+                <div className="detailRoom">
+                    <div className="divbody">
+                        <div className="container">
+                            <br />
+                            <div className="row body-review colorTitle">
+                                <div className="col-md-7 col-sm-12">
+                                    <div className="title-review">
+                                        <p>Review house rules</p>
+                                    </div>
+                                    <div className="box-title font-size14">
+                                        <div className="img-eye ">
+                                            <img className="_1o93hs7" style={{ height: '40px', width: '36px' }} alt="" src={require("../assets/img/icon-uc-eye.gif")} />
+                                        </div>
+                                        <div className="content-eye">
+                                            <span><b>People are eyeing this place</b> </span><span> 8 others are looking at it for these dates.</span>
+                                        </div>
+                                    </div>
+                                    <div className="info-booking">
+                                        <div className="title-box font-size18">
+                                            <p>{this.state.nights} nights in Thành Phố Vũng tàu</p>
+                                        </div>
+                                        <div className="book-checkin">
+                                            <div className="box-date">
+                                                <b>
+                                                    <span className="font-size12">{this.formatMonth(this.state.checkIn)}</span>
+                                                    <br />
+                                                    <span className="font-size16">{this.formatDate(this.state.checkIn)}</span>
+                                                </b>
+                                            </div>
+                                            <div className="box-date-info">
+                                                <span className="font-size14">{this.formatdayofweek(this.state.checkIn)} check-in</span>
+                                                <br />
+                                                <span className="font-size16">After {this.state.room.CheckIn}</span>
+                                            </div>
+                                        </div>
 
-                            <div className="book-checkout">
-                                <div className="box-date">
-                                    <b>
-                                        <span className="font-size12">{this.formatMonth(this.state.checkOut)}</span>
-                                        <br />
-                                        <span className="font-size16">{this.formatDate(this.state.checkOut)}</span>
-                                    </b>
-                                </div>
-                                <div className="box-date-info">
-                                    <span className="font-size14">{this.formatdayofweek(this.state.checkOut)} check-out</span>
-                                    <br />
-                                    <span className="font-size16">{this.state.room.CheckOut}</span>
-                                </div>
-                            </div>
-                        </div>
-                        {/* <div className="container">
+                                        <div className="book-checkout">
+                                            <div className="box-date">
+                                                <b>
+                                                    <span className="font-size12">{this.formatMonth(this.state.checkOut)}</span>
+                                                    <br />
+                                                    <span className="font-size16">{this.formatDate(this.state.checkOut)}</span>
+                                                </b>
+                                            </div>
+                                            <div className="box-date-info">
+                                                <span className="font-size14">{this.formatdayofweek(this.state.checkOut)} check-out</span>
+                                                <br />
+                                                <span className="font-size16">{this.state.room.CheckOut}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className="container">
                             <hr />
                         </div> */}
-                        <div className="list-services">
-                            <p className="font-size18"><b>Thing to keep in mind</b></p>
-                            <div className="container-fluid">
-                                {this.state.policy.map(this.renderPolices)}
+                                    <div className="list-services">
+                                        <p className="font-size18"><b>Thing to keep in mind</b></p>
+                                        <div className="container-fluid">
+                                            {this.state.policy.map(this.renderPolices)}
 
 
-                            </div>
-                            <div>
-                                <a href="#showReviewBook" className="readmoreReviewBook" id="showReviewBook"><b>Read more</b></a>
-                                <svg className="readmoreReviewBook" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
-                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                </svg>
-                                <div className="reviewBook-detail">
-                                    <span className="font-size16">Additional Rules</span>
-                                    <br />
-                                    <div className="font-size14">
-                                        <p dangerouslySetInnerHTML={{ __html: this.state.room.AdditionalRules }} />
-
-                                    </div>
-                                </div>
-                                <a href="#hideReviewBook" className="hidemoreReviewBook" id="hideReviewBook"><b>Hide</b></a>
-                                <svg className="hidemoreReviewBook" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
-                                    <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
-                                </svg>
-                            </div>
-                            <br />
-                            <br />
-                            <div className="font-size16">
-                                <button className="btn btn-AgreeBook" data-dismiss="modal" data-toggle="modal" data-target="#bookingModal" onClick={this.handleBook}><b> Agree</b></button>
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-                    <div className="col-md-5 col-sm-12">
-                        <div className="info-box">
-                            <div className="container box-room">
-                                <div className="box-room-title">
-                                    <span className="font-size16">
-                                        {this.state.room.Title}
-                                    </span >
-                                    <br />
-                                    <span className="font-size14">
-                                        Entire home/apt in Thành phố Vũng Tàu
-                                    </span>
-                                </div>
-                                <div className="box-room-img">
-                                    <img src={require('../assets/img/ba.jpg')} />
-                                </div>
-                            </div>
-                            <div className="container">
-                                <hr />
-                            </div>
-                            <div className="container font-weight400">
-                                <div style={{ marginBottom: '16px' }}>
-                                    <div className="_ni9axhe">
-                                        <div style={{ marginRight: '8px' }}><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '20px', width: '20px', display: 'block', fill: 'currentcolor' }}><path d="m3.31 11.56c-.66.5-1.1.99-1.47 1.66-1.14 2.08-1.46 6.82-.2 8.52 1.3 1.75 2.69 2.15 6.54 2.15 2.81 0 4.7-1 5.17-3.43.16-.84.14-1.55-.01-2.59-.01-.1-.03-.19-.06-.37-.12-.8-.16-1.18-.16-1.66.01-1.55.73-2.28 2.62-3.24.56-.28.9-.85.9-1.48 0-.47-.2-.84-.54-1.21-.2-.21-.35-.44-.48-.69-.31-.62-.4-1.19-.39-1.98 0-.06 0-.06 0-.12 0-1.65.81-2.65 2.16-2.65s2.16 1 2.16 2.65c0 1.04-.23 1.97-.99 2.79-.34.37-.54.74-.54 1.21 0 .62.35 1.19.9 1.48 1.87.95 2.6 1.69 2.63 3.25.01.4.02.77.05 1.37.11 2.45.06 3.22-.34 3.9-.47.81-1.6 1.24-3.89 1.26-1.19.01-1.64-.02-2.36-.18-.4-.09-.81.16-.9.56s.16.81.56.9c.86.2 1.41.24 2.71.22 2.76-.03 4.37-.64 5.17-2.01.61-1.04.67-1.93.54-4.73-.03-.59-.04-.94-.05-1.33-.05-2.27-1.14-3.38-3.45-4.56-.05-.03-.08-.08-.08-.13 0-.02.03-.08.14-.2.61-.66 1-1.43 1.2-2.27.14-.56.18-1.03.18-1.54 0-2.42-1.41-4.15-3.66-4.15s-3.66 1.73-3.66 4.15v.11c-.01 1.01.1 1.79.55 2.67.19.37.42.71.72 1.03.11.12.14.18.14.2 0 .06-.03.11-.08.13-2.34 1.19-3.43 2.29-3.44 4.57 0 .58.04 1.03.18 1.9.03.18.04.26.05.36.13.89.15 1.45.02 2.09-.3 1.56-1.51 2.21-3.69 2.21-3.42 0-4.4-.28-5.34-1.55-.86-1.16-.58-5.29.31-6.91.26-.48.57-.81 1.07-1.2.29-.22 1.9-1.3 2.42-1.67.45-.32.71-.84.71-1.39v-.15c0-.52-.25-1-.65-1.34-.69-.57-1.17-2.03-1.17-3.48 0-1.93 1.11-3.13 2.65-3.13s2.65 1.2 2.65 3.13c0 1.46-.46 2.91-1.14 3.48-.42.34-.65.84-.65 1.4 0 .64.35 1.23.92 1.52.41.21.57.29.79.41.37.19.82.05 1.01-.31.19-.37.05-.82-.31-1.01-.23-.12-.4-.21-.81-.42-.06-.03-.11-.1-.11-.18 0-.12.03-.19.11-.25 1.1-.91 1.69-2.77 1.69-4.64 0-2.73-1.75-4.63-4.15-4.63s-4.15 1.9-4.15 4.63c0 1.85.61 3.72 1.71 4.64.07.06.11.13.11.19v.15c0 .06-.03.12-.09.16-.49.35-2.12 1.44-2.46 1.7z" fillRule="evenodd"></path></svg></div>
-                                    </div>
-                                    <div className="_ni9axhe">
-                                        <div className="font-size16">
-                                            {this.state.guests}
                                         </div>
-                                    </div>
-                                </div>
-                                <div style={{ marginBottom: '16px' }}>
-                                    <div className="_ni9axhe">
-                                        <div style={{ marginRight: '8px' }}><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '20px', width: '20px', display: 'block', fill: 'currentcolor' }}><path d="m22 9.5v-1.5-5h-4.75v-2c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2h-7.5v-2c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2h-4.75v5 1.5 12.51c0 .54.44.99.99.99h18.02c.54 0 .99-.44.99-.99zm-18.5-5h3.25v.5c0 .41.34.75.75.75s.75-.34.75-.75v-.5h7.5v.5c0 .41.34.75.75.75s.75-.34.75-.75v-.5h3.25v3.5h-17zm0 17v-12h17v12z" fillRule="evenodd"></path></svg></div>                                </div>
-                                    <div className="_ni9axhe">
-                                        <div className="font-size16">
-                                            {this.formatTime(this.state.checkIn)}
-                                            <div className="arrow-date" style={{ marginLeft: '16px', marginRight: '16px' }}>
-                                                <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '15px', width: '15px', display: 'block', fill: 'currentcolor' }}><path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd"></path></svg>
+                                        <div>
+                                            <a href="#showReviewBook" className="readmoreReviewBook" id="showReviewBook"><b>Read more</b></a>
+                                            <svg className="readmoreReviewBook" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)' }}>
+                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                            </svg>
+                                            <div className="reviewBook-detail">
+                                                <span className="font-size16">Additional Rules</span>
+                                                <br />
+                                                <div className="font-size14">
+                                                    <p dangerouslySetInnerHTML={{ __html: this.state.room.AdditionalRules }} />
+
+                                                </div>
                                             </div>
-                                            {this.formatTime(this.state.checkOut)}
+                                            <a href="#hideReviewBook" className="hidemoreReviewBook" id="hideReviewBook"><b>Hide</b></a>
+                                            <svg className="hidemoreReviewBook" viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '10px', width: '10px', marginLeft: '5px', fill: 'rgb(118, 118, 118)', transform: 'rotate(180deg)' }}>
+                                                <path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <div className="font-size16">
+                                            <button className="btn btn-AgreeBook" data-dismiss="modal" data-toggle="modal" data-target="#bookingModal" onClick={this.handleBook}><b> Agree</b></button>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+                                <div className="col-md-5 col-sm-12">
+                                    <div className="info-box">
+                                        <div className="container box-room">
+                                            <div className="box-room-title">
+                                                <span className="font-size16">
+                                                    {this.state.room.Title}
+                                                </span >
+                                                <br />
+                                                <span className="font-size14">
+                                                    Entire home/apt in Thành phố Vũng Tàu
+                                    </span>
+                                            </div>
+                                            <div className="box-room-img">
+                                                <img src={require('../assets/img/ba.jpg')} />
+                                            </div>
+                                        </div>
+                                        <div className="container">
+                                            <hr />
+                                        </div>
+                                        <div className="container font-weight400">
+                                            <div style={{ marginBottom: '16px' }}>
+                                                <div className="_ni9axhe">
+                                                    <div style={{ marginRight: '8px' }}><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '20px', width: '20px', display: 'block', fill: 'currentcolor' }}><path d="m3.31 11.56c-.66.5-1.1.99-1.47 1.66-1.14 2.08-1.46 6.82-.2 8.52 1.3 1.75 2.69 2.15 6.54 2.15 2.81 0 4.7-1 5.17-3.43.16-.84.14-1.55-.01-2.59-.01-.1-.03-.19-.06-.37-.12-.8-.16-1.18-.16-1.66.01-1.55.73-2.28 2.62-3.24.56-.28.9-.85.9-1.48 0-.47-.2-.84-.54-1.21-.2-.21-.35-.44-.48-.69-.31-.62-.4-1.19-.39-1.98 0-.06 0-.06 0-.12 0-1.65.81-2.65 2.16-2.65s2.16 1 2.16 2.65c0 1.04-.23 1.97-.99 2.79-.34.37-.54.74-.54 1.21 0 .62.35 1.19.9 1.48 1.87.95 2.6 1.69 2.63 3.25.01.4.02.77.05 1.37.11 2.45.06 3.22-.34 3.9-.47.81-1.6 1.24-3.89 1.26-1.19.01-1.64-.02-2.36-.18-.4-.09-.81.16-.9.56s.16.81.56.9c.86.2 1.41.24 2.71.22 2.76-.03 4.37-.64 5.17-2.01.61-1.04.67-1.93.54-4.73-.03-.59-.04-.94-.05-1.33-.05-2.27-1.14-3.38-3.45-4.56-.05-.03-.08-.08-.08-.13 0-.02.03-.08.14-.2.61-.66 1-1.43 1.2-2.27.14-.56.18-1.03.18-1.54 0-2.42-1.41-4.15-3.66-4.15s-3.66 1.73-3.66 4.15v.11c-.01 1.01.1 1.79.55 2.67.19.37.42.71.72 1.03.11.12.14.18.14.2 0 .06-.03.11-.08.13-2.34 1.19-3.43 2.29-3.44 4.57 0 .58.04 1.03.18 1.9.03.18.04.26.05.36.13.89.15 1.45.02 2.09-.3 1.56-1.51 2.21-3.69 2.21-3.42 0-4.4-.28-5.34-1.55-.86-1.16-.58-5.29.31-6.91.26-.48.57-.81 1.07-1.2.29-.22 1.9-1.3 2.42-1.67.45-.32.71-.84.71-1.39v-.15c0-.52-.25-1-.65-1.34-.69-.57-1.17-2.03-1.17-3.48 0-1.93 1.11-3.13 2.65-3.13s2.65 1.2 2.65 3.13c0 1.46-.46 2.91-1.14 3.48-.42.34-.65.84-.65 1.4 0 .64.35 1.23.92 1.52.41.21.57.29.79.41.37.19.82.05 1.01-.31.19-.37.05-.82-.31-1.01-.23-.12-.4-.21-.81-.42-.06-.03-.11-.1-.11-.18 0-.12.03-.19.11-.25 1.1-.91 1.69-2.77 1.69-4.64 0-2.73-1.75-4.63-4.15-4.63s-4.15 1.9-4.15 4.63c0 1.85.61 3.72 1.71 4.64.07.06.11.13.11.19v.15c0 .06-.03.12-.09.16-.49.35-2.12 1.44-2.46 1.7z" fillRule="evenodd"></path></svg></div>
+                                                </div>
+                                                <div className="_ni9axhe">
+                                                    <div className="font-size16">
+                                                        {this.state.guests}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style={{ marginBottom: '16px' }}>
+                                                <div className="_ni9axhe">
+                                                    <div style={{ marginRight: '8px' }}><svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '20px', width: '20px', display: 'block', fill: 'currentcolor' }}><path d="m22 9.5v-1.5-5h-4.75v-2c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2h-7.5v-2c0-.41-.34-.75-.75-.75s-.75.34-.75.75v2h-4.75v5 1.5 12.51c0 .54.44.99.99.99h18.02c.54 0 .99-.44.99-.99zm-18.5-5h3.25v.5c0 .41.34.75.75.75s.75-.34.75-.75v-.5h7.5v.5c0 .41.34.75.75.75s.75-.34.75-.75v-.5h3.25v3.5h-17zm0 17v-12h17v12z" fillRule="evenodd"></path></svg></div>                                </div>
+                                                <div className="_ni9axhe">
+                                                    <div className="font-size16">
+                                                        {this.formatTime(this.state.checkIn)}
+                                                        <div className="arrow-date" style={{ marginLeft: '16px', marginRight: '16px' }}>
+                                                            <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '15px', width: '15px', display: 'block', fill: 'currentcolor' }}><path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd"></path></svg>
+                                                        </div>
+                                                        {this.formatTime(this.state.checkOut)}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div className="container">
+                                            <hr />
+                                        </div>
+                                        <div className="container div-price">
+                                            <div className="price-group font-size16 font-weight400">
+
+                                                <p className="price-info">
+                                                    ₫{this.currencyFormat(this.state.price)} x {this.state.nights} nights
+                                    </p>
+                                                <p className="price-total">
+                                                    ₫{this.currencyFormat(this.state.price * this.state.nights)}
+                                                </p>
+
+                                                <p className="price-info">
+                                                    Cleaning fee
+                                    </p>
+                                                <p className="price-total">
+                                                    đ{this.currencyFormat(this.state.cleanFee)}
+                                                </p>
+
+                                                <p className="price-info">
+                                                    Service fee
+                                    </p>
+                                                <p className="price-total">
+                                                    ₫{this.currencyFormat(this.state.serviceFee)}
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                        <div className="container">
+                                            <hr />
+                                        </div>
+                                        <div className="container div-price">
+                                            <div className="price-group font-weight400">
+
+                                                <div className="price-info">
+                                                    Total (VND)
+                                    </div>
+                                                <div className="price-total">
+                                                    ₫{this.currencyFormat(this.state.amount)}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div className="container">
+                                            <hr />
+                                        </div>
+                                        <div className="container footer-box-room">
+                                            <div dangerouslySetInnerHTML={{ __html: this.state.room.PolicyCancel }}>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div className="container">
-                                <hr />
-                            </div>
-                            <div className="container div-price">
-                                <div className="price-group font-size16 font-weight400">
-
-                                    <p className="price-info">
-                                        ₫{this.currencyFormat(this.state.price)} x {this.state.nights} nights
-                                    </p>
-                                    <p className="price-total">
-                                        ₫{this.currencyFormat(this.state.price * this.state.nights)}
-                                    </p>
-
-                                    <p className="price-info">
-                                        Cleaning fee
-                                    </p>
-                                    <p className="price-total">
-                                        đ{this.currencyFormat(this.state.cleanFee)}
-                                    </p>
-
-                                    <p className="price-info">
-                                        Service fee
-                                    </p>
-                                    <p className="price-total">
-                                        ₫{this.currencyFormat(this.state.serviceFee)}
-                                    </p>
-
-                                </div>
-                            </div>
-                            <div className="container">
-                                <hr />
-                            </div>
-                            <div className="container div-price">
-                                <div className="price-group font-weight400">
-
-                                    <div className="price-info">
-                                        Total (VND)
+                            <div className="modal fade" id="bookingModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                                <div className="modal-dialog modal-dialog-centered" role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLabel">Booking</h5>
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div className="modal-body">
+                                            {this.state.message}
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
-                                    <div className="price-total">
-                                        ₫{this.currencyFormat(this.state.amount)}
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className="container">
-                                <hr />
-                            </div>
-                            <div className="container footer-box-room">
-                                <div dangerouslySetInnerHTML={{ __html: this.state.room.PolicyCancel }}>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="modal fade" id="bookingModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
-                    <div className="modal-dialog modal-dialog-centered" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">Booking</h5>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                {this.state.message}
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        )
-    }else {
-        return (<div></div>)
-    }
+            )
+        } else {
+            return (<div></div>)
+        }
     }
 }
 
