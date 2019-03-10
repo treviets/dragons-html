@@ -179,7 +179,7 @@ class DetailHouseComponent extends Component {
     }
     handlePlus(type) {
         console.log(type)
-        if (this.state.totalGuest < this.state.room.NumberOfGuest) {
+        if (this.state.totalGuest < this.state.room.Room.NumberOfGuest) {
             if (type == 1) {
                 if (this.state.adultsGuest < 12) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
@@ -274,6 +274,7 @@ class DetailHouseComponent extends Component {
     async loadData(roomId) {
 
         const res = await homeService.getDetailRoom(roomId)
+        console.log("detail house", res)
         var countNothing = 0
         for (var i = 0; i < res.Data.Amenities.length; i++) {
             if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() == 'Not included'.toUpperCase()) {
@@ -356,7 +357,6 @@ class DetailHouseComponent extends Component {
             loading: false
         })
         $(".footer").show()
-
 
     }
 
@@ -686,7 +686,7 @@ class DetailHouseComponent extends Component {
                                                                 <div className="margin-right15" style={{ display: "inline-block" }}>
                                                                     <div style={{ display: "table" }}>
                                                                         <div style={{ display: "table-cell" }}>
-                                                                            <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.NumberOfGuest} guests</span>
+                                                                            <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.Room.NumberOfGuest} guests</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -714,7 +714,7 @@ class DetailHouseComponent extends Component {
                                                             </div>
                                                             <div className="row font-size16 font-medium icon-furniture-reps">
                                                                 <div className="col-6">
-                                                                    <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.NumberOfGuest} guests</span>
+                                                                    <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.Room.NumberOfGuest} guests</span>
                                                                 </div>
                                                                 <div className="col-6">
                                                                     <span>{this.state.roomData.Bedroom} bedrooms</span>
