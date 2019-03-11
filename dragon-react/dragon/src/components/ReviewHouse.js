@@ -158,7 +158,7 @@ class ReviewHouse extends Component {
 
         var url = new URL(search);
 
-        var homeId = url.searchParams.get("homeId")
+        // var homeId = url.searchParams.get("homeId")
         var cleanFee = url.searchParams.get("bookcleanFee")
         var serviceFee = url.searchParams.get("bookserviceFee")
         var totalGuest = url.searchParams.get("booktotalGuest")
@@ -178,7 +178,6 @@ class ReviewHouse extends Component {
             amount: totalAmount,
             price: price,
             guests: valueguests,
-            homeId: homeId,
             cleanFee: cleanFee,
             serviceFee: serviceFee,
             totalGuest: totalGuest,
@@ -195,10 +194,12 @@ class ReviewHouse extends Component {
 
 
         const res = await homeService.getDetailRoom(roomId)
+        console.log("loadData", res)
         var policies = res.Data.Policies
         this.setState({
             room: res.Data,
             policy: policies,
+            homeId: res.Data.Id
         })
 
     }
