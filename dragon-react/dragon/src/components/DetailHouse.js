@@ -122,6 +122,21 @@ class DetailHouseComponent extends Component {
             lightboxIsOpen: true,
         });
     }
+    typeRoom(type_id) {
+        switch (type_id) {
+            case 1:
+                return "Entire apartment";
+            case 2:
+                return "Entire house";
+
+            case 3:
+                return "Private room";
+
+            case 4:
+                return "Share room";
+            default:
+        }
+    }
     gotoPrevious() {
         this.setState({
             currentImage: this.state.currentImage - 1,
@@ -682,11 +697,18 @@ class DetailHouseComponent extends Component {
                                                                     <img style={{ width: "40px", height: "40px" }} src="../img/icondragon.jpg" alt="" />
                                                                 </div>
                                                             </div>
+                                                            <div className="font-size16 font-medium title-home">
+                                                                <i class="fa fa-home" aria-hidden="true">
+                                                                    <span className="font-size16 font-medium home-type">
+                                                                        {this.typeRoom(this.state.room.Room.RoomType)}
+                                                                    </span>
+                                                                </i>
+                                                            </div>
                                                             <div className="font-size16 font-medium icon-furniture">
                                                                 <div className="margin-right15" style={{ display: "inline-block" }}>
                                                                     <div style={{ display: "table" }}>
                                                                         <div style={{ display: "table-cell" }}>
-                                                                            <i className="fa fa-users margin-right15" aria-hidden="true"></i><span>{this.state.room.Room.NumberOfGuest} guests</span>
+                                                                            <span>{this.state.room.Room.NumberOfGuest} guests</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -707,7 +729,7 @@ class DetailHouseComponent extends Component {
                                                                 <div className="margin-right15" style={{ display: "inline-block" }}>
                                                                     <div style={{ display: "table" }}>
                                                                         <div style={{ display: "table-cell" }}>
-                                                                            <span>{this.state.roomData.Bath} share bath</span>
+                                                                            <span>{this.state.roomData.Bath} baths</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -723,7 +745,7 @@ class DetailHouseComponent extends Component {
                                                                     <i className="fa fa-users margin-right15" style={{ color: "white" }} aria-hidden="true"></i><span>{this.state.roomData.Bed} beds</span>
                                                                 </div>
                                                                 <div className="col-6">
-                                                                    <span>{this.state.roomData.Bath} share bath</span>
+                                                                    <span>{this.state.roomData.Bath} baths</span>
                                                                 </div>
                                                             </div>
                                                         </div>

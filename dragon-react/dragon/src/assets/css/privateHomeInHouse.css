@@ -350,3 +350,9 @@ select {
 .sweet-loading > div {
         border-color: rgb(54, 215, 183) rgb(54, 215, 183) transparent;
 }
+.title-home{
+    margin-bottom: 15px;
+}
+.home-type{
+    margin-left: 5px
+}
