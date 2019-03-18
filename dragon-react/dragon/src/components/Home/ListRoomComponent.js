@@ -501,7 +501,7 @@ class ListRoomComponent extends Component {
             this.setState({ endDate: moment.unix(localStorage.getItem("endDay")) })
         }
         // this.setState({ startDate: moment.unix(localStorage.getItem("startDay")) })
-        this.setState({ totalGuest: localStorage.getItem("totalGuest") })
+        //this.setState({ totalGuest: localStorage.getItem("totalGuest") })
         // this.setState({ selectDistrict: parseInt(localStorage.getItem("district")) })
 
         console.log(this.state)
