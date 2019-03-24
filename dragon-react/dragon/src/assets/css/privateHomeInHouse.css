@@ -31,7 +31,7 @@
     -moz-box-shadow:    inset 0 0 2px grey;
     -webkit-box-shadow: inset 0 0 2px grey;
     box-shadow: inset 0 0 2px grey;
-    width: 90%;
+    width: 86%;
     margin-left: 4%;
 }
 .home-high-lights {
@@ -93,6 +93,7 @@ select {
     color: white;
     font-weight: bold;
     height: 50px;
+    margin-top: 24px;
 }
 .footer-request {
     position: relative;
@@ -342,7 +343,9 @@ select {
 }
 .dont-change{
     font-size: 12px;
-    text-align: center
+    text-align: center;
+    margin-top: 10px;
+
 }
 .sweet-loading  {
     text-align: center;

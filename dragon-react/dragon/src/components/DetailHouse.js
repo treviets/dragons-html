@@ -1092,8 +1092,6 @@ class DetailHouseComponent extends Component {
                                                                         </span>
                                                                     </button>
                                                                 </OverlayTrigger>
-
-                                                                <br />
                                                                 <br />
                                                                 <div className="container div-price" id="price">
                                                                     <div className="price-group font-size14 font-weight400">
@@ -1129,8 +1127,6 @@ class DetailHouseComponent extends Component {
                                                                     </div>
                                                                 </div>
                                                                 <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
-                                                                <br />
-                                                                {/* <p style={{ textAlign: 'center', fontFamily: 'sans-serif', fontSize: '12px !important' }}>You won't be charged yet</p> */}
                                                                 <p className="dont-change">You won't be charged yet</p>
                                                             </div>
                                                         </div>
@@ -1309,9 +1305,6 @@ class DetailHouseComponent extends Component {
                                                                     </span>
                                                                 </button>
                                                             </OverlayTrigger>
-
-                                                            <br />
-                                                            <br />
                                                             <div className="container div-price" id="price-modal">
                                                                 <div className="price-group font-size14 font-weight400">
 
@@ -1321,7 +1314,7 @@ class DetailHouseComponent extends Component {
                                                                     <p className="price-total">
                                                                         ₫{this.currencyFormat(this.state.totalGuest == 0 ? this.state.roomPrice * this.state.nights : this.state.roomPrice * this.state.nights)}
                                                                     </p>
-                                                                    <hr />
+                                                                    <hr className="customhr" />
                                                                     <p className="price-info">
                                                                         Cleaning fee
                                                     </p>

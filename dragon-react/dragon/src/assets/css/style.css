@@ -1257,7 +1257,6 @@ select::-ms-expand {
 } 
 
 #popover-search-destination ul li{
-
     cursor: pointer;
 } 
 
@@ -1265,6 +1264,7 @@ select::-ms-expand {
     
     background-color: rgb(193, 157, 100) ;
     color:white;
+    height: 100%;
 } 
 #popover-search-destination{
     min-width: 23.2%;

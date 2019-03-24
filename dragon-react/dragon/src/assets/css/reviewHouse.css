@@ -178,3 +178,10 @@
          width: 100% !important;
      }
  }
+.div-price hr{
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
+}
+.div-price p {
+        margin-top: 3px;
+}
