@@ -330,7 +330,7 @@ class ListRoomComponent extends Component {
             clss += " active"
         }
         return <div className={clss} key={index}>
-            <img src={Constants.apiImg + img.Image} alt="Los Angeles" width="1100" height="500" />
+            <img src={Constants.apiImg + img.Image} width="1100" height="500" />
         </div>;
     }
     renderLiTarget(value, index) {
