@@ -1258,7 +1258,11 @@ select::-ms-expand {
 
 #popover-search-destination ul li{
     cursor: pointer;
+    padding: 12px;
 } 
+#popover-search-destination ul li .icon-search {
+    /* color: rgb(104, 160, 251) !important; */
+}
 
 #popover-search-destination ul li:hover{
     
@@ -1267,7 +1271,7 @@ select::-ms-expand {
     height: 100%;
 } 
 #popover-search-destination{
-    min-width: 23.2%;
+    min-width: 26.2%;
     margin-left: 0px; 
     margin-top: 15px;
 }

@@ -114,6 +114,9 @@ class ListRoomComponent extends Component {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
         var clss = "search-destinate"
         return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+            <span>
+                <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
+            </span>
             <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
         </li>
     }
@@ -487,7 +490,7 @@ class ListRoomComponent extends Component {
         var search = window.location.href
         var url = new URL(search);
         console.log(moment.unix(localStorage.getItem("startDay")))
-        if (parseInt(localStorage.getItem("startDay")) === 0) {
+        if (parseInt(localStorage.getItem("startDay")) === 0 || localStorage.length === 0) {
             this.setState({
                 startDate: null
             })
@@ -495,43 +498,15 @@ class ListRoomComponent extends Component {
             this.setState({ startDate: moment.unix(localStorage.getItem("startDay")) })
 
         }
-        if (parseInt(localStorage.getItem("endDay")) === 0) {
+        if (parseInt(localStorage.getItem("endDay")) === 0 || localStorage.length === 0) {
             this.setState({ endDate: null })
         } else {
             this.setState({ endDate: moment.unix(localStorage.getItem("endDay")) })
         }
-        // this.setState({ startDate: moment.unix(localStorage.getItem("startDay")) })
-        //this.setState({ totalGuest: localStorage.getItem("totalGuest") })
-        // this.setState({ selectDistrict: parseInt(localStorage.getItem("district")) })
+
 
         console.log(this.state)
 
-
-
-        // if (!url.searchParams.get("is_DetailHome")) {
-        //     this.setState({ valueDistrict: null })
-        //     this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
-        // } else {
-        //     if (url.searchParams.get("from") != null && url.searchParams.get("from") != 0) {
-        //         this.setState({ startDate: moment.unix(url.searchParams.get("from")) })
-        //     }
-        //     if (url.searchParams.get("to") != null && url.searchParams.get("to") != 0) {
-        //         this.setState({ endDate: moment.unix(url.searchParams.get("to")) })
-        //     }
-        //     if (url.searchParams.get("min") != null) {
-        //         this.setState({ minPrice: url.searchParams.get("min"), minSearch: url.searchParams.get("min") })
-        //     }
-        //     if (url.searchParams.get("max") != null) {
-        //         this.setState({ maxPrice: url.searchParams.get("max"), maxSearch: url.searchParams.get("max") })
-        //     }
-
-
-        //     // this.setState({ valueDistrict: url.searchParams.get("valueDistrict"), adultsGuest: url.searchParams.get("adultsGuest"), childrensGuest: url.searchParams.get("childrensGuest"), infantsGuest: url.searchParams.get("infantsGuest"), valueGuest: url.searchParams.get("valueGuest"), selectDistrict: url.searchParams.get("homeId"), totalGuest: url.searchParams.get("totalGuest"), roomType: url.searchParams.get("type"), lengthLocation: window.history.length, is_DetailHome: url.searchParams.get("is_DetailHome") })
-
-        //     // this.fillterSearch()
-        // }
-
-        // this.setState({ searchString: searchStatement })
         this.handlegetListHomes()
         $(".footer").show()
 
