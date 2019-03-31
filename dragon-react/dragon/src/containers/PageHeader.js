@@ -205,7 +205,15 @@ class PageHeader extends Component {
                             {
                                 parseInt(localStorage.getItem('role')) === 1 ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="admin/list/room">List Room</Link>
+                                        <Link className="nav-link" to="/admin/list/room">List Room</Link>
+                                    </li>
+                                    : null
+
+                            }
+                            {
+                                parseInt(localStorage.getItem('role')) === 1 ?
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/admin/list/booking">List Booking</Link>
                                     </li>
                                     : null
 
