@@ -38,6 +38,7 @@ export function loginUser(creds) {
                 localStorage.setItem('accessToken', token)
                 localStorage.setItem('cusId', cusId)
                 localStorage.setItem('isSocial', false)
+                localStorage.setItem('role', data.Data.role)
 
                 console.log("localStorage-login", localStorage)
                 dispatch(receiveLogin(token))

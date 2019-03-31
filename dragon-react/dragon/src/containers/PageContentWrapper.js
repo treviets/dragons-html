@@ -14,7 +14,8 @@ import Profile from '../components/Profile/Profile';
 import Photo from '../components/Profile/PhotoProfile';
 import Verify from '../components/Profile/TrustAndVerify';
 import ViewProfile from '../components/Profile/ViewProfile';
-import ListRoomComponent from "../components/Home/ListRoomComponent"
+import ListRoomComponent from "../components/Home/ListRoomComponent";
+import ListRoomAdmin from "../components/Admin/ListRoom";
 
 
 
@@ -70,6 +71,9 @@ class PageContainerWrapper extends Component {
                 break;
             case types.listroom:
                 _view = <ListRoomComponent />;
+                break;
+            case types.listroomAdmin:
+                _view = <ListRoomAdmin />;
                 break;
             default:
                 _view = "";

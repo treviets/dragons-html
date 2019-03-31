@@ -202,11 +202,14 @@ class PageHeader extends Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="/">Help</a>
                             </li>
-                            {/* <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    <span className="fa fa-globe header-icon-style"></span>
-                                </a>
-                            </li> */}
+                            {
+                                parseInt(localStorage.getItem('role')) === 1 ?
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="admin/list/room">List Room</Link>
+                                    </li>
+                                    : null
+
+                            }
 
                             {
                                 localStorage.getItem('accessToken') ?

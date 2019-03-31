@@ -27,6 +27,8 @@ const HomeService = {
             const data = response.Data;
             localStorage.setItem('cusId', data.cusId)
             localStorage.setItem('isSocial', false)
+            localStorage.setItem('role', data.role)
+
             console.log(localStorage)
             return data
 

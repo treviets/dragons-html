@@ -17,7 +17,8 @@ const types = {
     photo: '11',
     verify: '12',
     viewProfile: '13',
-    listroom:'14',
+    listroom: '14',
+    listroomAdmin: '15'
 
 }
 
@@ -36,7 +37,7 @@ const routes = [
             },
             {
                 component: () => <PageContentWrapper type={types.listOfBooking} />,
-                path: '/list/booking'
+                path: '/admin/list/booking'
             },
             {
                 component: () => <PageContentWrapper type={types.transactionHistory} />,
@@ -81,7 +82,11 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.listroom} />,
                 path: '/listroom'
-            }
+            },
+            {
+                component: () => <PageContentWrapper type={types.listroomAdmin} />,
+                path: '/admin/list/room'
+            },
 
         ]
     }
