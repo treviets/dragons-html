@@ -1279,3 +1279,10 @@ select::-ms-expand {
     background-color: rgb(193, 157, 100) ;
     color:white;
 }
+ .dialog-detail .modal-dialog {
+  position: relative !important;
+  padding-top: 150px !important;
+}
+/* .container-modal .modal, .container-modal .modal-backdrop {
+  position: absolute !important;
+}  */
