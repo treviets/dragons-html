@@ -179,7 +179,7 @@ class HomeComponent extends Component {
 
     }
     handeChangeDistrict(event) {
-        this.setState({ selectDistrict: event.target.value })
+        this.setState({ selectDistrict: event.target.value, homeId: event.target.value })
     }
     handeChage(event) {
         this.setState({
@@ -874,7 +874,7 @@ class HomeComponent extends Component {
                                         :
                                         <Redirect push to={{
                                             pathname: "/listroom",
-                                            search: "?" + this.state.selectedHomeId
+                                            search: "?homeId=" + this.state.selectDistrict
 
                                         }} />
                                     }

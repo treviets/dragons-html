@@ -57,7 +57,7 @@ class ListOfBooking extends Component {
         for (var i = 0; i < res.Data.length; i++) {
             var detail = res.Data[i];
             var obj = {
-                Home: detail.Home.Name,
+                // Home: detail.Home.Name,
                 Room: detail.Room.Code,
                 From_time: moment(detail.FromDate).format('MM/DD/YYYY'),
                 To_time: moment(detail.ToDate).format('MM/DD/YYYY'),

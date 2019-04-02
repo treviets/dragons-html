@@ -59,7 +59,7 @@ class ListRoomComponent extends Component {
             focusedInput: null,
             detail: null,
             lengthLocation: 0,
-            is_DetailHome: false
+            is_DetailHome: false,
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -94,11 +94,13 @@ class ListRoomComponent extends Component {
     componentDidUpdate() {
         var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
         searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
+        var search = window.location.href
+        var url = new URL(search);
+        console.log("homeId", url.searchParams.get("homeId"))
+
 
         if (searchStatement != this.state.searchString) {
             if (!this.state.is_Detail) {
-                var search = window.location.href
-                var url = new URL(search);
 
                 this.setState({ searchString: searchStatement })
                 if (url.searchParams.get("is_DetailHome")) {
@@ -113,7 +115,7 @@ class ListRoomComponent extends Component {
     renderListDestinate(home, index) {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
         var clss = "search-destinate"
-        return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+        return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.homeId == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
             <span>
                 <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
             </span>
@@ -122,7 +124,7 @@ class ListRoomComponent extends Component {
     }
     handleSetDestinate(id, name) {
 
-        this.setState({ selectDistrict: id, valueDistrict: name })
+        this.setState({ homeId: id, valueDistrict: name })
         this.refs.overlayDestinate.hide();
     }
     handleHomeType(type) {
@@ -159,7 +161,7 @@ class ListRoomComponent extends Component {
         } else {
             to = 0
         }
-        const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minSearch, this.state.maxSearch, type)
+        const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, this.state.minSearch, this.state.maxSearch, type)
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
             this.setState({ is_RoomNull: true })
@@ -193,7 +195,7 @@ class ListRoomComponent extends Component {
         } else {
             to = 0
         }
-        const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
+        const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
             this.setState({ is_RoomNull: true })
@@ -230,7 +232,7 @@ class ListRoomComponent extends Component {
         } else {
             to = 0
         }
-        const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
+        const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, null, null, 0)
         if (res.Data == null || res.Data.length < 1) {
             res.Data = []
             this.setState({ is_RoomNull: true })
@@ -246,7 +248,10 @@ class ListRoomComponent extends Component {
         // this.setState({ searchString: searchStatement })
     }
     handeChangeDistrict(event) {
-        this.setState({ selectDistrict: event.target.value })
+        // this.setState({ selectDistrict: event.target.value })
+        alert(event.target.value)
+        this.setState({ homeId: event.target.value })
+
     }
     handeChage(event) {
         this.setState({
@@ -489,6 +494,8 @@ class ListRoomComponent extends Component {
         searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
         var search = window.location.href
         var url = new URL(search);
+        console.log("homeId", url.searchParams.get("homeId"))
+        this.setState({ homeId: url.searchParams.get("homeId") })
         console.log(moment.unix(localStorage.getItem("startDay")))
         if (parseInt(localStorage.getItem("startDay")) === 0 || localStorage.length === 0) {
             this.setState({
