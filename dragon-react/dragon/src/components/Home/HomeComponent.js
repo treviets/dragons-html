@@ -421,6 +421,7 @@ class HomeComponent extends Component {
 
         this.setState({ is_listHome: false })
         this.setState({ selectedHomeId: "homeId=" + id })
+        this.setState({ selectDistrict: id })
 
     }
 
