@@ -82,7 +82,8 @@ class DetailHouseComponent extends Component {
             dataBook: null,
             rangesDateBlock: [],
             roomPrice: 0,
-            loading: true
+            loading: true,
+            showBook: true,
 
 
         };
@@ -158,6 +159,11 @@ class DetailHouseComponent extends Component {
         this.gotoNext();
     }
     handeChangeDate(st, end) {
+
+        if (st !== null && end !== null) {
+            this.setState({ showBook: false })
+        }
+
         st = st.startOf('day')
         if (end != null) {
 
@@ -176,6 +182,9 @@ class DetailHouseComponent extends Component {
             });
         }
         this.setState({ startDate: st, endDate: end })
+
+
+
         $("#price").show()
         $("#price-modal").show()
     }
@@ -273,6 +282,10 @@ class DetailHouseComponent extends Component {
         var search = window.location.href
         var url = new URL(search);
         this.loadData(url.searchParams.get("roomId"))
+
+        // if (this.state.startDate !== undefined && this.state.endDate !== undefined) {
+        //     this.setState({ showBook: false })
+        // }
         $("#price").hide()
         $(".footer").hide()
         $("#price-modal").hide()
@@ -1126,7 +1139,7 @@ class DetailHouseComponent extends Component {
 
                                                                     </div>
                                                                 </div>
-                                                                <button className="form-control btnRequest" onClick={this.handeBooking}>Book</button>
+                                                                <Button className="form-control btnRequest" onClick={this.handeBooking} disabled>Book</Button>
                                                                 <p className="dont-change">You won't be charged yet</p>
                                                             </div>
                                                         </div>
@@ -1340,7 +1353,7 @@ class DetailHouseComponent extends Component {
                                                             </div>
                                                             <br />
 
-                                                            <button className="form-control btnRequest" onClick={this.handeBooking} data-dismiss="modal">Book</button>
+                                                            <button className="form-control btnRequest" onClick={this.handeBooking} data-dismiss="modal" disabled={this.state.showBook}>Book</button>
                                                             <p style={{ textAlign: 'center', fontFamily: 'sans-serif' }}>You won't be charged yet</p>
                                                         </div>
                                                         <hr />
