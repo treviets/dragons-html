@@ -11,12 +11,13 @@ import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-pa
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-
-
-
-
-
-const CaptionElement = () => <h3 style={{ backgroundColor: 'gray', borderRadius: '0.25em', textAlign: 'center', color: 'White', border: '1px solid gray', padding: '0.5em' }}>List Rooms</h3>;
+const CaptionElement = () => <h3 style={
+    {   
+        borderRadius: '0.25em', 
+        textAlign: 'center', 
+        color: 'black', 
+        padding: '0.5em' 
+    }}>Danh sách các phòng</h3>;
 
 
 class ListRoom extends Component {
@@ -25,15 +26,15 @@ class ListRoom extends Component {
         var columns = [
             {
                 dataField: 'Id',
-                text: 'Room ID'
+                text: ''
             },
             {
                 dataField: 'Code',
-                text: 'Name'
+                text: 'Code'
             },
             {
                 dataField: 'NumberOfGuest',
-                text: 'Number Of Guest'
+                text: 'Guest'
             },
             {
                 dataField: 'Bedroom',
@@ -53,6 +54,10 @@ class ListRoom extends Component {
                 text: 'Price',
                 formatter: this.priceFormatter
             },
+            {
+                dataField: 'Calendar',
+                text: 'Calendar'
+            }
 
         ];
         var options = {
@@ -70,7 +75,6 @@ class ListRoom extends Component {
         var rowEvents = {
             onClick: (e, row, rowIndex) => {
                 this.showDetailToEdit(row)
-
             }
         }
         this.state = {
@@ -87,31 +91,27 @@ class ListRoom extends Component {
             bedroom: 0,
             bath: 0,
             bed: 0,
-            price: 0
-
+            price: 0,
+            calendar: "",
         }
 
         this.toggle = this.toggle.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleUpdateRoom = this.handleUpdateRoom.bind(this);
-
-
     }
 
     async handleGetBooking() {
         const res = await adminService.getListRoom();
-        console.log("list-Rooms", res)
-        console.log(this.state.listRooms)
+
         var paginationOption = {
             custom: true,
             totalSize: res.Data.length,
         };
+
         this.setState({ listRooms: res.Data, paginationOption: paginationOption })
 
     }
     async handleUpdateRoom() {
-        var othis = this
-
         var obj = {
             Bath: this.state.bath,
             Bed: this.state.bed,
@@ -124,23 +124,27 @@ class ListRoom extends Component {
             Id: this.state.objectRoom.Id,
             Images: this.state.objectRoom.Images,
             NumberOfGuest: this.state.numberOfGuest,
-            Price: this.state.Price,
+            Price: this.state.objectRoom.Price,
             Province: this.state.objectRoom.Province,
             RentalType: this.state.objectRoom.RentalType,
             RoomType: this.state.objectRoom.RoomType,
             Status: this.state.objectRoom.Status
         }
-        var bet = othis.state
-        console.log("state", bet)
-        const res = await adminService.updateRoom(obj);
-        console.log(res)
 
+        const response = await adminService.updateRoom(obj);
+        if (response && response.Status === "OK") {
+            this.setState({ modal: !this.state.modal });
+            // Alert success
+            alert(response.Message);
+        }
+        
     }
 
 
     componentDidMount() {
         this.handleGetBooking();
     }
+
     priceFormatter(cell, row) {
         var price = parseInt(row.Price)
         return (
@@ -149,6 +153,7 @@ class ListRoom extends Component {
             </span>
         );
     }
+
     onChange = (e) => {
         var target = e.target;
         var name = target.name;
@@ -157,14 +162,15 @@ class ListRoom extends Component {
             [name]: value
         });
     };
+
     showDetailToEdit(row) {
-        console.log(row)
         var obj = {
             Calendar: row.Calendar,
             Description: row.Description,
             District: row.District,
             HomeId: row.HomeId,
             Province: row.Province,
+            Price: row.Price,
             RentalType: row.RentalType,
             RoomType: row.RoomType,
             Status: row.Status,
@@ -177,61 +183,70 @@ class ListRoom extends Component {
             code: row.Code,
             bath: parseInt(row.Bath),
             bed: parseInt(row.Bed),
+            calendar: row.Calendar,
             bedroom: parseInt(row.Bedroom),
             numberOfGuest: parseInt(row.NumberOfGuest),
             price: parseInt(row.Price),
             objectRoom: obj
         });
     }
+
     toggle() {
         this.setState(prevState => ({
             modal: !prevState.modal
         }));
     }
+
     render() {
         return (
             <div className="container">
                 <CaptionElement />
-                <BootstrapTable
-                    keyField='id'
-                    data={this.state.listRooms}
-                    striped
-                    columns={this.state.columns}
-                    pagination={paginationFactory(this.state.options)}
-                    rowEvents={this.state.rowEvents} />
+                <BootstrapTable keyField='id' data={this.state.listRooms} striped columns={this.state.columns} 
+                    pagination={paginationFactory(this.state.options)} rowEvents={this.state.rowEvents} />
                 {
                     this.state.modal === true ?
                         (
                             <div className="dialog-detail container-modal">
                                 <Modal isOpen={this.state.modal} toggle={this.toggle} size='lg'>
                                     <ModalHeader toggle={this.toggle}>{this.state.code}</ModalHeader>
+                                    
                                     <ModalBody>
                                         <Form>
-                                            <FormGroup>
+                                            <FormGroup>  
                                                 <Label>Name</Label>
                                                 <Input value={this.state.code} onChange={this.onChange} name="code" />
+                                                
                                                 <Label>Number Of Guest</Label>
                                                 <Input value={this.state.numberOfGuest} onChange={this.onChange} name="numberOfGuest" />
+                                                
                                                 <Label>Bedroom</Label>
                                                 <Input value={this.state.bedroom} onChange={this.onChange} name="bedroom" />
+                                                
                                                 <Label>Bed</Label>
                                                 <Input value={this.state.bed} onChange={this.onChange} name="bed" />
+                                                
                                                 <Label>Bath</Label>
                                                 <Input value={this.state.bath} onChange={this.onChange} name="bath" />
+                                                
                                                 <Label>Price</Label>
                                                 <Input value={this.state.price} onChange={this.onChange} name="price" />
+                                                
+                                                <Label>Calendar</Label>
+                                                <Input value={this.state.calendar} onChange={this.onChange} name="calendar" />
                                             </FormGroup>
                                         </Form>
                                     </ModalBody>
+                                    
                                     <ModalFooter>
                                         <Button color="primary" onClick={this.handleUpdateRoom}>Update</Button>{' '}
                                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                                     </ModalFooter>
+
                                 </Modal>
 
                             </div>
                         )
-                        : null
+                    : null
 
                 }
 

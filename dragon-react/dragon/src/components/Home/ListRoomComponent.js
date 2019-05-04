@@ -170,9 +170,6 @@ class ListRoomComponent extends Component {
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false, nameHome: "" })
-        // var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + this.state.minPrice + "&max=" + this.state.maxPrice + "&type=" + type + "&is_DetailHome=" + false
-        // window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
-
     }
     fillterSearch() {
         this.handleFilterSearch(this.state.roomType)
@@ -242,13 +239,8 @@ class ListRoomComponent extends Component {
         this.setState({ listRoom: res.Data })
 
         this.setState({ is_listHome: false, nameHome: "" })
-        // var searchStatement = "valueDistrict=" + this.state.valueDistrict + "&adultsGuest=" + this.state.adultsGuest + "&childrensGuest=" + this.state.childrensGuest + "&infantsGuest=" + this.state.infantsGuest + "&valueGuest=" + this.state.valueGuest + "&homeId=" + this.state.selectDistrict + "&from=" + from + "&to=" + to + "&totalGuest=" + this.state.totalGuest + "&min=" + null + "&max=" + null + "&type=" + 0 + "&is_DetailHome=" + false
-
-        // window.history.pushState({ urlPath: '/listroom?' + searchStatement }, "", '/listroom?' + searchStatement);
-        // this.setState({ searchString: searchStatement })
     }
     handeChangeDistrict(event) {
-        // this.setState({ selectDistrict: event.target.value })
         alert(event.target.value)
         this.setState({ homeId: event.target.value })
 
@@ -259,8 +251,6 @@ class ListRoomComponent extends Component {
         });
     };
     handleBackRoom() {
-        // $(".footer").hide()
-        // $(".footer").show()
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
