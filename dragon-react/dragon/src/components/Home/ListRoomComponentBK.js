@@ -17,7 +17,7 @@ import Slider from 'rc-slider';
 import { Route, Redirect, Switch } from 'react-router'
 const Range = Slider.Range;
 
-class ListRoomComponent extends Component {
+class ListRoomComponentBK extends Component {
     constructor(props) {
         super(props);
 
@@ -993,4 +993,4 @@ class ListRoomComponent extends Component {
     }
 }
 
-export default ListRoomComponent                
+export default ListRoomComponentBK;                

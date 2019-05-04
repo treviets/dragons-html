@@ -71,10 +71,12 @@ class HeaderComponent extends Component {
                     <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
                 </li>
     }
+    
     handleSetDestinate(id, name) {
         this.setState({ selectDistrict: id, valueDistrict: name })
         this.refs.overlayDestinate.hide();
     }
+
     componentDidMount() {
         $(".footer").show()
     }
@@ -85,11 +87,13 @@ class HeaderComponent extends Component {
             startDate: date,
         });
     }
+    
     handleChangeToTime(date) {
         this.setState({
             endDate: date,
         });
     }
+
     async handleSearch() {
         var from = null
         if (this.state.startDate != null) {

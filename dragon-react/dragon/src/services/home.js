@@ -14,7 +14,7 @@ const HomeService = {
             }
         }
     },
-    
+
     getDetailHome: async function (homeId) {
         try {
             if (homeId == null) {
@@ -81,7 +81,24 @@ const HomeService = {
 
             }
         }
-    }
+    },
+
+    getHomeDetail: async function (homeId) {
+        try {
+            if (homeId == null) {
+                homeId = 0;
+            }
+            const response = await getFromUrl(
+                "/dragons/room/by_home_id/?homeId=" + homeId);
+            const data = response.data;
+            return data
+
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
+    },
 
 }
 

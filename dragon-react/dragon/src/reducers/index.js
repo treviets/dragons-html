@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
-import { items, itemsHasErrored, itemsIsLoading } from './items'
-import { auth } from './auth'
-import { signUpReducers } from './signUpReducers'
-
+import { combineReducers } from 'redux';
+import { items, itemsHasErrored, itemsIsLoading } from './items';
+import { auth } from './auth';
+import { signUpReducers } from './signUpReducers';
+import { homeReducer } from './homeReducer';
 
 const allReducers = combineReducers(
     { 
@@ -10,7 +10,8 @@ const allReducers = combineReducers(
         signUpReducers, 
         items, 
         itemsHasErrored, 
-        itemsIsLoading 
+        itemsIsLoading,
+        homeReducer
     });
 
 export default allReducers

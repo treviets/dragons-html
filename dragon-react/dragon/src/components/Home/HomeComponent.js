@@ -4,10 +4,8 @@ import '../../assets/css/style.css'
 import '../../assets/js/index'
 import * as Constants from '../../const.js'
 import 'rc-slider/assets/index.css';
-import Slider from 'rc-slider';
-
-const Range = Slider.Range;
-
+import { connect } from 'react-redux';
+import { handleGetHomeDetail } from '../../actions/homeAction';
 
 
 class HomeComponent extends Component {
@@ -16,17 +14,15 @@ class HomeComponent extends Component {
 
         this.state = {
         };
-
-        this.getHomeDetail = this.getHomeDetail.bind(this);
     }
 
-    getHomeDetail(homeId) {
-        window.location.href = "/rooms/" + homeId;
+    viewHomeDetail(homeId) {
+        this.props.handleGetHomeDetail(homeId)
     } 
 
     render() {
         const { home } = this.props;
-        var viewHomeDetail = this.getHomeDetail.bind(this, home.Id);
+        var viewHomeDetail = this.viewHomeDetail.bind(this, home.Id);
 
         return (
             <div className="col-md-4 col-sm-6 margin-bottom-md" key={this.props.index}>
@@ -44,4 +40,11 @@ class HomeComponent extends Component {
     
 }
 
-export default HomeComponent                
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleGetHomeDetail: (homeId) => dispatch(handleGetHomeDetail(homeId))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(HomeComponent);
+  

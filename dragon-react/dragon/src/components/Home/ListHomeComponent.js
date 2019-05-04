@@ -52,15 +52,14 @@ class ListHomeComponent extends Component {
                                         {
                                             this.state.homes.map((home, index) => {
                                                 return (
-                                                    <HomeComponent index = {index} home = {home} />
+                                                    <HomeComponent index = {index} home = {home} key = {index} />
                                                 )
                                             })
                                         }
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    
+                        </div>    
                     </div>
                 </div>
             )
