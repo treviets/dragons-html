@@ -449,10 +449,16 @@ class PageHeader extends Component {
     }
 
 }
+
 const mapStateToProps = (state) => {
     //lay data tu store gan this.props cua component
     console.log("store", state);
-    return { isAuthenticated: state.auth.isAuthenticated, accessToken: state.auth.accessToken, cusId: state.signUpReducers.cusId, isFetching: state.signUpReducers.isFetching }
+    return { 
+        isAuthenticated: state.auth.isAuthenticated, 
+        accessToken: state.auth.accessToken, 
+        cusId: state.signUpReducers.cusId, 
+        isFetching: state.signUpReducers.isFetching 
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -464,4 +470,5 @@ const mapDispatchToProps = (dispatch) => {
         handleSignUp: (creds) => dispatch(signUp(creds)),
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(PageHeader);

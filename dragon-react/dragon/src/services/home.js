@@ -14,6 +14,7 @@ const HomeService = {
             }
         }
     },
+    
     getDetailHome: async function (homeId) {
         try {
             if (homeId == null) {
@@ -30,6 +31,7 @@ const HomeService = {
             }
         }
     },
+    
     getDetailRoom: async function (roomId) {
         try {
             const response = await getFromUrl(
@@ -43,6 +45,7 @@ const HomeService = {
             }
         }
     },
+
     searchRoom: async function (homeId, from, to, number_of_guest, min, max, roomType) {
         try {
 

@@ -7,15 +7,30 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
 function requestLogin(creds) {
-    return { type: LOGIN_REQUEST, isFetching: true, isAuthenticated: false, creds }
+    return { 
+        type: LOGIN_REQUEST, 
+        isFetching: true, 
+        isAuthenticated: false, 
+        creds 
+    }
 }
 
 function receiveLogin(token) {
-    return { type: LOGIN_SUCCESS, isFetching: false, isAuthenticated: true, accessToken: token }
+    return { 
+        type: LOGIN_SUCCESS, 
+        isFetching: false, 
+        isAuthenticated: true, 
+        accessToken: token 
+    }
 }
 
 function loginError(message) {
-    return { type: LOGIN_FAILURE, isFetching: false, isAuthenticated: false, message }
+    return { 
+        type: LOGIN_FAILURE, 
+        isFetching: false, 
+        isAuthenticated: false, 
+        message 
+    }
 }
 
 export function loginUser(creds) {

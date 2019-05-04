@@ -81,7 +81,7 @@ const routes = [
             },
             {
                 component: () => <PageContentWrapper type={types.listroom} />,
-                path: '/listroom'
+                path: '/rooms'
             },
             {
                 component: () => <PageContentWrapper type={types.listroomAdmin} />,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { types } from '../routes/RouteMap'
-import HomeComponent from "../components/Home/HomeComponent"
+import ListHomeComponent from "../components/Home/ListHomeComponentBK"
 import DetailHouseComponent from "../components/DetailHouse"
 import ListOfBooking from "../components/ListOfBooking"
 import TransactionHistoryComponent from "../components/TransactionHistory"
@@ -31,7 +31,7 @@ class PageContainerWrapper extends Component {
         let _view = null;
         switch (this.props.type) {
             case types.home:
-                _view = <HomeComponent />;
+                _view = <ListHomeComponent />;
                 break;
             case types.detailHouse:
                 _view = <DetailHouseComponent />;

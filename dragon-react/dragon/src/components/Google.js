@@ -33,6 +33,7 @@ class Google extends Component {
     };
 
     componentClicked = () => console.log("clicked");
+    
     async loginByGoogle(googleUser) {
         //
         var profile = googleUser;

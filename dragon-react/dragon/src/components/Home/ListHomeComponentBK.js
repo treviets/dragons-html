@@ -17,12 +17,11 @@ import Slider from 'rc-slider';
 import { Route, Redirect, Switch } from 'react-router'
 const Range = Slider.Range;
 
-class ListRoomComponent extends Component {
+class ListHomeComponentBK extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchString: "",
             selectGuest: "",
             startDate: null,
             endDate: null,
@@ -49,17 +48,16 @@ class ListRoomComponent extends Component {
             roomType: 0,
             selectDistrict: "",
             valueDistrict: "",
-            adultsGuest: 0,
+            adultsGuest: 1,
             childrensGuest: 0,
             infantsGuest: 0,
-            totalGuest: 0,
+            totalGuest: 1,
             popoverOpen: false,
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
-            detail: null,
-            lengthLocation: 0,
-            is_DetailHome: false,
+            searchStatement: null,
+            selectedHomeId: ""
 
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
@@ -81,57 +79,31 @@ class ListRoomComponent extends Component {
         this.toggle = this.toggle.bind(this);
         this.onSliderChange = this.onSliderChange.bind(this)
         this.fillter = this.fillter.bind(this);
+        this.fillterPrice = this.fillterPrice.bind(this);
+
         this.handleFilter = this.handleFilter.bind(this);
         this.handleHomeType = this.handleHomeType.bind(this);
         this.renderListDestinate = this.renderListDestinate.bind(this)
         this.handleSetDestinate = this.handleSetDestinate.bind(this)
-        this.fillterSearch = this.fillterSearch.bind(this);
-        this.handleFilterSearch = this.handleFilterSearch.bind(this);
-        this.fillterPrice = this.fillterPrice.bind(this);
-
-    }
-
-    componentDidUpdate() {
-        var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
-        searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
-        var search = window.location.href
-        var url = new URL(search);
-        console.log("homeId", url.searchParams.get("homeId"))
-
-
-        if (searchStatement != this.state.searchString) {
-            if (!this.state.is_Detail) {
-
-                this.setState({ searchString: searchStatement })
-                if (url.searchParams.get("is_DetailHome")) {
-                    this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
-                } else {
-                    this.fillterSearch()
-                }
-            }
-        }
-
     }
     renderListDestinate(home, index) {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
         var clss = "search-destinate"
-        return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.homeId == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
-            <span>
-                <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
-            </span>
-            <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
-        </li>
+        return (
+            <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+                <span>
+                    <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
+                </span>
+                <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
+            </li>
+        )
     }
     handleSetDestinate(id, name) {
 
-        this.setState({ homeId: id, valueDistrict: name })
+        this.setState({ selectDistrict: id, valueDistrict: name })
         this.refs.overlayDestinate.hide();
     }
     handleHomeType(type) {
-
-        if (type == this.state.roomType) {
-            type = 0
-        }
         this.setState({ roomType: type })
         this.handleFilter(type)
     }
@@ -161,46 +133,8 @@ class ListRoomComponent extends Component {
         } else {
             to = 0
         }
-        const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, this.state.minSearch, this.state.maxSearch, type)
-        if (res.Data == null || res.Data.length < 1) {
-            res.Data = []
-            this.setState({ is_RoomNull: true })
-        } else {
-            this.setState({ is_RoomNull: false })
-        }
-        this.setState({ listRoom: res.Data })
-        this.setState({ is_listHome: false, nameHome: "" })
-    }
-    fillterSearch() {
-        this.handleFilterSearch(this.state.roomType)
-    }
-    async handleFilterSearch(type) {
-        var from = null
-        if (this.state.startDate != null) {
-            from = moment(this.state.startDate, "DD/MM/YYYY")
-                .startOf("day")
-                .unix();
-        } else {
-            from = 0
-        }
-        var to = null
-        if (this.state.endDate != null) {
-            to =
-                moment(this.state.endDate, "DD/MM/YYYY")
-                    .startOf("day")
-                    .unix() + 86340;
-        } else {
-            to = 0
-        }
-        const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
-        if (res.Data == null || res.Data.length < 1) {
-            res.Data = []
-            this.setState({ is_RoomNull: true })
-        } else {
-            this.setState({ is_RoomNull: false })
-        }
-        this.setState({ listRoom: res.Data })
-        this.setState({ is_listHome: false, nameHome: "" })
+
+        this.setState({ is_listHome: false })
 
     }
     onSliderChange(value) {
@@ -212,6 +146,9 @@ class ListRoomComponent extends Component {
         });
     }
     async handleSearch() {
+
+        localStorage.removeItem('startDay')
+        localStorage.removeItem('endDay')
         var from = null
         if (this.state.startDate != null) {
             from = moment(this.state.startDate, "DD/MM/YYYY")
@@ -220,47 +157,47 @@ class ListRoomComponent extends Component {
         } else {
             from = 0
         }
+        localStorage.setItem('startDay', from)
         var to = null
         if (this.state.endDate != null) {
             to =
                 moment(this.state.endDate, "DD/MM/YYYY")
                     .startOf("day")
                     .unix() + 86340;
+
         } else {
             to = 0
         }
-        const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, null, null, 0)
-        if (res.Data == null || res.Data.length < 1) {
-            res.Data = []
-            this.setState({ is_RoomNull: true })
-        } else {
-            this.setState({ is_RoomNull: false })
-        }
-        this.setState({ listRoom: res.Data })
+        localStorage.setItem('endDay', to)
 
-        this.setState({ is_listHome: false, nameHome: "" })
+        localStorage.setItem("totalGuest", this.state.totalGuest)
+        localStorage.setItem("district", this.state.selectDistrict)
+
+        this.setState({ is_listHome: false })
+
+
+
     }
-
     handeChangeDistrict(event) {
-        alert(event.target.value)
-        this.setState({ homeId: event.target.value })
-
+        this.setState({ selectDistrict: event.target.value, homeId: event.target.value })
     }
-
     handeChage(event) {
         this.setState({
             selectGuest: event.target.value,
         });
-    }
-    
+    };
     handleBackRoom() {
+        // $(".footer").hide()
+        // $(".footer").show()
         this.setState({ is_Detail: false })
     }
-
     handleGetDetailRoom(room, roomType, imgs) {
-       var search = "roomId=" + room.Id;
+        localStorage.setItem('homeId', room.HomeId)
+        localStorage.setItem('room', JSON.stringify(room))
+        localStorage.setItem('roomType', roomType)
+        localStorage.setItem('imgsRoom', JSON.stringify(imgs))
 
-        this.setState({ detail: search, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
+        this.setState({ homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
         this.setState({ is_listHome: true })
@@ -306,6 +243,7 @@ class ListRoomComponent extends Component {
             </div>
         </div>;
     }
+
     typeRoom(type_id) {
         switch (type_id) {
             case 1:
@@ -458,88 +396,71 @@ class ListRoomComponent extends Component {
             </div>
         </div>;
     }
+
     handleGetDetail(id, name) {
-        this.setState({ nameHome: name })
-        this.GetDetailHome(id)
+        // this.GetDetailHome(id)
+        this.viewHomeDetail(id);
+    }
+
+
+
+    async GetDetailHome(id) {
+        var from = null
+        if (this.state.startDate != null) {
+            from = moment(this.state.startDate, "DD/MM/YYYY")
+                .startOf("day")
+                .unix();
+        } else {
+            from = 0
+        }
+        var to = null
+        if (this.state.endDate != null) {
+            to =
+                moment(this.state.endDate, "DD/MM/YYYY")
+                    .startOf("day")
+                    .unix() + 86340;
+        } else {
+            to = 0
+        }
+
+
+        this.setState({ is_listHome: false })
+        this.setState({ selectedHomeId: "homeId=" + id })
+        this.setState({ selectDistrict: id })
 
     }
-    
-    async GetDetailHome(id) {
 
-        this.setState({ is_listHome: false, is_RoomNull: false })
-        const res = await homeService.getDetailHome(id)
+    async viewHomeDetail(homeId) {
+
+        const res = await homeService.getDetailHome(homeId)
         if (res && res.Data) {
             this.setState({ listRoom: res.Data })
         }
         console.log(this.state.listRoom)
     }
 
-    componentWillMount() {
-        this.setState({
-            selectDistrict: 1
-        })
-    }
-
-
 
     componentDidMount() {
-        // $(".footer").hide()
-        var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
-        searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
-        var search = window.location.href
-        var url = new URL(search);
-        console.log("homeId", url.searchParams.get("homeId"))
-        this.setState({ homeId: url.searchParams.get("homeId") })
-        console.log(moment.unix(localStorage.getItem("startDay")))
-        if (parseInt(localStorage.getItem("startDay")) === 0 || localStorage.length === 0) {
-            this.setState({
-                startDate: null
-            })
-        } else {
-            this.setState({ startDate: moment.unix(localStorage.getItem("startDay")) })
-
-        }
-        if (parseInt(localStorage.getItem("endDay")) === 0 || localStorage.length === 0) {
-            this.setState({ endDate: null })
-        } else {
-            this.setState({ endDate: moment.unix(localStorage.getItem("endDay")) })
-        }
-
-
-        console.log(this.state)
-
-        this.handlegetListHomes()
         $(".footer").show()
+        this.state.district = district
+        console.log(this.state.district)
 
-        switch (this.state.roomType) {
-            case 1:
-                $("#DynamicFilterSpanItem-room_types-Entire_home").removeClass("_fhj4ui");
-                $("#DynamicFilterSpanItem-room_types-Entire_home").addClass("_veamvre");
-                $("#DynamicFilterSpanItem-room_types-Entire_home").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
-                break;
-            case 2:
-                break;
-            case 3:
-                $("#DynamicFilterSpanItem-room_types-Private_room").removeClass("_fhj4ui")
-                $("#DynamicFilterSpanItem-room_types-Private_room").addClass("_veamvre")
-                $("#DynamicFilterSpanItem-room_types-Private_room").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
-                break;
-            case 4:
-                $("#DynamicFilterSpanItem-room_types-Shared_room").removeClass("_fhj4ui")
-                $("#DynamicFilterSpanItem-room_types-Shared_room").addClass("_veamvre")
-                $("#DynamicFilterSpanItem-room_types-Shared_room").append("<span class='_1op4fol'><svg viewBox='0 0 52 52' fill='currentColor' fill-opacity='0' stroke='currentColor' stroke-width='3' focusable='false' aria-hidden='true' role='presentation' stroke-linecap='round' stroke-linejoin='round' style='height: 1em; width: 1em; display: block; overflow: visible;'><path d='m19.1 25.2 4.7 6.2 12.1-11.2'></path></svg></span>");
-                break;
-            default:
-                break;
+        window.onpopstate = () => {
+            if (!this.state.is_listHome) {
+                this.setState({ is_listHome: true })
+            }
         }
+        this.handlegetListHomes()
 
     }
+    
     async handlegetListHomes() {
         const res = await homeService.getListHomes()
         console.log(res)
         this.setState({ listHome: res.Data })
     }
     handleChangeFromTime(date) {
+        console.log(date)
         this.setState({
             startDate: date,
         });
@@ -630,7 +551,7 @@ class ListRoomComponent extends Component {
         if (this.state.is_Detail) {
             return (<Redirect push to={{
                 pathname: "/detail/house",
-                search: "?" + this.state.detail,
+                search: "?room=" + this.state.room.Id,
                 target: "_blank"
 
             }} />
@@ -653,15 +574,9 @@ class ListRoomComponent extends Component {
                                                     id="popover-search-destination"
                                                 >
                                                     <div className="font-my" role="tooltip">
-
-                                                        {this.state.listHome.length > 0 ?
-                                                            <ul>
-                                                                {this.state.listHome.map(this.renderListDestinate)}
-                                                            </ul>
-                                                            : null
-                                                        }
-
-
+                                                        <ul>
+                                                            {this.state.listHome.map(this.renderListDestinate)}
+                                                        </ul>
                                                     </div>
                                                 </Popover>}>
                                                     <input id="PopoverLegacyDestination" readOnly className="border-none input-search cursorPointer select-search" role="button" placeholder="Enter a destination or property" value={this.state.valueDistrict} readOnly={true} />
@@ -774,7 +689,6 @@ class ListRoomComponent extends Component {
                             <div className="left-menu left-responsive ">
                                 <div className="menu no-padding-lr-mobile">
                                     <div className="_1lr8j2n8">
-
                                     </div>
                                     <span>
                                         <span style={{ fontSize: '0px' }}></span>
@@ -957,31 +871,26 @@ class ListRoomComponent extends Component {
 
                             <div className="right-home">
                                 <div className="container main-slider no-padding-lr-mobile">
-                                    <div className="listRoom">
-                                        <div className="_1avdemu">
-                                            <div className="_76dwae">
-                                                <h3 className="_jmmm34f">
-                                                    <div>
-                                                        <div>{this.state.nameHome}</div>
-                                                    </div>
-                                                </h3>
+                                    {this.state.is_listHome ?
+
+                                        <div className="listHome">
+                                            <br></br>
+                                            <div className="title-list">The Dragons's list</div>
+                                            <br></br>
+                                            <div className="col-md-12">
+                                                <div className="row">
+                                                    {this.state.listHome.map(this.renderListHomes)}
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-12">
+                                        :
+                                        <Redirect push to={{
+                                            pathname: "/rooms",
+                                            search: "?homeId=" + this.state.selectDistrict
 
-                                            {!this.state.is_RoomNull
-                                                ?
-                                                <div className="row">
-                                                    {this.state.listRoom.map(this.renderListRooms)}
-                                                </div>
-                                                :
-                                                <span >Không tìm được phòng trống </span>
-
-                                            }
-
-                                        </div>
-
-                                    </div>
+                                        }} />
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -993,4 +902,4 @@ class ListRoomComponent extends Component {
     }
 }
 
-export default ListRoomComponent                
+export default ListHomeComponentBK                
