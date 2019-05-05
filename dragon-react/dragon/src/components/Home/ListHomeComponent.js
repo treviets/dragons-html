@@ -16,18 +16,9 @@ class ListHomeComponent extends Component {
             homes: []
         };      
     }
- 
-    componentDidMount() {
-        this.getAllHome();
-    }
-
-    async getAllHome() {
-        const res = await homeService.getListHomes()
-        this.setState({ homes: res.Data })
-    }
 
     render() {
-        const { rooms } = this.props;
+        const { rooms, homes } = this.props;
        
         return (
                 <div>
@@ -42,16 +33,16 @@ class ListHomeComponent extends Component {
                                         { 
                                             rooms && rooms.length ? 
                                                 <ListRoomComponent rooms = {rooms} />         
-                                            
                                             : 
                                         
-                                            this.state.homes.map((home, index) => {
+                                            homes.map((home, index) => {
                                                 return (
                                                     <HomeComponent index = {index} home = {home} key = {index} />
                                                 )
                                             })
                                         }
                                     </div>
+                    
                                 </div>
                             </div>
                         </div>    
@@ -68,13 +59,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log("store rooms ", state);
     return { 
-        homes: state.homeReducer.homes,
+        homes: state.homeReducer.all_homes,
         rooms: state.homeReducer.rooms
     }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListHomeComponent);

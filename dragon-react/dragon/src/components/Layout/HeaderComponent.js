@@ -10,36 +10,18 @@ import $ from "jquery";
 import moment from 'moment';
 import { Route, Redirect, Switch } from 'react-router';
 import { connect } from 'react-redux';
+import { handleSearchRooms } from '../../actions/homeAction';
 
 class HeaderComponent extends Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            selectGuest: "",
+            homes: [],
+            rooms: [],
+            selectedHomeId: "",
             startDate: null,
             endDate: null,
-            countPlus: 1,
-            homes: [],
-            roomData: [],
-            listRoom: [],
-            is_RoomNull: false,
-            listDestinate: [{ Id: 1, Name: "aa" }, { Id: 2, Name: "bb" }, { Id: 3, Name: "cc" }],
-            nameHome: "",
-            is_Detail: false,
-            room: {},
-            roomType: '',
-            imgsRoom: [],
-            homeId: 0,
-            minSearch:null,
-            maxSearch:null,
-            min: 200000,
-            max: 10000000,
-            minPrice: 500000,
-            maxPrice: 5000000,
-            amount: "₫500000  - ₫5000000+",
-            roomType: 0,
-            selectDistrict: "",
             valueDistrict: "",
             adultsGuest: 1,
             childrensGuest: 0,
@@ -49,8 +31,6 @@ class HeaderComponent extends Component {
             valueGuest: "",
             numberOfMonths: 1,
             focusedInput: null,
-            searchStatement: null,
-            selectedHomeId: "",
             roomPage: false
 
         };
@@ -65,9 +45,8 @@ class HeaderComponent extends Component {
 
     renderListDestinate(home, index) {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
-        var clss = "search-destinate"
         return (
-            <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+            <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectedHomeId == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
                 <span>
                     <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
                 </span>
@@ -77,7 +56,7 @@ class HeaderComponent extends Component {
     }
     
     handleSetDestinate(id, name) {
-        this.setState({ selectDistrict: id, valueDistrict: name })
+        this.setState({ selectedHomeId: id, valueDistrict: name })
         this.refs.overlayDestinate.hide();
     }
 
@@ -99,24 +78,34 @@ class HeaderComponent extends Component {
         this.setState({ endDate: date });
     }
 
-    async handleSearch() {
-        var from = null
+    handleSearch() {
+        var from = 0
         if (this.state.startDate != null) {
             from = moment(this.state.startDate, "DD/MM/YYYY").startOf("day").unix();
-        } else {
-            from = 0
-        }
-        var to = null
-        if (this.state.endDate != null) {
-            to = moment(this.state.endDate, "DD/MM/YYYY").startOf("day").unix() + 86340;
-        } else {
-            to = 0
         }
 
-        const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
+        var to = 0
+        if (this.state.endDate != null) {
+            to = moment(this.state.endDate, "DD/MM/YYYY").startOf("day").unix() + 86340;
+        }
+        
+        this.props.handleSearchRooms(this.state.selectedHomeId, from, to, this.state.totalGuest, null, null, 0);
+    }
+
+    async handleSearch123() {
+        var from = 0
+        if (this.state.startDate != null) {
+            from = moment(this.state.startDate, "DD/MM/YYYY").startOf("day").unix();
+        }
+
+        var to = 0
+        if (this.state.endDate != null) {
+            to = moment(this.state.endDate, "DD/MM/YYYY").startOf("day").unix() + 86340;
+        }
+
+        const res = await homeService.searchRoom(this.state.selectedHomeId, from, to, this.state.totalGuest, null, null, 0)
         if (res) {
-            this.setState({ roomPage: true, listRoom: res.Data})
-            console.log(res.Data)
+            this.setState({ roomPage: true, rooms: res.Data})
         }
     }
 
@@ -157,8 +146,8 @@ class HeaderComponent extends Component {
             }
             guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
         }
-        this.setState({ valueGuest: guests })
 
+        this.setState({ valueGuest: guests })
     }
 
     handleMinus(type) {
@@ -196,9 +185,9 @@ class HeaderComponent extends Component {
     }
 
     render() {
-        if (this.state.roomPage){
-            return <Redirect to="/rooms" />
-        }
+        // if (this.state.roomPage){
+        //     return <Redirect to="/rooms" />
+        // }
         return (
             <div id="header-search" className="banner menu-header font-size14" >
                 <img src="img/banner-travel-insurance-2000x400.jpg" className="banner-menu" ></img>
@@ -354,4 +343,12 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(HeaderComponent);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleSearchRooms: (homeId, from, to, number_of_guest, min, max, roomType) => dispatch(handleSearchRooms(homeId, from, to, number_of_guest, min, max, roomType))
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);

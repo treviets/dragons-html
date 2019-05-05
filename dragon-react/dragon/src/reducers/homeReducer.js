@@ -2,10 +2,12 @@ import {
     GET_HOME_DETAIL_REQUEST,
     GET_HOME_DETAIL_ERROR,
     GET_HOME_DETAIL_SUCCESSFULLY,
-    GET_ALL_HOME_SUCCESSFULLY
+    GET_ALL_HOME_SUCCESSFULLY,
+    SEARCH_ROOM_SUCCESSFULLY
 } from '../actions/homeAction'
 
 export function homeReducer(state = {
+    all_homes: [],
     rooms: [],
     message: null
 }, action) {
@@ -30,10 +32,16 @@ export function homeReducer(state = {
         
         case GET_ALL_HOME_SUCCESSFULLY:
             return Object.assign({}, state, {
-                homes: action.homes,
-                message: action.message
+                all_homes: action.all_homes,
+                message: "",
             })
-
+        
+        case SEARCH_ROOM_SUCCESSFULLY:
+            return Object.assign({}, state, {
+                rooms: action.rooms,
+                message: "",
+            })
+            
         default:
             return state
     }

@@ -309,9 +309,7 @@ class PageHeader extends Component {
                                     <div className=''>
                                         <div className="modal-social-icons">
                                             <Facebook />
-                                            {/* <a href='#' className="btn btn-default facebook">
-                                                <i className="fa fa-facebook modal-icons"></i> Continue with Facebook
-                                            </a> */}
+                                            
                                             <Googlegg />
                                         </div>
                                         <div className="conatainer divhr">
@@ -336,12 +334,7 @@ class PageHeader extends Component {
                             </div>
 
                             <div className="modal-body login-modal">
-                                {/* <a href='#' className="btn btn-default facebook">
-                                    <i className="fa fa-facebook modal-icons">
-                                    </i>  Login with Facebook
-                                </a> */}
                                 <Facebook />
-
 
                                 <Googlegg />
                                 <div className="conatainer divhr">

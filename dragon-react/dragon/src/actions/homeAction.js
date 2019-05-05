@@ -9,6 +9,33 @@ export const GET_ALL_HOME_REQUEST           = 'GET_ALL_HOME_REQUEST';
 export const GET_ALL_HOME_SUCCESSFULLY      = 'GET_ALL_HOME_SUCCESSFULLY';
 export const GET_ALL_HOME_ERROR             = 'GET_ALL_HOME_ERROR';
 
+export const SEARCH_ROOM_REQUEST        = 'SEARCH_ROOM_REQUEST';
+export const SEARCH_ROOM_ERROR          = 'SEARCH_ROOM_ERROR';
+export const SEARCH_ROOM_SUCCESSFULLY   = 'SEARCH_ROOM_SUCCESSFULLY';
+
+
+function searchRoomRequest() {
+    return {
+        type: SEARCH_ROOM_REQUEST,
+        rooms: []
+    }
+}
+
+function searchRoomSuccessfully(data) {
+    return {
+        type: SEARCH_ROOM_SUCCESSFULLY,
+        rooms: data
+    }
+}
+
+function searchRoomError(message) {
+    return {
+        type: SEARCH_ROOM_ERROR,
+        error: message
+    }
+}
+
+
 function getAllHomeRequest() {
     return {
         type: GET_ALL_HOME_REQUEST,
@@ -19,7 +46,7 @@ function getAllHomeRequest() {
 function getAllHomeSuccessfully(data) {
     return {
         type: GET_ALL_HOME_SUCCESSFULLY,
-        homes: data
+        all_homes: data
     }
 }
 
@@ -86,6 +113,52 @@ export function handleGetAllHome() {
                         dispatch(getAllHomeError(data.Message));
                     } else {
                         dispatch(getAllHomeSuccessfully(data.Data));
+                    }
+                }
+            }
+            
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+}
+
+
+export function handleSearchRooms(homeId, from, to, number_of_guest, min, max, roomType) {
+    let url = "/dragons/room/list?homeId=" + homeId;
+    if (homeId == "" || homeId == null) {
+        homeId = 0
+    }
+    if (from != null) {
+        url += "&from=" + from
+    }
+    if (to != null) {
+        url += "&to=" + to
+    }
+    if (min != null) {
+        url += "&min=" + min
+    }
+    if (max != null) {
+        url += "&max=" + max
+    }
+    if (number_of_guest != null) {
+        url += "&number_of_guest=" + number_of_guest
+    }
+    if (roomType != null) {
+        url += "&roomtype=" + roomType
+    }
+
+    return (dispatch) => {
+        dispatch(searchRoomRequest())
+        getFromUrl(url).then((response) => {
+            if (response && response.status === 200) {
+                if (response.data && response.data.Data) {
+                    const data = response.data;
+
+                    if (data.Status != 'OK') {
+                        dispatch(searchRoomError(data.Message));
+                    } else {
+                        dispatch(searchRoomSuccessfully(data.Data));
                     }
                 }
             }

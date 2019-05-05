@@ -198,6 +198,7 @@ class RoomComponent extends Component {
         )
     }
 }
+
 const mapDispatchToProps = (dispatch) => {
     return {
         handleGetRoomDetail: (roomId) => dispatch(handleGetRoomDetail(roomId))
