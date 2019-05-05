@@ -254,6 +254,7 @@ class RoomDetailComponent extends Component {
         this.setState({ valueGuest: guests })
 
     }
+    
     componentDidMount() {
         var search = window.location.href
         var url = new URL(search);
@@ -388,6 +389,7 @@ class RoomDetailComponent extends Component {
         // const res = await bookingService.bookingCreate(myJSON)
 
     }
+
     renderReviews(review, index) {
         var date = moment(review.CreatedAT).format("MMM YY");
         return <div className="font-size16 divRelative" style={{ marginBottom: "5px" }} key={index}>
@@ -410,6 +412,7 @@ class RoomDetailComponent extends Component {
         </div>
 
     }
+
     renderDetailAccessibility(accessibility, index, object) {
 
         return <div className="col-md-6" key={index}>
@@ -420,6 +423,7 @@ class RoomDetailComponent extends Component {
         </div>
 
     }
+
     renderDetailAmenties(amenity, index, object) {
         var cate = amenity.amenityCategory
         if (cate.Name.toUpperCase() == 'Not included'.toUpperCase()) {
@@ -445,6 +449,7 @@ class RoomDetailComponent extends Component {
         </div>
 
     }
+
     renderAmenities(amenity, index) {
         if (amenity.Name.toUpperCase() == 'Elevator'.toUpperCase()) {
             return <div className="col-md-6 margingBot5" key={index}>

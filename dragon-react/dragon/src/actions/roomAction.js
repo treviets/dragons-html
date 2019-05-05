@@ -47,3 +47,27 @@ export function handleGetRoomDetail(roomId) {
         })
     }
 }
+
+
+export function handleGetRoomByFilter(roomId) {
+    return (dispatch) => {
+        dispatch(getRoomDetailRequest(roomId))
+        getFromUrl('/dragons/room_detail/by_room_id?roomId=' + roomId).then((response) => {
+            if (response && response.status === 200) {
+                if (response.data && response.data.Data) {
+                    const data = response.data;
+
+                    if (data.Status != 'OK') {
+                        dispatch(getRoomDetailError(data.Message));
+                    } else {
+                        dispatch(getRoomDetailSuccessfully(data.Data));
+                    }
+                }
+            }
+            
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+}
+

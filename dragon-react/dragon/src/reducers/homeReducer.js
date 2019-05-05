@@ -1,7 +1,8 @@
 import {
     GET_HOME_DETAIL_REQUEST,
     GET_HOME_DETAIL_ERROR,
-    GET_HOME_DETAIL_SUCCESSFULLY
+    GET_HOME_DETAIL_SUCCESSFULLY,
+    GET_ALL_HOME_SUCCESSFULLY
 } from '../actions/homeAction'
 
 export function homeReducer(state = {
@@ -24,6 +25,12 @@ export function homeReducer(state = {
         case GET_HOME_DETAIL_ERROR:
             return Object.assign({}, state, {
                 rooms: null,
+                message: action.message
+            })
+        
+        case GET_ALL_HOME_SUCCESSFULLY:
+            return Object.assign({}, state, {
+                homes: action.homes,
                 message: action.message
             })
 

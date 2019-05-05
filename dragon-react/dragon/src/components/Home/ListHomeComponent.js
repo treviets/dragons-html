@@ -7,7 +7,7 @@ import 'rc-slider/assets/index.css';
 import HomeComponent from './HomeComponent';
 import { connect } from 'react-redux';
 import ListRoomComponent from '../Room/ListRoomComponent';
-
+import { handleGetAllHome } from '../../actions/homeAction';
 
 class ListHomeComponent extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class ListHomeComponent extends Component {
         };      
     }
  
-    componentWillMount() {
+    componentDidMount() {
         this.getAllHome();
     }
 
@@ -27,8 +27,8 @@ class ListHomeComponent extends Component {
     }
 
     render() {
-        const { rooms} = this.props;
-
+        const { rooms } = this.props;
+       
         return (
                 <div>
                     <div className="right-home">
@@ -61,11 +61,20 @@ class ListHomeComponent extends Component {
         }
     }
 
-const mapStateToProps = (state) => {
-    console.log("store rooms ", state);
-    return { 
-       rooms: state.homeReducer.rooms
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAllHome: () => dispatch(handleGetAllHome())
     }
 }
 
-export default connect(mapStateToProps)(ListHomeComponent);
+const mapStateToProps = (state) => {
+    console.log("store rooms ", state);
+    return { 
+        homes: state.homeReducer.homes,
+        rooms: state.homeReducer.rooms
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListHomeComponent);

@@ -9,6 +9,7 @@ import homeService from '../../services/home.js';
 import $ from "jquery";
 import moment from 'moment';
 import { Route, Redirect, Switch } from 'react-router';
+import { connect } from 'react-redux';
 
 class HeaderComponent extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class HeaderComponent extends Component {
             startDate: null,
             endDate: null,
             countPlus: 1,
-            listHome: [],
+            homes: [],
             roomData: [],
             listRoom: [],
             is_RoomNull: false,
@@ -65,11 +66,14 @@ class HeaderComponent extends Component {
     renderListDestinate(home, index) {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
         var clss = "search-destinate"
-        return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} 
-                    className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"}
-                     key={index} onClick={onClick}>
-                    <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
-                </li>
+        return (
+            <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+                <span>
+                    <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
+                </span>
+                <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
+            </li>
+        )
     }
     
     handleSetDestinate(id, name) {
@@ -78,20 +82,21 @@ class HeaderComponent extends Component {
     }
 
     componentDidMount() {
-        $(".footer").show()
+        $(".footer").show();
+        this.getAllHome();
+    }
+
+    async getAllHome() {
+        const res = await homeService.getListHomes()
+        this.setState({ homes: res.Data })
     }
 
     handleChangeFromTime(date) {
-        console.log(date)
-        this.setState({
-            startDate: date,
-        });
+        this.setState({ startDate: date });
     }
     
     handleChangeToTime(date) {
-        this.setState({
-            endDate: date,
-        });
+        this.setState({ endDate: date });
     }
 
     async handleSearch() {
@@ -110,10 +115,7 @@ class HeaderComponent extends Component {
 
         const res = await homeService.searchRoom(this.state.selectDistrict, from, to, this.state.totalGuest, null, null, 0)
         if (res) {
-            this.setState({
-                roomPage: true,
-                listRoom: res.Data})
-            this.props.onUpdateRooms(res.Data)
+            this.setState({ roomPage: true, listRoom: res.Data})
             console.log(res.Data)
         }
     }
@@ -158,6 +160,7 @@ class HeaderComponent extends Component {
         this.setState({ valueGuest: guests })
 
     }
+
     handleMinus(type) {
         if (type == 1) {
             if (this.state.adultsGuest > 1) {
@@ -210,7 +213,7 @@ class HeaderComponent extends Component {
                                         overlay={<Popover id="popover-search-destination">
                                             <div className="font-my" role="tooltip">
                                                 <ul>
-                                                    {this.state.listHome.map(this.renderListDestinate)}
+                                                    {this.state.homes.map(this.renderListDestinate)}
                                                 </ul>
                                             </div>
                                         </Popover>}>
@@ -342,4 +345,13 @@ class HeaderComponent extends Component {
     }
 }
 
-export default HeaderComponent;
+
+const mapStateToProps = (state) => {
+
+    return { 
+        homes: state.homeReducer.homes
+    }
+}
+
+
+export default connect(mapStateToProps)(HeaderComponent);
