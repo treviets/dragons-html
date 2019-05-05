@@ -17,14 +17,14 @@ export function homeReducer(state = {
 
         case GET_HOME_DETAIL_SUCCESSFULLY:
             return Object.assign({}, state, {
-                rooms: state.rooms,
+                rooms: action.rooms,
                 message: ""
             })
 
         case GET_HOME_DETAIL_ERROR:
             return Object.assign({}, state, {
                 rooms: null,
-                message: state.message
+                message: action.message
             })
 
         default:

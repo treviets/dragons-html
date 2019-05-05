@@ -1,24 +1,12 @@
-import React, { Component } from 'react'
-import '../../assets/css/slide.css'
-import '../../assets/css/style.css'
-import '../../assets/js/index'
-import $ from "jquery";
-import homeService from '../../services/home.js'
-import * as Constants from '../../const.js'
-import DetailHouse from '../DetailHouse'
-import moment from 'moment'
-import DatePicker from 'react-datepicker'
-import district from '../../masterData/district.json'
-import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-import { Popover, OverlayTrigger } from 'react-bootstrap';
+import React, { Component } from 'react';
+import '../../assets/css/slide.css';
+import '../../assets/css/style.css';
+import '../../assets/js/index';
+import homeService from '../../services/home.js';
 import 'rc-slider/assets/index.css';
-import Slider from 'rc-slider';
-import { Route, Redirect, Switch } from 'react-router';
-import HeaderComponent from '../Layout/HeaderComponent';
-import LeftMenuComponent from '../Layout/LeftMenuComponent';
 import HomeComponent from './HomeComponent';
-const Range = Slider.Range;
+import { connect } from 'react-redux';
+import ListRoomComponent from '../Room/ListRoomComponent';
 
 
 class ListHomeComponent extends Component {
@@ -39,6 +27,8 @@ class ListHomeComponent extends Component {
     }
 
     render() {
+        const { rooms} = this.props;
+
         return (
                 <div>
                     <div className="right-home">
@@ -49,7 +39,12 @@ class ListHomeComponent extends Component {
                                 <br></br>
                                 <div className="col-md-12">
                                     <div className="row">
-                                        {
+                                        { 
+                                            rooms && rooms.length ? 
+                                                <ListRoomComponent rooms = {rooms} />         
+                                            
+                                            : 
+                                        
                                             this.state.homes.map((home, index) => {
                                                 return (
                                                     <HomeComponent index = {index} home = {home} key = {index} />
@@ -66,4 +61,11 @@ class ListHomeComponent extends Component {
         }
     }
 
-export default ListHomeComponent                
+const mapStateToProps = (state) => {
+    console.log("store rooms ", state);
+    return { 
+       rooms: state.homeReducer.rooms
+    }
+}
+
+export default connect(mapStateToProps)(ListHomeComponent);
