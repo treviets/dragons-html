@@ -76,17 +76,17 @@ class RoomComponent extends Component {
     }
 
     viewRoomDetail(roomId) {
-        alert("view detail" + roomId);
+        this.props.handleGetRoomDetail(roomId);
     }
     
    
     render() {
+        var viewRoomDetail = this.viewRoomDetail.bind(this, this.props.room.Id);
+
         var indexTarget = []
         for (var i = 0; i < this.props.room.Images.length; i++) {
             indexTarget.push('#de' + i)
         }
-
-        var viewRoomDetail = this.viewRoomDetail.bind(this, this.props.room.Id);
 
         return (
             <div className="col-md-6 col-lg-4 bottom-group" index={this.props.room.index} >

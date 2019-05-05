@@ -3,6 +3,7 @@ import { items, itemsHasErrored, itemsIsLoading } from './items';
 import { auth } from './auth';
 import { signUpReducers } from './signUpReducers';
 import { homeReducer } from './homeReducer';
+import { roomReducer } from './roomReducer';
 
 const allReducers = combineReducers(
     { 
@@ -11,7 +12,8 @@ const allReducers = combineReducers(
         items, 
         itemsHasErrored, 
         itemsIsLoading,
-        homeReducer
+        homeReducer,
+        roomReducer
     });
 
-export default allReducers
+export default allReducers;

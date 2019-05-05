@@ -17,7 +17,7 @@ class HomeComponent extends Component {
     }
 
     viewHomeDetail(homeId) {
-        this.props.handleGetHomeDetail(homeId)
+        this.props.handleGetHomeDetail(homeId);
     } 
 
     render() {

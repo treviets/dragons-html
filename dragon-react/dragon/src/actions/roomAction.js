@@ -29,7 +29,7 @@ function getRoomDetailSuccessfully(data) {
 export function handleGetRoomDetail(roomId) {
     return (dispatch) => {
         dispatch(getRoomDetailRequest(roomId))
-        getFromUrl('/dragons/room/by_home_id?roomId=' + roomId).then((response) => {
+        getFromUrl('/dragons/room_detail/by_room_id?roomId=' + roomId).then((response) => {
             if (response && response.status === 200) {
                 if (response.data && response.data.Data) {
                     const data = response.data;
