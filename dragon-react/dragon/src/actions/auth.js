@@ -64,7 +64,6 @@ export function loginUserSocial(creds) {
             // console.log(data);
             if (data.Status != 'OK') {
                 dispatch(loginError(data.Message))
-                alert(data.Message)
             } else {
                 const token = data.Data.token;
                 const cusId = data.Data.cusId;

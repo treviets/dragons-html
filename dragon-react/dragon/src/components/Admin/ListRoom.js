@@ -12,11 +12,11 @@ import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const CaptionElement = () => <h3 style={
-    {   
-        borderRadius: '0.25em', 
-        textAlign: 'center', 
-        color: 'black', 
-        padding: '0.5em' 
+    {
+        borderRadius: '0.25em',
+        textAlign: 'center',
+        color: 'black',
+        padding: '0.5em'
     }}>Danh sách các phòng</h3>;
 
 
@@ -93,11 +93,13 @@ class ListRoom extends Component {
             bed: 0,
             price: 0,
             calendar: "",
+            modelAdd: false
         }
 
         this.toggle = this.toggle.bind(this);
         this.onChange = this.onChange.bind(this);
         this.handleUpdateRoom = this.handleUpdateRoom.bind(this);
+        this.addNewRoom = this.addNewRoom.bind(this);
     }
 
     async handleGetBooking() {
@@ -137,10 +139,8 @@ class ListRoom extends Component {
             // Alert success
             alert(response.Message);
         }
-        
+
     }
-
-
     componentDidMount() {
         this.handleGetBooking();
     }
@@ -164,31 +164,38 @@ class ListRoom extends Component {
     };
 
     showDetailToEdit(row) {
-        var obj = {
-            Calendar: row.Calendar,
-            Description: row.Description,
-            District: row.District,
-            HomeId: row.HomeId,
-            Province: row.Province,
-            Price: row.Price,
-            RentalType: row.RentalType,
-            RoomType: row.RoomType,
-            Status: row.Status,
-            Images: row.Images,
-            Id: row.Id
+        if (row !== null) {
+            var obj = {
+                Calendar: row.Calendar,
+                Description: row.Description,
+                District: row.District,
+                HomeId: row.HomeId,
+                Province: row.Province,
+                Price: row.Price,
+                RentalType: row.RentalType,
+                RoomType: row.RoomType,
+                Status: row.Status,
+                Images: row.Images,
+                Id: row.Id
+            }
+            this.setState({
+                modal: true,
+                code: row.Code,
+                bath: parseInt(row.Bath),
+                bed: parseInt(row.Bed),
+                calendar: row.Calendar,
+                bedroom: parseInt(row.Bedroom),
+                numberOfGuest: parseInt(row.NumberOfGuest),
+                price: parseInt(row.Price),
+                objectRoom: obj
+            });
+        } else {
+            this.setState({
+                modal: true,
+                modelAdd: true,
+            })
         }
 
-        this.setState({
-            modal: true,
-            code: row.Code,
-            bath: parseInt(row.Bath),
-            bed: parseInt(row.Bed),
-            calendar: row.Calendar,
-            bedroom: parseInt(row.Bedroom),
-            numberOfGuest: parseInt(row.NumberOfGuest),
-            price: parseInt(row.Price),
-            objectRoom: obj
-        });
     }
 
     toggle() {
@@ -197,59 +204,64 @@ class ListRoom extends Component {
         }));
     }
 
+    addNewRoom() {
+        console.log("adb");
+        this.showDetailToEdit(null);
+    }
     render() {
         return (
             <div className="container">
+                <Link to="/admin/list/room_add" className="sidenav-item">New Room</Link>
                 <CaptionElement />
-                <BootstrapTable keyField='id' data={this.state.listRooms} striped columns={this.state.columns} 
+                <BootstrapTable keyField='id' data={this.state.listRooms} striped columns={this.state.columns}
                     pagination={paginationFactory(this.state.options)} rowEvents={this.state.rowEvents} />
                 {
                     this.state.modal === true ?
-                        (
-                            <div className="dialog-detail container-modal">
-                                <Modal isOpen={this.state.modal} toggle={this.toggle} size='lg'>
-                                    <ModalHeader toggle={this.toggle}>{this.state.code}</ModalHeader>
-                                    
-                                    <ModalBody>
-                                        <Form>
-                                            <FormGroup>  
-                                                <Label>Name</Label>
-                                                <Input value={this.state.code} onChange={this.onChange} name="code" />
-                                                
-                                                <Label>Number Of Guest</Label>
-                                                <Input value={this.state.numberOfGuest} onChange={this.onChange} name="numberOfGuest" />
-                                                
-                                                <Label>Bedroom</Label>
-                                                <Input value={this.state.bedroom} onChange={this.onChange} name="bedroom" />
-                                                
-                                                <Label>Bed</Label>
-                                                <Input value={this.state.bed} onChange={this.onChange} name="bed" />
-                                                
-                                                <Label>Bath</Label>
-                                                <Input value={this.state.bath} onChange={this.onChange} name="bath" />
-                                                
-                                                <Label>Price</Label>
-                                                <Input value={this.state.price} onChange={this.onChange} name="price" />
-                                                
-                                                <Label>Calendar</Label>
-                                                <Input value={this.state.calendar} onChange={this.onChange} name="calendar" />
-                                            </FormGroup>
-                                        </Form>
-                                    </ModalBody>
-                                    
-                                    <ModalFooter>
-                                        <Button color="primary" onClick={this.handleUpdateRoom}>Update</Button>{' '}
-                                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                                    </ModalFooter>
+                        <div className="dialog-detail container-modal">
+                            <Modal isOpen={this.state.modal} toggle={this.toggle} size='lg'>
+                                <ModalHeader toggle={this.toggle}>{this.state.code}</ModalHeader>
+                                <ModalBody>
+                                    <Form>
+                                        <FormGroup>
+                                            <Label>Name</Label>
+                                            <Input value={this.state.code} onChange={this.onChange} name="code" />
 
-                                </Modal>
+                                            <Label>Number Of Guest</Label>
+                                            <Input value={this.state.numberOfGuest} onChange={this.onChange} name="numberOfGuest" />
 
-                            </div>
-                        )
-                    : null
+                                            <Label>Bedroom</Label>
+                                            <Input value={this.state.bedroom} onChange={this.onChange} name="bedroom" />
 
+                                            <Label>Bed</Label>
+                                            <Input value={this.state.bed} onChange={this.onChange} name="bed" />
+
+                                            <Label>Bath</Label>
+                                            <Input value={this.state.bath} onChange={this.onChange} name="bath" />
+
+                                            <Label>Price</Label>
+                                            <Input value={this.state.price} onChange={this.onChange} name="price" />
+
+                                            <Label>Calendar</Label>
+                                            <Input value={this.state.calendar} onChange={this.onChange} name="calendar" />
+                                        </FormGroup>
+                                    </Form>
+                                </ModalBody>
+
+                                <ModalFooter>
+                                    {
+                                        this.state.modelAdd === true ?
+                                            <Button color="primary" onClick={this.handleCreateRoom}>New</Button>
+                                            :
+                                            <Button color="primary" onClick={this.handleUpdateRoom}>Update</Button>
+                                    }
+                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                                </ModalFooter>
+
+                            </Modal>
+
+                        </div>
+                        : null
                 }
-
             </div>
 
         )

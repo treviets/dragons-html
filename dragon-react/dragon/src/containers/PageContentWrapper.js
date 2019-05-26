@@ -16,14 +16,7 @@ import Verify from '../components/Profile/TrustAndVerify';
 import ViewProfile from '../components/Profile/ViewProfile';
 import ListRoomComponent from "../components/Home/ListRoomComponent";
 import ListRoomAdmin from "../components/Admin/ListRoom";
-
-
-
-
-
-
-
-
+import AddRoom from "../components/Admin/AddRoom";
 
 
 class PageContainerWrapper extends Component {
@@ -74,6 +67,9 @@ class PageContainerWrapper extends Component {
                 break;
             case types.listroomAdmin:
                 _view = <ListRoomAdmin />;
+                break;
+            case types.addRoom:
+                _view = <AddRoom />;
                 break;
             default:
                 _view = "";

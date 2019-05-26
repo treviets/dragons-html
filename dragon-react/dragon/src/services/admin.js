@@ -44,6 +44,23 @@ const adminService = {
 
             }
         }
+    },
+    async createRoom(formData) {
+        try {
+            const response = await postFromUrl(
+                "/dragons/admin/room/save", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+            const data = response.data;
+            return data
+
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
     }
 }
 

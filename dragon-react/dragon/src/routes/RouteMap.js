@@ -18,8 +18,8 @@ const types = {
     verify: '12',
     viewProfile: '13',
     listroom: '14',
-    listroomAdmin: '15'
-
+    listroomAdmin: '15',
+    addRoom: '16'
 }
 
 const routes = [
@@ -87,6 +87,10 @@ const routes = [
                 component: () => <PageContentWrapper type={types.listroomAdmin} />,
                 path: '/admin/list/room'
             },
+            {
+                component: () => <PageContentWrapper type={types.addRoom} />,
+                path: '/admin/list/room_add'
+            }
 
         ]
     }
