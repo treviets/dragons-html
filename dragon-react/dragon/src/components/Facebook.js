@@ -19,8 +19,6 @@ class Facebook extends Component {
         picture: "",
     };
     responseFacebook = response => {
-        console.log("response-------", response)
-
         this.setState({
             isLoggedIn: true,
             userID: response.id,
@@ -39,7 +37,6 @@ class Facebook extends Component {
         formData.append("Fullname", this.state.name);
         formData.append("Email", this.state.email);
         formData.append("Facebookid", this.state.userID);
-
         this
             .props
             .handleLoginSocial(formData)
