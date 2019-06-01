@@ -17,6 +17,7 @@ class Facebook extends Component {
         name: "",
         email: "",
         picture: "",
+        img: "",
     };
     responseFacebook = response => {
         this.setState({
@@ -24,6 +25,7 @@ class Facebook extends Component {
             userID: response.id,
             name: response.name,
             email: response.email,
+            img: response.picture.data.url,
         });
 
 
@@ -37,6 +39,7 @@ class Facebook extends Component {
         formData.append("Fullname", this.state.name);
         formData.append("Email", this.state.email);
         formData.append("Facebookid", this.state.userID);
+        formData.append("Img", this.state.img);
         this
             .props
             .handleLoginSocial(formData)
