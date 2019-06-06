@@ -83,7 +83,7 @@ class DetailHouseComponent extends Component {
             rangesDateBlock: [],
             roomPrice: 0,
             loading: true,
-            showBook: true,
+            showBook: false,
 
 
         };
@@ -711,7 +711,7 @@ class DetailHouseComponent extends Component {
                                                                 </div>
                                                             </div>
                                                             <div className="font-size16 font-medium title-home">
-                                                                <i class="fa fa-home" aria-hidden="true">
+                                                                <i className="fa fa-home" aria-hidden="true">
                                                                     <span className="font-size16 font-medium home-type">
                                                                         {this.typeRoom(this.state.room.Room.RoomType)}
                                                                     </span>
@@ -1139,7 +1139,7 @@ class DetailHouseComponent extends Component {
 
                                                                     </div>
                                                                 </div>
-                                                                <Button className="form-control btnRequest" onClick={this.handeBooking} disabled>Book</Button>
+                                                                <Button className="form-control btnRequest" onClick={this.handeBooking} >Book</Button>
                                                                 <p className="dont-change">You won't be charged yet</p>
                                                             </div>
                                                         </div>

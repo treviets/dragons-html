@@ -3,6 +3,8 @@ import '../assets/css/reviewHouse.css'
 import 'jquery-ui-bundle/jquery-ui.css';
 import moment from 'moment'
 import bookingService from '../services/booking.js'
+import paymentService from '../services/payment.js'
+
 import homeService from '../services/home.js'
 import $ from "jquery";
 import * as jquery from 'jquery';
@@ -34,6 +36,26 @@ class ReviewHouse extends Component {
         this.handleBook = this.handleBook.bind(this)
         this.renderPolices = this.renderPolices.bind(this)
         this.loadData = this.loadData.bind(this)
+        this.clickPaymentWithATM = this.clickPaymentWithATM.bind(this)
+    }
+
+    async clickPaymentWithATM() {
+        var user = this.parseJwt(localStorage.accessToken)
+        var objPayment = {
+            CustomerEmail: user.email,
+            CustomerId: user.id,
+            CustomerPhone: user.phone,
+            MerchantOrderId: "Thoai 1",
+            OrderCode: "Test OrderID",
+            TotalAmount: this.state.price
+        }
+        const res = await paymentService.redirectOnePay(JSON.stringify(objPayment));
+        if (res.Status == "OK") {
+            window.open(res.Data);
+        } else {
+            alert("Err connect with OnePay");
+        }
+
     }
     renderPolices(policy, index) {
         if (policy.Name.toUpperCase() == "No pets".toUpperCase()) {
@@ -314,7 +336,8 @@ class ReviewHouse extends Component {
                                         <br />
                                         <br />
                                         <div className="font-size16">
-                                            <button className="btn btn-AgreeBook" data-dismiss="modal" data-toggle="modal" data-target="#bookingModal" onClick={this.handleBook}><b> Agree</b></button>
+                                            {/* <button className="btn btn-AgreeBook" data-dismiss="modal" data-toggle="modal" data-target="#bookingModal" onClick={this.handleBook}><b> Agree</b></button> */}
+                                            <button className="btn btn-AgreeBook" data-dismiss="modal" data-toggle="modal" data-target="#bookingModal"><b> Agree</b></button>
                                         </div>
                                         <br />
                                     </div>
@@ -401,7 +424,7 @@ class ReviewHouse extends Component {
 
                                                 <div className="price-info">
                                                     Total (VND)
-                                    </div>
+                                                </div>
                                                 <div className="price-total">
                                                     ₫{this.currencyFormat(this.state.amount)}
                                                 </div>
@@ -420,15 +443,17 @@ class ReviewHouse extends Component {
                             </div>
                             <div className="modal fade" id="bookingModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
                                 <div className="modal-dialog modal-dialog-centered" role="document">
-                                    <div className="modal-content">
+                                    <div className="modal-content" style={{ width: '88%' }}>
                                         <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLabel">Booking</h5>
+                                            <h5 className="modal-title" id="exampleModalLabel">Payment</h5>
                                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div className="modal-body">
-                                            {this.state.message}
+                                            <button className="btn btn-primary" onClick={this.clickPaymentWithATM}><b> Payment with ATM</b></button>
+                                            ---OR---
+                                            <button className="btn btn-primary"><b> Payment with no ATM</b></button>
                                         </div>
                                         <div className="modal-footer">
                                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
