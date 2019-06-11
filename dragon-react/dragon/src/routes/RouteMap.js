@@ -19,7 +19,9 @@ const types = {
     viewProfile: '13',
     listroom: '14',
     listroomAdmin: '15',
-    addRoom: '16'
+    addRoom: '16',
+    listTransactionAdmin: '17',
+    listTransactionCustomer: '18',
 }
 
 const routes = [
@@ -90,7 +92,15 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.addRoom} />,
                 path: '/admin/list/room_add'
-            }
+            },
+            {
+                component: () => <PageContentWrapper type={types.listTransactionAdmin} />,
+                path: '/admin/list/transaction'
+            },
+            {
+                component: () => <PageContentWrapper type={types.listTransactionCustomer} />,
+                path: '/list/transaction'
+            },
 
         ]
     }

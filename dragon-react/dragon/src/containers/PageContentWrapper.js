@@ -17,6 +17,8 @@ import ViewProfile from '../components/Profile/ViewProfile';
 import ListRoomComponent from "../components/Home/ListRoomComponent";
 import ListRoomAdmin from "../components/Admin/ListRoom";
 import AddRoom from "../components/Admin/AddRoom";
+import ListTransactionAdim from "../components/Admin/ListTransaction";
+import ListTransactionCustomer from "../components/ListTransactionHistory";
 
 
 class PageContainerWrapper extends Component {
@@ -70,6 +72,12 @@ class PageContainerWrapper extends Component {
                 break;
             case types.addRoom:
                 _view = <AddRoom />;
+                break;
+            case types.listTransactionAdmin:
+                _view = <ListTransactionAdim />;
+                break;
+            case types.listTransactionCustomer:
+                _view = <ListTransactionCustomer />;
                 break;
             default:
                 _view = "";

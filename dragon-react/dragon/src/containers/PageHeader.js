@@ -218,6 +218,23 @@ class PageHeader extends Component {
                                     : null
 
                             }
+                            {
+                                parseInt(localStorage.getItem('role')) === 1 ?
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/admin/list/transaction">List Transaction</Link>
+                                    </li>
+                                    : null
+
+                            }
+                            {
+                                (parseInt(localStorage.getItem('role')) !== 1 && localStorage.getItem('role') !== null) ?
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/list/transaction">History</Link>
+                                    </li>
+                                    : null
+
+                            }
+
 
                             {
                                 localStorage.getItem('accessToken') ?
