@@ -5,16 +5,13 @@ import '../../assets/js/index'
 import $ from "jquery";
 import homeService from '../../services/home.js'
 import * as Constants from '../../const.js'
-import DetailHouse from '../DetailHouse'
 import moment from 'moment'
-import DatePicker from 'react-datepicker'
 import district from '../../masterData/district.json'
-import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import { DateRangePicker } from 'react-dates';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import { Route, Redirect, Switch } from 'react-router'
+import { Redirect } from 'react-router'
 const Range = Slider.Range;
 
 class HomeComponent extends Component {
@@ -34,7 +31,6 @@ class HomeComponent extends Component {
             nameHome: "",
             is_Detail: false,
             room: {},
-            roomType: '',
             imgsRoom: [],
             homeId: 0,
             district,
@@ -90,31 +86,39 @@ class HomeComponent extends Component {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
         var clss = "search-destinate"
         return (
-            <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.selectDistrict == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+            <li ref={"destiante-" + home.Id}
+                id={"destiante-" + home.Id}
+                className={this.state.selectDistrict === home.Id ? "search-destinate active-search-destinate" : "search-destinate"}
+                key={index}
+                onClick={onClick}>
                 <span>
-                    <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
+                    <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"/>
                 </span>
                 <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
             </li>
         )
     }
-    handleSetDestinate(id, name) {
 
+    handleSetDestinate(id, name) {
         this.setState({ selectDistrict: id, valueDistrict: name })
         this.refs.overlayDestinate.hide();
     }
+
     handleHomeType(type) {
-        this.setState({ roomType: type })
-        this.handleFilter(type)
+        this.setState({ roomType: type });
+        this.handleFilter(type);
     }
+
     fillterPrice() {
-        this.state.minSearch = this.state.minPrice
-        this.state.maxSearch = this.state.maxPrice
+        this.state.minSearch = this.state.minPrice;
+        this.state.maxSearch = this.state.maxPrice;
         this.fillter()
     }
+
     fillter() {
         this.handleFilter(this.state.roomType)
     }
+
     async handleFilter(type) {
         var from = null
         if (this.state.startDate != null) {
@@ -133,20 +137,19 @@ class HomeComponent extends Component {
         } else {
             to = 0
         }
-
         this.setState({ is_listHome: false })
-
     }
     onSliderChange(value) {
         this.setState({ amount: "₫" + value[0] + " - ₫" + value[1] + "+", minPrice: value[0], maxPrice: value[1] })
     }
+
     toggle() {
         this.setState({
             popoverOpen: !this.state.popoverOpen
         });
     }
-    async handleSearch() {
 
+    async handleSearch() {
         localStorage.removeItem('startDay')
         localStorage.removeItem('endDay')
         var from = null
@@ -164,31 +167,25 @@ class HomeComponent extends Component {
                 moment(this.state.endDate, "DD/MM/YYYY")
                     .startOf("day")
                     .unix() + 86340;
-
         } else {
             to = 0
         }
         localStorage.setItem('endDay', to)
-
         localStorage.setItem("totalGuest", this.state.totalGuest)
         localStorage.setItem("district", this.state.selectDistrict)
-
         this.setState({ is_listHome: false })
-
-
-
     }
+
     handeChangeDistrict(event) {
         this.setState({ selectDistrict: event.target.value, homeId: event.target.value })
     }
+
     handeChage(event) {
         this.setState({
             selectGuest: event.target.value,
         });
     };
     handleBackRoom() {
-        // $(".footer").hide()
-        // $(".footer").show()
         this.setState({ is_Detail: false })
     }
     handleGetDetailRoom(room, roomType, imgs) {
@@ -196,7 +193,6 @@ class HomeComponent extends Component {
         localStorage.setItem('room', JSON.stringify(room))
         localStorage.setItem('roomType', roomType)
         localStorage.setItem('imgsRoom', JSON.stringify(imgs))
-
         this.setState({ homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
     handleBackHome() {
@@ -204,11 +200,9 @@ class HomeComponent extends Component {
     }
 
     currencyFormat = (uv) => {
-
         if (Math.floor(uv) === 0) {
             return "0"
         }
-
         var price = Math.floor(uv)
         var priceString = ''
         var count = 0
@@ -217,18 +211,15 @@ class HomeComponent extends Component {
             var number = price % 10;
             price = Math.floor(price / 10);
             count = count + 1
-
             priceString = number + priceString;
-
             if (count === 3 && price > 0) {
                 priceString = "," + priceString;
                 count = 0;
             }
-
         }
-
         return priceString
     }
+
     renderListHomes(home, index) {
         var onClick = this.handleGetDetail.bind(this, home.Id, home.Name);
         return <div className="col-md-4 col-sm-6 margin-bottom-md" key={index}>
@@ -239,10 +230,10 @@ class HomeComponent extends Component {
                     <div className="font-size16">{home.Name}</div>
                     <div className="font-size14">{home.NumberOfRooms} homes</div>
                 </div>
-
             </div>
         </div>;
     }
+
     typeRoom(type_id) {
         switch (type_id) {
             case 1:
@@ -259,23 +250,25 @@ class HomeComponent extends Component {
 
         }
     }
+
     renderImgsRoom(img, index) {
         var clss = "carousel-item"
-        if (index == 0) {
+        if (index === 0) {
             clss += " active"
         }
         return <div className={clss} key={index}>
             <img src={Constants.apiImg + img.Image} width="1100" height="500" />
         </div>;
     }
+
     renderLiTarget(value, index) {
         var clss = ""
-        if (index == 0) {
+        if (index === 0) {
             clss += "active"
         }
         return <li data-target={value} data-slide-to={index} className={clss} key={index}></li>
-
     }
+
     renderListRooms(room, index) {
 
         var typeroom = this.typeRoom(room.RoomType)
@@ -293,12 +286,9 @@ class HomeComponent extends Component {
                         {indexTarget.map(this.renderLiTarget)}
                     </ul>
 
-
                     <div className="carousel-inner" onClick={onClick}>
                         {imgs.map(this.renderImgsRoom)}
                     </div>
-
-
                     <a className="carousel-control-prev" href={'#de' + index} data-slide="prev">
                         <span className="carousel-control-prev-icon"></span>
                     </a>
@@ -395,9 +385,9 @@ class HomeComponent extends Component {
             </div>
         </div>;
     }
+
     handleGetDetail(id, name) {
         this.GetDetailHome(id, name)
-
     }
     async GetDetailHome(id, name) {
         var from = null
@@ -417,123 +407,110 @@ class HomeComponent extends Component {
         } else {
             to = 0
         }
-
-
         this.setState({ is_listHome: false })
         this.setState({ selectedHomeId: "homeId=" + id })
         this.setState({ selectDistrict: id })
-
     }
 
-
     componentDidMount() {
-
-
-        // $(".footer").hide()
         $(".footer").show()
         this.state.district = district
-        console.log(this.state.district)
-
         window.onpopstate = () => {
             if (!this.state.is_listHome) {
                 this.setState({ is_listHome: true })
             }
         }
         this.handlegetListHomes()
-
     }
+
     async handlegetListHomes() {
         const res = await homeService.getListHomes()
-        console.log(res)
         this.setState({ listHome: res.Data })
     }
+
     handleChangeFromTime(date) {
-        console.log(date)
         this.setState({
             startDate: date,
         });
     }
+
     handleChangeToTime(date) {
         this.setState({
             endDate: date,
         });
     }
+
     handlePlus(type) {
-        if (type == 1) {
+        if (type === 1) {
             if (this.state.adultsGuest < 12) {
                 this.state.adultsGuest = this.state.adultsGuest + 1
                 this.state.totalGuest = this.state.totalGuest + 1
             }
-        } else if (type == 2) {
+        } else if (type === 2) {
             if (this.state.childrensGuest < 5) {
                 this.state.childrensGuest = this.state.childrensGuest + 1
                 this.state.totalGuest = this.state.totalGuest + 1
-                if (this.state.childrensGuest == 1 && this.state.adultsGuest == 0) {
+                if (this.state.childrensGuest === 1 && this.state.adultsGuest === 0) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
                     this.state.totalGuest = this.state.totalGuest + 1
                 }
             }
-        } else if (type == 3) {
+        } else if (type === 3) {
             if (this.state.infantsGuest < 5) {
                 this.state.infantsGuest = this.state.infantsGuest + 1
-                if (this.state.infantsGuest == 1 && this.state.adultsGuest == 0) {
+                if (this.state.infantsGuest === 1 && this.state.adultsGuest === 0) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
                     this.state.totalGuest = this.state.totalGuest + 1
                 }
             }
         }
         var guests = ""
-        if (this.state.totalGuest == 0 || this.state.totalGuest == 1) {
+        if (this.state.totalGuest === 0 || this.state.totalGuest === 1) {
             guests = this.state.totalGuest + " Guest"
         } else {
             guests = this.state.totalGuest + " Guests"
         }
         if (this.state.infantsGuest > 0) {
             var infants = " Infants"
-            if (this.state.infantsGuest == 1) {
+            if (this.state.infantsGuest === 1) {
                 infants = " Infant"
             }
             guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
         }
         this.setState({ valueGuest: guests })
-
-
-
     }
+
     handleMinus(type) {
-        if (type == 1) {
+        if (type === 1) {
             if (this.state.adultsGuest > 1) {
                 this.state.adultsGuest = this.state.adultsGuest - 1
                 this.state.totalGuest = this.state.totalGuest - 1
             }
-        } else if (type == 2) {
+        } else if (type === 2) {
             if (this.state.childrensGuest > 0) {
                 this.state.childrensGuest = this.state.childrensGuest - 1
                 this.state.totalGuest = this.state.totalGuest - 1
             }
-        } else if (type == 3) {
+        } else if (type === 3) {
             if (this.state.infantsGuest > 0) {
                 this.state.infantsGuest = this.state.infantsGuest - 1
             }
         }
         var guests = ""
-        if (this.state.totalGuest == 0 || this.state.totalGuest == 1) {
+        if (this.state.totalGuest === 0 || this.state.totalGuest === 1) {
             guests = this.state.totalGuest + " Guest"
         } else {
             guests = this.state.totalGuest + " Guests"
         }
         if (this.state.infantsGuest > 0) {
             var infants = " Infants"
-            if (this.state.infantsGuest == 1) {
+            if (this.state.infantsGuest === 1) {
                 infants = " Infant"
             }
             guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
         }
-
         this.setState({ valueGuest: guests })
-
     }
-
 
     render() {
         if (this.state.is_Detail) {
@@ -541,9 +518,7 @@ class HomeComponent extends Component {
                 pathname: "/detail/house",
                 search: "?room=" + this.state.room.Id,
                 target: "_blank"
-
             }} />
-
             )
         } else {
             return (
@@ -575,7 +550,6 @@ class HomeComponent extends Component {
                                         </div>
                                         <div className="col-md-4 col-sm-4 col-init col-search cursorPointer" >
                                             <span className="cursorPointer search-date" style={{ display: 'block', position: 'relative', margin: '5px' }}>
-
                                                 <DateRangePicker
                                                     startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                                                     startDateId="DateInput__screen-reader-message-start" // PropTypes.string.isRequired,
@@ -876,7 +850,6 @@ class HomeComponent extends Component {
                                         <Redirect push to={{
                                             pathname: "/listroom",
                                             search: "?homeId=" + this.state.selectDistrict
-
                                         }} />
                                     }
                                 </div>
@@ -884,7 +857,6 @@ class HomeComponent extends Component {
                         </div>
                     </div>
                 </div>
-
             )
         }
     }
