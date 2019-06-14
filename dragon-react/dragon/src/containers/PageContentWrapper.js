@@ -5,7 +5,6 @@ import DetailHouseComponent from "../components/DetailHouse"
 import ListOfBooking from "../components/ListOfBooking"
 import TransactionHistoryComponent from "../components/TransactionHistory"
 import AccountSettingComponent from "../components/AccountSetting"
-import Today from "../components/Today"
 import PastTripComponent from "../components/PastTrip"
 import TodayComponent from '../components/Today';
 import UpdatePhone from '../components/UpdatePhone';
@@ -82,14 +81,11 @@ class PageContainerWrapper extends Component {
             default:
                 _view = "";
                 break;
-
         }
-
         return (
             <div>
                 {_view}
             </div>
-
         )
     }
 }
