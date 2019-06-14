@@ -5,16 +5,13 @@ import '../../assets/js/index'
 import $ from "jquery";
 import homeService from '../../services/home.js'
 import * as Constants from '../../const.js'
-import DetailHouse from '../DetailHouse'
 import moment from 'moment'
-import DatePicker from 'react-datepicker'
 import district from '../../masterData/district.json'
-import { Button, UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import { DateRangePicker} from 'react-dates';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import { Route, Redirect, Switch } from 'react-router'
+import { Redirect } from 'react-router'
 const Range = Slider.Range;
 
 class ListRoomComponent extends Component {
@@ -46,7 +43,6 @@ class ListRoomComponent extends Component {
             minPrice: 500000,
             maxPrice: 5000000,
             amount: "₫500000  - ₫5000000+",
-            roomType: 0,
             selectDistrict: "",
             valueDistrict: "",
             adultsGuest: 0,
@@ -60,7 +56,6 @@ class ListRoomComponent extends Component {
             detail: null,
             lengthLocation: 0,
             is_DetailHome: false,
-
         };
         this.handleChangeFromTime = this.handleChangeFromTime.bind(this)
         this.handleChangeToTime = this.handleChangeToTime.bind(this)
@@ -96,12 +91,9 @@ class ListRoomComponent extends Component {
         searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
         var search = window.location.href
         var url = new URL(search);
-        console.log("homeId", url.searchParams.get("homeId"))
 
-
-        if (searchStatement != this.state.searchString) {
+        if (searchStatement !== this.state.searchString) {
             if (!this.state.is_Detail) {
-
                 this.setState({ searchString: searchStatement })
                 if (url.searchParams.get("is_DetailHome")) {
                     this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
@@ -110,42 +102,45 @@ class ListRoomComponent extends Component {
                 }
             }
         }
-
     }
+
     renderListDestinate(home, index) {
         var onClick = this.handleSetDestinate.bind(this, home.Id, home.Name);
         var clss = "search-destinate"
-        return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.homeId == home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
+        return <li ref={"destiante-" + home.Id} id={"destiante-" + home.Id} className={this.state.homeId === home.Id ? "search-destinate active-search-destinate" : "search-destinate"} key={index} onClick={onClick}>
             <span>
                 <i className="fa fa-compass icon-search cursorPointer" aria-hidden="true"></i>
             </span>
             <span style={{ marginLeft: '10px', marginRight: '10px' }}>{home.Name}</span>
         </li>
     }
-    handleSetDestinate(id, name) {
 
+    handleSetDestinate(id, name) {
         this.setState({ homeId: id, valueDistrict: name })
         this.refs.overlayDestinate.hide();
     }
-    handleHomeType(type) {
 
-        if (type == this.state.roomType) {
+    handleHomeType(type) {
+        if (type === this.state.roomType) {
             type = 0
         }
         this.setState({ roomType: type })
         this.handleFilter(type)
     }
+
     fillterPrice() {
         this.state.minSearch = this.state.minPrice
         this.state.maxSearch = this.state.maxPrice
         this.fillter()
     }
+
     fillter() {
         this.handleFilter(this.state.roomType)
     }
+
     async handleFilter(type) {
         var from = null
-        if (this.state.startDate != null) {
+        if (this.state.startDate !== null) {
             from = moment(this.state.startDate, "DD/MM/YYYY")
                 .startOf("day")
                 .unix();
@@ -153,7 +148,7 @@ class ListRoomComponent extends Component {
             from = 0
         }
         var to = null
-        if (this.state.endDate != null) {
+        if (this.state.endDate !== null) {
             to =
                 moment(this.state.endDate, "DD/MM/YYYY")
                     .startOf("day")
@@ -162,7 +157,7 @@ class ListRoomComponent extends Component {
             to = 0
         }
         const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, this.state.minSearch, this.state.maxSearch, type)
-        if (res.Data == null || res.Data.length < 1) {
+        if (res.Data === null || res.Data.length < 1) {
             res.Data = []
             this.setState({ is_RoomNull: true })
         } else {
@@ -174,6 +169,7 @@ class ListRoomComponent extends Component {
     fillterSearch() {
         this.handleFilterSearch(this.state.roomType)
     }
+
     async handleFilterSearch(type) {
         var from = null
         if (this.state.startDate != null) {
@@ -193,7 +189,7 @@ class ListRoomComponent extends Component {
             to = 0
         }
         const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, this.state.minPrice, this.state.maxPrice, type)
-        if (res.Data == null || res.Data.length < 1) {
+        if (res.Data === null || res.Data.length < 1) {
             res.Data = []
             this.setState({ is_RoomNull: true })
         } else {
@@ -201,19 +197,21 @@ class ListRoomComponent extends Component {
         }
         this.setState({ listRoom: res.Data })
         this.setState({ is_listHome: false, nameHome: "" })
-
     }
+
     onSliderChange(value) {
         this.setState({ amount: "₫" + value[0] + " - ₫" + value[1] + "+", minPrice: value[0], maxPrice: value[1] })
     }
+
     toggle() {
         this.setState({
             popoverOpen: !this.state.popoverOpen
         });
     }
+
     async handleSearch() {
         var from = null
-        if (this.state.startDate != null) {
+        if (this.state.startDate !== null) {
             from = moment(this.state.startDate, "DD/MM/YYYY")
                 .startOf("day")
                 .unix();
@@ -221,7 +219,7 @@ class ListRoomComponent extends Component {
             from = 0
         }
         var to = null
-        if (this.state.endDate != null) {
+        if (this.state.endDate !== null) {
             to =
                 moment(this.state.endDate, "DD/MM/YYYY")
                     .startOf("day")
@@ -230,7 +228,7 @@ class ListRoomComponent extends Component {
             to = 0
         }
         const res = await homeService.searchRoom(this.state.homeId, from, to, this.state.totalGuest, null, null, 0)
-        if (res.Data == null || res.Data.length < 1) {
+        if (res.Data === null || res.Data.length < 1) {
             res.Data = []
             this.setState({ is_RoomNull: true })
         } else {
@@ -240,31 +238,34 @@ class ListRoomComponent extends Component {
 
         this.setState({ is_listHome: false, nameHome: "" })
     }
+
     handeChangeDistrict(event) {
         alert(event.target.value)
         this.setState({ homeId: event.target.value })
 
     }
+
     handeChage(event) {
         this.setState({
             selectGuest: event.target.value,
         });
     };
+
     handleBackRoom() {
         this.setState({ is_Detail: false })
     }
+
     handleGetDetailRoom(room, roomType, imgs) {
         // var search = "homeId=" + room.HomeId + "&roomId=" + room.Id + "&roomType=" + roomType + "&price=" + room.Price
         var search = "roomId=" + room.Id;
-
         this.setState({ detail: search, homeId: room.HomeId, is_Detail: true, room: room, roomType: roomType, imgsRoom: imgs })
     }
+
     handleBackHome() {
         this.setState({ is_listHome: true })
     }
 
     currencyFormat = (uv) => {
-
         if (Math.floor(uv) === 0) {
             return "0"
         }
@@ -286,9 +287,9 @@ class ListRoomComponent extends Component {
             }
 
         }
-
         return priceString
     }
+
     renderListHomes(home, index) {
         var onClick = this.handleGetDetail.bind(this, home.Id, home.Name);
         return <div className="col-md-4 col-sm-6 margin-bottom-md" key={index}>
@@ -319,23 +320,25 @@ class ListRoomComponent extends Component {
 
         }
     }
+
     renderImgsRoom(img, index) {
         var clss = "carousel-item"
-        if (index == 0) {
+        if (index === 0) {
             clss += " active"
         }
         return <div className={clss} key={index}>
             <img src={Constants.apiImg + img.Image} width="1100" height="500" />
         </div>;
     }
+
     renderLiTarget(value, index) {
         var clss = ""
-        if (index == 0) {
+        if (index === 0) {
             clss += "active"
         }
         return <li data-target={value} data-slide-to={index} className={clss} key={index}></li>
-
     }
+
     renderListRooms(room, index) {
 
         var typeroom = this.typeRoom(room.RoomType)
@@ -353,11 +356,9 @@ class ListRoomComponent extends Component {
                         {indexTarget.map(this.renderLiTarget)}
                     </ul>
 
-
                     <div className="carousel-inner" onClick={onClick}>
                         {imgs.map(this.renderImgsRoom)}
                     </div>
-
 
                     <a className="carousel-control-prev" href={'#de' + index} data-slide="prev">
                         <span className="carousel-control-prev-icon"></span>
@@ -467,7 +468,6 @@ class ListRoomComponent extends Component {
         if (res && res.Data) {
             this.setState({ listRoom: res.Data })
         }
-        console.log(this.state.listRoom)
     }
 
     componentWillMount() {
@@ -476,17 +476,12 @@ class ListRoomComponent extends Component {
         })
     }
 
-
-
     componentDidMount() {
-        // $(".footer").hide()
         var searchStatement = window.location.href.substr(window.location.href.indexOf("?") + 1, window.location.href.length - 1);
         searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
         var search = window.location.href
         var url = new URL(search);
-        console.log("homeId", url.searchParams.get("homeId"))
         this.setState({ homeId: url.searchParams.get("homeId") })
-        console.log(moment.unix(localStorage.getItem("startDay")))
         if (parseInt(localStorage.getItem("startDay")) === 0 || localStorage.length === 0) {
             this.setState({
                 startDate: null
@@ -500,13 +495,8 @@ class ListRoomComponent extends Component {
         } else {
             this.setState({ endDate: moment.unix(localStorage.getItem("endDay")) })
         }
-
-
-        console.log(this.state)
-
         this.handlegetListHomes()
         $(".footer").show()
-
         switch (this.state.roomType) {
             case 1:
                 $("#DynamicFilterSpanItem-room_types-Entire_home").removeClass("_fhj4ui");
@@ -532,7 +522,7 @@ class ListRoomComponent extends Component {
     }
     async handlegetListHomes() {
         const res = await homeService.getListHomes()
-        console.log(res)
+
         this.setState({ listHome: res.Data })
     }
     handleChangeFromTime(date) {
@@ -546,38 +536,38 @@ class ListRoomComponent extends Component {
         });
     }
     handlePlus(type) {
-        if (type == 1) {
+        if (type === 1) {
             if (this.state.adultsGuest < 12) {
                 this.state.adultsGuest = this.state.adultsGuest + 1
                 this.state.totalGuest = this.state.totalGuest + 1
             }
-        } else if (type == 2) {
+        } else if (type === 2) {
             if (this.state.childrensGuest < 5) {
                 this.state.childrensGuest = this.state.childrensGuest + 1
                 this.state.totalGuest = this.state.totalGuest + 1
-                if (this.state.childrensGuest == 1 && this.state.adultsGuest == 0) {
+                if (this.state.childrensGuest === 1 && this.state.adultsGuest === 0) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
                     this.state.totalGuest = this.state.totalGuest + 1
                 }
             }
-        } else if (type == 3) {
+        } else if (type === 3) {
             if (this.state.infantsGuest < 5) {
                 this.state.infantsGuest = this.state.infantsGuest + 1
-                if (this.state.infantsGuest == 1 && this.state.adultsGuest == 0) {
+                if (this.state.infantsGuest === 1 && this.state.adultsGuest === 0) {
                     this.state.adultsGuest = this.state.adultsGuest + 1
                     this.state.totalGuest = this.state.totalGuest + 1
                 }
             }
         }
         var guests = ""
-        if (this.state.totalGuest == 0 || this.state.totalGuest == 1) {
+        if (this.state.totalGuest === 0 || this.state.totalGuest === 1) {
             guests = this.state.totalGuest + " Guest"
         } else {
             guests = this.state.totalGuest + " Guests"
         }
         if (this.state.infantsGuest > 0) {
             var infants = " Infants"
-            if (this.state.infantsGuest == 1) {
+            if (this.state.infantsGuest === 1) {
                 infants = " Infant"
             }
             guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
@@ -588,30 +578,30 @@ class ListRoomComponent extends Component {
 
     }
     handleMinus(type) {
-        if (type == 1) {
+        if (type === 1) {
             if (this.state.adultsGuest > 1) {
                 this.state.adultsGuest = this.state.adultsGuest - 1
                 this.state.totalGuest = this.state.totalGuest - 1
             }
-        } else if (type == 2) {
+        } else if (type === 2) {
             if (this.state.childrensGuest > 0) {
                 this.state.childrensGuest = this.state.childrensGuest - 1
                 this.state.totalGuest = this.state.totalGuest - 1
             }
-        } else if (type == 3) {
+        } else if (type === 3) {
             if (this.state.infantsGuest > 0) {
                 this.state.infantsGuest = this.state.infantsGuest - 1
             }
         }
         var guests = ""
-        if (this.state.totalGuest == 0 || this.state.totalGuest == 1) {
+        if (this.state.totalGuest === 0 || this.state.totalGuest === 1) {
             guests = this.state.totalGuest + " Guest"
         } else {
             guests = this.state.totalGuest + " Guests"
         }
         if (this.state.infantsGuest > 0) {
             var infants = " Infants"
-            if (this.state.infantsGuest == 1) {
+            if (this.state.infantsGuest === 1) {
                 infants = " Infant"
             }
             guests = this.state.totalGuest + " Guests, " + this.state.infantsGuest + infants
