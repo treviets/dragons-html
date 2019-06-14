@@ -95,7 +95,7 @@ class PageHeader extends Component {
             .handleLogin(formData)
     };
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     render() {
         const {
@@ -118,7 +118,7 @@ class PageHeader extends Component {
                     </button>
 
                     <div className="collapse navbar-collapse font-medium" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto"/>
+                        <ul className="navbar-nav mr-auto" />
                         <ul className="navbar-nav row-direction  font-medium" >
                             <li className="nav-item">
                                 <a className="nav-link" href="/">Become a host</a>
@@ -201,6 +201,44 @@ class PageHeader extends Component {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* FROM - REGISTER - INFO - BY - EMAIL */}
+                <div className="modal fade" id="register-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <span className="more_info">Sign up with
+                                    <span> Facebook</span> or
+                                    <span> Google</span>
+                                </span>
+                                <button type="button" id="buttonCloseSignUp" className="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div className="modal-body login-modal">
+                                <div id='social-icons-conatainer'>
+                                    <div >
+                                        <div className="form-group">
+                                            <input type="text" placeholder="Email address" name="email" ref="email" className="form-control login-field" />
+                                        </div>
+                                        <div className="form-group">
+                                            <input type="text" placeholder="First name" name="firstname" ref="firstname" className="form-control login-field" />
+                                        </div>
+                                        <div className="form-group">
+                                            <input placeholder="Last name" name="lastname" ref="lastname" className="form-control login-field" />
+                                        </div>
+                                        <div className="form-group">
+                                            <input type="password" placeholder="Create a Password" ref="password" name="password" className="form-control login-field" />
+                                        </div>
+
+                                        <button className="btn modal-login-btn" onClick={this.signUpAccount}>Sign up</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="clearfix"></div>
+                            <div className="modal-footer login_modal_footer">
                             </div>
                         </div>
                     </div>
