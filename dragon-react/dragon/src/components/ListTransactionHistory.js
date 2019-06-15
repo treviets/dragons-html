@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
-import { ModalDialog } from 'react-bootstrap';
-
 import BootstrapTable from 'react-bootstrap-table-next';
-import adminService from '../services/admin'
 import '../assets/css/style.css'
-import service from '../services/signup.js';
-import { Link, Redirect } from 'react-router-dom'
 import "react-datepicker/dist/react-datepicker.css";
-import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
-import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import transactionService from '../services/transaction';
+import * as moment from "moment";
 
 const CaptionElement = () => <h3 style={
     {
@@ -20,8 +15,7 @@ const CaptionElement = () => <h3 style={
         padding: '0.5em'
     }}>List transaction</h3>;
 
-
-class ListRoom extends Component {
+class ListTransactionHistory extends Component {
     constructor(props) {
         super(props);
         var columns = [
@@ -38,27 +32,31 @@ class ListRoom extends Component {
                 text: 'Email'
             },
             {
+                dataField: 'CreatedAt',
+                text: 'Date'
+            },
+            {
                 dataField: 'TotalAmount',
                 text: 'Total'
             }
         ];
+
         var options = {
             onSizePerPageChange: (sizePerPage, page) => {
-
             },
             onPageChange: (page, sizePerPage) => {
-
             },
             onRowClick: (row, cell) => {
                 console.log(row)
             }
-
         };
+
         var rowEvents = {
             onClick: (e, row, rowIndex) => {
                 this.showDetailToEdit(row)
             }
-        }
+        };
+
         this.state = {
             listRooms: [],
             paginationOption: {},
@@ -66,26 +64,39 @@ class ListRoom extends Component {
             columns: columns,
             rowEvents: rowEvents,
             modelAdd: false
-        }
-
+        };
         this.toggle = this.toggle.bind(this);
         this.onChange = this.onChange.bind(this);
+        ListTransactionHistory.handleConvertDate = ListTransactionHistory.handleConvertDate.bind(this);
     }
 
-    async handleGetTransactions() {
-        const res = await transactionService.getListTransaction();
-
+    async handleGetTransactions(cusId) {
+        const res = await transactionService.getListTransactionOfCustomer(cusId);
         var paginationOption = {
             custom: true,
             totalSize: res.Data.length,
         };
+        var listRoomsCustome = [];
+        for(let i =0; i < res.Data.length; i++){
+            var element = res.Data[i];
+            var item = {
+                Id: element.id,
+                CustomerPhone: element.CustomerPhone,
+                CustomerEmail: element.CustomerEmail,
+                CreatedAt: ListTransactionHistory.handleConvertDate(element.CreatedAt),
+                TotalAmount: element.TotalAmount
+            };
+            listRoomsCustome.push(item);
+        }
+        this.setState({ listRooms: listRoomsCustome, paginationOption: paginationOption })
+    }
 
-        this.setState({ listRooms: res.Data, paginationOption: paginationOption })
-
+    static handleConvertDate(dateUnix){
+        return moment.unix(dateUnix/1000).format("YYYY-MM-DD HH:mm:ss");
     }
 
     componentDidMount() {
-        this.handleGetTransactions();
+        this.handleGetTransactions(localStorage.getItem("cusId"));
     }
 
     onChange = (e) => {
@@ -115,4 +126,4 @@ class ListRoom extends Component {
     }
 }
 
-export default ListRoom
+export default ListTransactionHistory
