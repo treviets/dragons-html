@@ -16,7 +16,7 @@ const HomeService = {
     },
     getDetailHome: async function (homeId) {
         try {
-            if (homeId == null) {
+            if (homeId === null) {
                 homeId = 0;
             }
             const response = await getFromUrl(
@@ -43,10 +43,22 @@ const HomeService = {
             }
         }
     },
+    saveRoom: async function (roomData) {
+        try {
+            const response = await postFromUrl(
+                "/dragons/room/create_room_detail", roomData);
+            const data = response.data;
+            return data
+        } catch (e) {
+            if (e.response.status === 401) {
+                alert(e.response.message);
+            }
+        }
+    },
     searchRoom: async function (homeId, from, to, number_of_guest, min, max, roomType) {
         try {
 
-            if (homeId == "" || homeId == null) {
+            if (homeId === "" || homeId === null) {
                 homeId = 0
             }
             var url = "/dragons/room/list?homeId=" + homeId

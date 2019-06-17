@@ -4,7 +4,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import adminService from '../services/admin';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import moment, { lang } from 'moment';
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import "react-tabs/style/react-tabs.css";
 
 
 const CaptionElement = () => <h3 style={{ backgroundColor: 'gray', borderRadius: '0.25em', textAlign: 'center', color: 'White', border: '1px solid gray', padding: '0.5em' }}>List Booking</h3>;
@@ -79,14 +80,30 @@ class ListOfBooking extends Component {
     render() {
         return (
             <div className="container">
-                <CaptionElement />
-                <BootstrapTable
-                    keyField='id'
-                    data={this.state.listbooking}
-                    striped
-                    columns={this.state.columns}
-                    pagination={paginationFactory(this.state.options)}
-                />
+                <Tabs className="tabs-booking" >
+                    <TabList>
+                        <Tab>Past</Tab>
+                        <Tab>In progress</Tab>
+                        <Tab>UpComming</Tab>
+                    </TabList>
+                    <TabPanel>
+                        <h2>List booking in past</h2>
+                        <CaptionElement />
+                        <BootstrapTable
+                            keyField='id'
+                            data={this.state.listbooking}
+                            striped
+                            columns={this.state.columns}
+                            pagination={paginationFactory(this.state.options)}
+                        />
+                    </TabPanel>
+                    <TabPanel>
+                        <h2>Any content 2</h2>
+                    </TabPanel>
+                    <TabPanel>
+                        <h2>Any content 3</h2>
+                    </TabPanel>
+                </Tabs>
             </div>
         )
     }
