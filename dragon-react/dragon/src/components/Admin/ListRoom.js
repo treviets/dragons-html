@@ -211,8 +211,11 @@ class ListRoom extends Component {
     render() {
         return (
             <div className="container">
-                <Link to="/admin/list/room_add" className="sidenav-item">New Room</Link>
                 <CaptionElement />
+                <button className="btn btn-primary btn-cus-add">
+                    <i className="fa fa-plus"></i>
+                    <Link to="/admin/list/room_add" className="link-cus-add"> New Room</Link>
+                </button>
                 <BootstrapTable keyField='id' data={this.state.listRooms} striped columns={this.state.columns}
                     pagination={paginationFactory(this.state.options)} rowEvents={this.state.rowEvents} />
                 {

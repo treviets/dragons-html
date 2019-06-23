@@ -1283,6 +1283,13 @@ select::-ms-expand {
   position: relative !important;
   padding-top: 150px !important;
 }
+.link-cus-add{
+    color: white
+}
+.btn-cus-add{
+    margin-bottom: 10px;
+    margin-left: 80%;
+}
 /* .container-modal .modal, .container-modal .modal-backdrop {
   position: absolute !important;
 }  */

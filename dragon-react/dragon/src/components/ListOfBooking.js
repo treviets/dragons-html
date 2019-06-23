@@ -33,9 +33,15 @@ class ListOfBooking extends Component {
         ];
         var options = {
             onSizePerPageChange: (sizePerPage, page) => {
-
+                console.log('onSizePerPageChange', page);
+                console.log('onSizePerPageChange', sizePerPage);
+                this.handleGetBooking(page - 1);
             },
             onPageChange: (page, sizePerPage) => {
+                console.log('onPageChange', page);
+                console.log('onPageChange', sizePerPage);
+                this.handleGetBooking(page - 1);
+
 
             },
             onRowClick: (row, cell) => {
@@ -52,11 +58,14 @@ class ListOfBooking extends Component {
         }
 
     }
-    async handleGetBooking() {
-        const res = await adminService.getListBooking();
+    async handleGetBooking(page) {
+        const res = await adminService.getListBooking(page);
         var list = []
-        for (var i = 0; i < res.Data.length; i++) {
-            var detail = res.Data[i];
+        if (!res || !res.Data) {
+            return;
+        }
+        for (var i = 0; i < res.Data.content.length; i++) {
+            var detail = res.Data.content[i];
             var obj = {
                 // Home: detail.Home.Name,
                 Room: detail.Room.Code,
@@ -73,7 +82,8 @@ class ListOfBooking extends Component {
 
     }
     componentDidMount() {
-        this.handleGetBooking();
+        var page = 0;
+        this.handleGetBooking(0);
     }
 
 

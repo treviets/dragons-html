@@ -6,6 +6,7 @@ import bookingService from '../services/booking.js'
 import paymentService from '../services/payment.js'
 
 import homeService from '../services/home.js'
+import uuid from "uuid";
 
 
 class ReviewHouse extends Component {
@@ -32,23 +33,55 @@ class ReviewHouse extends Component {
         this.renderPolices = this.renderPolices.bind(this)
         this.loadData = this.loadData.bind(this)
         this.clickPaymentWithATM = this.clickPaymentWithATM.bind(this)
+        this.clickPaymentWithNoATM = this.clickPaymentWithNoATM.bind(this)
     }
 
     async clickPaymentWithATM() {
         var user = this.parseJwt(localStorage.accessToken)
         var objPayment = {
-            CustomerEmail: user.email,
-            CustomerId: user.id,
-            CustomerPhone: user.phone,
-            MerchantOrderId: "Thoai 1",
-            OrderCode: "Test OrderID",
-            TotalAmount: this.state.price
+            "CustomerEmail": user.email,
+            "CustomerId": user.id,
+            "CustomerPhone": user.phone,
+            "MerchTxnRef": uuid.v4(),
+            "OrderInfor": "Test OrderID",
+            "TotalAmount": this.state.price
         }
-        const res = await paymentService.redirectOnePay(JSON.stringify(objPayment));
+        console.log("-----------", objPayment);
+        const res = await paymentService.redirectOnePay(objPayment);
         if (res.Status === "OK") {
-            window.open(res.Data);
+            window.open(res.Data.Url);
         } else {
-            alert("Err connect with OnePay");
+            alert(res.Message);
+        }
+
+    }
+    async clickPaymentWithNoATM() {
+        var user = this.parseJwt(localStorage.accessToken)
+        var objPayment = {
+            "City": {
+                "Id": 0,
+                "Name": "hcm",
+                "Status": true
+            },
+            "CustomerEmail": user.email,
+            "CustomerId": user.id,
+            "CustomerPhone": user.phone,
+            "District": {
+                "Id": 0,
+                "Name": "tan binh",
+                "ProvinceId": 0
+            },
+            "FullTextAddress": "cong hoa",
+            "MerchTxnRef": uuid.v4(),
+            "OrderInfor": "dddd",
+            "TotalAmount": this.state.price
+        }
+        console.log("-----------", objPayment);
+        const res = await paymentService.redirectOnePayNoATM(objPayment);
+        if (res.Status === "OK") {
+            window.open(res.Data.Url);
+        } else {
+            alert(res.Message);
         }
 
     }
@@ -448,7 +481,7 @@ class ReviewHouse extends Component {
                                         <div className="modal-body">
                                             <button className="btn btn-primary" onClick={this.clickPaymentWithATM}><b> Payment with ATM</b></button>
                                             ---OR---
-                                            <button className="btn btn-primary"><b> Payment with no ATM</b></button>
+                                            <button className="btn btn-primary" onClick={this.clickPaymentWithNoATM}><b> Payment with Credit Card</b></button>
                                         </div>
                                         <div className="modal-footer">
                                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -457,8 +490,8 @@ class ReviewHouse extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div >
+                </div >
             )
         } else {
             return (<div></div>)

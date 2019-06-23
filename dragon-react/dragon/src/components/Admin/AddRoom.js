@@ -3,12 +3,19 @@ import '../../assets/css/style.css'
 import '../../assets/css/profile.css';
 import Select from 'react-select';
 import homeService from '../../services/home'
+import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 
 const optionsRoomType = [
     { value: '1', label: 'ENTIRE APARTMENT' },
     { value: '2', label: 'ENTIRE HOUSE' },
     { value: '3', label: 'PRIVATE ROOM' },
     { value: '4', label: 'SHARE ROOM' },
+];
+
+const items = [
+    'One',
+    'Two',
+    'Three',
 ];
 
 class AddRoom extends Component {
@@ -32,6 +39,7 @@ class AddRoom extends Component {
             selectedRoomType: null,
             selectedHome: null,
             optionsHome: [],
+            fruits: ['apple', 'watermelon']
         }
 
         this.saveRoom = this.saveRoom.bind(this)
@@ -60,6 +68,40 @@ class AddRoom extends Component {
         }
     }
 
+    componentWillMount = () => {
+        this.selectedCheckboxes = new Set();
+    }
+
+    toggleCheckbox = label => {
+        if (this.selectedCheckboxes.has(label)) {
+            this.selectedCheckboxes.delete(label);
+        } else {
+            this.selectedCheckboxes.add(label);
+        }
+    }
+
+    handleFormSubmit = formSubmitEvent => {
+        formSubmitEvent.preventDefault();
+
+        for (const checkbox of this.selectedCheckboxes) {
+            console.log(checkbox, 'is selected.');
+        }
+    }
+
+    createCheckbox = label => (
+        <Checkbox
+            label={label}
+            handleCheckboxChange={this.toggleCheckbox}
+            key={label}
+        />
+    )
+
+    createCheckboxes = () => (
+        items.map(this.createCheckbox)
+    )
+
+
+
     onChange = (e) => {
         var target = e.target;
         var name = target.name;
@@ -73,36 +115,43 @@ class AddRoom extends Component {
         this.handlegetListHomes();
     }
 
-    saveRoom(){
+    saveRoom() {
         console.log("SAVE___ROOM");
-        var roomInfo ={
-            HomeId : parseInt(this.state.selectedHome.value),
-            Code : this.state.code,
-            NumberOfGuest: parseInt(this.state.numberOfGuest),
-            Price: parseInt(this.state.price),
-            Description: this.state.desc,
-            RoomType: parseInt(this.state.selectedRoomType.value),
-            RentalType: 1,
-            Bedroom: parseInt(this.state.bedroom),
-            Bed: parseInt(this.state.bed),
-            Bath: parseInt(this.state.bath),
-            Status: 1
-        };
-
-        console.log("ROOM-INFO")
-        console.log(JSON.stringify(roomInfo));
-
-        var res = homeService.saveRoom(JSON.stringify(roomInfo));
-
-        console.log(res)
+        // var roomInfo ={
+        //     HomeId : parseInt(this.state.selectedHome.value),
+        //     Code : this.state.code,
+        //     NumberOfGuest: parseInt(this.state.numberOfGuest),
+        //     Price: parseInt(this.state.price),
+        //     Description: this.state.desc,
+        //     RoomType: parseInt(this.state.selectedRoomType.value),
+        //     RentalType: 1,
+        //     Bedroom: parseInt(this.state.bedroom),
+        //     Bed: parseInt(this.state.bed),
+        //     Bath: parseInt(this.state.bath),
+        //     Status: 1
+        // };
+        //
+        // console.log("ROOM-INFO")
+        // console.log(JSON.stringify(roomInfo));
+        console.log("---------", this.state.fruits);
 
 
+        // var res = homeService.saveRoom(JSON.stringify(roomInfo));
+
+        // console.log(res)
+
+
+    }
+    fruitsChanged = (newFruits) => {
+        this.setState({
+            fruits: newFruits
+        });
     }
 
     async handlegetListHomes() {
         const res = await homeService.getListHomes();
-        var listHome =[];
-        for(var i = 0; i < res.Data.length; i++){
+        var listHome = [];
+        for (var i = 0; i < res.Data.length; i++) {
             var item = res.Data[i];
             listHome.push(
                 {
@@ -111,7 +160,7 @@ class AddRoom extends Component {
                 },
             )
         }
-        this.setState({ optionsHome: listHome})
+        this.setState({ optionsHome: listHome })
     }
 
     render() {
@@ -183,7 +232,7 @@ class AddRoom extends Component {
                                         <Select
                                             options={optionsRoomType}
                                             value={this.state.selectedRoomType}
-                                            onChange={this.handleChangeRoomType}/>
+                                            onChange={this.handleChangeRoomType} />
                                     </div>
                                 </div>
                                 <div className="row row-condensed space-4">
@@ -194,8 +243,8 @@ class AddRoom extends Component {
                                         <Select
                                             options={this.state.optionsHome}
                                             value={this.state.selectedHome}
-                                            onChange={this.handleChangeHome}/>
-                                        </div>
+                                            onChange={this.handleChangeHome} />
+                                    </div>
                                 </div>
 
                                 <div className="row row-condensed space-4">
@@ -205,6 +254,22 @@ class AddRoom extends Component {
                                     <div className="col-9 text-muted space-top-1">
                                         <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
                                         <div className="text-muted space-top-1">The Dragon is built on relationships. Help other people get to know you.<br /><br />Tell them about the things you like: What are 5 things you can’t live without? Share your favorite travel destinations, books, movies, shows, music, food.<br /><br />Tell them what it’s like to have you as a guest or host: What’s your style of traveling? Of Airbnb hosting?<br /><br />Tell them about you: Do you have a life motto?</div>
+                                    </div>
+                                </div>
+                                <div className="row row-condensed space-4">
+                                    <label className="col-3">
+                                        Amenity
+                                    </label>
+                                    <div className="col-9 text-muted space-top-1">
+                                        <CheckboxGroup
+                                            checkboxDepth={2} // This is needed to optimize the checkbox group
+                                            name="fruits"
+                                            value={this.state.fruits}
+                                            onChange={this.fruitsChanged}>
+                                            <label><Checkbox value="apple" /> Apple</label>
+                                            <label><Checkbox value="orange" /> Orange</label>
+                                            <label><Checkbox value="watermelon" /> Watermelon</label>
+                                        </CheckboxGroup>
                                     </div>
                                 </div>
                             </div>

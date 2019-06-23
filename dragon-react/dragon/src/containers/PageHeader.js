@@ -120,30 +120,24 @@ class PageHeader extends Component {
                     <div className="collapse navbar-collapse font-medium" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto" />
                         <ul className="navbar-nav row-direction  font-medium" >
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">Become a host</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/">Help</a>
-                            </li>
                             {
                                 parseInt(localStorage.getItem('role')) === 1 ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/admin/list/room">List Room</Link>
+                                        <Link className="nav-link" to="/admin/list/room">Room Management</Link>
                                     </li>
                                     : null
                             }
                             {
                                 parseInt(localStorage.getItem('role')) === 1 ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/admin/list/booking">List Booking</Link>
+                                        <Link className="nav-link" to="/admin/list/booking">Booking Management</Link>
                                     </li>
                                     : null
                             }
                             {
                                 parseInt(localStorage.getItem('role')) === 1 ?
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/admin/list/transaction">List Transaction</Link>
+                                        <Link className="nav-link" to="/admin/list/transaction">Transaction Management</Link>
                                     </li>
                                     : null
                             }

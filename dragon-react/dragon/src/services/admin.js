@@ -1,10 +1,10 @@
 import { postFromUrl, getFromUrl } from "../actions/apiUtils";
 const adminService = {
 
-    getListBooking: async function () {
+    getListBooking: async function (page) {
         try {
             const response = await getFromUrl(
-                "/dragons/admin/booking/all");
+                "/dragons/admin/booking/all/" + page);
             const data = response.data;
             return data
 
@@ -18,7 +18,7 @@ const adminService = {
     getListRoom: async function () {
         try {
             const response = await getFromUrl(
-                "/dragons/admin/room/all");
+                "/dragons/admin/room/all/0");
             const data = response.data;
             return data
 
