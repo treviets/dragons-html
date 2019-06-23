@@ -18,7 +18,8 @@ import ListRoomAdmin from "../components/Admin/ListRoom";
 import AddRoom from "../components/Admin/AddRoom";
 import ListTransactionAdim from "../components/Admin/ListTransaction";
 import ListTransactionCustomer from "../components/ListTransactionHistory";
-
+import PaymentAtmResponse from "../components/PaymentAtmResponse";
+import PaymentNonAtmResponse from "../components/PaymentNonAtmResponse";
 
 class PageContainerWrapper extends Component {
     render() {
@@ -77,6 +78,12 @@ class PageContainerWrapper extends Component {
                 break;
             case types.listTransactionCustomer:
                 _view = <ListTransactionCustomer />;
+                break;
+            case types.paymentAtmReponse:
+                _view = <PaymentAtmResponse />;
+                break;
+            case types.paymentNonAtmResponse:
+                _view = <PaymentNonAtmResponse />;
                 break;
             default:
                 _view = "";

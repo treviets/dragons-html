@@ -22,6 +22,8 @@ const types = {
     addRoom: '16',
     listTransactionAdmin: '17',
     listTransactionCustomer: '18',
+    paymentAtmReponse: '19',
+    paymentNonAtmResponse: '20'
 }
 
 const routes = [
@@ -100,6 +102,14 @@ const routes = [
             {
                 component: () => <PageContentWrapper type={types.listTransactionCustomer} />,
                 path: '/list/transaction'
+            },
+            {
+                component: () => <PageContentWrapper type={types.paymentAtmReponse} />,
+                path: '/payment/response/pay_with_atm'
+            },
+            {
+                component: () => <PageContentWrapper type={types.paymentNonAtmResponse} />,
+                path: '/payment/response/pay_with_non_atm'
             },
 
         ]
