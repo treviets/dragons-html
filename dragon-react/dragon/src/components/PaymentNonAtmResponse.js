@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../assets/css/profile.css';
-
 import "react-datepicker/dist/react-datepicker.css";
 import paymentService from "../services/payment";
 
@@ -10,7 +9,6 @@ class PaymentNonAtmResponse extends Component {
         this.state = {
             url: ""
         }
-
     }
 
     componentDidMount() {
@@ -22,8 +20,16 @@ class PaymentNonAtmResponse extends Component {
 
     async handlePaymentNonATMResponse(url) {
         const res = await paymentService.checkPaymentNonATM(url);
-        console.log("Response here: " + res);
 
+        if (res && res.Status === 'OK') {
+            // Thanh toan thanh cong
+            console.log(res.Data);
+            console.log("Response here: " + "Thanh toan thanh cong");
+            alert(res.Message);
+        } else {
+            // Thanh toan that bai
+            console.log("Response here: " + "Thanh toan that bai");
+        }
         
     }
 

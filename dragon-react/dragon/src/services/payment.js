@@ -17,15 +17,25 @@ const PaymentService = {
         }
     },
 
+    checkPaymentATM: async function(url) {
+        try {
+            const response = await getFromUrl("/dragons/payment/response/pay_with_atm" + url);
+            
+            return response;
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
     checkPaymentNonATM: async function(url) {
         try {
-
             const response = await getFromUrl("/dragons/payment/response/pay_with_non_atm" + url);
-            if (response && response.Data) {
-                console.log("Đã gọi");
+            if (response && response.data) {
+                return response.data;
             }
+           
         } catch (ex) {
-
+            console.log(ex);
         }
     }
 
