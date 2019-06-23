@@ -16,6 +16,20 @@ const PaymentService = {
             }
         }
     },
+
+    checkPaymentNonATM: async function(url) {
+        try {
+
+            const response = await getFromUrl("/dragons/payment/response/pay_with_non_atm" + url);
+            if (response && response.Data) {
+                console.log("Đã gọi");
+            }
+        } catch (ex) {
+
+        }
+    }
+
+
 }
 
 export default PaymentService
