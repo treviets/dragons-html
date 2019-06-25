@@ -17,7 +17,7 @@ const CaptionElement = () => <h3 style={
         textAlign: 'center',
         color: 'black',
         padding: '0.5em'
-    }}>Danh sách các phòng</h3>;
+    }}>List rooms</h3>;
 
 
 class ListRoom extends Component {
@@ -61,23 +61,30 @@ class ListRoom extends Component {
 
         ];
         var options = {
-            onSizePerPageChange: (sizePerPage, page) => {
+            // onSizePerPageChange: (sizePerPage, page) => {
+            //     console.log('onSizePerPageChange', page);
+            //     console.log('onSizePerPageChange', sizePerPage);
+            //     this.handleGetRooms(page - 1);
+            // },
 
-            },
             onPageChange: (page, sizePerPage) => {
+                console.log('onPageChange', page);
+                console.log('onPageChange', sizePerPage);
+                this.handleGetRooms(page - 1);
+
 
             },
             onRowClick: (row, cell) => {
-                console.log(row)
-            }
 
-        };
+            }
+        }
         var rowEvents = {
             onClick: (e, row, rowIndex) => {
                 this.showDetailToEdit(row)
             }
         }
         this.state = {
+            id: '',
             listRooms: [],
             paginationOption: {},
             options: options,
@@ -93,7 +100,7 @@ class ListRoom extends Component {
             bed: 0,
             price: 0,
             calendar: "",
-            modelAdd: false
+            modelAdd: false,
         }
 
         this.toggle = this.toggle.bind(this);
@@ -102,15 +109,16 @@ class ListRoom extends Component {
         this.addNewRoom = this.addNewRoom.bind(this);
     }
 
-    async handleGetBooking() {
-        const res = await adminService.getListRoom();
+    async handleGetRooms(page) {
+        const res = await adminService.getListRoom(page);
 
         var paginationOption = {
             custom: true,
-            totalSize: res.Data.length,
+            totalSize: res.Data.totalElement,
+            sizePerPage: 20
         };
 
-        this.setState({ listRooms: res.Data, paginationOption: paginationOption })
+        this.setState({ listRooms: res.Data.content, paginationOption: paginationOption })
 
     }
     async handleUpdateRoom() {
@@ -142,7 +150,8 @@ class ListRoom extends Component {
 
     }
     componentDidMount() {
-        this.handleGetBooking();
+        var page = 0;
+        this.handleGetRooms(0);
     }
 
     priceFormatter(cell, row) {
@@ -179,6 +188,7 @@ class ListRoom extends Component {
                 Id: row.Id
             }
             this.setState({
+                id: row.Id,
                 modal: true,
                 code: row.Code,
                 bath: parseInt(row.Bath),
@@ -208,6 +218,7 @@ class ListRoom extends Component {
         console.log("adb");
         this.showDetailToEdit(null);
     }
+
     render() {
         return (
             <div className="container">
@@ -251,6 +262,15 @@ class ListRoom extends Component {
                                 </ModalBody>
 
                                 <ModalFooter>
+                                    <Button ccolor="primary">
+                                        <i className="fa fa-plus"></i>
+                                        <Link to={{
+                                            pathname: '/admin/list/room_detail',
+                                            search: '?roomId=' + this.state.id,
+                                        }}> Room Detail</Link>
+
+                                        {/* <Link to="/admin/list/room_detail" className="link-cus-add"> Room Detail</Link> */}
+                                    </Button>
                                     {
                                         this.state.modelAdd === true ?
                                             <Button color="primary" onClick={this.handleCreateRoom}>New</Button>

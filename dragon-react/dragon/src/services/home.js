@@ -46,7 +46,7 @@ const HomeService = {
     saveRoom: async function (roomData) {
         try {
             const response = await postFromUrl(
-                "/dragons/room/create_room_detail", roomData);
+                "/dragons/admin/room/create", roomData);
             const data = response.data;
             return data
         } catch (e) {

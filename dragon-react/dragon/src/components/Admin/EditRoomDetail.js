@@ -5,7 +5,6 @@ import Select from 'react-select';
 import homeService from '../../services/home'
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import { httpApiUrl } from '../../actions/apiUtils';
-
 const optionsRoomType = [
     { value: '1', label: 'ENTIRE APARTMENT' },
     { value: '2', label: 'ENTIRE HOUSE' },
@@ -18,8 +17,7 @@ const items = [
     'Two',
     'Three',
 ];
-
-class AddRoom extends Component {
+class EditRoomDetail extends Component {
     constructor(props) {
         super(props);
 
@@ -44,7 +42,6 @@ class AddRoom extends Component {
         }
 
         this.saveRoom = this.saveRoom.bind(this)
-
     }
 
     handleChangeRoomType = selectedRoomType => {
@@ -88,20 +85,6 @@ class AddRoom extends Component {
             console.log(checkbox, 'is selected.');
         }
     }
-
-    createCheckbox = label => (
-        <Checkbox
-            label={label}
-            handleCheckboxChange={this.toggleCheckbox}
-            key={label}
-        />
-    )
-
-    createCheckboxes = () => (
-        items.map(this.createCheckbox)
-    )
-
-
 
     onChange = (e) => {
         var target = e.target;
@@ -178,8 +161,84 @@ class AddRoom extends Component {
                         <div className="panel space-4">
                             <div className="panel-header">
                                 <h2 className="edit-profile-section-heading">
-                                    Add new room
+                                    Edit Detail Room
                                 </h2>
+                            </div>
+
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    Check In
+                                    </label>
+                                <div className="col-9">
+                                    <Select
+                                        options={optionsRoomType}
+                                        value={this.state.selectedRoomType}
+                                        onChange={this.handleChangeRoomType} />
+                                </div>
+                            </div>
+
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    Check Out
+                                    </label>
+                                <div className="col-9">
+                                    <Select
+                                        options={optionsRoomType}
+                                        value={this.state.selectedRoomType}
+                                        onChange={this.handleChangeRoomType} />
+                                </div>
+                            </div>
+
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    The space
+                                    </label>
+                                <div className="col-9">
+                                    <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
+                                </div>
+                            </div>
+
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    Guest access
+                                    </label>
+                                <div className="col-9">
+                                    <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
+                                </div>
+                            </div>
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    Interaction with guests
+                                    </label>
+                                <div className="col-9">
+                                    <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
+                                </div>
+                            </div>
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    Other things
+                                    </label>
+                                <div className="col-9">
+                                    <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
+                                </div>
+                            </div>
+
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    Guest around
+                                    </label>
+                                <div className="col-9">
+                                    <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
+                                </div>
+                            </div>
+
+                            <div className="row row-condensed space-4">
+                                <label className="col-3">
+                                    About neighborhood
+                                    </label>
+                                <div className="col-9">
+                                    <textarea cols={40} value={this.state.desc} rows={5} name="desc" onChange={this.onChange} />
+                                </div>
                             </div>
                             <div className="panel-body">
                                 <div className="row row-condensed space-4">
@@ -273,5 +332,4 @@ class AddRoom extends Component {
 
     }
 }
-
-export default AddRoom
+export default EditRoomDetail

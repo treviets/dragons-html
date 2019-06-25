@@ -15,10 +15,10 @@ const adminService = {
         }
     },
 
-    getListRoom: async function () {
+    getListRoom: async function (page) {
         try {
             const response = await getFromUrl(
-                "/dragons/admin/room/all/0");
+                "/dragons/admin/room/all/" + page);
             const data = response.data;
             return data
 

@@ -20,6 +20,8 @@ import ListTransactionAdim from "../components/Admin/ListTransaction";
 import ListTransactionCustomer from "../components/ListTransactionHistory";
 import PaymentAtmResponse from "../components/PaymentAtmResponse";
 import PaymentNonAtmResponse from "../components/PaymentNonAtmResponse";
+import EditRoomDetail from "../components/Admin/EditRoomDetail";
+
 
 class PageContainerWrapper extends Component {
     render() {
@@ -84,6 +86,9 @@ class PageContainerWrapper extends Component {
                 break;
             case types.paymentNonAtmResponse:
                 _view = <PaymentNonAtmResponse />;
+                break;
+            case types.editRoomDetail:
+                _view = <EditRoomDetail />;
                 break;
             default:
                 _view = "";
