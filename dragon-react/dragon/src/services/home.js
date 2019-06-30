@@ -20,7 +20,7 @@ const HomeService = {
                 homeId = 0;
             }
             const response = await getFromUrl(
-                "/dragons/room/by_home_id/?homeId=" + homeId);
+                "/dragons/room/by_home_id?homeId=" + homeId);
             const data = response.data;
             return data
 
@@ -90,7 +90,21 @@ const HomeService = {
 
             }
         }
-    }
+    },
+
+    getRoomsByHomeId: async function (homeId) {
+        try {
+            const response = await getFromUrl(
+                "/dragons/room/by_home_id?homeId=" + homeId);
+            const data = response.data;
+            return data
+
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
+    },
 
 }
 

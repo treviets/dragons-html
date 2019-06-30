@@ -7,7 +7,7 @@ import homeService from '../../services/home.js'
 import * as Constants from '../../const.js'
 import moment from 'moment'
 import district from '../../masterData/district.json'
-import { DateRangePicker} from 'react-dates';
+import { DateRangePicker } from 'react-dates';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
@@ -83,6 +83,7 @@ class ListRoomComponent extends Component {
         this.fillterSearch = this.fillterSearch.bind(this);
         this.handleFilterSearch = this.handleFilterSearch.bind(this);
         this.fillterPrice = this.fillterPrice.bind(this);
+        this.getRoomsByHomeId = this.getRoomsByHomeId.bind(this);
 
     }
 
@@ -91,14 +92,23 @@ class ListRoomComponent extends Component {
         searchStatement = decodeURI(searchStatement).replace(/\\/g, '')
         var search = window.location.href
         var url = new URL(search);
+        console.log('ID IN LISTROOM COMPONENT', url.searchParams.get("homeId"));
+
+        // this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
+        //this.getRoomsByHomeId(url.searchParams.get("homeId"));
+        console.log(this.state.is_Detail)
+        console.log('is_detailHome', url.searchParams.get("is_DetailHome"))
 
         if (searchStatement !== this.state.searchString) {
             if (!this.state.is_Detail) {
                 this.setState({ searchString: searchStatement })
                 if (url.searchParams.get("is_DetailHome")) {
-                    this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
-                } else {
+                    //this.handleGetDetail(url.searchParams.get("homeId"), url.searchParams.get("name"))
+                    // this.getRoomsByHomeId(url.searchParams.get("homeId"));
                     this.fillterSearch()
+                } else {
+                    // this.fillterSearch()
+                    this.getRoomsByHomeId(url.searchParams.get("homeId"));
                 }
             }
         }
@@ -461,10 +471,21 @@ class ListRoomComponent extends Component {
         this.GetDetailHome(id)
 
     }
+
+
     async GetDetailHome(id) {
 
         this.setState({ is_listHome: false, is_RoomNull: false })
         const res = await homeService.getDetailHome(id)
+        if (res && res.Data) {
+            this.setState({ listRoom: res.Data })
+        }
+    }
+
+    async getRoomsByHomeId(id) {
+
+        this.setState({ is_listHome: false, is_RoomNull: false })
+        const res = await homeService.getRoomsByHomeId(id)
         if (res && res.Data) {
             this.setState({ listRoom: res.Data })
         }
