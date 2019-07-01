@@ -109,7 +109,7 @@ class PageHeader extends Component {
             <div  >
                 <nav className="navbar navbar-expand-lg bg-blue" id="header" >
                     <a className="navbar-brand" href="/">
-                        <img className="logo-company" src="../img/TDH-Web.png" />
+                        <img className="logo-company" src="../../img/TDH-Web.png" />
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

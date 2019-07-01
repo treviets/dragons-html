@@ -51,13 +51,15 @@ class ProfileComponent extends Component {
     }
     //call function when loadpage
     componentWillMount(state) {
-        this.getInfoCustomer();
     }
     handeChangeLanguage(event) {
         this.setState({ selectedLanguage: event.target.value })
     }
     handeChangeCurrency(event) {
         this.setState({ selectedCurrency: event.target.value })
+    }
+    componentDidMount() {
+        this.getInfoCustomer();
     }
 
     onChange = (e) => {

@@ -8,11 +8,11 @@ import homeService from '../services/home.js'
 import * as Constants from '../const.js'
 import moment from 'moment'
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { Button} from 'reactstrap';
+import { Button } from 'reactstrap';
 import { DateRangePicker } from 'react-dates';
 import { Redirect } from 'react-router'
 import Lightbox from 'react-images';
-import {ClipLoader } from 'react-spinners';
+import { ClipLoader } from 'react-spinners';
 
 
 const override = `
@@ -291,51 +291,65 @@ class DetailHouseComponent extends Component {
         const res = await homeService.getDetailRoom(roomId)
         console.log("detail house", res)
         var countNothing = 0
-        for (var i = 0; i < res.Data.Amenities.length; i++) {
-            if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Not included'.toUpperCase()) {
-                countNothing++;
-                this.state.amenityNotIncluded.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Basic'.toUpperCase()) {
-                this.state.amenityBasic.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Facilities'.toUpperCase()) {
-                this.state.amenityFacilities.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Dining'.toUpperCase()) {
-                this.state.amenityDining.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Guest access'.toUpperCase()) {
-                this.state.amenityGuestAccess.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Logistics'.toUpperCase()) {
-                this.state.amenityLogistics.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Bed and bath'.toUpperCase()) {
-                this.state.amenityBedAndBath.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Outdoor'.toUpperCase()) {
-                this.state.amenityOutDoor.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Location'.toUpperCase()) {
-                this.state.amenityLocation.push(res.Data.Amenities[i])
-            } else if (res.Data.Amenities[i].amenityCategory.Name.toUpperCase() === 'Safety features'.toUpperCase()) {
-                this.state.amenitySafetyFeatures.push(res.Data.Amenities[i])
-            } else {
-                this.state.amenityFamilyFeatures.push(res.Data.Amenities[i])
+        if (res.Data.Amenities.length > 0) {
+            var arrAmenity = res.Data.Amenities;
+            for (var i = 0; i < arrAmenity.length; i++) {
+                if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Not included'.toUpperCase()) {
+                    countNothing++;
+                    this.state.amenityNotIncluded.push(arrAmenity[i])
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Basic'.toUpperCase()) {
+                    this.state.amenityBasic.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Facilities'.toUpperCase()) {
+                    this.state.amenityFacilities.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.toUpperCase() === 'Dining'.toUpperCase()) {
+                    this.state.amenityDining.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Guest access'.toUpperCase()) {
+                    this.state.amenityGuestAccess.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Logistics'.toUpperCase()) {
+                    this.state.amenityLogistics.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Bed and bath'.toUpperCase()) {
+                    this.state.amenityBedAndBath.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Outdoor'.toUpperCase()) {
+                    this.state.amenityOutDoor.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Location'.toUpperCase()) {
+                    this.state.amenityLocation.push(arrAmenity[i].Amenity)
+                } else if (arrAmenity[i].Amenity.AmenityCategory.Name.toUpperCase() === 'Safety features'.toUpperCase()) {
+                    this.state.amenitySafetyFeatures.push(arrAmenity[i].Amenity)
+                } else {
+                    this.state.amenityFamilyFeatures.push(arrAmenity[i].Amenity)
+                }
+            }
+
+
+        }
+
+        if (res.Data.Accessibilities.length > 0) {
+            var arrAccessibilities = res.Data.Accessibilities;
+
+            for (var i = 0; i < arrAccessibilities.length; i++) {
+                var categoryName = arrAccessibilities[i].Accessibility.AccessibilityCategory.Name;
+                var accessibilityItem = arrAccessibilities[i].Accessibility;
+
+
+                if (categoryName.toUpperCase() === 'Entering the home'.toUpperCase()) {
+                    this.state.accessEnteringHome.push(accessibilityItem)
+                } else if (categoryName.toUpperCase() === 'Getting around'.toUpperCase()) {
+                    this.state.accessGettingAround.push(accessibilityItem)
+                } else if (categoryName.toUpperCase() === 'Bedroom'.toUpperCase()) {
+                    this.state.accessBedroom.push(accessibilityItem)
+                } else if (categoryName.toUpperCase() === 'Bathroom'.toUpperCase()) {
+                    this.state.accessBathroom.push(accessibilityItem)
+                } else if (categoryName.toUpperCase() === 'Common areas'.toUpperCase()) {
+                    this.state.accessCommonAreas.push(accessibilityItem)
+                } else if (categoryName.toUpperCase() === 'Parking'.toUpperCase()) {
+                    this.state.accessParking.push(accessibilityItem)
+                }
             }
         }
 
-        for (var i = 0; i < res.Data.Accessibilities.length; i++) {
-            if (res.Data.Accessibilities[i].accessibilityCategory.Name.toUpperCase() === 'Entering the home'.toUpperCase()) {
-                this.state.accessEnteringHome.push(res.Data.Accessibilities[i])
-            } else if (res.Data.Accessibilities[i].accessibilityCategory.Name.toUpperCase() === 'Getting around'.toUpperCase()) {
-                this.state.accessGettingAround.push(res.Data.Accessibilities[i])
-            } else if (res.Data.Accessibilities[i].accessibilityCategory.Name.toUpperCase() === 'Bedroom'.toUpperCase()) {
-                this.state.accessBedroom.push(res.Data.Accessibilities[i])
-            } else if (res.Data.Accessibilities[i].accessibilityCategory.Name.toUpperCase() === 'Bathroom'.toUpperCase()) {
-                this.state.accessBathroom.push(res.Data.Accessibilities[i])
-            } else if (res.Data.Accessibilities[i].accessibilityCategory.Name.toUpperCase() === 'Common areas'.toUpperCase()) {
-                this.state.accessCommonAreas.push(res.Data.Accessibilities[i])
-            } else if (res.Data.Accessibilities[i].accessibilityCategory.Name.toUpperCase() === 'Parking'.toUpperCase()) {
-                this.state.accessParking.push(res.Data.Accessibilities[i])
-            }
-        }
 
 
-        for (var i = 0; i < res.Data.Images.length; i++) {
+        for (var i = 0; i < res.Data.Room.Images.length; i++) {
             var img = { src: Constants.apiImg + res.Data.Images[i].Image }
             this.state.imgsRoom.push(img)
         }
@@ -358,17 +372,22 @@ class DetailHouseComponent extends Component {
             }
 
         }
+
         console.log(res.Data);
         // 
         var lengthReviews = res.Data.Reviews.length;
         var lengthAccessibility = res.Data.Accessibilities.length
         var lengthamenities = res.Data.Amenities.length - countNothing
         this.setState({
-            lengthAccessibility: lengthAccessibility, lengthReviews: lengthReviews, lengthAmenitiesChoose: lengthamenities, roomData: res.Data, numberReviews: res.Data.Reviews.length, amenities: res.Data.Amenities,
+            lengthAccessibility: lengthAccessibility,
+            lengthReviews: lengthReviews,
+            lengthAmenitiesChoose: lengthamenities,
+            roomData: res.Data, numberReviews: res.Data.Reviews.length, amenities: res.Data.Amenities,
             cleanfee: res.Data.CleaningFee, servicefee: res.Data.ServiceFee, rangesDateBlock: ranges, room: res.Data,
             homeId: res.Data.HomeId,
             roomType: res.Data.Room.RoomType,
             roomPrice: res.Data.Room.Price,
+            roomType: '',
             loading: false
         })
         $(".footer").show()
@@ -444,12 +463,13 @@ class DetailHouseComponent extends Component {
 
     }
     renderDetailAmenties(amenity, index, object) {
-        var cate = amenity.amenityCategory
-        if (cate.Name.toUpperCase() === 'Not included'.toUpperCase()) {
+        console.log("---", amenity);
+
+        // var cate = amenity.amenityCategory
+        if (amenity.AmenityCategory.Name.toUpperCase() === 'Not included'.toUpperCase()) {
             return <div key={index}>
                 <del className="font-size16" aria-hidden="true">{amenity.Name}</del>
                 <br />
-
             </div>
         } else if (index === (object.length - 1)) {
             return <div key={index}>
@@ -469,25 +489,27 @@ class DetailHouseComponent extends Component {
 
     }
     renderAmenities(amenity, index) {
-        if (amenity.Name.toUpperCase() === 'Elevator'.toUpperCase()) {
+        console.log("----------------", amenity);
+
+        if (amenity.Amenity.AmenityCategory.Name.toUpperCase() === 'Elevator'.toUpperCase()) {
             return <div className="col-md-6 margingBot5" key={index}>
                 <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '19px', width: '19px', fill: 'currentcolor', marginRight: '4px' }}><path d="M22.5 23H21V1h1.5a.5.5 0 0 0 0-1H.5a.5.5 0 1 0 0 1H2v22H.5a.5.5 0 1 0 0 1h22a.5.5 0 0 0 0-1zM11 3v20H3V1h8v2zm9 20h-8V1h8v22zM4.146 10.854a.5.5 0 0 1 0-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 1 1-.708.708L7 9.707V14.5a.5.5 0 0 1-1 0V9.707l-1.146 1.147a.5.5 0 0 1-.708 0zm10 2a.5.5 0 1 1 .708-.708L16 13.293V8.5a.5.5 0 1 1 1 0v4.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2z" fillRule="evenodd"></path></svg>
-                {amenity.Name}
+                {amenity.Amenity.AmenityCategory.Name}
             </div>
-        } else if (amenity.Name.toUpperCase() === 'Kitchen'.toUpperCase()) {
+        } else if (amenity.Amenity.AmenityCategory.Name.toUpperCase() === 'Kitchen'.toUpperCase()) {
             return <div className="col-md-6 margingBot5" key={index}>
                 <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '19px', width: '19px', fill: 'currentcolor', marginRight: '4px' }}><path d="m10.5 0a .5.5 0 0 0 -.5.5v7a .5.5 0 0 1 -.49.5h-1.51v-7.5a.5.5 0 1 0 -1 0v7.5h-1.51a.5.5 0 0 1 -.49-.5v-7a .5.5 0 1 0 -1 0v7c0 .83.67 1.5 1.49 1.5h1.51v5c0 .03.01.06.02.09a1.49 1.49 0 0 0 -1.02 1.41v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.66-.43-1.21-1.02-1.41.01-.03.02-.06.02-.09v-5h1.51a1.5 1.5 0 0 0 1.49-1.5v-7a .5.5 0 0 0 -.5-.5zm-2.5 15.5v7a .5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-7c0-.28.22-.5.5-.5s.5.22.5.5zm11.5-15.5h-2c-1.4 0-2.5 1.07-2.5 2.5v7c0 1.43 1.1 2.5 2.5 2.5h1.5v2.09a1.49 1.49 0 0 0 -.5-.09c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-22.5zm-2 11c-.86 0-1.5-.63-1.5-1.5v-7c0-.87.65-1.5 1.5-1.5h1.5v10zm1.5 11.5a.5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-7c0-.28.22-.5.5-.5s.5.22.5.5z" fillRule="evenodd"></path></svg>
-                {amenity.Name}
+                {amenity.Amenity.AmenityCategory.Name}
             </div>
-        } else if (amenity.Name.toUpperCase() === 'Gym'.toUpperCase()) {
+        } else if (amenity.Amenity.AmenityCategory.Name.toUpperCase() === 'Gym'.toUpperCase()) {
             return <div className="col-md-6 margingBot5" key={index}>
                 <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '19px', width: '19px', fill: 'currentcolor', marginRight: '4px' }}><path d="m22 10v-2.5a1.5 1.5 0 0 0 -2.06-1.39 1.5 1.5 0 0 0 -2.94.39v3.5h-10v-3.5a1.5 1.5 0 0 0 -1.5-1.5c-.7 0-1.27.47-1.44 1.11a1.5 1.5 0 0 0 -2.06 1.39v2.5c-1.1 0-2 .89-2 2s .89 2 2 2v2.5a1.5 1.5 0 0 0 2.06 1.39 1.5 1.5 0 0 0 2.94-.39v-3.5h10v3.5a1.5 1.5 0 0 0 1.5 1.5c.7 0 1.27-.47 1.44-1.11a1.5 1.5 0 0 0 2.06-1.38v-2.51c1.11 0 2-.89 2-2s-.9-2-2-2zm-20 3c-.56 0-1-.45-1-1a1 1 0 0 1 1-1zm1.5 4a .5.5 0 0 1 -.5-.5v-9c0-.28.22-.5.5-.5s.5.22.5.5v9.01a.5.5 0 0 1 -.5.5zm2.5.5a.5.5 0 1 1 -1 0v-11a .5.5 0 1 1 1 0zm11-4.5h-10v-2h10zm2-5.5v10a .5.5 0 1 1 -1 0v-11a .5.5 0 1 1 1 0zm2 9.01a.5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-9.01c0-.28.22-.5.5-.5s.5.22.5.5zm1-3.51v-2a1 1 0 0 1 1 1c0 .56-.44 1-1 1z" fillRule="evenodd"></path></svg>
-                {amenity.Name}
+                {amenity.Amenity.AmenityCategory.Name}
             </div>
-        } else if (amenity.Name.toUpperCase() === 'Pool'.toUpperCase()) {
+        } else if (amenity.Amenity.AmenityCategory.Name.toUpperCase() === 'Pool'.toUpperCase()) {
             return <div className="col-md-6 margingBot5" key={index}>
                 <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '19px', width: '19px', fill: 'currentcolor', marginRight: '4px' }}><path d="m22 10v-2.5a1.5 1.5 0 0 0 -2.06-1.39 1.5 1.5 0 0 0 -2.94.39v3.5h-10v-3.5a1.5 1.5 0 0 0 -1.5-1.5c-.7 0-1.27.47-1.44 1.11a1.5 1.5 0 0 0 -2.06 1.39v2.5c-1.1 0-2 .89-2 2s .89 2 2 2v2.5a1.5 1.5 0 0 0 2.06 1.39 1.5 1.5 0 0 0 2.94-.39v-3.5h10v3.5a1.5 1.5 0 0 0 1.5 1.5c.7 0 1.27-.47 1.44-1.11a1.5 1.5 0 0 0 2.06-1.38v-2.51c1.11 0 2-.89 2-2s-.9-2-2-2zm-20 3c-.56 0-1-.45-1-1a1 1 0 0 1 1-1zm1.5 4a .5.5 0 0 1 -.5-.5v-9c0-.28.22-.5.5-.5s.5.22.5.5v9.01a.5.5 0 0 1 -.5.5zm2.5.5a.5.5 0 1 1 -1 0v-11a .5.5 0 1 1 1 0zm11-4.5h-10v-2h10zm2-5.5v10a .5.5 0 1 1 -1 0v-11a .5.5 0 1 1 1 0zm2 9.01a.5.5 0 0 1 -.5.5.5.5 0 0 1 -.5-.5v-9.01c0-.28.22-.5.5-.5s.5.22.5.5zm1-3.51v-2a1 1 0 0 1 1 1c0 .56-.44 1-1 1z" fillRule="evenodd"></path></svg>
-                {amenity.Name}
+                {amenity.Amenity.AmenityCategory.Name}
             </div>
         }
 
@@ -662,7 +684,7 @@ class DetailHouseComponent extends Component {
                                             <div className="row">
                                                 <div className="col-xl-7 col-lg-12">
                                                     <div className="container">
-                                                        {/* <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.state.roomType}</span></a> */}
+                                                        <a><span style={{ color: '#39576a' }} className="font-size12 font-title">{this.state.roomType}</span></a>
                                                         <div className="optionTitle">
                                                             <div className="row">
                                                                 <div className="title col-md-10 col-sm-12">

@@ -31,6 +31,37 @@ const PaymentService = {
             }
         }
     },
+
+    checkPaymentATM: async function (url) {
+        try {
+            const response = await getFromUrl("/dragons/payment/response/pay_with_atm" + url);
+            const data = response.Data;
+            if (data) {
+                return data;
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
+    },
+
+
+    checkPaymentNonATM: async function (url) {
+        try {
+            const response = await getFromUrl("/dragons/payment/response/pay_with_non_atm" + url);
+            const data = response.Data;
+            if (data) {
+                return data;
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+
+            }
+        }
+    }
 }
 
 export default PaymentService
