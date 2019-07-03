@@ -1,49 +1,152 @@
-.footer {
+footer {
     border-top: 1px rgb(228, 228, 228) solid;
+    background: #f5f5f5;
     width: 100%;
     float: left;
-    /* position: fixed; */
     right: 0;
     left: 0;
+    padding: 10px 0;
     bottom: 0;
     
+}
+
+footer .media-social{
 
 }
-.title-footer {
-   margin-bottom: 16px;
+@media (max-width: 767px){
+    footer .media-social{
+        margin-bottom: 20px;
+    }
+    footer .media-social>h2{
+        text-align: center;
+    }
+    footer .media-social>ul{
+        padding: 0 !important;
+    }
+    footer .media-social>ul>li{
+        margin: 0 25px !important;
+    }
+    footer .contact-us>h2{
+        text-align: center;
+    }
+    footer .contact-us>ul{
+        padding: 0 !important;
+        margin-left: 20%;
+    }
+    footer .locations>h2{
+        text-align: center;
+    }
+    footer .locations>ul{
+        margin-left: 18% !important;
+    }
 }
-ul li {
+footer .media-social>h2{
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #475993;
+    margin-bottom: 40px;
+    padding-top: 10px;
+}
+footer .media-social>ul{
+    padding: 35px 0 0 0;
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.contact-us>h2{
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #D09300;
+    margin-bottom: 40px;
+    padding-top: 10px;
+
+}
+.contact-us>ul{
+    padding: 30px 0 0 0;
+    margin: 0;
     list-style: none;
 }
-ul li a {
-    color: var(--color-text-muted, #767676) !important;
-    /*font: inherit !important;*/
-    
-}
-._1awrjnc1 {
-    overflow-wrap: break-word !important;
-    font-size: 12px;
-    line-height: 1.33333em !important;
-    color: rgb(255, 255, 255) !important;
-    margin: 0px !important;
-}
-._4btwil {
-    display: inline-block !important;
-    background-color: rgb(0, 106, 112) !important;
-    border-width: 1px !important;
-    border-style: solid !important;
-    border-color: transparent !important;
-    border-image: initial !important;
-    border-radius: 4px !important;
-    padding: 0px 4px !important;
+.contact-us>ul>li{
+    padding-left: 40px;
+    position: relative;
+    margin-bottom: 20px;
+
 }
 
-._146g3kk {
-    display: inline-block !important;
-    margin-left: 8px !important;
-    margin-right: -20px !important;
-    line-height: 1 !important;
+.contact-us>ul>li.footer-phone:after{
+    position: absolute;
+    content: '';
+    width: 30px;
+    height: 30px;
+    left: 0;
+    display: inline-block;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background:url('http://thedragonshost.com/wp-content/uploads/2019/06/phone-receiver.png') no-repeat;
+    background-size: cover;
 }
-.footer-info{
-        text-align: center;
+.contact-us>ul>li.footer-gmail:after{
+    position: absolute;
+    content: '';
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    display: inline-block;
+    z-index: 1;
+    background:url('http://thedragonshost.com/wp-content/uploads/2019/06/email.png') no-repeat;
+    background-size: cover;
+}
+footer .media-social>ul>li{
+        flex: 1 33%;
+        margin: 0 5px;
+}
+footer .media-social>ul>li>img{
+    width: 100%;
+}
+footer .contact-us{
+
+}
+
+footer .locations>h2{
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #009933;
+    margin-bottom: 40px;
+    padding-top: 10px;
+}
+footer .locations>ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color:#E5A803;
+
+}
+footer .info-company{
+
+}
+footer .info-company>ul{
+    padding: 0;
+    margin-left: 20px;
+    list-style: none;
+}
+footer .info-company .footer-logo-company:after{
+    content: '';
+	position: absolute;
+	width: 60px;
+	height: 60px;
+	background:url('http://thedragonshost.com/wp-content/uploads/2019/06/logo-TDH.png') no-repeat center;
+	background-size: cover;
+	left: 190px;
+	transform: translateX(-50%);
+	border-radius: 50%;
+}
+footer .info-company .address-company {
+    padding-top: 32px;
+	color:#E5A803;
+    font-family: Arial, Helvetica, 	sans-serif;
+    padding-top: 73px;
 }
