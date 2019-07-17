@@ -4,9 +4,9 @@ class PageFooter extends Component {
     render() {
         return (
             <footer >
-                <div className="container-fluid">
+                <div className="container-fluid ">
                     <div className="row">
-                        <div className="col-md-2">
+                        <div className="col-md-2 col-6">
                             <div className="media-social">
                                 <h2>Social media</h2>
                                 <ul>
@@ -16,16 +16,16 @@ class PageFooter extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 col-6">
                             <div className="contact-us">
                                 <h2>Contact Us</h2>
                                 <ul>
-                                    <li className="footer-phone">090912312</li>
-                                    <li className="footer-gmail">cs@thedragonhost.com</li>
+                                    <li className="footer-phone">090 932 56 82</li>
+                                    <li className="footer-gmail">cs@thedragonshost.com</li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-3 col-6">
                             <div className="locations">
                                 <h2>locations</h2>
                                 <ul>
@@ -38,7 +38,7 @@ class PageFooter extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-4 col-6">
                             <div className="info-company">
                                 <div className="footer-logo-company"></div>
                                 <div className="address-company">

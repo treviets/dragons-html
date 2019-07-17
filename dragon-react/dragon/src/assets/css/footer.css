@@ -7,37 +7,54 @@ footer {
     left: 0;
     padding: 10px 0;
     bottom: 0;
-    
 }
 
 footer .media-social{
 
 }
 @media (max-width: 767px){
+
     footer .media-social{
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     footer .media-social>h2{
         text-align: center;
+        margin-bottom: 5px !important;
+        font-size: 16px !important;
     }
     footer .media-social>ul{
-        padding: 0 !important;
     }
-    footer .media-social>ul>li{
-        margin: 0 25px !important;
-    }
+    /* footer .media-social>ul>li{
+        margin: 0 40px !important;
+        flex: 1 33%;
+    } */
     footer .contact-us>h2{
         text-align: center;
+        margin-bottom: 5px !important;
+        font-size: 16px !important;
+
     }
     footer .contact-us>ul{
-        padding: 0 !important;
         margin-left: 20%;
+        font-size: 7px !important;
     }
     footer .locations>h2{
         text-align: center;
+        margin-bottom: 43px !important;
+        font-size: 16px !important;
     }
     footer .locations>ul{
+        font-size: 7px !important;
         margin-left: 18% !important;
+    }
+    footer .info-company .footer-logo-company:after{
+        width: 40px;
+        height: 40px;
+        left: 80px !important;
+    }
+    footer .info-company .address-company{
+        font-size: 7px !important;
+        padding-top: 45px;
     }
 }
 footer .media-social>h2{

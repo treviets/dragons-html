@@ -4,7 +4,6 @@ const apiConfig = {
     // baseUrl: 'http://localhost:8080/'
     baseUrl: 'https://api.thedragonshost.com/'
     // baseUrl: 'http://api.thedragonshost.com:8080/'
-
 }
 
 export function setAuthorizationToken(token) {
