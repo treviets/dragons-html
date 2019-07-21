@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../assets/css/profile.css';
 import "react-datepicker/dist/react-datepicker.css";
 import paymentService from "../services/payment";
-import BookingService from '../services/booking';
+import bookingService from '../services/booking';
 
 
 class PaymentAtmResponse extends Component {
@@ -39,8 +39,8 @@ class PaymentAtmResponse extends Component {
             console.log('BOOKING', booking)
             // var transactionNumber = res.TransactionNumber;
             //BookingService
+            var abc = bookingService.bookingCreate(booking);
             console.log("Response here: " + "Thanh toan thanh cong");
-            alert(res.Message);
         } else {
             // Thanh toan that bai
             console.log("Response here: " + "Thanh toan that bai");

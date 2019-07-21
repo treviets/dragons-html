@@ -20,7 +20,7 @@ class ReviewHouse extends Component {
             nights: 0,
             price: 0,
             homeId: 0,
-            cleanFeel: 0,
+            cleanFee: 0,
             serviceFee: 0,
             title: "",
             totalGuest: 0,
@@ -56,6 +56,8 @@ class ReviewHouse extends Component {
             ToDate: to,
             TotalAmount: this.state.amount,
             TransactionNumber: '',
+            CleaningFee: this.state.cleanFee,
+            ServiceFee: this.state.serviceFee
         }
 
         localStorage.setItem('booking', JSON.stringify(bookingJson));

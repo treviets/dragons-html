@@ -35,7 +35,7 @@ const PaymentService = {
     checkPaymentATM: async function (url) {
         try {
             const response = await getFromUrl("/dragons/payment/response/pay_with_atm" + url);
-            const data = response.Data;
+            const data = response.data;
             if (data) {
                 return data;
             }
