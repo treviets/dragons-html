@@ -75,9 +75,7 @@ class ReviewHouse extends Component {
             "OrderInfor": "Test OrderID",
             "TotalAmount": this.state.price
         }
-        console.log("-----------", objPayment);
-
-        const res = await paymentService.redirectOnePay(JSON.stringify(objPayment));
+        const res = await paymentService.redirectOnePay(objPayment);
         if (res.Status === "OK") {
             this.createObjectBooking();
             window.open(res.Data.Url);

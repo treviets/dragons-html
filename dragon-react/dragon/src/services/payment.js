@@ -1,15 +1,12 @@
-import { postFromUrl, getFromUrl } from "../actions/apiUtils";
+import { postFromUrl, getFromUrl, postCustomeFromUrl } from "../actions/apiUtils";
+import axios from 'axios'
 
 const PaymentService = {
 
     redirectOnePay: async function (obj) {
         try {
-
-            const response = await postFromUrl(
-                "/dragons/payment/pay_with_atm", obj);
-            const data = response.data;
-            return data
-
+            const response = await axios.post(`http://api.thedragonshost.com:8080/dragons/payment/pay_with_atm`, obj);
+            return response.data;
         } catch (e) {
             if (e.response.status === 401) {
 
