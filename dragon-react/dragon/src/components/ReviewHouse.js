@@ -77,7 +77,7 @@ class ReviewHouse extends Component {
         }
         console.log("-----------", objPayment);
 
-        const res = await paymentService.redirectOnePay(objPayment);
+        const res = await paymentService.redirectOnePay(JSON.stringify(objPayment));
         if (res.Status === "OK") {
             this.createObjectBooking();
             window.open(res.Data.Url);
@@ -508,9 +508,26 @@ class ReviewHouse extends Component {
                                             </button>
                                         </div>
                                         <div className="modal-body">
+
                                             <div className="btn-group-payment">
-                                                <button className="btn btn-primary" onClick={this.clickPaymentWithATM}><b> Payment with ATM</b></button>
-                                                <button className="btn btn-primary" onClick={this.clickPaymentWithNoATM}><b> Payment with Credit Card</b></button>
+                                                <button className="btn btn-primary" onClick={this.clickPaymentWithATM}>
+                                                    <img src={require('../assets/img/napas-card.png')} style={{
+                                                        float: 'left',
+                                                        marginRight: '0.5em', width: '23%', height: '50px'
+                                                    }} />
+                                                    <div className="name-button-payment" style={{ marginTop: '4%' }}>
+                                                        Payment with ATM
+                                                    </div>
+                                                </button>
+                                                <button className="btn btn-primary" onClick={this.clickPaymentWithNoATM}>
+                                                    <img src={require('../assets/img/master-card.png')} style={{
+                                                        float: 'left',
+                                                        marginRight: '0.5em', width: '23%', height: '50px'
+                                                    }} />
+                                                    <div className="name-button-payment" style={{ marginTop: '4%' }}>
+                                                        Payment with Credit Card
+                                                    </div>
+                                                </button>
                                             </div>
                                         </div>
                                         <div className="modal-footer">
