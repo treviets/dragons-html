@@ -20,6 +20,7 @@ export function config() {
     axios.defaults.headers.common['Content-Type'] = 'application/json'
     axios.defaults.headers["Accept"] = "application/json";
     axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8'
+    axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
     axios.defaults.headers.common.post = {};
     axios.defaults.headers.common.put = {};
     axios.defaults.xsrfCookieName = '_CSRF';
